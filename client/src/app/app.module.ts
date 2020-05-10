@@ -1,6 +1,10 @@
+import { AddEntryComponent } from './entries/add-entry/add-entry.component';
+import { ListEntryComponent } from './entries/list-entry/list-entry.component';
+import { AddNewEntryDialogComponent } from './entries/dialogs/add-new-entry-dialog/add-new-entry-dialog.component';
 import { NavComponent } from './layout/nav/nav.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +27,9 @@ import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [
@@ -31,26 +38,32 @@ import { MatMenuModule } from '@angular/material/menu';
         RegisterComponent,
         LoginComponent,
         NavComponent,
-        DashboardComponent
+        DashboardComponent,
+        AddEntryComponent,
+        AddNewEntryDialogComponent,
+        ListEntryComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatButtonModule,
-        MatRadioModule,
-        MatCardModule,
         ReactiveFormsModule,
         LayoutModule,
+        MatFormFieldModule,
+        MatToolbarModule,
+        MatButtonModule,
         MatSidenavModule,
+        MatIconModule,
         MatListModule,
         MatGridListModule,
-        MatMenuModule
+        MatCardModule,
+        MatMenuModule,
+        MatInputModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule
     ],
     providers: [],
     bootstrap: [
