@@ -7,11 +7,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { RegisterComponent } from './auth/register/register.component';
+import { LoginComponent } from './auth/login/login.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        AuthComponent
+        AuthComponent,
+        RegisterComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
