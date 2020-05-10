@@ -14,3 +14,7 @@ body {
     display: block;
     width: 100%;
 }
+
+.auth-toolbar {
+    padding-bottom: 80px;
+}
