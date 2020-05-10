@@ -1,3 +1,4 @@
+import { NavComponent } from './layout/nav/nav.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -16,13 +17,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthComponent,
         RegisterComponent,
-        LoginComponent
+        LoginComponent,
+        NavComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,
@@ -36,7 +45,12 @@ import { ReactiveFormsModule } from '@angular/forms';
         MatButtonModule,
         MatRadioModule,
         MatCardModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        LayoutModule,
+        MatSidenavModule,
+        MatListModule,
+        MatGridListModule,
+        MatMenuModule
     ],
     providers: [],
     bootstrap: [
