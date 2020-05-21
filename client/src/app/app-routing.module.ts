@@ -1,3 +1,4 @@
+import { AddEntryComponent } from './entries/add-entry/add-entry.component';
 import { ListEntryComponent } from './entries/list-entry/list-entry.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ const routes: Routes = [
     },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'entries', component: ListEntryComponent },
+    { path: 'entries/add', component: AddEntryComponent },
 ];
 
 @NgModule({
