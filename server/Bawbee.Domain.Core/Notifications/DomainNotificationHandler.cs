@@ -21,8 +21,8 @@ namespace Bawbee.Domain.Core.Notifications
             return Task.CompletedTask;
         }
 
-        public IEnumerable<DomainNotification> Notifications => _notifications;
+        public IEnumerable<DomainNotification> GetNotifications => _notifications;
 
-        public bool HasNotifications => Notifications.Any();
+        public bool HasNotifications => GetNotifications.Any();
     }
 }
