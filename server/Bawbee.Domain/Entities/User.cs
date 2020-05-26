@@ -2,11 +2,19 @@
 
 namespace Bawbee.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User : BaseEntity<int>
     {
-        public string Name { get; }
-        public string LastName { get; }
-        public string Email { get; }
-        public string Password { get; }
+        public string Name { get; private set; }
+        public string LastName { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
+
+        public User(string name, string lastName, string email, string password)
+        {
+            Name = name;
+            LastName = lastName;
+            Email = email;
+            Password = password;
+        }
     }
 }
