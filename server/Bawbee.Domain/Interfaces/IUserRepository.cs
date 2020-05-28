@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserRepository : IBaseRepository<User, int>
     {
         Task<User> GetByEmail(string email);
     }
