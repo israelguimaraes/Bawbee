@@ -23,9 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Infra.Data", "Bawbee
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - CrossCutting", "4.2 - CrossCutting", "{0C4FCFA9-D1F2-4A7E-8E2B-AD982A101AB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.API", "Bawbee.API\Bawbee.API.csproj", "{DC6E91CB-4C5D-4670-8979-6C19908A2D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.API", "Bawbee.API\Bawbee.API.csproj", "{DC6E91CB-4C5D-4670-8979-6C19908A2D0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Infra.CrossCutting.IoC", "Bawbee.Infra.CrossCutting.IoC\Bawbee.Infra.CrossCutting.IoC.csproj", "{B2D286BF-54D4-4ED5-9AE3-284278923BCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Infra.CrossCutting.IoC", "Bawbee.Infra.CrossCutting.IoC\Bawbee.Infra.CrossCutting.IoC.csproj", "{B2D286BF-54D4-4ED5-9AE3-284278923BCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Infra.CrossCutting.Bus", "Bawbee.Infra.CrossCutting.Bus\Bawbee.Infra.CrossCutting.Bus.csproj", "{97C80F6D-6F5F-4B81-AA6C-4C10205C03D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{B2D286BF-54D4-4ED5-9AE3-284278923BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2D286BF-54D4-4ED5-9AE3-284278923BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D286BF-54D4-4ED5-9AE3-284278923BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97C80F6D-6F5F-4B81-AA6C-4C10205C03D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97C80F6D-6F5F-4B81-AA6C-4C10205C03D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97C80F6D-6F5F-4B81-AA6C-4C10205C03D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97C80F6D-6F5F-4B81-AA6C-4C10205C03D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{0C4FCFA9-D1F2-4A7E-8E2B-AD982A101AB8} = {35A7227A-2DD4-4C3B-8E0F-CF842BBD2C6B}
 		{DC6E91CB-4C5D-4670-8979-6C19908A2D0C} = {9C6376CE-4B19-4883-B409-D4DCA67E5A64}
 		{B2D286BF-54D4-4ED5-9AE3-284278923BCC} = {0C4FCFA9-D1F2-4A7E-8E2B-AD982A101AB8}
+		{97C80F6D-6F5F-4B81-AA6C-4C10205C03D3} = {0C4FCFA9-D1F2-4A7E-8E2B-AD982A101AB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C4799AC-C949-4EB1-B653-48419ABFDA1D}
