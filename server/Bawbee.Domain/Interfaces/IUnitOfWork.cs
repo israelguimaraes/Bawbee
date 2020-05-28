@@ -1,7 +1,10 @@
-﻿namespace Bawbee.Domain.Interfaces
+﻿using System;
+using System.Threading.Tasks;
+
+namespace Bawbee.Domain.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        void CommitTransaction();
+        Task<bool> CommitTransaction();
     }
 }
