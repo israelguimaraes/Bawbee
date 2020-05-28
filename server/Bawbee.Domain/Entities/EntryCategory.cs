@@ -6,6 +6,7 @@ namespace Bawbee.Domain.Entities
     {
         public string Name { get; private set; }
         public int UserContextId { get; private set; }
+        public UserContext UserContext { get; private set; }
 
         public EntryCategory(string name, int userContextId)
         {
