@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
-    <ProjectReference Include="..\Bawbee.Domain.Core\Bawbee.Domain.Core.csproj" />
-    <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Bus\Bawbee.Infra.CrossCutting.Bus.csproj" />
   </ItemGroup>
 
 
