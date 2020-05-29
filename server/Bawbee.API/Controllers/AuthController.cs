@@ -1,23 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Bawbee.Application.Interfaces;
+using Bawbee.Application.ViewModels.Users;
 using Bawbee.Domain.Core.Notifications;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Bawbee.API.Controllers
 {
     public class AuthController : BaseApiController
     {
-        public AuthController() : base(new DomainNotificationHandler())
+        private readonly IUserApplication _userApplication;
+
+        public AuthController(
+            IUserApplication userApplication,
+            INotificationHandler<DomainNotification> notificationHandler)
+            : base(notificationHandler)
         {
-            
+            _userApplication = userApplication;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterNewUser(RegisterUserViewModel viewModel)
         {
+            await _userApplication.Register(viewModel);
+
             return await Response("ok test");
         }
     }
