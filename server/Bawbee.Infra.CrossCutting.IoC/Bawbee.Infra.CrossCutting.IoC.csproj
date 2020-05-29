@@ -9,7 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
+    <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Bus\Bawbee.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\Bawbee.Infra.Data\Bawbee.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
