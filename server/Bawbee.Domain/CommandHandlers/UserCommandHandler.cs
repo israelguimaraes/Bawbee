@@ -2,6 +2,7 @@
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Entities;
+using Bawbee.Domain.Events.Users;
 using Bawbee.Domain.Interfaces;
 using MediatR;
 using System.Threading;
@@ -12,7 +13,6 @@ namespace Bawbee.Domain.CommandHandlers
     public class UserCommandHandler : BaseCommandHandler,
         IRequestHandler<RegisterNewUserCommand, bool>
     {
-        private readonly IUnitOfWork _uow;
         private readonly IMediatorHandler _mediator;
         private readonly IUserRepository _userRepository;
 
@@ -22,7 +22,6 @@ namespace Bawbee.Domain.CommandHandlers
             INotificationHandler<DomainNotification> notificationHandler,
             IUserRepository userRepository) : base(uow, mediator, notificationHandler)
         {
-            _uow = uow;
             _mediator = mediator;
             _userRepository = userRepository;
         }
@@ -48,7 +47,7 @@ namespace Bawbee.Domain.CommandHandlers
 
             if (await CommitTransaction())
             {
-                //_mediator.PublishEvent(new UserRegisteredEvent());
+                await _mediator.PublishEvent(new UserRegisteredEvent(user.Id, user.Name, user.LastName, user.Email, user.Password));
             }
 
             return true;
