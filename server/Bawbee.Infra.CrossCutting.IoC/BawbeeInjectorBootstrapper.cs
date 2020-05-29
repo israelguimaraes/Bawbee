@@ -14,9 +14,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Bawbee.Infra.CrossCutting.IoC
 {
-    public class InjectorBootstrapper
+    public class BawbeeInjectorBootstrapper
     {
-        public void RegisterDependencies(IServiceCollection services)
+        public static void RegisterDependencies(IServiceCollection services)
         {
             // Domain
             services.AddScoped<IMediatorHandler, InMemoryBus>();
