@@ -3,6 +3,7 @@ using Bawbee.Application.Services;
 using Bawbee.Domain.CommandHandlers;
 using Bawbee.Domain.Commands.Users;
 using Bawbee.Domain.Core.Bus;
+using Bawbee.Domain.Core.Events;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.EventHandlers;
 using Bawbee.Domain.Events.Users;
@@ -10,6 +11,7 @@ using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Bus;
 using Bawbee.Infra.Data.EntityFramework.Contexts;
 using Bawbee.Infra.Data.EntityFramework.Repositories;
+using Bawbee.Infra.Data.EventSource;
 using Bawbee.Infra.Data.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +36,10 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // Infra.Data
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<BawbeeDbContext>();
+            services.AddDbContext<BawbeeDbContext>();
+
+            // Infra.Data - EventSource
+            services.AddScoped<IEventStore, RavenEventStore>();
 
             // Application
             services.AddScoped<IUserApplication, UserApplication>();

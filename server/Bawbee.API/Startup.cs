@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bawbee.API.Setups;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace Bawbee.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMediatR(typeof(Startup));
             services.AddAllBawbeeDependencies();
         }
 

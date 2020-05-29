@@ -2,6 +2,6 @@
 {
     public interface IEventStore
     {
-        void Store<T>(T @event) where T : Event;
+        void Store<T>(T eventObj) where T : Event;
     }
 }

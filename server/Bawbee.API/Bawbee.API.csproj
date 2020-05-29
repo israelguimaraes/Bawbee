@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.IoC\Bawbee.Infra.CrossCutting.IoC.csproj" />
   </ItemGroup>
