@@ -36,7 +36,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // Infra.Data
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddDbContext<BawbeeDbContext>();
+            //services.AddDbContext<BawbeeDbContext>();
 
             // Infra.Data - EventSource
             services.AddScoped<IEventStore, RavenEventStore>();

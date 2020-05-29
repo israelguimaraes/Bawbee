@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bawbee.API.Setups;
+using Bawbee.Infra.Data.EntityFramework.Contexts;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +31,10 @@ namespace Bawbee.API
         {
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
+
+            services.AddDbContext<BawbeeDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddAllBawbeeDependencies();
         }
 
