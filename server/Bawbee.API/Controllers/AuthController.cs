@@ -19,10 +19,18 @@ namespace Bawbee.API.Controllers
             _userApplication = userApplication;
         }
 
-        [HttpPost("register")]
+        [HttpPost]
+        [Route("register")]
         public async Task<IActionResult> RegisterNewUser(RegisterUserViewModel viewModel)
         {
             await _userApplication.Register(viewModel);
+
+            return await Response("ok test");
+        }
+
+        [HttpGet("")]
+        public async Task<IActionResult> Test()
+        {
 
             return await Response("ok test");
         }
