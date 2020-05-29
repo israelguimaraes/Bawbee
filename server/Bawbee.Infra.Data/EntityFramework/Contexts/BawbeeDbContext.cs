@@ -18,12 +18,12 @@ namespace Bawbee.Infra.Data.EntityFramework.Contexts
         public BawbeeDbContext(DbContextOptions<BawbeeDbContext> options)
             : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new UserMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
 
             base.OnModelCreating(modelBuilder);
         }

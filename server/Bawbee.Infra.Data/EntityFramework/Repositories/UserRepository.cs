@@ -16,6 +16,10 @@ namespace Bawbee.Infra.Data.EntityFramework.Repositories
 
         public Task<User> GetByEmail(string email)
         {
+            var dbConn = Context.Database.GetDbConnection();
+            var str = dbConn.ConnectionString;
+
+
             return DbSet.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         }
     }
