@@ -9,10 +9,9 @@ using Bawbee.Domain.EventHandlers;
 using Bawbee.Domain.Events.Users;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Bus;
-using Bawbee.Infra.Data.EntityFramework.Contexts;
-using Bawbee.Infra.Data.EntityFramework.Repositories;
+using Bawbee.Infra.Data.DapperContext.Interfaces;
+using Bawbee.Infra.Data.DapperContext.Repositories;
 using Bawbee.Infra.Data.EventSource;
-using Bawbee.Infra.Data.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -35,7 +34,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             // Infra.Data
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDapper, Bawbee.Infra.Data.DapperContext.Dapper>();
             //services.AddDbContext<BawbeeDbContext>();
 
             // Infra.Data - EventSource

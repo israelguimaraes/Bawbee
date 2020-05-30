@@ -17,10 +17,9 @@ namespace Bawbee.Domain.CommandHandlers
         private readonly IUserRepository _userRepository;
 
         public UserCommandHandler(
-            IUnitOfWork uow, 
             IMediatorHandler mediator, 
             INotificationHandler<DomainNotification> notificationHandler,
-            IUserRepository userRepository) : base(uow, mediator, notificationHandler)
+            IUserRepository userRepository) : base(mediator, notificationHandler)
         {
             _mediator = mediator;
             _userRepository = userRepository;
@@ -34,9 +33,9 @@ namespace Bawbee.Domain.CommandHandlers
                 return false;
             }
 
-            var alreadyExists = _userRepository.GetByEmail(command.Email) != null;
+            var userDatabase = await _userRepository.GetByEmail(command.Email);
 
-            if (alreadyExists)
+            if (userDatabase != null)
             {
                 await _mediator.PublishEvent(new DomainNotification("E-mail já está em uso"));
                 return false;
@@ -45,11 +44,7 @@ namespace Bawbee.Domain.CommandHandlers
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
             await _userRepository.Add(user);
 
-            if (await CommitTransaction())
-            {
-                await _mediator.PublishEvent(new UserRegisteredEvent(user.Id, user.Name, user.LastName, user.Email, user.Password));
-            }
-
+            await _mediator.PublishEvent(new UserRegisteredEvent(user.Id, user.Name, user.LastName, user.Email, user.Password));
             return true;
         }
     }

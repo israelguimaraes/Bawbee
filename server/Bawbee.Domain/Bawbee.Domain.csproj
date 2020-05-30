@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Bawbee.Domain.Core\Bawbee.Domain.Core.csproj" />
   </ItemGroup>
 

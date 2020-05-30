@@ -12,6 +12,7 @@ namespace Bawbee.Domain.Events.Users
 
         public UserRegisteredEvent(int id, string name, string lastName, string email, string password)
         {
+            Id = id;
             AggregateId = id;
             Name = name;
             LastName = lastName;

@@ -9,27 +9,13 @@ namespace Bawbee.Domain.CommandHandlers
 {
     public abstract class BaseCommandHandler
     {
-        private readonly IUnitOfWork _uow;
         private readonly IMediatorHandler _mediator;
         private readonly DomainNotificationHandler _notificationHandler;
 
-        public BaseCommandHandler(IUnitOfWork uow, IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler)
+        public BaseCommandHandler(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler)
         {
-            _uow = uow;
             _notificationHandler = (DomainNotificationHandler)notificationHandler;
             _mediator = mediator;
-        }
-
-        protected async Task<bool> CommitTransaction()
-        {
-            if (_notificationHandler.HasNotifications)
-                return false;
-
-            if (await _uow.CommitTransaction())
-                return true;
-
-            await _mediator.PublishEvent(new DomainNotification("Transaction failed."));
-            return false;
         }
 
         protected void SendNotificationsErrors(Command message)

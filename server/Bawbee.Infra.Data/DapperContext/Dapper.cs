@@ -1,0 +1,23 @@
+﻿using Bawbee.Infra.Data.DapperContext.Interfaces;
+using Microsoft.Data.SqlClient;
+using System.Data;
+
+namespace Bawbee.Infra.Data.DapperContext
+{
+    public class Dapper : IDapper
+    {
+        public IDbConnection Connection
+        {
+            get
+            {
+                var connectionString = @"Server=.\SQLEXPRESS;Database=Bawbee;MultipleActiveResultSets=true;User Id=sa;Password=123456";
+                return new SqlConnection(connectionString);
+            }
+        }
+
+        public void Dispose()
+        {
+            Connection.Dispose();
+        }
+    }
+}
