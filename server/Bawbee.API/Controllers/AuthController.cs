@@ -1,5 +1,5 @@
-﻿using Bawbee.Application.Interfaces;
-using Bawbee.Application.ViewModels.Users;
+﻿using Bawbee.Application.InputModels.Users;
+using Bawbee.Application.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +21,9 @@ namespace Bawbee.API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> RegisterNewUser(RegisterUserViewModel viewModel)
+        public async Task<IActionResult> RegisterNewUser(RegisterNewUserInputModel model)
         {
-            await _userApplication.Register(viewModel);
+            await _userApplication.Register(model);
 
             return await Response("ok test");
         }
