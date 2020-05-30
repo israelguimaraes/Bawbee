@@ -1,6 +1,6 @@
-﻿namespace Bawbee.Application.ViewModels.Users
+﻿namespace Bawbee.Application.InputModels.Users
 {
-    public class RegisterUserViewModel
+    public class RegisterNewUserInputModel
     {
         public string Name { get; set; }
         public string LastName { get; set; }

@@ -1,5 +1,5 @@
-﻿using Bawbee.Application.Interfaces;
-using Bawbee.Application.ViewModels.Users;
+﻿using Bawbee.Application.InputModels.Users;
+using Bawbee.Application.Interfaces;
 using Bawbee.Domain.Commands.Users;
 using Bawbee.Domain.Core.Bus;
 using System;
@@ -16,9 +16,9 @@ namespace Bawbee.Application.Services
             _mediator = mediator;
         }
 
-        public async Task Register(RegisterUserViewModel viewModel)
+        public async Task Register(RegisterNewUserInputModel model)
         {
-            var command = new RegisterNewUserCommand(viewModel.Name, viewModel.LastName, viewModel.Email, viewModel.Password);
+            var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
             await _mediator.SendCommand(command);
         }
 
