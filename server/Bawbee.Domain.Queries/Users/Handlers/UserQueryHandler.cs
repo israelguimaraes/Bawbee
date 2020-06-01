@@ -1,7 +1,7 @@
-﻿using Bawbee.Domain.Interfaces;
+﻿using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Interfaces;
 using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Domain.Queries.Users.ReadModels;
-using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Bawbee.Domain.Queries.Users.Handlers
 {
     public class UserQueryHandler
-        : IRequestHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>
+        : ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>
     {
         private readonly IUserRepository _userRepository;
 

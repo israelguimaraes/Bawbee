@@ -3,6 +3,7 @@ using Bawbee.Application.Services;
 using Bawbee.Domain.CommandHandlers;
 using Bawbee.Domain.Commands.Users;
 using Bawbee.Domain.Core.Bus;
+using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.EventHandlers;
@@ -34,7 +35,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.AddScoped<INotificationHandler<UserRegisteredEvent>, EmailEventHandler>();
 
             // Domain - Commands
-            services.AddScoped<IRequestHandler<RegisterNewUserCommand, bool>, UserCommandHandler>();
+            services.AddScoped<IRequestHandler<RegisterNewUserCommand, CommandResult>, UserCommandHandler>();
 
             // Domain - Queries
             services.AddScoped<IRequestHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>, UserQueryHandler>();
