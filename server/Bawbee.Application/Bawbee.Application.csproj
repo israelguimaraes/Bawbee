@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bawbee.Domain.Core\Bawbee.Domain.Core.csproj" />
+    <ProjectReference Include="..\Bawbee.Domain.Queries\Bawbee.Domain.Queries.csproj" />
     <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
   </ItemGroup>
 

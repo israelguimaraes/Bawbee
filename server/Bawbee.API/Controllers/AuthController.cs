@@ -29,10 +29,10 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Test()
+        public async Task<IActionResult> GetAllUsersTest()
         {
-
-            return await Response("ok test");
+            var users = await _userApplication.GetAll();
+            return await Response(users);
         }
     }
 }

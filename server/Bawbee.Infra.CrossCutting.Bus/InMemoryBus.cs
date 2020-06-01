@@ -1,8 +1,7 @@
 ﻿using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
 using MediatR;
-using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bawbee.Infra.CrossCutting.Bus
@@ -18,13 +17,16 @@ namespace Bawbee.Infra.CrossCutting.Bus
             _eventStore = eventStore;
         }
 
-        public Task SendCommand<T>(T command) where T : Command
+        public Task<TResponse> SendCommand<TResponse>(IRequest<TResponse> command, CancellationToken cancellationToken = default)
         {
-            return _mediator.Send(command);
+            return _mediator.Send(command, cancellationToken);
         }
 
         public Task PublishEvent<T>(T eventObj) where T : Event
         {
+            // TODO:
+            // _eventStore.Store();
+
             return _mediator.Publish(eventObj);
         }
     }

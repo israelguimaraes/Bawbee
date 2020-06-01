@@ -10,6 +10,7 @@ namespace Bawbee.Infra.Data.DapperContext
         {
             get
             {
+                // TODO: inject dependency
                 var connectionString = @"Server=.\SQLEXPRESS;Database=Bawbee;MultipleActiveResultSets=true;User Id=sa;Password=123456";
                 return new SqlConnection(connectionString);
             }
