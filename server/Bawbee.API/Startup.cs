@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Bawbee.API.Setups;
+using Bawbee.Domain.CommandHandlers;
+using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Core.Notifications;
+using Bawbee.Domain.Queries.Users.Queries;
+using Bawbee.Infra.CrossCutting.IoC;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +37,27 @@ namespace Bawbee.API
             services.AddControllers();
             services.AddMediatR(typeof(Startup));
 
+
+            //services.AddMediatR(cfg => cfg.Using<INotificationHandler<DomainNotification>>().AsScoped(), typeof(DomainNotification));
+            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
+
+
+
             services.AddAllBawbeeDependencies();
+
+            // Bawbee.Domain.Core
+            services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
+
+            // Bawbee.Domain
+            services.AddMediatR(typeof(BaseCommandHandler).GetTypeInfo().Assembly);
+
+            // Bawbee.Domain.Queries
+            services.AddMediatR(typeof(GetAllUsersQuery).GetTypeInfo().Assembly);
+
+            /*
+            // Bawbee.Infra.CrossCutting.IoC
+            services.AddMediatR(typeof(BawbeeInjectorBootstrapper).GetTypeInfo().Assembly);
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
