@@ -16,12 +16,10 @@ namespace Bawbee.Application.Services
     public class UserApplication : IUserApplication
     {
         private readonly IMediatorHandler _mediator;
-        private readonly INotificationHandler<DomainNotification> notificationHandler;
 
-        public UserApplication(IMediatorHandler mediator, INotificationHandler<DomainNotification> notificationHandler)
+        public UserApplication(IMediatorHandler mediator)
         {
             _mediator = mediator;
-            this.notificationHandler = notificationHandler;
         }
 
         public async Task Register(RegisterNewUserInputModel model)
