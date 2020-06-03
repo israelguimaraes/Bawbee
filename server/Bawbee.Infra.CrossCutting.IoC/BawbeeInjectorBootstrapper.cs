@@ -29,20 +29,9 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // Domain
             services.AddScoped<IMediatorHandler, InMemoryBus>();
 
-            // Domain - Events
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-            services.AddScoped<INotificationHandler<UserRegisteredEvent>, UserEventHandler>();
-            services.AddScoped<INotificationHandler<UserRegisteredEvent>, EmailEventHandler>();
-
-            // Domain - Commands
-            services.AddScoped<IRequestHandler<RegisterNewUserCommand, CommandResult>, UserCommandHandler>();
-
-            // Domain - Queries
-            services.AddScoped<IRequestHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>, UserQueryHandler>();
-
             // Infra.Data
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IDapper, Bawbee.Infra.Data.DapperContext.Dapper>();
+            services.AddScoped<IDapperConnection, Bawbee.Infra.Data.DapperContext.DapperConnection>();
             //services.AddDbContext<BawbeeDbContext>();
 
             // Infra.Data - EventSource

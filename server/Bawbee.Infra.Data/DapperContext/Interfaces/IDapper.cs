@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Bawbee.Infra.Data.DapperContext.Interfaces
 {
-    public interface IDapper : IDisposable
+    public interface IDapperConnection : IDisposable
     {
         IDbConnection Connection { get; }
     }

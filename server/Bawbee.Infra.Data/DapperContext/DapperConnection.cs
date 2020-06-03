@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Bawbee.Infra.Data.DapperContext
 {
-    public class Dapper : IDapper
+    public class DapperConnection : IDapperConnection
     {
         public IDbConnection Connection
         {

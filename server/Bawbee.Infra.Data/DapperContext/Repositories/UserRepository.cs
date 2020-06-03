@@ -10,9 +10,9 @@ namespace Bawbee.Infra.Data.DapperContext.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IDapper _dapper;
+        private readonly IDapperConnection _dapper;
 
-        public UserRepository(IDapper dapper)
+        public UserRepository(IDapperConnection dapper)
         {
             _dapper = dapper;
         }
