@@ -2,8 +2,9 @@
 
 namespace Bawbee.Domain.Entities
 {
-    public class BankAccount : BaseEntity<int>
+    public class BankAccount : BaseEntity
     {
+        public int BankAccountId { get; private set; }
         public string Name { get; private set; }
         public decimal InitialBalance { get; private set; }
         public int UserContextId { get; private set; }

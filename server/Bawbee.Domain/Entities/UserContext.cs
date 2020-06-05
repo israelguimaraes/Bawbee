@@ -2,8 +2,9 @@
 
 namespace Bawbee.Domain.Entities
 {
-    public class UserContext : BaseEntity<int>
+    public class UserContext : BaseEntity
     {
+        public int UserContextId { get; private set; }
         public string Name { get; private set; }
         public int UserId { get; private set; }
 

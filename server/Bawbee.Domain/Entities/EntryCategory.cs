@@ -2,8 +2,9 @@
 
 namespace Bawbee.Domain.Entities
 {
-    public class EntryCategory : BaseEntity<int>
+    public class EntryCategory : BaseEntity
     {
+        public int EntryCategoryId { get; private set; }
         public string Name { get; private set; }
         public int UserContextId { get; private set; }
         public UserContext UserContext { get; private set; }

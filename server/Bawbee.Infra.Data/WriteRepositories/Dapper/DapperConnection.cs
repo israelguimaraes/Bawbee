@@ -1,8 +1,7 @@
-﻿using Bawbee.Infra.Data.DapperContext.Interfaces;
-using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using System.Data;
+using System.Data.SqlClient;
 
-namespace Bawbee.Infra.Data.DapperContext
+namespace Bawbee.Infra.Data.WriteRepositories.Dapper
 {
     public class DapperConnection : IDapperConnection
     {

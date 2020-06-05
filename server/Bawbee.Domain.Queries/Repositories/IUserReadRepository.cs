@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Interfaces
+namespace Bawbee.Domain.Queries.Repositories
 {
-    public interface IUserRepository
+    public interface IUserReadRepository
     {
         Task<User> GetByEmail(string email);
-        Task Add(User user);
         Task<IEnumerable<User>> GetAll();
     }
 }
