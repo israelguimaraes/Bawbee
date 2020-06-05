@@ -2,9 +2,9 @@
 
 namespace Bawbee.Domain.Core.Models
 {
-    public abstract class BaseEntity<TIdentity>
+    public abstract class BaseEntity
     {
-        public TIdentity Id { get; protected set; }
+        public string Id { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
         protected BaseEntity()

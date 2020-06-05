@@ -15,15 +15,18 @@ namespace Bawbee.Domain.CommandHandlers
         ICommandHandler<RegisterNewUserCommand>
     {
         private readonly IMediatorHandler _mediator;
-        private readonly IUserRepository _userRepository;
+        private readonly IUserWriteRepository _userWriteRepository;
+        private readonly IUserReadRepository _userReadRepository;
 
         public UserCommandHandler(
             IMediatorHandler mediator,
             INotificationHandler<DomainNotification> notificationHandler,
-            IUserRepository userRepository) : base(mediator, notificationHandler)
+            IUserWriteRepository userWriteRepository,
+            IUserReadRepository userReadRepository) : base(mediator, notificationHandler)
         {
             _mediator = mediator;
-            _userRepository = userRepository;
+            _userWriteRepository = userWriteRepository;
+            _userReadRepository = userReadRepository;
         }
 
         public async Task<CommandResult> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
@@ -34,7 +37,7 @@ namespace Bawbee.Domain.CommandHandlers
                 return CommandResult.Error();
             }
 
-            var userDatabase = await _userRepository.GetByEmail(command.Email);
+            var userDatabase = await _userReadRepository.GetByEmail(command.Email);
 
             if (userDatabase != null)
             {
@@ -43,7 +46,7 @@ namespace Bawbee.Domain.CommandHandlers
             }
 
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
-            await _userRepository.Add(user);
+            await _userWriteRepository.Add(user);
 
             await _mediator.PublishEvent(new UserRegisteredEvent(user.Id, user.Name, user.LastName, user.Email, user.Password));
             return CommandResult.Ok(user.Id);

@@ -3,8 +3,9 @@ using System;
 
 namespace Bawbee.Domain.Entities
 {
-    public class Entry : BaseEntity<int>
+    public class Entry : BaseEntity
     {
+        public int EntryId { get; private set; }
         public string Description { get; private set; }
         public decimal Value { get; private set; }
         public bool IsPaid { get; private set; }

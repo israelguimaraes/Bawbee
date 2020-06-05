@@ -3,6 +3,7 @@ using Bawbee.Domain.CommandHandlers;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Queries.Users.Queries;
+using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,8 @@ namespace Bawbee.API
         {
             services.AddControllers();
 
+            services.AddOptions();
+
             services.AddMediatR(typeof(Startup));
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
@@ -39,7 +42,10 @@ namespace Bawbee.API
             // Bawbee.Domain.Queries
             services.AddMediatR(typeof(GetAllUsersQuery).GetTypeInfo().Assembly);
 
-            services.AddAllBawbeeDependencies();
+            // Bawbee.Infra.Data
+            services.AddMediatR(typeof(UserRavenDBHandler).GetTypeInfo().Assembly);
+
+            services.AddAllBawbeeDependencies(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
