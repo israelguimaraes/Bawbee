@@ -1,6 +1,5 @@
-﻿using Bawbee.Domain.Entities;
-using Bawbee.Domain.Events.Users;
-using Bawbee.Domain.Queries.Users;
+﻿using Bawbee.Domain.Commands.Users.Events;
+using Bawbee.Domain.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +20,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
         {
             using (var session = _documentStore.Store.OpenAsyncSession())
             {
-                var user = new UserDocument(userRegistered.Name, userRegistered.LastName, userRegistered.Email, userRegistered.Password);
+                var user = new User(userRegistered.Name, userRegistered.LastName, userRegistered.Email, userRegistered.Password);
 
                 await session.StoreAsync(user);
                 await session.SaveChangesAsync();

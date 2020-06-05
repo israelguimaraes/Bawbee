@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Queries.Repositories;
-using Bawbee.Domain.Queries.Users;
+﻿using Bawbee.Domain.Entities;
+using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.Data.RavenDB;
 using Raven.Client.Documents;
 using System.Collections.Generic;
@@ -16,19 +16,19 @@ namespace Bawbee.Infra.Data.ReadRepositories
             _documentStore = documentStore;
         }
 
-        public async Task<UserDocument> GetByEmail(string email)
+        public async Task<User> GetByEmail(string email)
         {
             using (var session = _documentStore.Store.OpenAsyncSession())
             {
-                return await session.Query<UserDocument>().FirstOrDefaultAsync(u => u.Email == email);
+                return await session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower());
             }
         }
 
-        public async Task<IEnumerable<UserDocument>> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
             using (var session = _documentStore.Store.OpenAsyncSession())
             {
-                return await session.Query<UserDocument>().ToListAsync();
+                return await session.Query<User>().ToListAsync();
             }
         }
     }

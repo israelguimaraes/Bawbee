@@ -1,5 +1,5 @@
 using Bawbee.API.Setups;
-using Bawbee.Domain.CommandHandlers;
+using Bawbee.Domain.Commands;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Queries.Users.Queries;

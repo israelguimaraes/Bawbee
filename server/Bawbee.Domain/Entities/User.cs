@@ -17,7 +17,7 @@ namespace Bawbee.Domain.Entities
         {
             Name = name;
             LastName = lastName;
-            Email = email;
+            Email = email.ToLower();
             Password = password;
         }
     }
