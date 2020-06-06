@@ -20,7 +20,10 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
         {
             using (var session = _documentStore.Store.OpenAsyncSession())
             {
-                var user = new User(userRegistered.Name, userRegistered.LastName, userRegistered.Email, userRegistered.Password);
+                var user = new User(
+                    userRegistered.Name, userRegistered.LastName, 
+                    userRegistered.Email, userRegistered.Password,
+                    userRegistered.Id);
 
                 await session.StoreAsync(user);
                 await session.SaveChangesAsync();
