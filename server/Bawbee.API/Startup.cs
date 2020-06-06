@@ -1,7 +1,6 @@
 using Bawbee.API.Setups;
 using Bawbee.Domain.Commands;
 using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using MediatR;

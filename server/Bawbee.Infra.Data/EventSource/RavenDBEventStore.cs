@@ -1,16 +1,16 @@
 ﻿using Bawbee.Domain.Core.Events;
-using Bawbee.Infra.Data.RavenDB;
+using Raven.Client.Documents.Session;
 using System.Threading.Tasks;
 
 namespace Bawbee.Infra.Data.EventSource
 {
     public class RavenDBEventStore : IEventStore
     {
-        private readonly IDocumentStoreHolder _documentStore;
+        private readonly IAsyncDocumentSession _session;
 
-        public RavenDBEventStore(IDocumentStoreHolder documentStore)
+        public RavenDBEventStore(IAsyncDocumentSession session)
         {
-            _documentStore = documentStore;
+            _session = session;
         }
 
         public async Task Store(Event eventObj)
@@ -19,11 +19,8 @@ namespace Bawbee.Infra.Data.EventSource
 
             var storeEvent = new StoredEvent(eventObj);
 
-            using (var session = _documentStore.Store.OpenAsyncSession())
-            {
-                await session.StoreAsync(storeEvent);
-                await session.SaveChangesAsync();
-            }
+            await _session.StoreAsync(storeEvent);
+            await _session.SaveChangesAsync();
         }
     }
 }
