@@ -1,15 +1,15 @@
-﻿using Bawbee.Domain.Commands.Users;
+﻿using Bawbee.Domain.Commands.Users.Commands;
+using Bawbee.Domain.Commands.Users.Events;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Entities;
-using Bawbee.Domain.Events.Users;
 using Bawbee.Domain.Interfaces;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.CommandHandlers
+namespace Bawbee.Domain.Commands.Users.Handlers
 {
     public class UserCommandHandler : BaseCommandHandler,
         ICommandHandler<RegisterNewUserCommand>
@@ -48,8 +48,8 @@ namespace Bawbee.Domain.CommandHandlers
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
             await _userWriteRepository.Add(user);
 
-            await _mediator.PublishEvent(new UserRegisteredEvent(user.Id, user.Name, user.LastName, user.Email, user.Password));
-            return CommandResult.Ok(user.Id);
+            await _mediator.PublishEvent(new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password));
+            return CommandResult.Ok();
         }
     }
 }

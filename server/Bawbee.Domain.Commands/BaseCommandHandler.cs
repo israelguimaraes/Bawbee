@@ -1,11 +1,9 @@
 ﻿using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
-using Bawbee.Domain.Interfaces;
 using MediatR;
-using System.Threading.Tasks;
 
-namespace Bawbee.Domain.CommandHandlers
+namespace Bawbee.Domain.Commands
 {
     public abstract class BaseCommandHandler
     {

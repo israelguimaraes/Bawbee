@@ -1,9 +1,9 @@
-﻿using Bawbee.Domain.Events.Users;
+﻿using Bawbee.Domain.Commands.Users.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.EventHandlers
+namespace Bawbee.Domain.Commands.Services.Handlers
 {
     public class EmailEventHandler
         : INotificationHandler<UserRegisteredEvent>

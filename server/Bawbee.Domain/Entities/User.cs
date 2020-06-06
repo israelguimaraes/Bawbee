@@ -13,11 +13,17 @@ namespace Bawbee.Domain.Entities
         public string Email { get; private set; }
         public string Password { get; private set; }
 
-        public User(string name, string lastName, string email, string password)
+        private User(int userId)
+        {
+            UserId = userId;
+        }
+
+        public User(string name, string lastName, string email, string password, int userId = default)
+            : this(userId)
         {
             Name = name;
             LastName = lastName;
-            Email = email;
+            Email = email.ToLower();
             Password = password;
         }
     }

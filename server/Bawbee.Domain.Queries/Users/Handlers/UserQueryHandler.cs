@@ -1,5 +1,5 @@
 ﻿using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Queries.Repositories;
+using Bawbee.Domain.Interfaces;
 using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Domain.Queries.Users.ReadModels;
 using System.Collections.Generic;
