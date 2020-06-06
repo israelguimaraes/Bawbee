@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bawbee.API.Controllers
 {
@@ -22,7 +21,7 @@ namespace Bawbee.API.Controllers
 
         protected bool IsValidOperation => !GetNotifications.Any();
 
-        protected new Task<IActionResult> Response(object data = null)
+        protected new IActionResult Response(object data = null)
         {
             if (IsValidOperation)
                 return OkResponse(data);
@@ -30,15 +29,14 @@ namespace Bawbee.API.Controllers
             return BadRequestResponse();
         }
 
-        private async Task<IActionResult> OkResponse(object data)
+        private IActionResult OkResponse(object data)
         {
-            return await Task.FromResult(Ok(new { success = true, data }));
+            return Ok(new { success = true, data });
         }
 
-        private async Task<IActionResult> BadRequestResponse()
+        private IActionResult BadRequestResponse()
         {
-            return await Task.FromResult(
-                BadRequest(new { success = false, errors = GetNotifications.Select(n => n.Value) }));
+            return BadRequest(new { success = false, errors = GetNotifications.Select(n => n.Value) });
         }
     }
 }

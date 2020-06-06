@@ -31,10 +31,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // *** Infra.Data ***
 
             // RavenDB
-            var ravenConfig = new RavenDBConfig();
-            configuration.GetSection(nameof(RavenDBConfig)).Bind(ravenConfig);
-            
-            var ravenDocumentStore = new RavenDocumentStore(ravenConfig);
+            var ravenDocumentStore = new RavenDocumentStore(configuration.GetSection(nameof(RavenDBConfig)).Get<RavenDBConfig>());
             services.TryAddSingleton<IDocumentStoreHolder>(d => ravenDocumentStore);
 
             // Repositories

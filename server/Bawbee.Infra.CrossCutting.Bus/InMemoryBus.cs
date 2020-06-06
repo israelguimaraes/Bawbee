@@ -24,7 +24,8 @@ namespace Bawbee.Infra.CrossCutting.Bus
 
         public async Task PublishEvent<T>(T eventObj) where T : Event
         {
-            await _eventStore.Store(eventObj);
+            if (eventObj.IsNotDomainNotification())
+                await _eventStore.Store(eventObj);
 
             await _mediator.Publish(eventObj);
         }

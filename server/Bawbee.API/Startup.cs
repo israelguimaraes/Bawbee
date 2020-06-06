@@ -31,7 +31,6 @@ namespace Bawbee.API
             services.AddOptions();
 
             services.AddMediatR(typeof(Startup));
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             // Bawbee.Domain.Core
             services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
