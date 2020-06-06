@@ -1,7 +1,9 @@
-﻿namespace Bawbee.Domain.Core.Events
+﻿using System.Threading.Tasks;
+
+namespace Bawbee.Domain.Core.Events
 {
     public interface IEventStore
     {
-        void Store<T>(T eventObj) where T : Event;
+        Task Store(Event eventObj);
     }
 }

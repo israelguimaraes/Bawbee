@@ -23,7 +23,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
                 var user = new User(
                     userRegistered.Name, userRegistered.LastName, 
                     userRegistered.Email, userRegistered.Password,
-                    userRegistered.Id);
+                    userRegistered.UserId);
 
                 await session.StoreAsync(user);
                 await session.SaveChangesAsync();
