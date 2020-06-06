@@ -11,7 +11,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
         public static void RegisterRavenDB(this IServiceCollection services, IConfiguration configuration)
         {
             // DocumentStore - Singleton: https://ravendb.net/docs/article-page/4.2/csharp/start/getting-started
-            var ravenDocumentStore = new RavenDocumentStore(configuration.GetSection(nameof(RavenDBConfig)).Get<RavenDBConfig>());
+            var ravenDocumentStore = new RavenDBDocumentStore(configuration.GetSection(nameof(RavenDBConfig)).Get<RavenDBConfig>());
             services.AddSingleton<IDocumentStoreHolder>(ravenDocumentStore);
 
             // One Session per request
