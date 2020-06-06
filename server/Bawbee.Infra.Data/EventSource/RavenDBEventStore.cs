@@ -2,8 +2,13 @@
 
 namespace Bawbee.Infra.Data.EventSource
 {
-    public class RavenEventStore : IEventStore
+    public class RavenDBEventStore : IEventStore
     {
+        public RavenDBEventStore()
+        {
+
+        }
+
         public void Store<T>(T eventObj) where T : Event
         {
             // TODO: ...

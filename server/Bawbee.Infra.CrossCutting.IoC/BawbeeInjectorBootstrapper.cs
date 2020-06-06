@@ -43,7 +43,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.AddScoped<IDapperConnection, DapperConnection>();
 
             // EventSource
-            services.AddScoped<IEventStore, RavenEventStore>();
+            services.AddScoped<IEventStore, RavenDBEventStore>();
         }
     }
 }
