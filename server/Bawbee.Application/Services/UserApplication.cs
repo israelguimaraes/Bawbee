@@ -1,12 +1,9 @@
 ﻿using Bawbee.Application.InputModels.Users;
 using Bawbee.Application.Interfaces;
-using Bawbee.Domain.Commands.Users;
+using Bawbee.Domain.Commands.Users.Commands;
 using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Domain.Queries.Users.ReadModels;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

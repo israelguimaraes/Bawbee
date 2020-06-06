@@ -1,6 +1,6 @@
 ﻿using Bawbee.Domain.Core.Commands;
 
-namespace Bawbee.Domain.Commands.Users
+namespace Bawbee.Domain.Commands.Users.Commands
 {
     public class RegisterNewUserCommand : Command
     {

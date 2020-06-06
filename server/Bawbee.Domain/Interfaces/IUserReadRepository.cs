@@ -4,10 +4,9 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Domain.Interfaces
 {
-    public interface IUserRepository
+    public interface IUserReadRepository
     {
         Task<User> GetByEmail(string email);
-        Task Add(User user);
         Task<IEnumerable<User>> GetAll();
     }
 }

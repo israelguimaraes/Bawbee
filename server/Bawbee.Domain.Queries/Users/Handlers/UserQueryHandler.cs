@@ -12,20 +12,20 @@ namespace Bawbee.Domain.Queries.Users.Handlers
     public class UserQueryHandler
         : ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserReadRepository _userReadRepository;
 
-        public UserQueryHandler(IUserRepository userRepository)
+        public UserQueryHandler(IUserReadRepository userReadRepository)
         {
-            _userRepository = userRepository;
+            _userReadRepository = userReadRepository;
         }
 
         public async Task<IEnumerable<UserReadModel>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
         {
-            var users = await _userRepository.GetAll();
+            var users = await _userReadRepository.GetAll();
 
             var result = users.Select(u => new UserReadModel
             {
-                Id = u.Id,
+                UserId = u.UserId,
                 Email = u.Email,
                 Name = u.LastName,
                 LastName = u.LastName

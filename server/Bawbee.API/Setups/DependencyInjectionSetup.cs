@@ -1,14 +1,14 @@
 ﻿using Bawbee.Infra.CrossCutting.IoC;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Bawbee.API.Setups
 {
     public static class DependencyInjectionSetup
     {
-        public static void AddAllBawbeeDependencies(this IServiceCollection services)
+        public static void AddAllBawbeeDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            BawbeeInjectorBootstrapper.RegisterDependencies(services);
+            BawbeeInjectorBootstrapper.RegisterDependencies(services, configuration);
         }
     }
 }
