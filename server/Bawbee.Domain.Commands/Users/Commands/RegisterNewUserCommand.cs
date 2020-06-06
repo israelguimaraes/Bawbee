@@ -1,4 +1,5 @@
-﻿using Bawbee.Domain.Core.Commands;
+﻿using Bawbee.Domain.Commands.Users.Validators;
+using Bawbee.Domain.Core.Commands;
 
 namespace Bawbee.Domain.Commands.Users.Commands
 {
@@ -19,7 +20,8 @@ namespace Bawbee.Domain.Commands.Users.Commands
 
         public override bool IsValid()
         {
-            return true;
+            ValidationResult = new RegisterNewUserValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

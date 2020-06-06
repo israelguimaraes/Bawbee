@@ -5,7 +5,6 @@ using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Interfaces;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,9 +19,8 @@ namespace Bawbee.Domain.Commands.Users.Handlers
 
         public UserCommandHandler(
             IMediatorHandler mediator,
-            INotificationHandler<DomainNotification> notificationHandler,
             IUserWriteRepository userWriteRepository,
-            IUserReadRepository userReadRepository) : base(mediator, notificationHandler)
+            IUserReadRepository userReadRepository) : base(mediator)
         {
             _mediator = mediator;
             _userWriteRepository = userWriteRepository;

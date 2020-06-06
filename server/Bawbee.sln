@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Infra.CrossCutting.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Domain.Queries", "Bawbee.Domain.Queries\Bawbee.Domain.Queries.csproj", "{5EB225A7-EE42-4802-B527-59F0B265613D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Domain.Commands", "Bawbee.Domain.Commands\Bawbee.Domain.Commands.csproj", "{89DB830A-7F0D-40E0-96C5-D5AFA5F51945}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Domain.Commands", "Bawbee.Domain.Commands\Bawbee.Domain.Commands.csproj", "{89DB830A-7F0D-40E0-96C5-D5AFA5F51945}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
