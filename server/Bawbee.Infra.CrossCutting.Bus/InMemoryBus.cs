@@ -22,12 +22,12 @@ namespace Bawbee.Infra.CrossCutting.Bus
             return _mediator.Send(command, cancellationToken);
         }
 
-        public Task PublishEvent<T>(T eventObj) where T : Event
+        public async Task PublishEvent<T>(T eventObj) where T : Event
         {
-            // TODO:
-            // _eventStore.Store();
+            if (eventObj.IsNotDomainNotification())
+                await _eventStore.Store(eventObj);
 
-            return _mediator.Publish(eventObj);
+            await _mediator.Publish(eventObj);
         }
     }
 }

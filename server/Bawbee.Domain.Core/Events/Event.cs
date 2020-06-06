@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Core.Notifications;
 using MediatR;
 using System;
 
@@ -11,6 +12,11 @@ namespace Bawbee.Domain.Core.Events
         protected Event()
         {
             Timestamp = DateTime.Now;
+        }
+
+        public bool IsNotDomainNotification()
+        {
+            return MessageType != nameof(DomainNotification);
         }
     }
 }

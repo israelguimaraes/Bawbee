@@ -1,7 +1,7 @@
 ﻿using Bawbee.Domain.Entities;
 using Bawbee.Domain.Interfaces;
-using Bawbee.Infra.Data.RavenDB;
 using Raven.Client.Documents;
+using Raven.Client.Documents.Session;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,27 +9,21 @@ namespace Bawbee.Infra.Data.ReadRepositories
 {
     public class UserReadRepository : IUserReadRepository
     {
-        private readonly IDocumentStoreHolder _documentStore;
+        private readonly IAsyncDocumentSession _session;
 
-        public UserReadRepository(IDocumentStoreHolder documentStore)
+        public UserReadRepository(IAsyncDocumentSession session)
         {
-            _documentStore = documentStore;
+            _session = session;
         }
 
         public async Task<User> GetByEmail(string email)
         {
-            using (var session = _documentStore.Store.OpenAsyncSession())
-            {
-                return await session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower());
-            }
+            return await _session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower());
         }
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            using (var session = _documentStore.Store.OpenAsyncSession())
-            {
-                return await session.Query<User>().ToListAsync();
-            }
+            return await _session.Query<User>().ToListAsync();
         }
     }
 }

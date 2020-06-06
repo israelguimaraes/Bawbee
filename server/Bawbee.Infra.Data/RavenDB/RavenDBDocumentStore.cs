@@ -2,11 +2,11 @@
 
 namespace Bawbee.Infra.Data.RavenDB
 {
-    public class RavenDocumentStore : IDocumentStoreHolder
+    public class RavenDBDocumentStore : IDocumentStoreHolder
     {
         public IDocumentStore Store { get; }
 
-        public RavenDocumentStore(RavenDBConfig ravenConfig)
+        public RavenDBDocumentStore(RavenDBConfig ravenConfig)
         {
             Store = new DocumentStore
             {

@@ -1,7 +1,6 @@
 using Bawbee.API.Setups;
 using Bawbee.Domain.Commands;
 using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using MediatR;
@@ -31,7 +30,6 @@ namespace Bawbee.API
             services.AddOptions();
 
             services.AddMediatR(typeof(Startup));
-            services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             // Bawbee.Domain.Core
             services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
