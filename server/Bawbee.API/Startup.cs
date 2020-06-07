@@ -2,6 +2,7 @@ using Bawbee.API.Setups;
 using Bawbee.Domain.Commands;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Queries.Users.Queries;
+using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace Bawbee.API
@@ -64,6 +66,20 @@ namespace Bawbee.API
             {
                 endpoints.MapControllers();
             });
+
+
+
+
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Bawbee API - v1");
+                options.RoutePrefix = string.Empty;
+            });
+
+
         }
     }
 }
