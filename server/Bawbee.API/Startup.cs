@@ -2,6 +2,7 @@ using Bawbee.API.Setups;
 using Bawbee.Domain.Commands;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Queries.Users.Queries;
+using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,8 @@ namespace Bawbee.API
             services.AddControllers();
 
             services.AddOptions();
+
+            services.RegisterJwt(Configuration);
 
             services.AddMediatR(typeof(Startup));
 

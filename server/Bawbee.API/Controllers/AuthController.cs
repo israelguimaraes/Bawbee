@@ -1,24 +1,38 @@
 ﻿using Bawbee.Application.InputModels.Users;
 using Bawbee.Application.Interfaces;
 using Bawbee.Domain.Core.Notifications;
+using Bawbee.Infra.CrossCutting.Common.Security;
+using Bawbee.Infra.CrossCutting.Common.Security.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
 namespace Bawbee.API.Controllers
 {
-    [Authorize]
     public class AuthController : BaseApiController
     {
         private readonly IUserApplication _userApplication;
+        private readonly IConfiguration _configuration;
 
         public AuthController(
             IUserApplication userApplication,
-            INotificationHandler<DomainNotification> notificationHandler)
+            INotificationHandler<DomainNotification> notificationHandler,
+            IConfiguration configuration)
             : base(notificationHandler)
         {
             _userApplication = userApplication;
+            _configuration = configuration;
+        }
+
+        [HttpGet("token")]
+        public async Task<IActionResult> GetRandomToken()
+        {
+            var jwt = new JwtService(_configuration);
+            var token = jwt.GenerateSecurityToken(new UserTokenDTO { Email = "admin@gmail.com", Name = "Israel", UserId = 1 });
+
+            return Response(token);
         }
 
         [HttpPost]
@@ -30,6 +44,7 @@ namespace Bawbee.API.Controllers
             return Response("ok test");
         }
 
+        [Authorize]
         [HttpGet("")]
         public async Task<IActionResult> GetAllUsersTest()
         {

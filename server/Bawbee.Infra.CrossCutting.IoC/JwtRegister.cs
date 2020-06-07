@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace Bawbee.Infra.CrossCutting.IoC
@@ -10,14 +10,26 @@ namespace Bawbee.Infra.CrossCutting.IoC
     {
         public static void RegisterJwt(this IServiceCollection services, IConfiguration configuration)
         {
-            //var secret = configuration.GetSection("JwtConfig").GetSection("secret").Value;
+            var secret = configuration.GetSection("JwtConfig").GetSection("secret").Value;
 
-            //var key = Encoding.ASCII.GetBytes(secret);
+            var key = Encoding.ASCII.GetBytes(secret);
 
-            //services.AddAuthenticationCore(x =>
-            //{
-            //    x.DefaultAuthenticateScheme = JwtBearerDefaults
-            //})
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(bearerOptions =>
+            {
+                bearerOptions.TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = "localhost",
+                    ValidAudience = "localhost"
+                };
+            });
         }
     }
 }
