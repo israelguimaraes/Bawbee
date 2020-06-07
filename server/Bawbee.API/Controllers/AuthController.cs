@@ -2,11 +2,13 @@
 using Bawbee.Application.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Bawbee.API.Controllers
 {
+    [Authorize]
     public class AuthController : BaseApiController
     {
         private readonly IUserApplication _userApplication;
