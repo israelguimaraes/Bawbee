@@ -35,6 +35,9 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             // EventSource
             services.AddScoped<IEventStore, RavenDBEventStore>();
+
+            services.RegisterJwt(configuration);
+            services.RegisterSwagger();
         }
     }
 }

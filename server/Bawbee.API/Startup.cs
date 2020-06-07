@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace Bawbee.API
@@ -29,8 +30,6 @@ namespace Bawbee.API
             services.AddControllers();
 
             services.AddOptions();
-
-            services.RegisterJwt(Configuration);
 
             services.AddMediatR(typeof(Startup));
 
@@ -67,6 +66,20 @@ namespace Bawbee.API
             {
                 endpoints.MapControllers();
             });
+
+
+
+
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Bawbee API - v1");
+                options.RoutePrefix = string.Empty;
+            });
+
+
         }
     }
 }
