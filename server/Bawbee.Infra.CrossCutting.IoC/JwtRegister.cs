@@ -10,14 +10,14 @@ namespace Bawbee.Infra.CrossCutting.IoC
     {
         public static void RegisterJwt(this IServiceCollection services, IConfiguration configuration)
         {
-            var secret = configuration.GetSection("JwtConfig").GetSection("secret").Value;
+            //var secret = configuration.GetSection("JwtConfig").GetSection("secret").Value;
 
-            var key = Encoding.ASCII.GetBytes(secret);
+            //var key = Encoding.ASCII.GetBytes(secret);
 
-            services.AddAuthenticationCore(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults
-            })
+            //services.AddAuthenticationCore(x =>
+            //{
+            //    x.DefaultAuthenticateScheme = JwtBearerDefaults
+            //})
         }
     }
 }
