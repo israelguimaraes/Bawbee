@@ -1,11 +1,14 @@
 ﻿using Bawbee.Domain.Core.Notifications;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Bawbee.API.Controllers
 {
+    [Authorize(JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/v1/[controller]")]
     public abstract class BaseApiController : ControllerBase

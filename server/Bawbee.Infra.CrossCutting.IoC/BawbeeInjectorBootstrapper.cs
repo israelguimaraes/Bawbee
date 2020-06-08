@@ -19,6 +19,8 @@ namespace Bawbee.Infra.CrossCutting.IoC
     {
         public static void RegisterDependencies(IServiceCollection services, IConfiguration configuration)
         {
+            services.RegisterJwt(configuration);
+
             // Domain
             services.AddScoped<IMediatorHandler, InMemoryBus>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -36,7 +38,6 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // EventSource
             services.AddScoped<IEventStore, RavenDBEventStore>();
 
-            services.RegisterJwt(configuration);
             services.RegisterSwagger();
         }
     }

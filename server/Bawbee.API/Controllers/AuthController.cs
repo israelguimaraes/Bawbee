@@ -26,6 +26,7 @@ namespace Bawbee.API.Controllers
             _configuration = configuration;
         }
 
+        [AllowAnonymous]
         [HttpGet("token")]
         public async Task<IActionResult> GetRandomToken()
         {
@@ -35,6 +36,7 @@ namespace Bawbee.API.Controllers
             return Response(token);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> RegisterNewUser(RegisterNewUserInputModel model)
@@ -44,7 +46,6 @@ namespace Bawbee.API.Controllers
             return Response("ok test");
         }
 
-        [Authorize]
         [HttpGet("")]
         public async Task<IActionResult> GetAllUsersTest()
         {

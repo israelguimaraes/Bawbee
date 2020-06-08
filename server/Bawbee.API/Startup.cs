@@ -60,6 +60,7 @@ namespace Bawbee.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -67,19 +68,7 @@ namespace Bawbee.API
                 endpoints.MapControllers();
             });
 
-
-
-
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Bawbee API - v1");
-                options.RoutePrefix = string.Empty;
-            });
-
-
+            app.ConfigureSwagger();
         }
     }
 }

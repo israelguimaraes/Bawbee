@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +12,6 @@ namespace Bawbee.Infra.CrossCutting.IoC
         public static void RegisterJwt(this IServiceCollection services, IConfiguration configuration)
         {
             var secret = configuration.GetSection("JwtConfig").GetSection("secret").Value;
-
             var key = Encoding.ASCII.GetBytes(secret);
 
             services.AddAuthentication(options =>
@@ -23,12 +23,19 @@ namespace Bawbee.Infra.CrossCutting.IoC
             {
                 bearerOptions.TokenValidationParameters = new TokenValidationParameters
                 {
+                    ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidIssuer = "localhost",
-                    ValidAudience = "localhost"
+                    ValidateAudience = false,
+                    ValidateIssuer = false
                 };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, new AuthorizationPolicyBuilder()
+                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build());
             });
         }
     }
