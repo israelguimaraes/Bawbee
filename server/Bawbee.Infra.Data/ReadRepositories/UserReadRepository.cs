@@ -25,5 +25,10 @@ namespace Bawbee.Infra.Data.ReadRepositories
         {
             return await _session.Query<User>().ToListAsync();
         }
+
+        public async Task<User> GetByEmailAndPassword(string email, string password)
+        {
+            return await _session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower() && u.Password == password);
+        }
     }
 }

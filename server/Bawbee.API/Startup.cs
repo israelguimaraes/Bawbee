@@ -1,15 +1,11 @@
 using Bawbee.API.Setups;
-using Bawbee.Domain.Commands;
-using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Queries.Users.Queries;
-using Bawbee.Infra.Data.RavenDB.EventHandlers;
+using Bawbee.Infra.CrossCutting.IoC;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
 
 namespace Bawbee.API
 {
@@ -26,23 +22,8 @@ namespace Bawbee.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             services.AddOptions();
-
             services.AddMediatR(typeof(Startup));
-
-            // Bawbee.Domain.Core
-            services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
-
-            // Bawbee.Domain
-            services.AddMediatR(typeof(BaseCommandHandler).GetTypeInfo().Assembly);
-
-            // Bawbee.Domain.Queries
-            services.AddMediatR(typeof(GetAllUsersQuery).GetTypeInfo().Assembly);
-
-            // Bawbee.Infra.Data
-            services.AddMediatR(typeof(UserRavenDBHandler).GetTypeInfo().Assembly);
-
             services.AddAllBawbeeDependencies(Configuration);
         }
 
@@ -58,12 +39,15 @@ namespace Bawbee.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            app.ConfigureSwagger();
         }
     }
 }
