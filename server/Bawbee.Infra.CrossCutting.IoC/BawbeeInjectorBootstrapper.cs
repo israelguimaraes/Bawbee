@@ -38,8 +38,8 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.RegisterRavenDB(configuration);
 
             // Repositories
-            services.AddScoped<IUserWriteRepository, UserWriteRepository>();
-            services.AddScoped<IUserReadRepository, UserReadRepository>();
+            services.AddScoped<IUserWriteRepository, UserDapperRepository>();
+            services.AddScoped<IUserReadRepository, UserRavenDBRepository>();
             services.AddScoped<IDapperConnection, DapperConnection>();
 
             // EventSource
