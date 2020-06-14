@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bawbee.Application.Command\Bawbee.Application.Command.csproj" />
-    <ProjectReference Include="..\Bawbee.Application.Query\Bawbee.Application.Query.csproj" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Bawbee.Domain.Core\Bawbee.Domain.Core.csproj" />
     <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
   </ItemGroup>
