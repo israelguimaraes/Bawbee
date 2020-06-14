@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Users.Events;
+﻿using Bawbee.Domain.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

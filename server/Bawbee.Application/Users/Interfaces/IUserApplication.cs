@@ -1,4 +1,5 @@
-﻿using Bawbee.Application.Users.InputModels;
+﻿using Bawbee.Application.Query.Users.ReadModels;
+using Bawbee.Application.Users.InputModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

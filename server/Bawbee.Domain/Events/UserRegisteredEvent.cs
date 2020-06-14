@@ -1,6 +1,6 @@
 ﻿using Bawbee.Domain.Core.Events;
 
-namespace Bawbee.Application.Users.Events
+namespace Bawbee.Domain.Events
 {
     public class UserRegisteredEvent : Event
     {

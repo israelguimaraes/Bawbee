@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Commands.Users.Events;
-using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.Entities;
+using Bawbee.Domain.Events;
 using MediatR;
 using Raven.Client.Documents.Session;
 using System.Threading;

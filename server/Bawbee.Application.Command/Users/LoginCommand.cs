@@ -3,7 +3,7 @@ using Bawbee.Domain.Core.Commands;
 
 namespace Bawbee.Application.Command.Users
 {
-    public class LoginCommand : Command
+    public class LoginCommand : BaseCommand
     {
         public string Email { get; }
         public string Password { get; }

@@ -1,10 +1,9 @@
-﻿using Bawbee.Application.Bases;
-using Bawbee.Application.Users.Commands;
-using Bawbee.Application.Users.Events;
+﻿using Bawbee.Application.Command.Users;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Entities;
+using Bawbee.Domain.Events;
 using Bawbee.Domain.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;

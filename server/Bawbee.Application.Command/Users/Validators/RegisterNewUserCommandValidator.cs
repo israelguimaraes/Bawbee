@@ -1,5 +1,4 @@
-﻿using Bawbee.Application.Users.Commands;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Bawbee.Application.Command.Users.Validators
 {

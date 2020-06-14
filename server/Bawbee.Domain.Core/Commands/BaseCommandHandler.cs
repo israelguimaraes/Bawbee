@@ -1,7 +1,7 @@
 ﻿using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Notifications;
 
-namespace Bawbee.Application.Command.Bases
+namespace Bawbee.Domain.Core.Commands
 {
     public abstract class BaseCommandHandler
     {
@@ -12,7 +12,7 @@ namespace Bawbee.Application.Command.Bases
             _mediator = mediator;
         }
 
-        protected void SendNotificationsErrors(Command message)
+        protected void SendNotificationsErrors(BaseCommand message)
         {
             foreach (var error in message.ValidationResult.Errors)
                 _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));

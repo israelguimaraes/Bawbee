@@ -3,7 +3,7 @@ using Bawbee.Domain.Core.Commands;
 
 namespace Bawbee.Application.Command.Users
 {
-    public class RegisterNewUserCommand : Command
+    public class RegisterNewUserCommand : BaseCommand
     {
         public string Name { get; }
         public string LastName { get; }
