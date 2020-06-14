@@ -8,5 +8,6 @@ namespace Bawbee.Domain.Interfaces
     {
         Task<User> GetByEmail(string email);
         Task<IEnumerable<User>> GetAll();
+        Task<User> GetByEmailAndPassword(string email, string password);
     }
 }
