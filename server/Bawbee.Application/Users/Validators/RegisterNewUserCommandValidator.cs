@@ -1,7 +1,7 @@
 ﻿using Bawbee.Domain.Commands.Users.Commands;
 using FluentValidation;
 
-namespace Bawbee.Domain.Commands.Users.Validators
+namespace Bawbee.Application.Users.Validators
 {
     public class RegisterNewUserCommandValidator : AbstractValidator<RegisterNewUserCommand>
     {

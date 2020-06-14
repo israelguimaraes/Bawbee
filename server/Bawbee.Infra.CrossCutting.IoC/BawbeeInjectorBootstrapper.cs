@@ -1,5 +1,6 @@
-﻿using Bawbee.Application.Interfaces;
+﻿using Bawbee.Application.Bases;
 using Bawbee.Application.Services;
+using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Commands;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;

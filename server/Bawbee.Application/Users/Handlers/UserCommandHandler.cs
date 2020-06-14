@@ -1,4 +1,6 @@
-﻿using Bawbee.Domain.Commands.Users.Commands;
+﻿using Bawbee.Application.Bases;
+using Bawbee.Domain.Commands;
+using Bawbee.Domain.Commands.Users.Commands;
 using Bawbee.Domain.Commands.Users.Events;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
@@ -9,7 +11,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Commands.Users.Handlers
+namespace Bawbee.Application.Users.Handlers
 {
     public class UserCommandHandler : BaseCommandHandler,
         ICommandHandler<RegisterNewUserCommand>,

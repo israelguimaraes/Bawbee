@@ -1,6 +1,6 @@
-﻿using Bawbee.Application.InputModels.Users;
-using Bawbee.Application.Interfaces;
-using Bawbee.Domain.Commands.Users.Commands;
+﻿using Bawbee.Application.Users.Commands;
+using Bawbee.Application.Users.InputModels;
+using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Domain.Queries.Users.ReadModels;

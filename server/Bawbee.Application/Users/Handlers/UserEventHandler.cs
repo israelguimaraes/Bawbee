@@ -3,7 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Commands.Users.Handlers
+namespace Bawbee.Application.Users.Handlers
 {
     public class UserEventHandler
         : INotificationHandler<UserRegisteredEvent>

@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Application.InputModels.Users
+﻿namespace Bawbee.Application.Users.InputModels
 {
     public class LoginInputModel
     {

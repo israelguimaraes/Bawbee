@@ -2,7 +2,7 @@
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 
-namespace Bawbee.Domain.Commands
+namespace Bawbee.Application.Bases
 {
     public abstract class BaseCommandHandler
     {
