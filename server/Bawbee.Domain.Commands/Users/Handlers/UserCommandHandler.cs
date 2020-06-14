@@ -5,13 +5,15 @@ using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Interfaces;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bawbee.Domain.Commands.Users.Handlers
 {
     public class UserCommandHandler : BaseCommandHandler,
-        ICommandHandler<RegisterNewUserCommand>
+        ICommandHandler<RegisterNewUserCommand>,
+        ICommandHandler<LoginCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IUserWriteRepository _userWriteRepository;
@@ -48,6 +50,26 @@ namespace Bawbee.Domain.Commands.Users.Handlers
 
             await _mediator.PublishEvent(new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password));
             return CommandResult.Ok();
+        }
+
+        public async Task<CommandResult> Handle(LoginCommand command, CancellationToken cancellationToken)
+        {
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            var userDatabase = await _userReadRepository.GetByEmailAndPassword(command.Email, command.Password);
+
+            if (userDatabase == null)
+            {
+                await _mediator.PublishEvent(new DomainNotification("E-mail or password is invalid"));
+                return CommandResult.Error();
+            }
+
+            await _mediator.PublishEvent(new UserLoggedEvent(userDatabase.UserId, userDatabase.Name, userDatabase.Email));
+            return CommandResult.Ok(userDatabase);
         }
     }
 }

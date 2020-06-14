@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Infra.Data.ReadRepositories
 {
-    public class UserReadRepository : IUserReadRepository
+    public class UserRavenDBRepository : IUserReadRepository
     {
         private readonly IAsyncDocumentSession _session;
 
-        public UserReadRepository(IAsyncDocumentSession session)
+        public UserRavenDBRepository(IAsyncDocumentSession session)
         {
             _session = session;
         }
@@ -24,6 +24,11 @@ namespace Bawbee.Infra.Data.ReadRepositories
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _session.Query<User>().ToListAsync();
+        }
+
+        public async Task<User> GetByEmailAndPassword(string email, string password)
+        {
+            return await _session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower() && u.Password == password);
         }
     }
 }

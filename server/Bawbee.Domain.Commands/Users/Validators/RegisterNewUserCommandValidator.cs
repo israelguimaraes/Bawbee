@@ -3,12 +3,12 @@ using FluentValidation;
 
 namespace Bawbee.Domain.Commands.Users.Validators
 {
-    public class RegisterNewUserValidator : AbstractValidator<RegisterNewUserCommand>
+    public class RegisterNewUserCommandValidator : AbstractValidator<RegisterNewUserCommand>
     {
         public const int PASSWORD_MIN_LENGTH = 6;
         public const int PASSWORD_MAX_LENGTH = 10;
 
-        public RegisterNewUserValidator()
+        public RegisterNewUserCommandValidator()
         {
             RuleFor(c => c.Name)
                 .NotEmpty()

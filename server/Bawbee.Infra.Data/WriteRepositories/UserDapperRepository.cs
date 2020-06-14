@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Infra.Data.WriteRepositories
 {
-    public class UserWriteRepository : IUserWriteRepository
+    public class UserDapperRepository : IUserWriteRepository
     {
         private readonly IDapperConnection _dapper;
 
-        public UserWriteRepository(IDapperConnection dapper)
+        public UserDapperRepository(IDapperConnection dapper)
         {
             _dapper = dapper;
         }
