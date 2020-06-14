@@ -1,5 +1,5 @@
-﻿using Bawbee.Application.InputModels.Users;
-using Bawbee.Application.Interfaces;
+﻿using Bawbee.Application.Users.InputModels;
+using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Infra.CrossCutting.Common.Security;
 using Bawbee.Infra.CrossCutting.Common.Security.Models;
