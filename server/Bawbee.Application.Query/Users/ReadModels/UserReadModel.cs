@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Domain.Queries.Users.ReadModels
+﻿namespace Bawbee.Application.Query.Users.ReadModels
 {
     public class UserReadModel
     {

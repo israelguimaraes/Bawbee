@@ -1,8 +1,7 @@
-﻿using Bawbee.Application.Users.Validators;
-using Bawbee.Domain.Commands.Users.Validators;
+﻿using Bawbee.Application.Command.Users.Validators;
 using Bawbee.Domain.Core.Commands;
 
-namespace Bawbee.Application.Users.Commands
+namespace Bawbee.Application.Command.Users
 {
     public class LoginCommand : Command
     {

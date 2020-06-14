@@ -1,8 +1,7 @@
 ﻿using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 
-namespace Bawbee.Application.Bases
+namespace Bawbee.Application.Command.Bases
 {
     public abstract class BaseCommandHandler
     {

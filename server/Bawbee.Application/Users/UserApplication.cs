@@ -2,8 +2,6 @@
 using Bawbee.Application.Users.InputModels;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Queries.Users.Queries;
-using Bawbee.Domain.Queries.Users.ReadModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

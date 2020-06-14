@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Bawbee.Application.Users.Validators
+namespace Bawbee.Application.Command.Users.Validators
 {
     public class LoginCommandValidator : AbstractValidator<LoginCommand>
     {

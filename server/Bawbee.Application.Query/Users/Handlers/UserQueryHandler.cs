@@ -1,13 +1,13 @@
-﻿using Bawbee.Domain.Core.Commands;
+﻿using Bawbee.Application.Query.Users.Queries;
+using Bawbee.Application.Query.Users.ReadModels;
+using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Interfaces;
-using Bawbee.Domain.Queries.Users.Queries;
-using Bawbee.Domain.Queries.Users.ReadModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Queries.Users.Handlers
+namespace Bawbee.Application.Query.Users.Handlers
 {
     public class UserQueryHandler
         : ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>
