@@ -11,8 +11,4 @@
     <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Adapters\" />
-  </ItemGroup>
-
 </Project>
