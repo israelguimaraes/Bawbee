@@ -1,6 +1,6 @@
 ﻿namespace Bawbee.Infra.CrossCutting.Common.Security.Models
 {
-    public class UserTokenDTO
+    public class UserDTO
     {
         public int UserId { get; set; }
         public string Name { get; set; }

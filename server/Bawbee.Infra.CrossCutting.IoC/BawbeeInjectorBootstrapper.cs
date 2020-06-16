@@ -8,6 +8,7 @@ using Bawbee.Domain.Core.Events;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Bus;
+using Bawbee.Infra.CrossCutting.Common.Security;
 using Bawbee.Infra.Data.EventSource;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using Bawbee.Infra.Data.ReadRepositories;
@@ -44,6 +45,9 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             // EventSource
             services.AddScoped<IEventStore, RavenDBEventStore>();
+
+            // Infra.CrossCutting.Common
+            services.AddScoped<IJwtService, JwtService>();
 
             services.RegisterSwagger();
         }
