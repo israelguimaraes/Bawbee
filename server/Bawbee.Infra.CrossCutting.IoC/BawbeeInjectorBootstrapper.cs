@@ -1,13 +1,14 @@
-﻿using Bawbee.Application.Interfaces;
+﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Services;
-using Bawbee.Domain.Commands;
+using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Interfaces;
-using Bawbee.Domain.Queries.Users.Queries;
 using Bawbee.Infra.CrossCutting.Bus;
+using Bawbee.Infra.CrossCutting.Common.Security;
 using Bawbee.Infra.Data.EventSource;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using Bawbee.Infra.Data.ReadRepositories;
@@ -45,18 +46,27 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // EventSource
             services.AddScoped<IEventStore, RavenDBEventStore>();
 
+            // Infra.CrossCutting.Common
+            services.AddScoped<IJwtService, JwtService>();
+
             services.RegisterSwagger();
         }
 
         private static void RegisterAssembliesForMediatr(IServiceCollection services)
         {
-            // Bawbee.Domain.Core
-            services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
-
             // Bawbee.Domain
             services.AddMediatR(typeof(BaseCommandHandler).GetTypeInfo().Assembly);
 
-            // Bawbee.Domain.Queries
+            // Bawbee.Domain.Core
+            services.AddMediatR(typeof(BaseCommand).GetTypeInfo().Assembly);
+
+            // Bawbee.Application
+            services.AddMediatR(typeof(UserApplication).GetTypeInfo().Assembly);
+
+            // Bawbee.Application.Command
+            services.AddMediatR(typeof(LoginCommand).GetTypeInfo().Assembly);
+
+            // Bawbee.Application.Query
             services.AddMediatR(typeof(GetAllUsersQuery).GetTypeInfo().Assembly);
 
             // Bawbee.Infra.Data

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Bawbee.Infra.CrossCutting.Common.Security
 {
-    public class JwtService
+    public class JwtService : IJwtService
     {
         private readonly string _secret;
         private readonly string _expDate;
@@ -21,27 +21,33 @@ namespace Bawbee.Infra.CrossCutting.Common.Security
             _expDate = jwtConfig.GetSection("expirationHours").Value;
         }
 
-        public string GenerateSecurityToken(UserTokenDTO user)
+        public UserAcessTokenDTO GenerateSecurityToken(int userId, string username, string email)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_secret);
-            
+
+            var expiresIn = DateTime.UtcNow.AddHours(double.Parse(_expDate));
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                    new Claim(ClaimTypes.Email, email),
+                    new Claim(ClaimTypes.Name, username),
                 }),
-                Expires = DateTime.UtcNow.AddHours(double.Parse(_expDate)),
+                Expires = expiresIn,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var result = tokenHandler.WriteToken(token);
+            var accessToken = tokenHandler.WriteToken(token);
 
-            return result;
+            return new UserAcessTokenDTO
+            {
+                AccessToken = accessToken,
+                ExpiresIn = expiresIn
+            };
         }
     }
 }
