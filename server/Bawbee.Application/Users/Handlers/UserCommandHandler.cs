@@ -34,12 +34,6 @@ namespace Bawbee.Application.Users.Handlers
 
         public async Task<CommandResult> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
         {
-            if (!command.IsValid())
-            {
-                SendNotificationsErrors(command);
-                return CommandResult.Error();
-            }
-
             var userDatabase = await _userReadRepository.GetByEmail(command.Email);
 
             if (userDatabase != null)
@@ -57,12 +51,6 @@ namespace Bawbee.Application.Users.Handlers
 
         public async Task<CommandResult> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
-            if (!command.IsValid())
-            {
-                SendNotificationsErrors(command);
-                return CommandResult.Error();
-            }
-
             var user = await _userReadRepository.GetByEmailAndPassword(command.Email, command.Password);
 
             if (user == null)
