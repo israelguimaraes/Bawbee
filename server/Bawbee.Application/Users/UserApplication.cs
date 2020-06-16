@@ -4,6 +4,7 @@ using Bawbee.Application.Query.Users.ReadModels;
 using Bawbee.Application.Users.InputModels;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
+using Bawbee.Domain.Core.Commands;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -30,6 +31,12 @@ namespace Bawbee.Application.Services
         {
             var query = new GetAllUsersQuery();
             return _mediator.SendCommand(query);
+        }
+
+        public async Task<CommandResult> Login(LoginInputModel model)
+        {
+            var command = new LoginCommand(model.Email, model.Password);
+            return await _mediator.SendCommand(command);
         }
 
         public void Dispose()

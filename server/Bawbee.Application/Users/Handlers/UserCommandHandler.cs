@@ -5,6 +5,7 @@ using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Interfaces;
+using Bawbee.Infra.CrossCutting.Common.Security;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,15 +16,18 @@ namespace Bawbee.Application.Users.Handlers
         ICommandHandler<LoginCommand>
     {
         private readonly IMediatorHandler _mediator;
+        private readonly IJwtService _jwtService;
         private readonly IUserWriteRepository _userWriteRepository;
         private readonly IUserReadRepository _userReadRepository;
 
         public UserCommandHandler(
             IMediatorHandler mediator,
+            IJwtService jwtService,
             IUserWriteRepository userWriteRepository,
             IUserReadRepository userReadRepository) : base(mediator)
         {
             _mediator = mediator;
+            _jwtService = jwtService;
             _userWriteRepository = userWriteRepository;
             _userReadRepository = userReadRepository;
         }
@@ -59,16 +63,19 @@ namespace Bawbee.Application.Users.Handlers
                 return CommandResult.Error();
             }
 
-            var userDatabase = await _userReadRepository.GetByEmailAndPassword(command.Email, command.Password);
+            var user = await _userReadRepository.GetByEmailAndPassword(command.Email, command.Password);
 
-            if (userDatabase == null)
+            if (user == null)
             {
                 await _mediator.PublishEvent(new DomainNotification("E-mail or password is invalid"));
                 return CommandResult.Error();
             }
 
-            await _mediator.PublishEvent(new UserLoggedEvent(userDatabase.UserId, userDatabase.Name, userDatabase.Email));
-            return CommandResult.Ok(userDatabase);
+            var userAccessToken = _jwtService.GenerateSecurityToken(user.UserId, user.Name, user.Email);
+
+            await _mediator.PublishEvent(new UserLoggedEvent(user.UserId, user.Name, user.Email));
+            
+            return CommandResult.Ok(userAccessToken);
         }
     }
 }
