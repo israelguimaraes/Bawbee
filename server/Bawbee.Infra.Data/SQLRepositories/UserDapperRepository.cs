@@ -1,11 +1,11 @@
 ﻿using Bawbee.Domain.Entities;
 using Bawbee.Domain.Interfaces;
-using Bawbee.Infra.Data.WriteRepositories.Dapper;
+using Bawbee.Infra.Data.SQLRepositories.Dapper;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using System.Threading.Tasks;
 
-namespace Bawbee.Infra.Data.WriteRepositories
+namespace Bawbee.Infra.Data.SQLRepositories
 {
     public class UserSqlServerRepository : IUserRepository
     {

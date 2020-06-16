@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace Bawbee.Infra.Data.WriteRepositories.Dapper
+namespace Bawbee.Infra.Data.SQLRepositories.Dapper
 {
     public class DapperConnection : IDapperConnection
     {
