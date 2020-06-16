@@ -32,8 +32,8 @@ namespace Bawbee.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewUser(RegisterNewUserInputModel model)
         {
-            await _userApplication.Register(model);
-            return Response();
+            var result = await _userApplication.Register(model);
+            return Response(result);
         }
 
         [HttpGet("")]

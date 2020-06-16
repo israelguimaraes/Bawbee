@@ -20,7 +20,6 @@ namespace Bawbee.Infra.Data.EventSource
             var storeEvent = new StoredEvent(eventObj);
 
             await _session.StoreAsync(storeEvent);
-            await _session.SaveChangesAsync();
         }
     }
 }

@@ -5,6 +5,7 @@ using Bawbee.Application.Users.InputModels;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Core.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using System;
 using System.Collections.Generic;
@@ -15,22 +16,32 @@ namespace Bawbee.Application.Services
     public class UserApplication : IUserApplication
     {
         private readonly IMediatorHandler _mediator;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserApplication(IMediatorHandler mediator)
+        public UserApplication(IMediatorHandler mediator, IUnitOfWork unitOfWork)
         {
             _mediator = mediator;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<CommandResult> Register(RegisterNewUserInputModel model)
         {
             var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
 
-            if (command.IsValid())
+            if (!command.IsValid())
             {
-                return await _mediator.SendCommand(command);
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
             }
 
-            SendNotificationsErrors(command);
+            var commandResult = await _mediator.SendCommand(command);
+
+            if (commandResult.IsSuccess)
+            {
+                await _unitOfWork.CommitTransaction();
+                return commandResult;
+            }
+            
             return CommandResult.Error();
         }
 

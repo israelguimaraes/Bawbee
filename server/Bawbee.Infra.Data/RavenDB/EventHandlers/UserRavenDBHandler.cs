@@ -25,7 +25,6 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
                     userRegistered.UserId);
 
             await _session.StoreAsync(user);
-            await _session.SaveChangesAsync();
         }
     }
 }
