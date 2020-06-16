@@ -12,10 +12,9 @@ namespace Bawbee.Domain.Core.Commands
             _mediator = mediator;
         }
 
-        protected void SendNotificationsErrors(BaseCommand message)
+        protected void AddError(DomainNotification message)
         {
-            foreach (var error in message.ValidationResult.Errors)
-                _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));
+            _mediator.PublishEvent(new DomainNotification(message.Value));
         }
     }
 }

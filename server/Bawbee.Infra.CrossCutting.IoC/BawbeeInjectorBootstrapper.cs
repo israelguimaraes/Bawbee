@@ -1,4 +1,5 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Query.Users.Interfaces;
 using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Services;
 using Bawbee.Application.Users.Interfaces;
@@ -10,10 +11,10 @@ using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Bus;
 using Bawbee.Infra.CrossCutting.Common.Security;
 using Bawbee.Infra.Data.EventSource;
+using Bawbee.Infra.Data.NoSQLRepositories;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
-using Bawbee.Infra.Data.ReadRepositories;
-using Bawbee.Infra.Data.WriteRepositories;
-using Bawbee.Infra.Data.WriteRepositories.Dapper;
+using Bawbee.Infra.Data.SQLRepositories;
+using Bawbee.Infra.Data.SQLRepositories.Dapper;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,7 +40,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.RegisterRavenDB(configuration);
 
             // Repositories
-            services.AddScoped<IUserWriteRepository, UserDapperRepository>();
+            services.AddScoped<IUserRepository, UserSqlServerRepository>();
             services.AddScoped<IUserReadRepository, UserRavenDBRepository>();
             services.AddScoped<IDapperConnection, DapperConnection>();
 

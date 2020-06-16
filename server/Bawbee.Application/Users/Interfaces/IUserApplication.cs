@@ -9,10 +9,8 @@ namespace Bawbee.Application.Users.Interfaces
 {
     public interface IUserApplication : IDisposable
     {
-        Task Register(RegisterNewUserInputModel model);
-        //Task<CommandResult> Register(RegisterNewUserInputModel model);
+        Task<CommandResult> Register(RegisterNewUserInputModel model);
         Task<IEnumerable<UserReadModel>> GetAll();
         Task<CommandResult> Login(LoginInputModel model);
-        //Task<UserLoginReadModel> Login(LoginInputModel model);
     }
 }

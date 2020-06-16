@@ -1,11 +1,11 @@
-﻿using Bawbee.Domain.Entities;
-using Bawbee.Domain.Interfaces;
+﻿using Bawbee.Application.Query.Users.Interfaces;
+using Bawbee.Domain.Entities;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bawbee.Infra.Data.ReadRepositories
+namespace Bawbee.Infra.Data.NoSQLRepositories
 {
     public class UserRavenDBRepository : IUserReadRepository
     {

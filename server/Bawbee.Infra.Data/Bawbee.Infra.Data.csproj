@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bawbee.Application.Query\Bawbee.Application.Query.csproj" />
     <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
   </ItemGroup>
 

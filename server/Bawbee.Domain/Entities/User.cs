@@ -13,6 +13,9 @@ namespace Bawbee.Domain.Entities
         public string Email { get; private set; }
         public string Password { get; private set; }
 
+        // For Dapper
+        protected User() { }
+
         private User(int userId)
         {
             UserId = userId;

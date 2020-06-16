@@ -5,6 +5,7 @@ using Bawbee.Application.Users.InputModels;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Core.Notifications;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,11 +21,17 @@ namespace Bawbee.Application.Services
             _mediator = mediator;
         }
 
-        public async Task Register(RegisterNewUserInputModel model)
+        public async Task<CommandResult> Register(RegisterNewUserInputModel model)
         {
             var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
-            //return result = await _mediator.SendCommand(command);
-            await _mediator.SendCommand(command);
+
+            if (command.IsValid())
+            {
+                return await _mediator.SendCommand(command);
+            }
+
+            SendNotificationsErrors(command);
+            return CommandResult.Error();
         }
 
         public Task<IEnumerable<UserReadModel>> GetAll()
@@ -36,7 +43,20 @@ namespace Bawbee.Application.Services
         public async Task<CommandResult> Login(LoginInputModel model)
         {
             var command = new LoginCommand(model.Email, model.Password);
-            return await _mediator.SendCommand(command);
+
+            if (command.IsValid())
+            {
+                return await _mediator.SendCommand(command);
+            }
+
+            SendNotificationsErrors(command);
+            return CommandResult.Error();
+        }
+
+        private void SendNotificationsErrors(BaseCommand message)
+        {
+            foreach (var error in message.ValidationResult.Errors)
+                _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));
         }
 
         public void Dispose()
