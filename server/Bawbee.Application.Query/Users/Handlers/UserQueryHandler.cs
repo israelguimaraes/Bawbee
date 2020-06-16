@@ -1,7 +1,7 @@
-﻿using Bawbee.Application.Query.Users.Queries;
+﻿using Bawbee.Application.Query.Users.Interfaces;
+using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Query.Users.ReadModels;
 using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

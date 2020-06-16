@@ -1,4 +1,5 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Query.Users.Interfaces;
 using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Services;
 using Bawbee.Application.Users.Interfaces;
@@ -39,7 +40,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.RegisterRavenDB(configuration);
 
             // Repositories
-            services.AddScoped<IUserWriteRepository, UserDapperRepository>();
+            services.AddScoped<IUserRepository, UserSqlServerRepository>();
             services.AddScoped<IUserReadRepository, UserRavenDBRepository>();
             services.AddScoped<IDapperConnection, DapperConnection>();
 

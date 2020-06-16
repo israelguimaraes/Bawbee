@@ -17,24 +17,21 @@ namespace Bawbee.Application.Users.Handlers
     {
         private readonly IMediatorHandler _mediator;
         private readonly IJwtService _jwtService;
-        private readonly IUserWriteRepository _userWriteRepository;
-        private readonly IUserReadRepository _userReadRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserCommandHandler(
             IMediatorHandler mediator,
             IJwtService jwtService,
-            IUserWriteRepository userWriteRepository,
-            IUserReadRepository userReadRepository) : base(mediator)
+            IUserRepository userReadRepository) : base(mediator)
         {
             _mediator = mediator;
             _jwtService = jwtService;
-            _userWriteRepository = userWriteRepository;
-            _userReadRepository = userReadRepository;
+            _userRepository = userReadRepository;
         }
 
         public async Task<CommandResult> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
         {
-            var userDatabase = await _userReadRepository.GetByEmail(command.Email);
+            var userDatabase = await _userRepository.GetByEmail(command.Email);
 
             if (userDatabase != null)
             {
@@ -43,7 +40,7 @@ namespace Bawbee.Application.Users.Handlers
             }
 
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
-            await _userWriteRepository.Add(user);
+            await _userRepository.Add(user);
 
             await _mediator.PublishEvent(new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password));
             return CommandResult.Ok();
@@ -51,7 +48,7 @@ namespace Bawbee.Application.Users.Handlers
 
         public async Task<CommandResult> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
-            var user = await _userReadRepository.GetByEmailAndPassword(command.Email, command.Password);
+            var user = await _userRepository.GetByEmailAndPassword(command.Email, command.Password);
 
             if (user == null)
             {

@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Entities;
-using Bawbee.Domain.Interfaces;
+﻿using Bawbee.Application.Query.Users.Interfaces;
+using Bawbee.Domain.Entities;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 using System.Collections.Generic;
