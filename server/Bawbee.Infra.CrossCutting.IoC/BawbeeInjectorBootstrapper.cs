@@ -6,10 +6,12 @@ using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
+using Bawbee.Domain.Core.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Bus;
 using Bawbee.Infra.CrossCutting.Common.Security;
+using Bawbee.Infra.Data;
 using Bawbee.Infra.Data.EventSource;
 using Bawbee.Infra.Data.NoSQLRepositories;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
@@ -39,10 +41,11 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             services.RegisterRavenDB(configuration);
 
-            // Repositories
+            // Infra.Data
             services.AddScoped<IUserRepository, UserSqlServerRepository>();
             services.AddScoped<IUserReadRepository, UserRavenDBRepository>();
             services.AddScoped<IDapperConnection, DapperConnection>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // EventSource
             services.AddScoped<IEventStore, RavenDBEventStore>();
