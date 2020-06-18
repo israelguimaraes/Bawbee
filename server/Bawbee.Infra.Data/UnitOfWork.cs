@@ -9,7 +9,7 @@ namespace Bawbee.Infra.Data
     public class UnitOfWork : IUnitOfWork
     {
         private readonly IAsyncDocumentSession _ravenDBSession;
-        private readonly TransactionScope _sqlTransaction;
+        private TransactionScope _sqlTransaction;
 
         public UnitOfWork(IAsyncDocumentSession documentSession)
         {
@@ -30,6 +30,8 @@ namespace Bawbee.Infra.Data
             }
             catch (Exception ex)
             {
+                _sqlTransaction.Dispose();
+                _sqlTransaction = null;
                 // TODO: Log exception
                 throw;
             }

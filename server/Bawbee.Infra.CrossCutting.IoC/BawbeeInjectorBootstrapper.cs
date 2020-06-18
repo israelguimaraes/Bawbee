@@ -16,7 +16,6 @@ using Bawbee.Infra.Data.EventSource;
 using Bawbee.Infra.Data.NoSQLRepositories;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using Bawbee.Infra.Data.SQLRepositories;
-using Bawbee.Infra.Data.SQLRepositories.Dapper;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,15 +38,15 @@ namespace Bawbee.Infra.CrossCutting.IoC
             // Application
             services.AddScoped<IUserApplication, UserApplication>();
 
-            services.RegisterRavenDB(configuration);
-
             // Infra.Data
             services.AddScoped<IUserRepository, UserSqlServerRepository>();
             services.AddScoped<IUserReadRepository, UserRavenDBRepository>();
-            services.AddScoped<IDapperConnection, DapperConnection>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // EventSource
+            services.RegisterRavenDB(configuration);
+            services.RegisterSqlServer(configuration);
+            
+            // Event Source
             services.AddScoped<IEventStore, RavenDBEventStore>();
 
             // Infra.CrossCutting.Common

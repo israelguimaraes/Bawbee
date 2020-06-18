@@ -5,13 +5,18 @@ namespace Bawbee.Infra.Data.SQLRepositories.Dapper
 {
     public class DapperConnection : IDapperConnection
     {
+        private readonly string _connectionString;
+
+        public DapperConnection(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         public IDbConnection Connection
         {
             get
             {
-                // TODO: inject dependency
-                var connectionString = @"Server=.\SQLEXPRESS;Database=Bawbee;MultipleActiveResultSets=true;User Id=sa;Password=123456";
-                return new SqlConnection(connectionString);
+                return new SqlConnection(_connectionString);
             }
         }
 
