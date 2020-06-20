@@ -1,14 +1,14 @@
-﻿using RabbitMQ.Client;
+﻿using Bawbee.Domain.Core.Bus;
+using RabbitMQ.Client;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 {
-    public class RabbitMQConnection : IRabbitMQConnection, IDisposable
+    public class RabbitMQConnection : IEventBusConnection<IModel>, IDisposable
     {
         private ConnectionFactory _connectionFactory;
         private IConnection _connection;
+        private IModel _channel;
 
         public RabbitMQConnection()
         {
@@ -26,12 +26,19 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 
         public bool IsConnected()
         {
-            return false;
+            return _connection != null && _connection.IsOpen;
+        }
+
+        public IModel CreateChannel()
+        {
+            ConnectIfNecessary();
+
+            return _connection.CreateModel();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _connection.Dispose();
         }
     }
 }

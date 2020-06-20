@@ -5,16 +5,16 @@ namespace Bawbee.Domain.Core.Commands
 {
     public abstract class BaseCommandHandler
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly IEventBus _eventBus;
 
-        public BaseCommandHandler(IMediatorHandler mediator)
+        public BaseCommandHandler(IEventBus eventBus)
         {
-            _mediator = mediator;
+            _eventBus = eventBus;
         }
 
         protected void AddError(DomainNotification message)
         {
-            _mediator.PublishEvent(new DomainNotification(message.Value));
+            _eventBus.Publish(new DomainNotification(message.Value));
         }
     }
 }
