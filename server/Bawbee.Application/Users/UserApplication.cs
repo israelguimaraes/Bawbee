@@ -14,11 +14,11 @@ namespace Bawbee.Application.Services
 {
     public class UserApplication : IUserApplication
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly IEventBus _eventBus;
 
-        public UserApplication(IMediatorHandler mediator)
+        public UserApplication(IEventBus eventBus)
         {
-            _mediator = mediator;
+            _eventBus = eventBus;
         }
 
         public async Task<CommandResult> Register(RegisterNewUserInputModel model)
@@ -31,13 +31,13 @@ namespace Bawbee.Application.Services
                 return CommandResult.Error();
             }
 
-            return await _mediator.SendCommand(command);
+            return await _eventBus.SendCommand(command);
         }
 
         public Task<IEnumerable<UserReadModel>> GetAll()
         {
             var query = new GetAllUsersQuery();
-            return _mediator.SendCommand(query);
+            return _eventBus.SendCommand(query);
         }
 
         public async Task<CommandResult> Login(LoginInputModel model)
@@ -46,7 +46,7 @@ namespace Bawbee.Application.Services
 
             if (command.IsValid())
             {
-                return await _mediator.SendCommand(command);
+                return await _eventBus.SendCommand(command);
             }
 
             SendNotificationsErrors(command);
@@ -56,7 +56,7 @@ namespace Bawbee.Application.Services
         private void SendNotificationsErrors(BaseCommand message)
         {
             foreach (var error in message.ValidationResult.Errors)
-                _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));
+                _eventBus.Publish(new DomainNotification(error.ErrorMessage));
         }
 
         public void Dispose()

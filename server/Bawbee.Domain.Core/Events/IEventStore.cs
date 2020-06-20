@@ -4,6 +4,6 @@ namespace Bawbee.Domain.Core.Events
 {
     public interface IEventStore
     {
-        Task Store(Event eventObj);
+        Task Store(IEvent @event);
     }
 }

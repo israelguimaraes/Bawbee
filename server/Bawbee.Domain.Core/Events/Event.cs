@@ -5,20 +5,18 @@ using System;
 
 namespace Bawbee.Domain.Core.Events
 {
-    public abstract class Event : Message, INotification
+    public abstract class Event : Message, IEvent, INotification
     {
-        public Guid Id { get; private set; }
         public DateTime Timestamp { get; private set; }
 
         protected Event()
         {
-            Id = Guid.NewGuid();
             Timestamp = DateTime.Now;
         }
 
-        public bool MustBeStored()
-        {
-            return MessageType != nameof(DomainNotification);
-        }
+        //public bool MustBeStored()
+        //{
+        //    return MessageType != nameof(DomainNotification);
+        //}
     }
 }

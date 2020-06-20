@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Bus;
+using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
 using MediatR;
 using Newtonsoft.Json;
@@ -7,12 +8,15 @@ using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 {
     public class RabbitMQEventBus : IEventBus, IDisposable
     {
         private static IDictionary<string, Type> _listEventTypes;
+        private IModel _consumerChannel;
 
         private readonly IEventBusConnection<IModel> _eventBusConnection;
         private readonly IMediator _mediator;
@@ -22,12 +26,16 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
             _eventBusConnection = eventBusConnection;
             _mediator = mediator;
             _listEventTypes = new Dictionary<string, Type>();
+            _consumerChannel = GetConsumerChannel();
+        }
+
+        public async Task<TResponse> SendCommand<TResponse>(IRequest<TResponse> command, CancellationToken cancellationToken = default)
+        {
+            return await _mediator.Send(command);
         }
 
         public void Publish(Event @event)
         {
-            _eventBusConnection.ConnectIfNecessary();
-
             var channel = _eventBusConnection.CreateChannel();
 
             channel.QueueDeclare(
@@ -51,27 +59,13 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
             // TODO: log event?
         }
 
-        public void Subscribe<T>() where T : Event
+        public IModel GetConsumerChannel()
         {
-            var typeEvent = typeof(T);
-            var eventName = typeEvent.Name;
-
-            if (!_listEventTypes.ContainsKey(eventName))
-                _listEventTypes.Add(eventName, typeEvent);
-
             var channel = _eventBusConnection.CreateChannel();
 
-            channel.QueueBind(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                    exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                    routingKey: eventName);
-        }
-
-        public void GetConsumerChannel()
-        {
-            _eventBusConnection.ConnectIfNecessary();
-            
-            var channel = _eventBusConnection.CreateChannel();
+            channel.ExchangeDeclare(
+                exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
+                type: "direct");
 
             channel.QueueDeclare(
                     queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
@@ -87,10 +81,11 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 var message = Encoding.UTF8.GetString(args.Body.ToArray());
 
                 var type = _listEventTypes[eventName];
-                var @event = (Event)JsonConvert.DeserializeObject(message, type);
+                var @event = (IEvent)JsonConvert.DeserializeObject(message, type);
 
                 await _mediator.Publish(@event);
 
+                channel.BasicAck(args.DeliveryTag, multiple: false);
                 // TODO: log event?
             };
 
@@ -98,6 +93,24 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
                 autoAck: true,
                 consumer: consumer);
+
+            return channel;
+        }
+
+        public void Subscribe<T>() where T : Event
+        {
+            var typeEvent = typeof(T);
+            var eventName = typeEvent.Name;
+
+            if (!_listEventTypes.ContainsKey(eventName))
+                _listEventTypes.Add(eventName, typeEvent);
+
+            var channel = _eventBusConnection.CreateChannel();
+
+            channel.QueueBind(
+                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
+                    exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
+                    routingKey: eventName);
         }
 
         public void Dispose()

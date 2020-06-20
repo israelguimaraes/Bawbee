@@ -8,12 +8,6 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
     {
         private ConnectionFactory _connectionFactory;
         private IConnection _connection;
-        private IModel _channel;
-
-        public RabbitMQConnection()
-        {
-
-        }
 
         public void ConnectIfNecessary()
         {
