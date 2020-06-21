@@ -25,13 +25,13 @@ namespace Bawbee.Application.Services
         {
             var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
 
-            if (command.IsValid())
+            if (!command.IsValid())
             {
-                return await _mediator.SendCommand(command);
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
             }
 
-            SendNotificationsErrors(command);
-            return CommandResult.Error();
+            return await _mediator.SendCommand(command);
         }
 
         public Task<IEnumerable<UserReadModel>> GetAll()

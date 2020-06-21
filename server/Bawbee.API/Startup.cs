@@ -1,4 +1,6 @@
 using Bawbee.API.Setups;
+using Bawbee.Domain.Core.Bus;
+using Bawbee.Domain.Events;
 using Bawbee.Infra.CrossCutting.IoC;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -48,6 +50,11 @@ namespace Bawbee.API
             });
 
             app.ConfigureSwagger();
+
+
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<UserRegisteredEvent>();
         }
     }
 }

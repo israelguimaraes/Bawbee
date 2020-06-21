@@ -10,7 +10,7 @@ namespace Bawbee.Infra.Data.RavenDB
         {
             Store = new DocumentStore
             {
-                Urls = new[] { ravenConfig.Url },
+                Urls = new[] { ravenConfig.ServerUrl },
                 Database = ravenConfig.Database
             };
 

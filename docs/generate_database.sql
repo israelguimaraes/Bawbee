@@ -1,3 +1,5 @@
+CREATE DATABASE [Bawbee]
+GO
 USE [Bawbee]
 GO
 /****** Object:  Table [dbo].[Users]    Script Date: 07/06/2020 16:30:46 ******/

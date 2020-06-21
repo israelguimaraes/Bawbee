@@ -42,7 +42,10 @@ namespace Bawbee.Application.Users.Handlers
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
             await _userRepository.Add(user);
 
-            await _mediator.PublishEvent(new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password));
+            var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
+            
+            await _mediator.PublishEvent(userRegisteredEvent);
+            
             return CommandResult.Ok();
         }
 

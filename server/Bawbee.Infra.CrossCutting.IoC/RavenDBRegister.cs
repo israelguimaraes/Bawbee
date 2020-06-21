@@ -5,7 +5,7 @@ using Raven.Client.Documents.Session;
 
 namespace Bawbee.Infra.CrossCutting.IoC
 {
-    public static class RavenDBInjector
+    public static class RavenDBRegister
     {
         // Info: https://ayende.com/blog/187906-B/using-ravendb-unit-of-work-and-net-core-mvc
         public static void RegisterRavenDB(this IServiceCollection services, IConfiguration configuration)
