@@ -15,19 +15,16 @@ namespace Bawbee.Application.Users.Handlers
         ICommandHandler<RegisterNewUserCommand>,
         ICommandHandler<LoginCommand>
     {
-        private readonly IEventBus _eventBus;
-        //private readonly IMediatorHandler _mediator;
+        private readonly IMediatorHandler _mediator;
         private readonly IJwtService _jwtService;
         private readonly IUserRepository _userRepository;
 
         public UserCommandHandler(
-            IEventBus eventBus,
-            //IMediatorHandler mediator,
+            IMediatorHandler mediator,
             IJwtService jwtService,
-            IUserRepository userReadRepository) : base(eventBus)
+            IUserRepository userReadRepository) : base(mediator)
         {
-            _eventBus = eventBus;
-            //_mediator = mediator;
+            _mediator = mediator;
             _jwtService = jwtService;
             _userRepository = userReadRepository;
         }
@@ -38,7 +35,7 @@ namespace Bawbee.Application.Users.Handlers
 
             if (userDatabase != null)
             {
-                await _eventBus.Publish(new DomainNotification("E-mail already used."));
+                await _mediator.PublishEvent(new DomainNotification("E-mail already used."));
                 return CommandResult.Error();
             }
 
@@ -47,8 +44,7 @@ namespace Bawbee.Application.Users.Handlers
 
             var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
             
-            //await _mediator.PublishEvent(userRegisteredEvent);
-            await _eventBus.Publish(userRegisteredEvent);
+            await _mediator.PublishEvent(userRegisteredEvent);
             
             return CommandResult.Ok();
         }
@@ -59,13 +55,13 @@ namespace Bawbee.Application.Users.Handlers
 
             if (user == null)
             {
-                await _eventBus.Publish(new DomainNotification("E-mail or password is invalid"));
+                await _mediator.PublishEvent(new DomainNotification("E-mail or password is invalid"));
                 return CommandResult.Error();
             }
 
             var userAccessToken = _jwtService.GenerateSecurityToken(user.UserId, user.Name, user.Email);
 
-            await _eventBus.Publish(new UserLoggedEvent(user.UserId, user.Name, user.Email));
+            await _mediator.PublishEvent(new UserLoggedEvent(user.UserId, user.Name, user.Email));
             
             return CommandResult.Ok(userAccessToken);
         }

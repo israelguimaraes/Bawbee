@@ -14,6 +14,16 @@ namespace Bawbee.Domain.Core.Events
             Timestamp = DateTime.Now;
         }
 
+        public bool MustBeStored()
+        {
+            return !IsDomainNotification();
+        }
+
+        public bool MustBeSentToQueue()
+        {
+            return !IsDomainNotification();
+        }
+
         public bool IsDomainNotification()
         {
             return MessageType == nameof(DomainNotification);

@@ -13,22 +13,14 @@ namespace Bawbee.Infra.Data.EventSource
             _session = session;
         }
 
-        //public async Task Store(Event eventObj)
-        //{
-        //    if (eventObj == null) return;
-
-        //    var storeEvent = new StoredEvent(eventObj);
-
-        //    await _session.StoreAsync(storeEvent);
-        //}
-
-        public async Task Store(IEvent @event)
+        public async Task Store<T>(T @event) where T : Event
         {
             if (@event == null) return;
 
             var storeEvent = new StoredEvent(@event);
 
             await _session.StoreAsync(storeEvent);
+            await _session.SaveChangesAsync();
         }
     }
 }

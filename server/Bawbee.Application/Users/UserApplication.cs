@@ -6,7 +6,6 @@ using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,35 +14,30 @@ namespace Bawbee.Application.Services
 {
     public class UserApplication : IUserApplication
     {
-        private readonly IEventBus _eventBus;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IMediatorHandler _mediator;
 
-        public UserApplication(IEventBus eventBus, IServiceProvider serviceProvider)
+        public UserApplication(IMediatorHandler mediator)
         {
-            _eventBus = eventBus;
-            _serviceProvider = serviceProvider;
+            _mediator = mediator;
         }
 
         public async Task<CommandResult> Register(RegisterNewUserInputModel model)
         {
-            using (var scope = _serviceProvider.CreateScope())
+            var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
+
+            if (!command.IsValid())
             {
-                var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
-
-                if (!command.IsValid())
-                {
-                    SendNotificationsErrors(command);
-                    return CommandResult.Error();
-                }
-
-                return await _eventBus.SendCommand(command);
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
             }
+
+            return await _mediator.SendCommand(command);
         }
 
         public Task<IEnumerable<UserReadModel>> GetAll()
         {
             var query = new GetAllUsersQuery();
-            return _eventBus.SendCommand(query);
+            return _mediator.SendCommand(query);
         }
 
         public async Task<CommandResult> Login(LoginInputModel model)
@@ -52,7 +46,7 @@ namespace Bawbee.Application.Services
 
             if (command.IsValid())
             {
-                return await _eventBus.SendCommand(command);
+                return await _mediator.SendCommand(command);
             }
 
             SendNotificationsErrors(command);
@@ -62,7 +56,7 @@ namespace Bawbee.Application.Services
         private void SendNotificationsErrors(BaseCommand message)
         {
             foreach (var error in message.ValidationResult.Errors)
-                _eventBus.Publish(new DomainNotification(error.ErrorMessage));
+                _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));
         }
 
         public void Dispose()
