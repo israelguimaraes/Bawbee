@@ -1,7 +1,7 @@
 ﻿using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
 using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -16,50 +16,74 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
     public class RabbitMQEventBus : IEventBus, IDisposable
     {
         private static IDictionary<string, Type> _listEventTypes;
-        private IModel _consumerChannel;
 
         private readonly IEventBusConnection<IModel> _eventBusConnection;
-        private readonly IMediator _mediator;
+        private readonly IServiceProvider _serviceProvider;
 
-        public RabbitMQEventBus(IEventBusConnection<IModel> eventBusConnection, IMediator mediator)
+        public RabbitMQEventBus(IEventBusConnection<IModel> eventBusConnection, IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             _eventBusConnection = eventBusConnection;
-            _mediator = mediator;
             _listEventTypes = new Dictionary<string, Type>();
-            _consumerChannel = GetConsumerChannel();
+            
+            CreateConsumeChannel();
         }
 
         public async Task<TResponse> SendCommand<TResponse>(IRequest<TResponse> command, CancellationToken cancellationToken = default)
         {
-            return await _mediator.Send(command);
+            var mediator = _serviceProvider.GetService<IMediator>();
+            return await mediator.Send(command);
+
+
+            /*using (var scope = _serviceProvider.CreateScope())
+            {
+                var mediator = scope.ServiceProvider.GetService<IMediator>();
+                return await mediator.Send(command);
+            }*/
         }
 
-        public void Publish(Event @event)
+        public async Task Publish(Event @event)
         {
-            var channel = _eventBusConnection.CreateChannel();
+            if (@event.IsDomainNotification())
+            {
+                var mediator = _serviceProvider.GetService<IMediator>();
+                await mediator.Publish(@event);
 
-            channel.QueueDeclare(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+                /*
 
-            var message = JsonConvert.SerializeObject(@event);
-            var body = Encoding.UTF8.GetBytes(message);
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    //var mediator = scope.ServiceProvider.GetService<IMediator>();
+                    //await mediator.Publish(@event);
+                }*/
+            }
+            else
+            {
+                var channel = _eventBusConnection.CreateChannel();
 
-            var eventName = @event.GetType().Name;
+                channel.QueueDeclare(
+                        queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
+                        durable: true,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null);
 
-            channel.BasicPublish(
-                exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                routingKey: eventName,
-                basicProperties: null,
-                body: body);
+                var message = JsonConvert.SerializeObject(@event);
+                var body = Encoding.UTF8.GetBytes(message);
 
-            // TODO: log event?
+                var eventName = @event.GetType().Name;
+
+                channel.BasicPublish(
+                    exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
+                    routingKey: eventName,
+                    basicProperties: null,
+                    body: body);
+
+                // TODO: log event?
+            }
         }
 
-        public IModel GetConsumerChannel()
+        public void CreateConsumeChannel()
         {
             var channel = _eventBusConnection.CreateChannel();
 
@@ -83,7 +107,11 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 var type = _listEventTypes[eventName];
                 var @event = (IEvent)JsonConvert.DeserializeObject(message, type);
 
-                await _mediator.Publish(@event);
+                using (var scope = _serviceProvider.CreateScope())
+                {
+                    var mediator = scope.ServiceProvider.GetService<IMediator>();
+                    await mediator.Publish(@event);
+                }
 
                 channel.BasicAck(args.DeliveryTag, multiple: false);
                 // TODO: log event?
@@ -93,8 +121,6 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
                 autoAck: true,
                 consumer: consumer);
-
-            return channel;
         }
 
         public void Subscribe<T>() where T : Event

@@ -6,6 +6,7 @@ using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,23 +16,28 @@ namespace Bawbee.Application.Services
     public class UserApplication : IUserApplication
     {
         private readonly IEventBus _eventBus;
+        private readonly IServiceProvider _serviceProvider;
 
-        public UserApplication(IEventBus eventBus)
+        public UserApplication(IEventBus eventBus, IServiceProvider serviceProvider)
         {
             _eventBus = eventBus;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task<CommandResult> Register(RegisterNewUserInputModel model)
         {
-            var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
-
-            if (!command.IsValid())
+            using (var scope = _serviceProvider.CreateScope())
             {
-                SendNotificationsErrors(command);
-                return CommandResult.Error();
-            }
+                var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
 
-            return await _eventBus.SendCommand(command);
+                if (!command.IsValid())
+                {
+                    SendNotificationsErrors(command);
+                    return CommandResult.Error();
+                }
+
+                return await _eventBus.SendCommand(command);
+            }
         }
 
         public Task<IEnumerable<UserReadModel>> GetAll()

@@ -16,15 +16,18 @@ namespace Bawbee.Application.Users.Handlers
         ICommandHandler<LoginCommand>
     {
         private readonly IEventBus _eventBus;
+        //private readonly IMediatorHandler _mediator;
         private readonly IJwtService _jwtService;
         private readonly IUserRepository _userRepository;
 
         public UserCommandHandler(
             IEventBus eventBus,
+            //IMediatorHandler mediator,
             IJwtService jwtService,
             IUserRepository userReadRepository) : base(eventBus)
         {
             _eventBus = eventBus;
+            //_mediator = mediator;
             _jwtService = jwtService;
             _userRepository = userReadRepository;
         }
@@ -35,14 +38,17 @@ namespace Bawbee.Application.Users.Handlers
 
             if (userDatabase != null)
             {
-                AddError(new DomainNotification("E-mail already used."));
+                await _eventBus.Publish(new DomainNotification("E-mail already used."));
                 return CommandResult.Error();
             }
 
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
             await _userRepository.Add(user);
 
-            _eventBus.Publish(new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password));
+            var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
+            
+            //await _mediator.PublishEvent(userRegisteredEvent);
+            await _eventBus.Publish(userRegisteredEvent);
             
             return CommandResult.Ok();
         }
@@ -53,13 +59,13 @@ namespace Bawbee.Application.Users.Handlers
 
             if (user == null)
             {
-                AddError(new DomainNotification("E-mail or password is invalid"));
+                await _eventBus.Publish(new DomainNotification("E-mail or password is invalid"));
                 return CommandResult.Error();
             }
 
             var userAccessToken = _jwtService.GenerateSecurityToken(user.UserId, user.Name, user.Email);
 
-            _eventBus.Publish(new UserLoggedEvent(user.UserId, user.Name, user.Email));
+            await _eventBus.Publish(new UserLoggedEvent(user.UserId, user.Name, user.Email));
             
             return CommandResult.Ok(userAccessToken);
         }

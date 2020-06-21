@@ -35,7 +35,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.RegisterJwt(configuration);
 
             // Domain
-            //services.AddScoped<IMediatorHandler, InMemoryBus>();
+            services.AddScoped<IMediatorHandler, InMemoryBus>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             // Application
