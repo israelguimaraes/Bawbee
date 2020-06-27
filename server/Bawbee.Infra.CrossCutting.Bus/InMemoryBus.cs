@@ -26,14 +26,17 @@ namespace Bawbee.Infra.CrossCutting.Bus
 
         public async Task PublishEvent<T>(T @event) where T : Event
         {
+            if (@event.IsDomainNotification())
+            {
+                await _mediator.Publish(@event);
+                return;
+            }
+
             if (@event.MustBeStored())
                 await _eventStore.Store(@event);
 
             if (@event.MustBeSentToQueue())
                 await _bus.Publish(@event);
-
-            if (@event.IsDomainNotification())
-                await _mediator.Publish(@event);
         }
     }
 }

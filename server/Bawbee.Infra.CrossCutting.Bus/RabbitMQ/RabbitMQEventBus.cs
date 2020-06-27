@@ -6,95 +6,96 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 {
-    public class RabbitMQEventBus : IEventBus, IDisposable
+    public class RabbitMQEventBus : IEventBus
     {
-        private static IDictionary<string, Type> _listEventTypes;
-
-        private readonly IEventBusConnection<IModel> _eventBusConnection;
+        private readonly SubscriptionsManager _subscriptionsManager;
+        private readonly IEventBusConnection<IModel> _busConnection;
         private readonly IServiceProvider _serviceProvider;
 
-        public RabbitMQEventBus(IEventBusConnection<IModel> eventBusConnection, IServiceProvider serviceProvider)
+        public RabbitMQEventBus(IEventBusConnection<IModel> busConnection, IServiceProvider serviceProvider)
         {
+            _busConnection = busConnection;
             _serviceProvider = serviceProvider;
-            _eventBusConnection = eventBusConnection;
-            _listEventTypes = new Dictionary<string, Type>();
-            
-            CreateConsumeChannel();
+            _subscriptionsManager = new SubscriptionsManager();
         }
 
         public Task Publish(Event @event)
         {
-            var channel = _eventBusConnection.CreateChannel();
+            _busConnection.TryConnectIfNecessary();
 
-            channel.QueueDeclare(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
+            using (var channel = _busConnection.CreateChannel())
+            {
+                var eventName = @event.GetType().Name;
+
+                channel.QueueDeclare(
+                    queue: eventName,
                     durable: true,
                     exclusive: false,
                     autoDelete: false,
                     arguments: null);
 
-            var message = JsonConvert.SerializeObject(@event);
-            var body = Encoding.UTF8.GetBytes(message);
+                var message = JsonConvert.SerializeObject(@event);
+                var body = Encoding.UTF8.GetBytes(message);
 
-            var eventName = @event.GetType().Name;
+                channel.BasicPublish(
+                    exchange: "",
+                    routingKey: eventName,
+                    basicProperties: null,
+                    body: body);
 
-            channel.BasicPublish(
-                exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                routingKey: eventName,
-                basicProperties: null,
-                body: body);
-
-            // TODO: log event?
-            return Task.CompletedTask;
+                return Task.CompletedTask;
+            }
         }
 
-        public void CreateConsumeChannel()
+        public void Subscribe<T>() where T : Event
         {
-            var channel = _eventBusConnection.CreateChannel();
+            var eventType = typeof(T);
+            var eventName = eventType.Name;
 
-            channel.ExchangeDeclare(
-                exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                type: "direct");
+            _subscriptionsManager.AddSubscriptionIfNotExists(eventName, eventType);
+
+            var channel = _busConnection.CreateChannel();
 
             channel.QueueDeclare(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
+                queue: eventName,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
 
-            var consumer = new EventingBasicConsumer(channel);
+            var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.Received += async (model, args) =>
             {
-                await ProcessMessage(args);
+                try
+                {
+                    var eventName = args.RoutingKey;
+                    var message = Encoding.UTF8.GetString(args.Body.ToArray());
 
-                channel.BasicAck(args.DeliveryTag, multiple: false);
-                // TODO: log event?
-            };
+                    await ProcessMessage(eventName, message);
 
-            channel.CallbackException += (sender, args) =>
-            {
-                // TODO: ...
+                    channel.BasicAck(args.DeliveryTag, false);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: log
+                    channel.BasicNack(args.DeliveryTag, false, true);
+                }
             };
 
             channel.BasicConsume(
-                queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                autoAck: true,
-                consumer: consumer);
+                queue: eventName,
+                autoAck: false,
+                consumer);
         }
 
-        private async Task ProcessMessage(BasicDeliverEventArgs args)
+        private async Task ProcessMessage(string eventName, string message)
         {
-            var eventName = args.RoutingKey;
-            var message = Encoding.UTF8.GetString(args.Body.ToArray());
-
-            var type = _listEventTypes[eventName];
+            var type = _subscriptionsManager.GetSubscriptionType(eventName);
             var @event = (IEvent)JsonConvert.DeserializeObject(message, type);
 
             using (var scope = _serviceProvider.CreateScope())
@@ -102,27 +103,6 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 var mediator = scope.ServiceProvider.GetService<IMediator>();
                 await mediator.Publish(@event);
             }
-        }
-
-        public void Subscribe<T>() where T : Event
-        {
-            var typeEvent = typeof(T);
-            var eventName = typeEvent.Name;
-
-            if (!_listEventTypes.ContainsKey(eventName))
-                _listEventTypes.Add(eventName, typeEvent);
-
-            var channel = _eventBusConnection.CreateChannel();
-
-            channel.QueueBind(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                    exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                    routingKey: eventName);
-        }
-
-        public void Dispose()
-        {
-            _listEventTypes.Clear();
         }
     }
 }

@@ -1,38 +1,49 @@
 ﻿using Bawbee.Domain.Core.Bus;
 using RabbitMQ.Client;
-using System;
 
 namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 {
-    public class RabbitMQConnection : IEventBusConnection<IModel>, IDisposable
+    public class RabbitMQConnection : IEventBusConnection<IModel>
     {
-        private ConnectionFactory _connectionFactory;
         private IConnection _connection;
+        private ConnectionFactory _factory;
 
-        public void ConnectIfNecessary()
+        public RabbitMQConnection()
+        {
+            _factory = GetFactory();
+            _connection = GetConnection();
+        }
+
+        private ConnectionFactory GetFactory()
+        {
+            _factory ??= new ConnectionFactory { HostName = "localhost", DispatchConsumersAsync = true };
+            
+            return _factory;
+        }
+
+        private IConnection GetConnection()
+        {
+            _connection ??= _factory.CreateConnection();
+            
+            return _connection;
+        }
+
+        public void TryConnectIfNecessary()
         {
             if (IsConnected())
                 return;
 
-            _connectionFactory = new ConnectionFactory { HostName = "localhost" };
-            _connection = _connectionFactory.CreateConnection();
+            _connection = GetConnection();
+        }
+
+        public IModel CreateChannel()
+        {
+            return _connection.CreateModel();
         }
 
         public bool IsConnected()
         {
             return _connection != null && _connection.IsOpen;
-        }
-
-        public IModel CreateChannel()
-        {
-            ConnectIfNecessary();
-
-            return _connection.CreateModel();
-        }
-
-        public void Dispose()
-        {
-            _connection.Dispose();
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     public interface IEventBusConnection<T>
     {
-        void ConnectIfNecessary();
+        void TryConnectIfNecessary();
         bool IsConnected();
         T CreateChannel();
     }
