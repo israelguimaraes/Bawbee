@@ -96,7 +96,7 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
         private async Task ProcessMessage(string eventName, string message)
         {
             var type = _subscriptionsManager.GetSubscriptionType(eventName);
-            var @event = JsonConvert.DeserializeObject(message, type) as IEvent;
+            var @event = (IEvent)JsonConvert.DeserializeObject(message, type);
 
             using (var scope = _serviceProvider.CreateScope())
             {

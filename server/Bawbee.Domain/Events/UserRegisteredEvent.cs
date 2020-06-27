@@ -10,9 +10,9 @@ namespace Bawbee.Domain.Events
         public string Email { get; private set; }
         public string Password { get; private set; }
 
-        public UserRegisteredEvent(int id, string name, string lastName, string email, string password)
+        public UserRegisteredEvent(int userId, string name, string lastName, string email, string password)
         {
-            UserId = id;
+            UserId = userId;
             Name = name;
             LastName = lastName;
             Email = email;
