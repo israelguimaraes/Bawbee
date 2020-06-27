@@ -7,15 +7,14 @@ namespace Bawbee.Domain.Entities
         public int BankAccountId { get; private set; }
         public string Name { get; private set; }
         public decimal InitialBalance { get; private set; }
-        public int UserContextId { get; private set; }
+        public int UserId { get; private set; }
+        public User User { get; private set; }
 
-        public UserContext UserContext { get; private set; }
-
-        public BankAccount(string name, decimal initialBalance, int userContextId)
+        public BankAccount(string name, decimal initialBalance, int userId)
         {
             Name = name;
             InitialBalance = initialBalance;
-            UserContextId = userContextId;
+            UserId = userId;
         }
     }
 }
