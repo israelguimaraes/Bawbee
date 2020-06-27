@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,16 +11,18 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 {
     public class RabbitMQEventBus : IEventBus
     {
-        public RabbitMQEventBus()
-        {
+        private readonly IEventBusConnection<IModel> _busConnection;
 
+        public RabbitMQEventBus(IEventBusConnection<IModel> busConnection)
+        {
+            _busConnection = busConnection;
         }
 
         public Task Publish(Event @event)
         {
-            var factory = new ConnectionFactory { HostName = "localhost" };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            _busConnection.TryConnectIfNecessary();
+
+            using (var channel = _busConnection.CreateChannel())
             {
                 var eventName = @event.GetType().Name;
 
@@ -47,9 +48,7 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 
         public void Subscribe<T>() where T : Event
         {
-            var factory = new ConnectionFactory { HostName = "localhost", DispatchConsumersAsync = true };
-            var connection = factory.CreateConnection();
-            var channel = connection.CreateModel();
+            var channel = _busConnection.CreateChannel();
 
             var typeEvent = typeof(T);
             var eventName = typeEvent.Name;
@@ -68,7 +67,6 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 queue: eventName,
                 autoAck: true,
                 consumer);
-
         }
 
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs eventArgs)

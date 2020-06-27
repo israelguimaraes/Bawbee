@@ -21,7 +21,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
-using System;
 using System.Reflection;
 
 namespace Bawbee.Infra.CrossCutting.IoC
@@ -57,7 +56,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.RegisterSwagger();
 
             services.AddSingleton<IEventBus, RabbitMQEventBus>();
-            //services.AddSingleton<IEventBusConnection<IModel>, RabbitMQConnection>();
+            services.AddSingleton<IEventBusConnection<IModel>, RabbitMQConnection>();
         }
 
         private static void RegisterAssembliesForMediatr(IServiceCollection services)
@@ -81,6 +80,8 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.AddMediatR(typeof(UserRavenDBHandler).GetTypeInfo().Assembly);
         }
 
+
+        // TODO: remove from setup
         private static void RegisterEventsToRabbitMQ(IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
