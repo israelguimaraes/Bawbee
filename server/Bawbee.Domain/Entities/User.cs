@@ -16,7 +16,7 @@ namespace Bawbee.Domain.Entities
         // For Dapper
         protected User() { }
 
-        private User(int userId)
+        protected User(int userId)
         {
             UserId = userId;
         }
