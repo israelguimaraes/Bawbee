@@ -61,28 +61,28 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                 arguments: null);
 
             var consumer = new AsyncEventingBasicConsumer(channel);
-            consumer.Received += Consumer_Received;
+            consumer.Received += async (model, args) =>
+            {
+                try
+                {
+                    var eventName = args.RoutingKey;
+                    var message = Encoding.UTF8.GetString(args.Body.ToArray());
+
+                    await ProcessMessage(eventName, message);
+
+                    channel.BasicAck(args.DeliveryTag, false);
+                }
+                catch (Exception ex)
+                {
+                    // TODO: log
+                    channel.BasicNack(args.DeliveryTag, false, true);
+                }
+            };
 
             channel.BasicConsume(
                 queue: eventName,
-                autoAck: true,
+                autoAck: false,
                 consumer);
-        }
-
-        private async Task Consumer_Received(object sender, BasicDeliverEventArgs eventArgs)
-        {
-            var eventName = eventArgs.RoutingKey;
-            var message = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
-
-            try
-            {
-                await ProcessMessage(eventName, message);
-            }
-            catch (Exception ex)
-            {
-                // TODO: ...
-                throw;
-            }
         }
 
         private Task ProcessMessage(string eventName, string message)
