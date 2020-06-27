@@ -57,7 +57,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.RegisterSwagger();
 
             services.AddSingleton<IEventBus, RabbitMQEventBus>();
-            services.AddSingleton<IEventBusConnection<IModel>, RabbitMQConnection>();
+            //services.AddSingleton<IEventBusConnection<IModel>, RabbitMQConnection>();
         }
 
         private static void RegisterAssembliesForMediatr(IServiceCollection services)

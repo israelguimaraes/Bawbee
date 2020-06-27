@@ -1,7 +1,5 @@
 ﻿using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Events;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -12,117 +10,86 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
 {
-    public class RabbitMQEventBus : IEventBus, IDisposable
+    public class RabbitMQEventBus : IEventBus
     {
-        private static IDictionary<string, Type> _listEventTypes;
-
-        private readonly IEventBusConnection<IModel> _eventBusConnection;
-        private readonly IServiceProvider _serviceProvider;
-
-        public RabbitMQEventBus(IEventBusConnection<IModel> eventBusConnection, IServiceProvider serviceProvider)
+        public RabbitMQEventBus()
         {
-            _serviceProvider = serviceProvider;
-            _eventBusConnection = eventBusConnection;
-            _listEventTypes = new Dictionary<string, Type>();
-            
-            CreateConsumeChannel();
+
         }
 
         public Task Publish(Event @event)
         {
-            var channel = _eventBusConnection.CreateChannel();
+            var factory = new ConnectionFactory { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                var eventName = @event.GetType().Name;
 
-            channel.QueueDeclare(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
+                channel.QueueDeclare(
+                    queue: eventName,
                     durable: true,
                     exclusive: false,
                     autoDelete: false,
                     arguments: null);
 
-            var message = JsonConvert.SerializeObject(@event);
-            var body = Encoding.UTF8.GetBytes(message);
+                var message = JsonConvert.SerializeObject(@event);
+                var body = Encoding.UTF8.GetBytes(message);
 
-            var eventName = @event.GetType().Name;
+                channel.BasicPublish(
+                    exchange: "",
+                    routingKey: eventName,
+                    basicProperties: null,
+                    body: body);
 
-            channel.BasicPublish(
-                exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                routingKey: eventName,
-                basicProperties: null,
-                body: body);
-
-            // TODO: log event?
-            return Task.CompletedTask;
-        }
-
-        public void CreateConsumeChannel()
-        {
-            var channel = _eventBusConnection.CreateChannel();
-
-            channel.ExchangeDeclare(
-                exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                type: "direct");
-
-            channel.QueueDeclare(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                    durable: true,
-                    exclusive: false,
-                    autoDelete: false,
-                    arguments: null);
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += async (model, args) =>
-            {
-                await ProcessMessage(args);
-
-                channel.BasicAck(args.DeliveryTag, multiple: false);
-                // TODO: log event?
-            };
-
-            channel.CallbackException += (sender, args) =>
-            {
-                // TODO: ...
-            };
-
-            channel.BasicConsume(
-                queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                autoAck: true,
-                consumer: consumer);
-        }
-
-        private async Task ProcessMessage(BasicDeliverEventArgs args)
-        {
-            var eventName = args.RoutingKey;
-            var message = Encoding.UTF8.GetString(args.Body.ToArray());
-
-            var type = _listEventTypes[eventName];
-            var @event = (IEvent)JsonConvert.DeserializeObject(message, type);
-
-            using (var scope = _serviceProvider.CreateScope())
-            {
-                var mediator = scope.ServiceProvider.GetService<IMediator>();
-                await mediator.Publish(@event);
+                return Task.CompletedTask;
             }
         }
 
         public void Subscribe<T>() where T : Event
         {
+            var factory = new ConnectionFactory { HostName = "localhost", DispatchConsumersAsync = true };
+            var connection = factory.CreateConnection();
+            var channel = connection.CreateModel();
+
             var typeEvent = typeof(T);
             var eventName = typeEvent.Name;
 
-            if (!_listEventTypes.ContainsKey(eventName))
-                _listEventTypes.Add(eventName, typeEvent);
+            channel.QueueDeclare(
+                queue: eventName,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: null);
 
-            var channel = _eventBusConnection.CreateChannel();
+            var consumer = new AsyncEventingBasicConsumer(channel);
+            consumer.Received += Consumer_Received;
 
-            channel.QueueBind(
-                    queue: RabbitMQConfig.QUEUE_EVENTS_NAME,
-                    exchange: RabbitMQConfig.BROKER_EVENTS_NAME,
-                    routingKey: eventName);
+            channel.BasicConsume(
+                queue: eventName,
+                autoAck: true,
+                consumer);
+
         }
 
-        public void Dispose()
+        private async Task Consumer_Received(object sender, BasicDeliverEventArgs eventArgs)
         {
-            _listEventTypes.Clear();
+            var eventName = eventArgs.RoutingKey;
+            var message = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
+
+            try
+            {
+                await ProcessMessage(eventName, message);
+            }
+            catch (Exception ex)
+            {
+                // TODO: ...
+                throw;
+            }
+        }
+
+        private Task ProcessMessage(string eventName, string message)
+        {
+            return Task.CompletedTask;
         }
     }
 }
