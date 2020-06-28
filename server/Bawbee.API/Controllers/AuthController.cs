@@ -21,14 +21,6 @@ namespace Bawbee.API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginInputModel model)
-        {
-            var userToken = await _userApplication.Login(model);
-            return Response(userToken);
-        }
-
-        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> RegisterNewUser(RegisterNewUserInputModel model)
         {
@@ -36,11 +28,12 @@ namespace Bawbee.API.Controllers
             return Response(result);
         }
 
-        [HttpGet("")]
-        public async Task<IActionResult> GetAllUsersTest()
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginInputModel model)
         {
-            var users = await _userApplication.GetAll();
-            return Response(users);
+            var userToken = await _userApplication.Login(model);
+            return Response(userToken);
         }
     }
 }

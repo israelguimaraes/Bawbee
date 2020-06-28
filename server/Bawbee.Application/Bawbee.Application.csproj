@@ -12,4 +12,10 @@
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Common\Bawbee.Infra.CrossCutting.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entries\Handlers\" />
+    <Folder Include="Entries\InputModels\" />
+    <Folder Include="Entries\Interfaces\" />
+  </ItemGroup>
+
 </Project>
