@@ -8,6 +8,6 @@ namespace Bawbee.Domain.Core.Bus
     public interface IMediatorHandler
     {
         Task<TResponse> SendCommand<TResponse>(IRequest<TResponse> command, CancellationToken cancellationToken = default);
-        Task PublishEvent<T>(T eventObj) where T : Event;
+        Task PublishEvent<T>(T @event) where T : Event;
     }
 }

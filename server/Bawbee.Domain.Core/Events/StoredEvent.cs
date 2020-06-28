@@ -2,9 +2,9 @@
 {
     public class StoredEvent
     {
-        public Event Data { get; private set; }
+        public IEvent Data { get; private set; }
 
-        public StoredEvent(Event eventObj)
+        public StoredEvent(IEvent eventObj)
         {
             Data = eventObj;
         }

@@ -10,11 +10,13 @@ namespace Bawbee.Infra.CrossCutting.Bus
     {
         private readonly IMediator _mediator;
         private readonly IEventStore _eventStore;
+        private readonly IEventBus _bus;
 
-        public InMemoryBus(IMediator mediator, IEventStore eventStore)
+        public InMemoryBus(IMediator mediator, IEventStore eventStore, IEventBus bus)
         {
             _mediator = mediator;
             _eventStore = eventStore;
+            _bus = bus;
         }
 
         public Task<TResponse> SendCommand<TResponse>(IRequest<TResponse> command, CancellationToken cancellationToken = default)
@@ -22,12 +24,19 @@ namespace Bawbee.Infra.CrossCutting.Bus
             return _mediator.Send(command, cancellationToken);
         }
 
-        public async Task PublishEvent<T>(T eventObj) where T : Event
+        public async Task PublishEvent<T>(T @event) where T : Event
         {
-            if (eventObj.MustBeStored())
-                await _eventStore.Store(eventObj);
+            if (@event.IsDomainNotification())
+            {
+                await _mediator.Publish(@event);
+                return;
+            }
 
-            await _mediator.Publish(eventObj);
+            if (@event.MustBeStored())
+                await _eventStore.Store(@event);
+
+            if (@event.MustBeSentToQueue())
+                await _bus.Publish(@event);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Entries;
 using Bawbee.Application.Query.Users.Interfaces;
 using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Services;
@@ -6,19 +7,24 @@ using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;
-using Bawbee.Domain.Core.Interfaces;
 using Bawbee.Domain.Core.Notifications;
+using Bawbee.Domain.Core.UnitOfWork;
+using Bawbee.Domain.Events;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Bus;
+using Bawbee.Infra.CrossCutting.Bus.RabbitMQ;
 using Bawbee.Infra.CrossCutting.Common.Security;
-using Bawbee.Infra.Data;
+using Bawbee.Infra.Data.EF;
 using Bawbee.Infra.Data.EventSource;
 using Bawbee.Infra.Data.NoSQLRepositories;
 using Bawbee.Infra.Data.RavenDB.EventHandlers;
 using Bawbee.Infra.Data.SQLRepositories;
+using Bawbee.Infra.Data.Uow;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RabbitMQ.Client;
 using System.Reflection;
 
 namespace Bawbee.Infra.CrossCutting.IoC
@@ -37,11 +43,13 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             // Application
             services.AddScoped<IUserApplication, UserApplication>();
+            services.AddScoped<IEntryApplication, EntryApplication>();
 
             // Infra.Data
             services.AddScoped<IUserRepository, UserSqlServerRepository>();
             services.AddScoped<IUserReadRepository, UserRavenDBRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<BawbeeDbContext>();
 
             services.RegisterRavenDB(configuration);
             services.RegisterSqlServer(configuration);
@@ -53,6 +61,9 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.AddScoped<IJwtService, JwtService>();
 
             services.RegisterSwagger();
+
+            services.AddSingleton<IEventBus, RabbitMQEventBus>();
+            services.AddSingleton<IEventBusConnection<IModel>, RabbitMQConnection>();
         }
 
         private static void RegisterAssembliesForMediatr(IServiceCollection services)
@@ -74,6 +85,15 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             // Bawbee.Infra.Data
             services.AddMediatR(typeof(UserRavenDBHandler).GetTypeInfo().Assembly);
+        }
+
+
+        // TODO: remove from setup
+        private static void RegisterEventsToRabbitMQ(IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<UserRegisteredEvent>();
         }
     }
 }
