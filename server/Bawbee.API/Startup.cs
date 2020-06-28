@@ -2,9 +2,11 @@ using Bawbee.API.Setups;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Events;
 using Bawbee.Infra.CrossCutting.IoC;
+using Bawbee.Infra.Data.EF;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +25,9 @@ namespace Bawbee.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<BawbeeDbContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
+
             services.AddControllers();
             services.AddOptions();
             services.AddMediatR(typeof(Startup));

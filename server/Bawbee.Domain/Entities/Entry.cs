@@ -12,7 +12,6 @@ namespace Bawbee.Domain.Entities
         public string Observations { get; private set; }
         public DateTime DateToPay { get; private set; }
         public int BankAccountId { get; private set; }
-
         public BankAccount BankAccount { get; private set; }
 
         public Entry(
