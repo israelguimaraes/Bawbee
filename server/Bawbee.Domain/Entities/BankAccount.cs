@@ -4,6 +4,8 @@ namespace Bawbee.Domain.Entities
 {
     public class BankAccount : BaseEntity
     {
+        public const decimal DEFAULT_ACCOUNT_INITIAL_VALUE = 1234567.89m;
+
         public int BankAccountId { get; private set; }
         public string Name { get; private set; }
         public decimal InitialBalance { get; private set; }

@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace Bawbee.Domain.Entities
@@ -29,6 +30,21 @@ namespace Bawbee.Domain.Entities
             LastName = lastName;
             Email = email.ToLower();
             Password = password;
+        }
+
+        public abstract class UserFactory
+        {
+            public static User CreateNewPlataformUser(string name, string lastName, string email, string password)
+            {
+                var user = new User();
+                user.Name = name;
+                user.LastName = lastName;
+                user.Email = email;
+                user.Password = password;
+                user.BankAccounts.Add(new BankAccount("Default Bank Account", BankAccount.DEFAULT_ACCOUNT_INITIAL_VALUE, default));
+
+                return user;
+            }
         }
     }
 }

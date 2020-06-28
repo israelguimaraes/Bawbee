@@ -43,7 +43,8 @@ namespace Bawbee.Application.Users.Handlers
                 return CommandResult.Error();
             }
 
-            var user = new User(command.Name, command.LastName, command.Email, command.Password);
+            var user = User.UserFactory.CreateNewPlataformUser(command.Name, command.LastName, command.Email, command.Password);
+            
             await _userRepository.Add(user);
 
             if (await CommitTransaction())
