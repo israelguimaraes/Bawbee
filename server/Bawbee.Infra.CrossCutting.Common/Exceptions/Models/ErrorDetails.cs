@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Bawbee.API.Models
+namespace Bawbee.Infra.CrossCutting.Common.Exceptions.Models
 {
     public class ErrorDetails
     {

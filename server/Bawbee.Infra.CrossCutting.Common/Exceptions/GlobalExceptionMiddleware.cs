@@ -1,14 +1,14 @@
-﻿using Bawbee.API.Models;
+﻿using Bawbee.Infra.CrossCutting.Common.Exceptions.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 
-namespace Bawbee.API.Extensions
+namespace Bawbee.Infra.CrossCutting.Common.Exceptions
 {
-    public static class ExceptionMiddlewareExtensions
+    public static class GlobalExceptionMiddleware
     {
-        public static void ConfigureExceptionHandler(this IApplicationBuilder app)
+        public static void UseApiExceptionHandler(this IApplicationBuilder app)
         {
             app.UseExceptionHandler(appError =>
             {
@@ -20,20 +20,15 @@ namespace Bawbee.API.Extensions
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-                        // TODO log
-
-                        // TODO: get domain notifications
-
-
                         //logger.LogError($"Something went wrong: {contextFeature.Error}");
 
-                        var errorDetail = new ErrorDetails()
+                        var error = new ErrorDetails
                         {
                             StatusCode = context.Response.StatusCode,
-                            Message = "Internal Server Error."
+                            Message = $"Internal Server Error {contextFeature.Error}"
                         };
 
-                        await context.Response.WriteAsync(errorDetail.ToString());
+                        await context.Response.WriteAsync(error.ToString());
                     }
                 });
             });
