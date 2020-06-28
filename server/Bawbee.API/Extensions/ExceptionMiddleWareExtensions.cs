@@ -21,6 +21,10 @@ namespace Bawbee.API.Extensions
                     if (contextFeature != null)
                     {
                         // TODO log
+
+                        // TODO: get domain notifications
+
+
                         //logger.LogError($"Something went wrong: {contextFeature.Error}");
 
                         var errorDetail = new ErrorDetails()
