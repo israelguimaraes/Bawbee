@@ -2,10 +2,12 @@
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
+using Bawbee.Domain.Core.UnitOfWork;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Common.Security;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,9 +22,11 @@ namespace Bawbee.Application.Users.Handlers
         private readonly IUserRepository _userRepository;
 
         public UserCommandHandler(
+            IUnitOfWork unitOfWork,
             IMediatorHandler mediator,
+            INotificationHandler<DomainNotification> notificationHandler,
             IJwtService jwtService,
-            IUserRepository userReadRepository) : base(mediator)
+            IUserRepository userReadRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;
             _jwtService = jwtService;
@@ -42,9 +46,11 @@ namespace Bawbee.Application.Users.Handlers
             var user = new User(command.Name, command.LastName, command.Email, command.Password);
             await _userRepository.Add(user);
 
-            var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
-            
-            await _mediator.PublishEvent(userRegisteredEvent);
+            if (await CommitTransaction())
+            {
+                var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
+                await _mediator.PublishEvent(userRegisteredEvent);
+            }
             
             return CommandResult.Ok();
         }
