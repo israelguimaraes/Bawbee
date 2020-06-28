@@ -10,11 +10,15 @@ namespace Bawbee.Domain.Entities
         public string LastName { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
-        public ICollection<BankAccount> BankAccounts { get; private set; }
+
+        // TODO: protect lists
+        public List<BankAccount> BankAccounts { get; private set; }
+        public List<EntryCategory> EntryCategories { get; private set; }
 
         protected User()
         {
             BankAccounts = new List<BankAccount>();
+            EntryCategories = new List<EntryCategory>();
         }
 
         protected User(int userId) : this()
@@ -40,7 +44,12 @@ namespace Bawbee.Domain.Entities
                 user.LastName = lastName;
                 user.Email = email;
                 user.Password = password;
-                user.BankAccounts.Add(BankAccount.CreateDefaultBankAccount(user.UserId));
+
+                var defaultBankAccount = BankAccount.CreateDefaultBankAccount(user.UserId);
+                user.BankAccounts.Add(defaultBankAccount);
+
+                var defaultCategories = EntryCategory.GetDefaultCategoriesForNewUsers(user.UserId);
+                user.EntryCategories.AddRange(defaultCategories);
 
                 return user;
             }
