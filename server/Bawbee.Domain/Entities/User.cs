@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Models;
+using System.Collections.Generic;
 
 namespace Bawbee.Domain.Entities
 {
@@ -9,11 +10,14 @@ namespace Bawbee.Domain.Entities
         public string LastName { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public ICollection<BankAccount> BankAccounts { get; private set; }
 
-        // For Dapper
-        protected User() { }
+        protected User()
+        {
+            BankAccounts = new List<BankAccount>();
+        }
 
-        protected User(int userId)
+        protected User(int userId) : this()
         {
             UserId = userId;
         }
