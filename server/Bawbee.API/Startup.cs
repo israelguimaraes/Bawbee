@@ -1,3 +1,4 @@
+using Bawbee.API.Extensions;
 using Bawbee.API.Setups;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Events;
@@ -41,6 +42,8 @@ namespace Bawbee.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.ConfigureExceptionHandler();
 
             app.UseHttpsRedirection();
 

@@ -1,5 +1,4 @@
 ﻿using Bawbee.Domain.Core.Models;
-using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace Bawbee.Domain.Entities

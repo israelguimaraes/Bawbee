@@ -110,7 +110,7 @@ namespace Bawbee.Infra.Data.Migrations
             modelBuilder.Entity("Bawbee.Domain.Entities.BankAccount", b =>
                 {
                     b.HasOne("Bawbee.Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("BankAccounts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -20,7 +20,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
                 .IsRequired();
 
             builder.HasOne(t => t.User)
-                .WithMany()
+                .WithMany(t => t.BankAccounts)
                 .HasForeignKey(t => t.UserId);
         }
     }
