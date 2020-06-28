@@ -1,5 +1,4 @@
-﻿using Dapper.Contrib.Extensions;
-using System;
+﻿using System;
 
 namespace Bawbee.Domain.Core.Models
 {
@@ -8,7 +7,6 @@ namespace Bawbee.Domain.Core.Models
         /// <summary>
         /// string Id (for RavenDB)
         /// </summary>
-        [Write(false)]
         public string Id { get; protected set; }
 
         public DateTime CreatedAt { get; protected set; }
