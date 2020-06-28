@@ -2,7 +2,6 @@
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -20,10 +19,11 @@ namespace Bawbee.API.Controllers
             _entryApplication = entryApplication;
         }
 
-        [AllowAnonymous] // TODO: remove (implement filter - get user token)
         [HttpPost("")]
         public async Task<IActionResult> AddNewEntry(NewEntryInputModel model)
         {
+            model.UserId = CurrentUserId;
+
             var result = await _entryApplication.AddNewEntry(model);
             return Response(result);
         }
