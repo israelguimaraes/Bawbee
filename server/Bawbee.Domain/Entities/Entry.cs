@@ -23,10 +23,10 @@ namespace Bawbee.Domain.Entities
             string observations, DateTime dateToPay, 
             int bankAccountId, int entryCategoryId)
         {
-            Description = description;
+            Description = description.Trim();
             Value = value;
             IsPaid = isPaid;
-            Observations = observations;
+            Observations = observations?.Trim();
             DateToPay = dateToPay;
             BankAccountId = bankAccountId;
             EntryCategoryId = entryCategoryId;
