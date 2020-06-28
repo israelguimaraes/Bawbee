@@ -18,5 +18,10 @@ namespace Bawbee.Domain.Entities
             InitialBalance = initialBalance;
             UserId = userId;
         }
+
+        public static BankAccount CreateDefaultBankAccount(int userId)
+        {
+            return new BankAccount("Default Bank Account", DEFAULT_ACCOUNT_INITIAL_VALUE, userId);
+        }
     }
 }
