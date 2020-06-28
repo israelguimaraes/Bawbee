@@ -18,7 +18,8 @@ namespace Bawbee.Infra.Data.EF.Mappings
 
             builder.HasOne(t => t.User)
                 .WithMany(t => t.EntryCategories)
-                .HasForeignKey(t => t.UserId);
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

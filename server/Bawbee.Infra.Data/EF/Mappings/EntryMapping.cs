@@ -22,7 +22,8 @@ namespace Bawbee.Infra.Data.EF.Mappings
             builder.Property(c => c.IsPaid)
                 .IsRequired();
 
-            builder.Property(c => c.Observations);
+            builder.Property(c => c.Observations)
+                .HasMaxLength(255);
 
             builder.Property(c => c.DateToPay)
                 .IsRequired();
