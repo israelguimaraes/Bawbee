@@ -1,4 +1,5 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Entries;
 using Bawbee.Application.Query.Users.Interfaces;
 using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Services;
@@ -42,6 +43,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             // Application
             services.AddScoped<IUserApplication, UserApplication>();
+            services.AddScoped<IEntryApplication, EntryApplication>();
 
             // Infra.Data
             services.AddScoped<IUserRepository, UserSqlServerRepository>();
