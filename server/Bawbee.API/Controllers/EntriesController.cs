@@ -20,10 +20,11 @@ namespace Bawbee.API.Controllers
             _entryApplication = entryApplication;
         }
 
-        [AllowAnonymous] // TODO: remove (implement filter - get user token)
         [HttpPost("")]
         public async Task<IActionResult> AddNewEntry(NewEntryInputModel model)
         {
+            model.UserId = CurrentUserId;
+
             var result = await _entryApplication.AddNewEntry(model);
             return Response(result);
         }
