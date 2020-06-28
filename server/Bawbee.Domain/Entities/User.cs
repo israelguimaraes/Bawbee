@@ -40,7 +40,6 @@ namespace Bawbee.Domain.Entities
                 user.LastName = lastName;
                 user.Email = email;
                 user.Password = password;
-                //user.BankAccounts.Add(new BankAccount("Default Bank Account", BankAccount.DEFAULT_ACCOUNT_INITIAL_VALUE, default));
                 user.BankAccounts.Add(BankAccount.CreateDefaultBankAccount(user.UserId));
 
                 return user;
