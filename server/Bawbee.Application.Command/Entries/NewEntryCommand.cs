@@ -14,8 +14,12 @@ namespace Bawbee.Application.Command.Entries
         public string Observations { get; }
         public DateTime DateToPay { get; }
         public int BankAccountId { get; }
+        public int EntryCategoryId { get; }
 
-        public NewEntryCommand(int userId, string description, decimal value, bool isPaid, string observations, DateTime dateToPay, int bankAccountId)
+        public NewEntryCommand(
+            int userId, string description, decimal value, 
+            bool isPaid, string observations, DateTime dateToPay, 
+            int bankAccountId, int entryCategoryId)
         {
             UserId = userId;
             Description = description;
@@ -24,6 +28,7 @@ namespace Bawbee.Application.Command.Entries
             Observations = observations;
             DateToPay = dateToPay;
             BankAccountId = bankAccountId;
+            EntryCategoryId = entryCategoryId;
         }
 
         public override bool IsValid()

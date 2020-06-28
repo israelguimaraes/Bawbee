@@ -12,10 +12,6 @@ namespace Bawbee.Application.Command.Entries.Validators
                    .Must(c => c.IsGreaterThanZero())
                    .WithMessage($"{nameof(NewEntryCommand.UserId)} is invalid");
 
-            RuleFor(c => c.EntryId)
-                .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(NewEntryCommand.EntryId)} is invalid");
-
             RuleFor(c => c.Description)
                 .NotEmpty()
                 .WithMessage($"{nameof(NewEntryCommand.Description)} is required");
@@ -35,6 +31,10 @@ namespace Bawbee.Application.Command.Entries.Validators
             RuleFor(c => c.BankAccountId)
                 .Must(c => c.IsGreaterThanZero())
                 .WithMessage($"{nameof(NewEntryCommand.BankAccountId)} is invalid");
+
+            RuleFor(c => c.EntryCategoryId)
+                .Must(c => c.IsGreaterThanZero())
+                .WithMessage($"{nameof(NewEntryCommand.EntryCategoryId)} is invalid");
         }
     }
 }
