@@ -11,17 +11,12 @@ namespace Bawbee.Domain.Events.Entries
         public bool IsPaid { get; }
         public string Observations { get; }
         public DateTime DateToPay { get; }
-
         public int BankAccountId { get; }
-        public string BankAccountName { get; }
-
         public int EntryCategoryId { get; }
-        public string EntryCategoryName { get; }
 
         public EntryRegisteredEvent(
             int entryId, string description, decimal value, bool isPaid, 
-            string observations, DateTime dateToPay, int bankAccountId, 
-            string bankAccountName, int entryCategoryId, string entryCategoryName)
+            string observations, DateTime dateToPay, int bankAccountId, int entryCategoryId)
         {
             EntryId = entryId;
             Description = description;
@@ -30,9 +25,7 @@ namespace Bawbee.Domain.Events.Entries
             Observations = observations;
             DateToPay = dateToPay;
             BankAccountId = bankAccountId;
-            BankAccountName = bankAccountName;
             EntryCategoryId = entryCategoryId;
-            EntryCategoryName = entryCategoryName;
         }
     }
 }

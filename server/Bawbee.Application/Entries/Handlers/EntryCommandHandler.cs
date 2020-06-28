@@ -40,9 +40,9 @@ namespace Bawbee.Application.Entries.Handlers
             if (await CommitTransaction())
             {
                 var userRegisteredEvent = new EntryRegisteredEvent(
-                    entry.EntryId, entry.Description, entry.Value, entry.IsPaid, 
-                    entry.Observations, entry.DateToPay, entry.BankAccountId, 
-                    entry.BankAccount.Name, entry.EntryCategoryId, entry.EntryCategory.Name);
+                    entry.EntryId, entry.Description, entry.Value, 
+                    entry.IsPaid, entry.Observations, entry.DateToPay, 
+                    entry.BankAccountId, entry.EntryCategoryId);
 
                 await _mediator.PublishEvent(userRegisteredEvent);
             }
