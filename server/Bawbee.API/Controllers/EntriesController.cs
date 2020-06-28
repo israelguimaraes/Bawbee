@@ -2,6 +2,7 @@
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -19,6 +20,7 @@ namespace Bawbee.API.Controllers
             _entryApplication = entryApplication;
         }
 
+        [AllowAnonymous]
         [HttpPost("")]
         public async Task<IActionResult> AddNewEntry(NewEntryInputModel model)
         {

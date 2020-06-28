@@ -22,7 +22,7 @@ namespace Bawbee.Application.Entries
         {
             var command = new NewEntryCommand(
                 model.UserId, model.Description, model.Value, model.IsPaid,
-                model.Observations, model.DateToPay, model.BankAccountId);
+                model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
 
             if (!command.IsValid())
             {

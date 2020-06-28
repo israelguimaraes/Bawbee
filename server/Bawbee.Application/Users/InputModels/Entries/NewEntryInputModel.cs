@@ -11,5 +11,6 @@ namespace Bawbee.Application.Users.InputModels.Entries
         public string Observations { get; set; }
         public DateTime DateToPay { get; set; }
         public int BankAccountId { get; set; }
+        public int EntryCategoryId { get; set; }
     }
 }

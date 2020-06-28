@@ -21,9 +21,11 @@ namespace Bawbee.Application.Entries.Handlers
         public EntryCommandHandler(
             IMediatorHandler mediator, 
             IUnitOfWork unitOfWork, 
-            INotificationHandler<DomainNotification> notificationHandler) : base(mediator, unitOfWork, notificationHandler)
+            INotificationHandler<DomainNotification> notificationHandler,
+            IUserRepository userRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;
+            _userRepository = userRepository;
         }
 
         public async Task<CommandResult> Handle(NewEntryCommand command, CancellationToken cancellationToken)
