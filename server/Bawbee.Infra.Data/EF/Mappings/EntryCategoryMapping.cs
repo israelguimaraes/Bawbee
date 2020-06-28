@@ -17,7 +17,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
                 .IsRequired();
 
             builder.HasOne(t => t.User)
-                .WithMany()
+                .WithMany(t => t.EntryCategories)
                 .HasForeignKey(t => t.UserId);
         }
     }

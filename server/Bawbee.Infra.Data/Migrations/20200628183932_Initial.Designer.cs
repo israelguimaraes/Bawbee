@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bawbee.Infra.Data.Migrations
 {
     [DbContext(typeof(BawbeeDbContext))]
-    [Migration("20200628162253_Initial")]
+    [Migration("20200628183932_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,7 +121,7 @@ namespace Bawbee.Infra.Data.Migrations
             modelBuilder.Entity("Bawbee.Domain.Entities.EntryCategory", b =>
                 {
                     b.HasOne("Bawbee.Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("EntryCategories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

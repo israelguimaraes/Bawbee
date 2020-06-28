@@ -119,7 +119,7 @@ namespace Bawbee.Infra.Data.Migrations
             modelBuilder.Entity("Bawbee.Domain.Entities.EntryCategory", b =>
                 {
                     b.HasOne("Bawbee.Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("EntryCategories")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
