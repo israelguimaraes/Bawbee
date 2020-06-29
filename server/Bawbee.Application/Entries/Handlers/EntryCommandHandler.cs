@@ -31,18 +31,17 @@ namespace Bawbee.Application.Entries.Handlers
         public async Task<CommandResult> Handle(NewEntryCommand command, CancellationToken cancellationToken)
         {
             var entry = new Entry(
-                command.Description, command.Value, command.IsPaid.Value, 
-                command.Observations, command.DateToPay, command.BankAccountId, 
-                command.EntryCategoryId);
+                command.Description, command.Value, command.IsPaid.Value, command.Observations, 
+                command.DateToPay, command.UserId, command.BankAccountId, command.EntryCategoryId);
 
             await _userRepository.AddNewEntry(entry);
 
             if (await CommitTransaction())
             {
-                var userRegisteredEvent = new EntryRegisteredEvent(
+                var userRegisteredEvent = new EntryAddedEvent(
                     entry.EntryId, entry.Description, entry.Value, 
                     entry.IsPaid, entry.Observations, entry.DateToPay, 
-                    entry.BankAccountId, entry.EntryCategoryId);
+                    entry.UserId, entry.BankAccountId, entry.EntryCategoryId);
 
                 await _mediator.PublishEvent(userRegisteredEvent);
             }

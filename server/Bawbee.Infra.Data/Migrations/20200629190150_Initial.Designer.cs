@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bawbee.Infra.Data.Migrations
 {
     [DbContext(typeof(BawbeeDbContext))]
-    [Migration("20200628200949_Initial")]
+    [Migration("20200629190150_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,9 @@ namespace Bawbee.Infra.Data.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
@@ -88,6 +91,8 @@ namespace Bawbee.Infra.Data.Migrations
                     b.HasIndex("BankAccountId");
 
                     b.HasIndex("EntryCategoryId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Entries");
                 });
@@ -172,6 +177,12 @@ namespace Bawbee.Infra.Data.Migrations
                     b.HasOne("Bawbee.Domain.Entities.EntryCategory", "EntryCategory")
                         .WithMany()
                         .HasForeignKey("EntryCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bawbee.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
