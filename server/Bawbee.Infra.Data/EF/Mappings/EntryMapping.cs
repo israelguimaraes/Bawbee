@@ -28,6 +28,10 @@ namespace Bawbee.Infra.Data.EF.Mappings
             builder.Property(c => c.DateToPay)
                 .IsRequired();
 
+            builder.HasOne(t => t.User)
+                .WithMany()
+                .HasForeignKey(t => t.UserId);
+
             builder.HasOne(t => t.BankAccount)
                 .WithMany()
                 .HasForeignKey(t => t.BankAccountId);
