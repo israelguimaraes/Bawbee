@@ -1,4 +1,5 @@
 ﻿using Bawbee.Application.Command.Entries;
+using Bawbee.Application.Query.Users.Queries.Entries;
 using Bawbee.Application.Users.InputModels.Entries;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
@@ -31,6 +32,14 @@ namespace Bawbee.Application.Entries
             }
 
             return await _mediator.SendCommand(command);
+        }
+
+        public Task<CommandResult> GetAllByUser(int userId)
+        {
+            var query = new GetAllEntriesByUser(userId);
+            var entries = _mediator.SendCommand(query);
+
+            return Task.FromResult(CommandResult.Ok(entries));
         }
 
         // TODO: create in BaseApplication

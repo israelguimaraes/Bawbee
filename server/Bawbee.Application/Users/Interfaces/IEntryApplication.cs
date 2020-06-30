@@ -7,5 +7,6 @@ namespace Bawbee.Application.Users.Interfaces
     public interface IEntryApplication
     {
         Task<CommandResult> AddNewEntry(NewEntryInputModel model);
+        Task<CommandResult> GetAllByUser(int userId);
     }
 }

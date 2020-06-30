@@ -77,6 +77,7 @@ namespace Bawbee.Infra.Data.Migrations
                     IsPaid = table.Column<bool>(nullable: false),
                     Observations = table.Column<string>(maxLength: 255, nullable: true),
                     DateToPay = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: false),
                     BankAccountId = table.Column<int>(nullable: false),
                     EntryCategoryId = table.Column<int>(nullable: false)
                 },
@@ -95,6 +96,12 @@ namespace Bawbee.Infra.Data.Migrations
                         principalTable: "EntryCategories",
                         principalColumn: "EntryCategoryId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Entries_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -111,6 +118,11 @@ namespace Bawbee.Infra.Data.Migrations
                 name: "IX_Entries_EntryCategoryId",
                 table: "Entries",
                 column: "EntryCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Entries_UserId",
+                table: "Entries",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EntryCategories_UserId",

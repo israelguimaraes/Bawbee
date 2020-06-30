@@ -1,6 +1,7 @@
 using Bawbee.API.Setups;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.Entries;
 using Bawbee.Infra.CrossCutting.Common.Exceptions;
 using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.EF;
@@ -43,7 +44,7 @@ namespace Bawbee.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseApiExceptionHandler();
+            //app.UseApiExceptionHandler();
 
             app.UseHttpsRedirection();
 
@@ -62,6 +63,7 @@ namespace Bawbee.API
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<UserRegisteredEvent>();
+            eventBus.Subscribe<EntryAddedEvent>();
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using Bawbee.Domain.Core.Events;
+using Bawbee.Domain.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bawbee.Domain.Events
 {
@@ -9,6 +12,8 @@ namespace Bawbee.Domain.Events
         public string LastName { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public IEnumerable<BankAccount> BankAccounts { get; private set; }
+        public IEnumerable<EntryCategory> EntryCategories { get; private set; }
 
         public UserRegisteredEvent(int userId, string name, string lastName, string email, string password)
         {
@@ -17,6 +22,17 @@ namespace Bawbee.Domain.Events
             LastName = lastName;
             Email = email;
             Password = password;
+        }
+
+        public UserRegisteredEvent(int userId, string name, string lastName, string email, string password, IEnumerable<BankAccount> bankAccounts, IEnumerable<EntryCategory> entryCategories)
+        {
+            UserId = userId;
+            Name = name;
+            LastName = lastName;
+            Email = email;
+            Password = password;
+            BankAccounts = bankAccounts;
+            EntryCategories = entryCategories;
         }
     }
 }
