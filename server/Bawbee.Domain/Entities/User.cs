@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,11 +36,12 @@ namespace Bawbee.Domain.Entities
             Email = email.ToLower();
             Password = password;
         }
-
+        
+        [JsonConstructor]
         public User(string name, string lastName, string email, string password, IEnumerable<BankAccount> bankAccounts, IEnumerable<EntryCategory> entryCategories, int userId = default)
             : this(name, lastName, email, password, userId)
         {
-            BankAccounts = bankAccounts?.ToList();
+            BankAccounts = bankAccounts?.ToList();          // TODO: extensions IsEmpty()
             EntryCategories = entryCategories?.ToList();
         }
 
