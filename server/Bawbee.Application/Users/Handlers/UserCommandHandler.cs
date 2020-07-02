@@ -49,7 +49,10 @@ namespace Bawbee.Application.Users.Handlers
 
             if (await CommitTransaction())
             {
-                var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
+                var userRegisteredEvent = new UserRegisteredEvent(
+                    user.UserId, user.Name, user.LastName, user.Email, 
+                    user.Password, user.BankAccounts, user.EntryCategories);
+
                 await _mediator.PublishEvent(userRegisteredEvent);
             }
             
