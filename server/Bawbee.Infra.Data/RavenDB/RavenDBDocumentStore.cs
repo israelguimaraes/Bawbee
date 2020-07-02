@@ -1,4 +1,6 @@
 ﻿using Raven.Client.Documents;
+using Newtonsoft.Json;
+using Raven.Client.Documents.Conventions;
 
 namespace Bawbee.Infra.Data.RavenDB
 {
@@ -11,7 +13,11 @@ namespace Bawbee.Infra.Data.RavenDB
             Store = new DocumentStore
             {
                 Urls = new[] { ravenConfig.ServerUrl },
-                Database = ravenConfig.Database
+                Database = ravenConfig.Database,
+                Conventions = new DocumentConventions
+                {
+                    CustomizeJsonSerializer = serializer => serializer.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }
             };
 
             Store.Initialize();

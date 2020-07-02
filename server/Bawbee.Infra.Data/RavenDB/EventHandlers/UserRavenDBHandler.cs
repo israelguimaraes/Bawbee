@@ -1,5 +1,4 @@
-﻿using Bawbee.Domain.Entities;
-using Bawbee.Domain.Events;
+﻿using Bawbee.Domain.Events;
 using MediatR;
 using Raven.Client.Documents.Session;
 using System.Threading;
@@ -17,14 +16,9 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             _session = session;
         }
 
-        public async Task Handle(UserRegisteredEvent userRegistered, CancellationToken cancellationToken)
+        public async Task Handle(UserRegisteredEvent @event, CancellationToken cancellationToken)
         {
-            var user = new User(
-                    userRegistered.Name, userRegistered.LastName,
-                    userRegistered.Email, userRegistered.Password,
-                    userRegistered.UserId);
-
-            await _session.StoreAsync(user);
+            await _session.StoreAsync(@event.User);
             await _session.SaveChangesAsync();
         }
     }

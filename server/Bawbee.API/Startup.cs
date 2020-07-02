@@ -44,7 +44,7 @@ namespace Bawbee.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseApiExceptionHandler();
+            //app.UseApiExceptionHandler();
 
             app.UseHttpsRedirection();
 
