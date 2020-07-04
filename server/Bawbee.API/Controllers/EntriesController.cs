@@ -29,6 +29,15 @@ namespace Bawbee.API.Controllers
             return Response(result);
         }
 
+        [HttpPut("")]
+        public async Task<IActionResult> UpdateEntry(UpdateEntryInputModel model)
+        {
+            model.UserId = CurrentUserId;
+
+            var result = await _entryApplication.Update(model);
+            return Response(result);
+        }
+
         [HttpGet("")]
         public async Task<IActionResult> GetEntriesByUser()
         {
