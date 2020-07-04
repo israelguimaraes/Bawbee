@@ -2,7 +2,6 @@
 using Bawbee.Domain.Events;
 using MediatR;
 using Raven.Client.Documents.Session;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,10 +29,9 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             userDocument.Email = @event.User.Email;
             userDocument.Password = @event.User.Password;
 
-            var bankAccountsDocument = new List<BankAccountDocument>(@event.User.BankAccounts.Count);
             foreach (var b in @event.User.BankAccounts)
             {
-                bankAccountsDocument.Add(new BankAccountDocument
+                userDocument.BankAccounts.Add(new BankAccountDocument
                 {
                     BankAccountId = b.Id,
                     InitialBalance = b.InitialBalance,
@@ -41,13 +39,12 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
                 });
             }
 
-            var categories = new List<EntryCategoryDocument>(@event.User.EntryCategories.Count);
-            foreach (var b in @event.User.EntryCategories)
+            foreach (var ec in @event.User.EntryCategories)
             {
-                categories.Add(new EntryCategoryDocument
+                userDocument.EntryCategories.Add(new EntryCategoryDocument
                 {
-                    EntryCategoryId = b.Id,
-                    Name = b.Name
+                    EntryCategoryId = ec.Id,
+                    Name = ec.Name
                 });
             }
 
