@@ -25,7 +25,7 @@ namespace Bawbee.Application.Query.Users.Handlers
 
             var result = users.Select(u => new UserReadModel
             {
-                UserId = u.UserId,
+                UserId = u.Id,
                 Email = u.Email,
                 Name = u.LastName,
                 LastName = u.LastName

@@ -6,17 +6,16 @@ namespace Bawbee.Domain.Entities
 {
     public class EntryCategory : BaseEntity
     {
-        public int EntryCategoryId { get; private set; }
         public string Name { get; private set; }
         public int UserId { get; private set; }
         public User User { get; private set; }
 
         [JsonConstructor]
-        public EntryCategory(string name, int userId, int entryCategoryId = default)
+        public EntryCategory(string name, int userId, int id = default)
         {
             Name = name;
             UserId = userId;
-            EntryCategoryId = entryCategoryId;
+            Id = id;
         }
 
         public static IEnumerable<EntryCategory> GetDefaultCategoriesForNewUsers(int userId)

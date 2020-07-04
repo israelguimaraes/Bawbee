@@ -8,7 +8,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
     {
         public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
-            builder.HasKey(t => t.BankAccountId);
+            builder.HasKey(t => t.Id);
 
             builder.Property(c => c.Name)
                 .HasMaxLength(255)

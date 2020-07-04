@@ -24,7 +24,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
             var userDocument = new UserDocument();
 
-            userDocument.UserId = @event.User.UserId;
+            userDocument.UserId = @event.User.Id;
             userDocument.Name = @event.User.Name;
             userDocument.LastName = @event.User.LastName;
             userDocument.Email = @event.User.Email;
@@ -35,7 +35,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             {
                 bankAccountsDocument.Add(new BankAccountDocument
                 {
-                    BankAccountId = b.BankAccountId,
+                    BankAccountId = b.Id,
                     InitialBalance = b.InitialBalance,
                     Name = b.Name
                 });
@@ -46,7 +46,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             {
                 categories.Add(new EntryCategoryDocument
                 {
-                    EntryCategoryId = b.EntryCategoryId,
+                    EntryCategoryId = b.Id,
                     Name = b.Name
                 });
             }
