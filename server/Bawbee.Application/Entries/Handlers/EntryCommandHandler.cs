@@ -24,7 +24,6 @@ namespace Bawbee.Application.Entries.Handlers
             IMediatorHandler mediator, 
             IUnitOfWork unitOfWork, 
             INotificationHandler<DomainNotification> notificationHandler,
-            IUserRepository userRepository,
             IEntryRepository entryRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;
