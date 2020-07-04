@@ -18,7 +18,6 @@ namespace Bawbee.Application.Entries.Handlers
         ICommandHandler<DeleteEntryCommand>
     {
         private readonly IMediatorHandler _mediator;
-        private readonly IUserRepository _userRepository;
         private readonly IEntryRepository _entryRepository;
 
         public EntryCommandHandler(
@@ -29,7 +28,6 @@ namespace Bawbee.Application.Entries.Handlers
             IEntryRepository entryRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;
-            _userRepository = userRepository;
             _entryRepository = entryRepository;
         }
 
