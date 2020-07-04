@@ -22,7 +22,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
         public async Task Handle(EntryAddedEvent @event, CancellationToken cancellationToken)
         {
             var user = await _session.Query<User>()
-                .Where(u => u.UserId == @event.UserId)
+                .Where(u => u.Id == @event.UserId)
                 .FirstOrDefaultAsync();
 
             var bankAccount = user.GetBankAccountById(@event.BankAccountId);

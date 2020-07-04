@@ -5,7 +5,6 @@ namespace Bawbee.Domain.Entities
 {
     public class Entry : BaseEntity
     {
-        public int EntryId { get; private set; }
         public string Description { get; private set; }
         public decimal Value { get; private set; }
         public bool IsPaid { get; private set; }
@@ -21,15 +20,15 @@ namespace Bawbee.Domain.Entities
         public int EntryCategoryId { get; private set; }
         public EntryCategory EntryCategory { get; private set; }
 
-        protected Entry(int entryId)
+        protected Entry(int id)
         {
-            EntryId = entryId;
+            Id = id;
         }
 
         public Entry(
             string description, decimal value, bool isPaid,
             string observations, DateTime dateToPay, int userId,
-            int bankAccountId, int entryCategoryId, int entryId = default) : this(entryId)
+            int bankAccountId, int entryCategoryId, int id = default) : this(id)
         {
             Description = description.Trim();
             Value = value;
