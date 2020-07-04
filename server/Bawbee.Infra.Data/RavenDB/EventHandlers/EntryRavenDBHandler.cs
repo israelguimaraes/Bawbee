@@ -12,7 +12,8 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 {
     public class EntryRavenDBHandler : 
         INotificationHandler<EntryAddedEvent>, 
-        INotificationHandler<EntryUpdatedEvent>
+        INotificationHandler<EntryUpdatedEvent>,
+        INotificationHandler<EntryDeletedEvent>
     {
         private readonly IAsyncDocumentSession _session;
 
@@ -74,6 +75,16 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
                     entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.EntryCategoryId).Name;
                 }
             }
+
+            await _session.SaveChangesAsync();
+        }
+
+        public async Task Handle(EntryDeletedEvent @event, CancellationToken cancellationToken)
+        {
+            var entryDocument = await _session.Query<EntryDocument>().FirstOrDefaultAsync(e => e.EntryId == @event.EntryId);
+
+            _session.Delete(entryDocument);
+            await _session.SaveChangesAsync();
         }
     }
 }

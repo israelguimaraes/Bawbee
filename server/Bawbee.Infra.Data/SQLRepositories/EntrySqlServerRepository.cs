@@ -36,5 +36,12 @@ namespace Bawbee.Infra.Data.SQLRepositories
 
             return Task.CompletedTask;
         }
+
+        public async Task Delete(int id)
+        {
+            var entry = await GetById(id);
+
+            _dbContext.Entries.Remove(entry);
+        }
     }
 }
