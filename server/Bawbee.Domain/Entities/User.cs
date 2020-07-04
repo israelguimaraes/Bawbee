@@ -1,5 +1,7 @@
 ﻿using Bawbee.Domain.Core.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bawbee.Domain.Entities
 {
@@ -33,6 +35,40 @@ namespace Bawbee.Domain.Entities
             LastName = lastName;
             Email = email.ToLower();
             Password = password;
+        }
+        
+        [JsonConstructor]
+        public User(string name, string lastName, string email, string password, IEnumerable<BankAccount> bankAccounts, IEnumerable<EntryCategory> entryCategories, int userId = default)
+            : this(name, lastName, email, password, userId)
+        {
+            BankAccounts = bankAccounts?.ToList();          // TODO: extensions IsEmpty()
+            EntryCategories = entryCategories?.ToList();
+        }
+
+        public void AddNewBankAccount(BankAccount bankAccount)
+        {
+            if (BankAccounts.Any(b => b.BankAccountId == bankAccount.BankAccountId))
+                return;
+
+            BankAccounts.Add(bankAccount);
+        }
+
+        public void AddNewEntryCategory(EntryCategory entryCategory)
+        {
+            if (EntryCategories.Any(e => e.EntryCategoryId == entryCategory.EntryCategoryId))
+                return;
+
+            EntryCategories.Add(entryCategory);
+        }
+
+        public EntryCategory GetEntryCategoryById(int entryCategoryId)
+        {
+            return EntryCategories.FirstOrDefault(e => e.EntryCategoryId == entryCategoryId);
+        }
+
+        public BankAccount GetBankAccountById(int bankAccountId)
+        {
+            return BankAccounts.FirstOrDefault(b => b.BankAccountId == bankAccountId);
         }
 
         public abstract class UserFactory

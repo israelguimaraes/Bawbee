@@ -44,15 +44,16 @@ namespace Bawbee.Application.Users.Handlers
             }
 
             var user = User.UserFactory.CreateNewPlataformUser(command.Name, command.LastName, command.Email, command.Password);
-            
+
             await _userRepository.Add(user);
 
             if (await CommitTransaction())
             {
-                var userRegisteredEvent = new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password);
+                var userRegisteredEvent = new UserRegisteredEvent(user);
+
                 await _mediator.PublishEvent(userRegisteredEvent);
             }
-            
+
             return CommandResult.Ok();
         }
 
@@ -69,7 +70,7 @@ namespace Bawbee.Application.Users.Handlers
             var userAccessToken = _jwtService.GenerateSecurityToken(user.UserId, user.Name, user.Email);
 
             await _mediator.PublishEvent(new UserLoggedEvent(user.UserId, user.Name, user.Email));
-            
+
             return CommandResult.Ok(userAccessToken);
         }
     }

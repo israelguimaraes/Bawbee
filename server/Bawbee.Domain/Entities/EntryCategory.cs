@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Models;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace Bawbee.Domain.Entities
@@ -10,10 +11,12 @@ namespace Bawbee.Domain.Entities
         public int UserId { get; private set; }
         public User User { get; private set; }
 
-        public EntryCategory(string name, int userId)
+        [JsonConstructor]
+        public EntryCategory(string name, int userId, int entryCategoryId = default)
         {
             Name = name;
             UserId = userId;
+            EntryCategoryId = entryCategoryId;
         }
 
         public static IEnumerable<EntryCategory> GetDefaultCategoriesForNewUsers(int userId)

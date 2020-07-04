@@ -1,4 +1,5 @@
 ﻿using Bawbee.Domain.Core.Models;
+using Newtonsoft.Json;
 
 namespace Bawbee.Domain.Entities
 {
@@ -12,11 +13,13 @@ namespace Bawbee.Domain.Entities
         public int UserId { get; private set; }
         public User User { get; private set; }
 
-        public BankAccount(string name, decimal initialBalance, int userId)
+        [JsonConstructor]
+        public BankAccount(string name, decimal initialBalance, int userId, int bankAccountId = default)
         {
             Name = name;
             InitialBalance = initialBalance;
             UserId = userId;
+            BankAccountId = bankAccountId;
         }
 
         public static BankAccount CreateDefaultBankAccount(int userId)

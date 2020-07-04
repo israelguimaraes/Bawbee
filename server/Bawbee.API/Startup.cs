@@ -27,6 +27,7 @@ namespace Bawbee.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: change...
             services.AddDbContext<BawbeeDbContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
 
@@ -44,7 +45,7 @@ namespace Bawbee.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseApiExceptionHandler();
+            //app.UseApiExceptionHandler();
 
             app.UseHttpsRedirection();
 
