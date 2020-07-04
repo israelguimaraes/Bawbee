@@ -34,6 +34,21 @@ namespace Bawbee.Application.Entries
             return await _mediator.SendCommand(command);
         }
 
+        public async Task<CommandResult> Update(UpdateEntryInputModel model)
+        {
+            var command = new UpdateEntryCommand(
+                model.EntryId, model.UserId, model.Description, model.Value, model.IsPaid,
+                model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
+
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
+        }
+
         public Task<CommandResult> GetAllByUser(int userId)
         {
             var query = new GetAllEntriesByUser(userId);

@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 {
-    public class EntryRavenDBHandler
-        : INotificationHandler<EntryAddedEvent>
+    public class EntryRavenDBHandler : 
+        INotificationHandler<EntryAddedEvent>, 
+        INotificationHandler<EntryUpdatedEvent>
     {
         private readonly IAsyncDocumentSession _session;
 
@@ -28,6 +29,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
             var entryDocument = new EntryDocument();
             entryDocument.UserDocumentId = user.Id;
+            entryDocument.EntryId = @event.EntryId;
             entryDocument.Description = @event.Description;
             entryDocument.Value = @event.Value;
             entryDocument.IsPaid = @event.IsPaid;
@@ -42,6 +44,36 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
             await _session.StoreAsync(entryDocument);
             await _session.SaveChangesAsync();
+        }
+
+        public async Task Handle(EntryUpdatedEvent @event, CancellationToken cancellationToken)
+        {
+            var entryDocument = await _session.Query<EntryDocument>().FirstOrDefaultAsync(e => e.EntryId == @event.EntryId);
+
+            entryDocument.Description = @event.Description;
+            entryDocument.Value = @event.Value;
+            entryDocument.Observations = @event.Observations;
+            entryDocument.DateToPay = @event.DateToPay;
+
+            var isBankAccountChanged = entryDocument.BankAccountId != @event.BankAccountId;
+            var isCategoryChanged = entryDocument.EntryCategoryId != @event.EntryCategoryId;
+
+            if (isBankAccountChanged || isCategoryChanged)
+            {
+                var user = await _session.LoadAsync<UserDocument>(entryDocument.UserDocumentId);
+
+                if (isBankAccountChanged)
+                {
+                    entryDocument.BankAccountId = @event.BankAccountId;
+                    entryDocument.BankAccountName = user.BankAccounts.FirstOrDefault(b => b.BankAccountId == @event.BankAccountId).Name;
+                }
+
+                if (isCategoryChanged)
+                {
+                    entryDocument.EntryCategoryId = @event.EntryCategoryId;
+                    entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.EntryCategoryId).Name;
+                }
+            }
         }
     }
 }
