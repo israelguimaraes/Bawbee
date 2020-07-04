@@ -8,8 +8,6 @@ namespace Bawbee.Infra.Data.EF.Mappings
     {
         public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
-            builder.Ignore(t => t.Id);
-
             builder.HasKey(t => t.BankAccountId);
 
             builder.Property(c => c.Name)

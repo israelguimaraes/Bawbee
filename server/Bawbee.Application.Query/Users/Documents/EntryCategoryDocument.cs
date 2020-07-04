@@ -2,7 +2,7 @@
 {
     public class EntryCategoryDocument
     {
-        public int EntryCategoryId { get; private set; }
-        public string Name { get; private set; }
+        public int EntryCategoryId { get; set; }
+        public string Name { get; set; }
     }
 }
