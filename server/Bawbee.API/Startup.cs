@@ -66,6 +66,7 @@ namespace Bawbee.API
             eventBus.Subscribe<UserRegisteredEvent>();
             eventBus.Subscribe<EntryAddedEvent>();
             eventBus.Subscribe<EntryUpdatedEvent>();
+            eventBus.Subscribe<EntryDeletedEvent>();
         }
     }
 }

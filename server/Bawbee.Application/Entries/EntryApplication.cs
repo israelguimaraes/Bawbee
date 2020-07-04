@@ -68,5 +68,18 @@ namespace Bawbee.Application.Entries
         {
             GC.SuppressFinalize(this);
         }
+
+        public async Task<CommandResult> Delete(int entryId, int userId)
+        {
+            var command = new DeleteEntryCommand(entryId, userId);
+
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
+        }
     }
 }

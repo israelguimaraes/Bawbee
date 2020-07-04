@@ -9,5 +9,6 @@ namespace Bawbee.Application.Users.Interfaces
         Task<CommandResult> AddNewEntry(NewEntryInputModel model);
         Task<CommandResult> Update(UpdateEntryInputModel model);
         Task<CommandResult> GetAllByUser(int userId);
+        Task<CommandResult> Delete(int entryId, int userId);
     }
 }

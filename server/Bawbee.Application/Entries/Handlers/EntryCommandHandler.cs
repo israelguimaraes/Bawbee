@@ -14,7 +14,8 @@ namespace Bawbee.Application.Entries.Handlers
 {
     public class EntryCommandHandler : BaseCommandHandler,
         ICommandHandler<NewEntryCommand>,
-        ICommandHandler<UpdateEntryCommand>
+        ICommandHandler<UpdateEntryCommand>,
+        ICommandHandler<DeleteEntryCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IUserRepository _userRepository;
@@ -59,7 +60,8 @@ namespace Bawbee.Application.Entries.Handlers
 
             if (!entry.IsBelongToTheUser(command.UserId))
             {
-                AddDomainNotification("Operation is invalid.");
+                // TODO: log
+                await AddDomainNotification("Invalid operation.");
                 return CommandResult.Error();
             }
 
@@ -77,6 +79,31 @@ namespace Bawbee.Application.Entries.Handlers
             if (await CommitTransaction())
             {
                 var @event = new EntryUpdatedEvent(
+                    entry.Id, entry.Description, entry.Value,
+                    entry.IsPaid, entry.Observations, entry.DateToPay,
+                    entry.UserId, entry.BankAccountId, entry.EntryCategoryId);
+
+                await _mediator.PublishEvent(@event);
+            }
+
+            return CommandResult.Ok();
+        }
+
+        public async Task<CommandResult> Handle(DeleteEntryCommand command, CancellationToken cancellationToken)
+        {
+            var entry = await _entryRepository.GetById(command.EntryId);
+
+            if (!entry.IsBelongToTheUser(command.UserId))
+            {
+                // TODO log
+                await AddDomainNotification("Invalid operation.");
+            }
+
+            await _entryRepository.Delete(entry.Id);
+
+            if (await CommitTransaction())
+            {
+                var @event = new EntryDeletedEvent(
                     entry.Id, entry.Description, entry.Value,
                     entry.IsPaid, entry.Observations, entry.DateToPay,
                     entry.UserId, entry.BankAccountId, entry.EntryCategoryId);

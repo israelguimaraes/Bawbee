@@ -8,5 +8,6 @@ namespace Bawbee.Domain.Interfaces
         Task<Entry> GetById(int id);
         Task Add(Entry entry);
         Task Update(Entry entry);
+        Task Delete(int id);
     }
 }
