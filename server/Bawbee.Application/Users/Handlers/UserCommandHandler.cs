@@ -67,9 +67,9 @@ namespace Bawbee.Application.Users.Handlers
                 return CommandResult.Error();
             }
 
-            var userAccessToken = _jwtService.GenerateSecurityToken(user.UserId, user.Name, user.Email);
+            var userAccessToken = _jwtService.GenerateSecurityToken(user.Id, user.Name, user.Email);
 
-            await _mediator.PublishEvent(new UserLoggedEvent(user.UserId, user.Name, user.Email));
+            await _mediator.PublishEvent(new UserLoggedEvent(user.Id, user.Name, user.Email));
 
             return CommandResult.Ok(userAccessToken);
         }

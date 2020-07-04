@@ -8,9 +8,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
     {
         public void Configure(EntityTypeBuilder<Entry> builder)
         {
-            builder.Ignore(t => t.Id);
-
-            builder.HasKey(t => t.EntryId);
+            builder.HasKey(t => t.Id);
 
             builder.Property(c => c.Description)
                 .HasMaxLength(255)

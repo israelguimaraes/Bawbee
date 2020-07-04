@@ -1,4 +1,5 @@
-﻿using Bawbee.Domain.Events;
+﻿using Bawbee.Application.Query.Users.Documents;
+using Bawbee.Domain.Events;
 using MediatR;
 using Raven.Client.Documents.Session;
 using System.Threading;
@@ -18,7 +19,36 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
         public async Task Handle(UserRegisteredEvent @event, CancellationToken cancellationToken)
         {
-            await _session.StoreAsync(@event.User);
+            // TODO: automapper?
+
+            var userDocument = new UserDocument();
+
+            userDocument.UserId = @event.User.Id;
+            userDocument.Name = @event.User.Name;
+            userDocument.LastName = @event.User.LastName;
+            userDocument.Email = @event.User.Email;
+            userDocument.Password = @event.User.Password;
+
+            foreach (var b in @event.User.BankAccounts)
+            {
+                userDocument.BankAccounts.Add(new BankAccountDocument
+                {
+                    BankAccountId = b.Id,
+                    InitialBalance = b.InitialBalance,
+                    Name = b.Name
+                });
+            }
+
+            foreach (var ec in @event.User.EntryCategories)
+            {
+                userDocument.EntryCategories.Add(new EntryCategoryDocument
+                {
+                    EntryCategoryId = ec.Id,
+                    Name = ec.Name
+                });
+            }
+
+            await _session.StoreAsync(userDocument);
             await _session.SaveChangesAsync();
         }
     }

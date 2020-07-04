@@ -21,7 +21,7 @@ namespace Bawbee.Infra.Data.Migrations
 
             modelBuilder.Entity("Bawbee.Domain.Entities.BankAccount", b =>
                 {
-                    b.Property<int>("BankAccountId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -40,7 +40,7 @@ namespace Bawbee.Infra.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("BankAccountId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -49,7 +49,7 @@ namespace Bawbee.Infra.Data.Migrations
 
             modelBuilder.Entity("Bawbee.Domain.Entities.Entry", b =>
                 {
-                    b.Property<int>("EntryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -84,7 +84,7 @@ namespace Bawbee.Infra.Data.Migrations
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("EntryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BankAccountId");
 
@@ -97,7 +97,7 @@ namespace Bawbee.Infra.Data.Migrations
 
             modelBuilder.Entity("Bawbee.Domain.Entities.EntryCategory", b =>
                 {
-                    b.Property<int>("EntryCategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -113,7 +113,7 @@ namespace Bawbee.Infra.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("EntryCategoryId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
@@ -122,7 +122,7 @@ namespace Bawbee.Infra.Data.Migrations
 
             modelBuilder.Entity("Bawbee.Domain.Entities.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -150,7 +150,7 @@ namespace Bawbee.Infra.Data.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
