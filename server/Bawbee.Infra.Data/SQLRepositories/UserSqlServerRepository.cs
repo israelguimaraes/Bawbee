@@ -23,6 +23,11 @@ namespace Bawbee.Infra.Data.SQLRepositories
             await _dbContext.Users.AddAsync(user);
         }
 
+        public async Task AddNewEntry(Entry entry)
+        {
+            await _dbContext.Entries.AddAsync(entry);
+        }
+
         public async Task<User> GetByEmail(string email)
         {
             return await _dapper.Connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE Email = @Email", new { Email = email });

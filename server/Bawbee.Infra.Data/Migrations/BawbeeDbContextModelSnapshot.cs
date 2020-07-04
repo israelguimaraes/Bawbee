@@ -47,6 +47,54 @@ namespace Bawbee.Infra.Data.Migrations
                     b.ToTable("BankAccounts");
                 });
 
+            modelBuilder.Entity("Bawbee.Domain.Entities.Entry", b =>
+                {
+                    b.Property<int>("EntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BankAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateToPay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("EntryCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Observations")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("EntryId");
+
+                    b.HasIndex("BankAccountId");
+
+                    b.HasIndex("EntryCategoryId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Entries");
+                });
+
             modelBuilder.Entity("Bawbee.Domain.Entities.EntryCategory", b =>
                 {
                     b.Property<int>("EntryCategoryId")
@@ -112,6 +160,27 @@ namespace Bawbee.Infra.Data.Migrations
                     b.HasOne("Bawbee.Domain.Entities.User", "User")
                         .WithMany("BankAccounts")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bawbee.Domain.Entities.Entry", b =>
+                {
+                    b.HasOne("Bawbee.Domain.Entities.BankAccount", "BankAccount")
+                        .WithMany()
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bawbee.Domain.Entities.EntryCategory", "EntryCategory")
+                        .WithMany()
+                        .HasForeignKey("EntryCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bawbee.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -119,9 +188,9 @@ namespace Bawbee.Infra.Data.Migrations
             modelBuilder.Entity("Bawbee.Domain.Entities.EntryCategory", b =>
                 {
                     b.HasOne("Bawbee.Domain.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("EntryCategories")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

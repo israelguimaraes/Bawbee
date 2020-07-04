@@ -1,7 +1,8 @@
-using Bawbee.API.Extensions;
 using Bawbee.API.Setups;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.Entries;
+using Bawbee.Infra.CrossCutting.Common.Exceptions;
 using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.EF;
 using MediatR;
@@ -26,6 +27,7 @@ namespace Bawbee.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: change...
             services.AddDbContext<BawbeeDbContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
 
@@ -43,7 +45,7 @@ namespace Bawbee.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.ConfigureExceptionHandler();
+            //app.UseApiExceptionHandler();
 
             app.UseHttpsRedirection();
 
@@ -59,10 +61,10 @@ namespace Bawbee.API
 
             app.ConfigureSwagger();
 
-
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
             eventBus.Subscribe<UserRegisteredEvent>();
+            eventBus.Subscribe<EntryAddedEvent>();
         }
     }
 }
