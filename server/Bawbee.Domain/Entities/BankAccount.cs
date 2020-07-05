@@ -23,7 +23,7 @@ namespace Bawbee.Domain.Entities
 
         public static BankAccount CreateDefaultBankAccount(int userId)
         {
-            return new BankAccount("Default Bank Account", DEFAULT_ACCOUNT_INITIAL_VALUE, userId);
+            return new BankAccount("Initial Account", DEFAULT_ACCOUNT_INITIAL_VALUE, userId);
         }
 
         public static decimal GetDefaultAccountInitialValue()
