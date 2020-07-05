@@ -5,13 +5,20 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Auth.LoginPage"
-             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Auth">
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Auth"
+             Title="Login">
 
     <ContentPage.BindingContext>
         <viewModels:LoginViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Register" Clicked="Register_ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="20, 50">
+        <Image Source="wallet.png" Margin="30"/>
+        
         <Entry Text="{Binding Email}"
                Placeholder="E-mail" />
 
