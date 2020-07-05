@@ -12,7 +12,13 @@
         <viewModels:LoginViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Orientation="Vertical">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Register_ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="20, 50">
+        <Image Source="wallet.png" Margin="30"/>
+        
         <Entry Text="{Binding Email}"
                Placeholder="E-mail" />
 
