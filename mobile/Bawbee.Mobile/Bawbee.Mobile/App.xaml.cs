@@ -14,8 +14,9 @@ namespace Bawbee.Mobile
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new RegisterPage();
+            //DependencyService.Register<MockDataStore>();
+
+            MainPage = new NavigationPage(new RegisterPage());
         }
 
         protected override void OnStart()

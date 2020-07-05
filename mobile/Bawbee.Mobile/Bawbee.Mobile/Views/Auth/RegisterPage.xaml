@@ -35,6 +35,6 @@
         <Label Text="{Binding Message}" />
 
         <Button Text="Go to Login Page"
-                Clicked="Button_Clicked" />
+                Clicked="GoToLoginPage_OnCliked" />
     </StackLayout>
 </ContentPage>

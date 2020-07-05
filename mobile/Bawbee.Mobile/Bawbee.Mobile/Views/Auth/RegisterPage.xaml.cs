@@ -17,7 +17,7 @@ namespace Bawbee.Mobile.Views.Auth
             InitializeComponent();
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
+        private async void GoToLoginPage_OnCliked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new LoginPage());
         }
