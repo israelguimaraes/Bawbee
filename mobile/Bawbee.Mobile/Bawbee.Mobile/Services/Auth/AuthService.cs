@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Bawbee.Mobile.Services.Auth
 {
@@ -30,12 +31,33 @@ namespace Bawbee.Mobile.Services.Auth
             var content = new StringContent(json);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //var endpoint = $"https://localhost:5001/api/v1/auth/register";
-            var endpoint = $"https://localhost:44310/api/v1/Auth/register";
 
-            var response = await client.PostAsync(endpoint, content);
+            var baseUrl = "";
 
-            return response.IsSuccessStatusCode;
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                baseUrl = "http://10.0.2.2:5000/api/v1/";
+            }
+            else if (Device.RuntimePlatform == Device.iOS)
+            {
+                baseUrl = "http://localhost:5000/api/v1/";
+            }
+
+            var endpoint = $"auth/register";
+
+            var finalEndpoint = baseUrl + endpoint;
+
+            try
+            {
+                var response = await client.PostAsync(finalEndpoint, content);
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }
