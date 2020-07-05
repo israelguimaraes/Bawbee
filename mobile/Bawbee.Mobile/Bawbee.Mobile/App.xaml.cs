@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Bawbee.Mobile.Services;
 using Bawbee.Mobile.Views;
+using Bawbee.Mobile.Views.Auth;
 
 namespace Bawbee.Mobile
 {
@@ -14,7 +15,7 @@ namespace Bawbee.Mobile
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new MainPage();
+            MainPage = new RegisterPage();
         }
 
         protected override void OnStart()
