@@ -5,25 +5,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Auth.RegisterPage"
-             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Users">
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Auth">
 
     <ContentPage.BindingContext>
-        <viewModels:RegisterViewModel/>
+        <viewModels:RegisterNewUserViewModel/>
     </ContentPage.BindingContext>
 
     <StackLayout Orientation="Vertical">
+        <Entry Text="{Binding Name}"
+               Placeholder="Your name" />
+
+        <Entry Text="{Binding LastName}"
+               Placeholder="Your last name" />
+
         <Entry Text="{Binding Email}"
                Placeholder="Your e-mail" />
 
         <Entry Text="{Binding Password}"
                Placeholder="Your password" 
                IsPassword="True"/>
-        
+
         <Entry Text="{Binding ConfirmPassword}"
                Placeholder="Confirm your password" 
                IsPassword="True" />
 
         <Button Command="{Binding RegisterCommand}"
                 Text="Register" />
+
+        <Label Text="{Binding Message}" />
+
+        <Button Text="Go to Login Page"
+                Clicked="Button_Clicked" />
     </StackLayout>
 </ContentPage>

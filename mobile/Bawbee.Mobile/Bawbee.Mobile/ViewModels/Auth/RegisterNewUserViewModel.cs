@@ -1,13 +1,10 @@
 ﻿using Bawbee.Mobile.Services.Auth;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Bawbee.Mobile.ViewModels.Users
+namespace Bawbee.Mobile.ViewModels.Auth
 {
-    public class RegisterViewModel
+    public class RegisterNewUserViewModel
     {
         private AuthService _authService = new AuthService();
 
