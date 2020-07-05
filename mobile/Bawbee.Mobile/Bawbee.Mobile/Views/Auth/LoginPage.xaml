@@ -19,14 +19,23 @@
     <StackLayout Padding="20, 50">
         <Image Source="wallet.png" Margin="30"/>
         
-        <Entry Text="{Binding Email}"
-               Placeholder="E-mail" />
+        <Entry Text="{Binding Email}" Placeholder="E-mail" />
+        <Entry Text="{Binding Password}" Placeholder="Password" IsPassword="True"/>
+        <Button Command="{Binding LoginCommand}" Text="Login" />
 
-        <Entry Text="{Binding Password}"
-               Placeholder="Password" 
-               IsPassword="True"/>
-
-        <Button Command="{Binding LoginCommand}"
-                Text="Login" />
+        <Label HorizontalOptions="Center" Margin="20">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Recover password"
+                          TextColor="Blue"
+                          TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="https://docs.microsoft.com/xamarin/" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        
     </StackLayout>
 </ContentPage>
