@@ -1,4 +1,5 @@
-﻿using Bawbee.Mobile.ViewModels.Auth;
+﻿using Bawbee.Mobile.Helpers;
+using Bawbee.Mobile.ViewModels.Auth;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,14 @@ namespace Bawbee.Mobile.Services.Auth
     public class AuthService
     {
         private static string BASE_URL = Device.RuntimePlatform == Device.Android ? "http://10.0.2.2:5000/api/v1/" : "http://localhost:5000/api/v1/";
+        private static string UserAcessToken = Settings.UserAcessToken;
 
         private HttpClient _httpClient;
 
         public AuthService()
         {
             _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserAcessToken);
             _httpClient.BaseAddress = new Uri($"{BASE_URL}/auth/");
         }
 
@@ -52,7 +55,7 @@ namespace Bawbee.Mobile.Services.Auth
             }
         }
 
-        public async Task Login(string email, string password)
+        public async Task<string> Login(string email, string password)
         {
             const string endpoint = "login";
 
@@ -70,7 +73,7 @@ namespace Bawbee.Mobile.Services.Auth
             {
                 var response = await _httpClient.PostAsync(endpoint, content);
 
-                
+                return "";
             }
             catch (Exception ex)
             {

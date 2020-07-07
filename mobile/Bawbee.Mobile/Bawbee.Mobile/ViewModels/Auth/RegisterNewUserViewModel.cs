@@ -1,4 +1,5 @@
-﻿using Bawbee.Mobile.Services.Auth;
+﻿using Bawbee.Mobile.Helpers;
+using Bawbee.Mobile.Services.Auth;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -23,6 +24,9 @@ namespace Bawbee.Mobile.ViewModels.Auth
                 return new Command(async () =>
                 {
                     var isSuccess = await _authService.Register(Email, Name, LastName, Password, ConfirmPassword);
+
+                    Settings.UserEmail = Email;
+                    Settings.UserPassword = Password;
 
                     Message = isSuccess ? "Registered ok" : "Fail...";
                 });
