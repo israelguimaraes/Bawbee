@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bawbee.Mobile.Views.Auth.LoginPage"
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Auth"
+             Title="Login">
+
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Register" Clicked="Register_ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="20, 50">
+        <Image Source="wallet.png" Margin="30"/>
+
+        <Entry Text="{Binding Email}" 
+               Placeholder="E-mail" />
+
+        <Entry Text="{Binding Password}" 
+               Placeholder="Password" 
+               IsPassword="True"/>
+
+        <Button Command="{Binding LoginCommand}" 
+                Text="Login" />
+
+        <Label HorizontalOptions="Center" Margin="20">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Recover password"
+                          TextColor="Blue"
+                          TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="https://docs.microsoft.com/xamarin/" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+    </StackLayout>
+</ContentPage>
