@@ -22,7 +22,7 @@ namespace Bawbee.Mobile
             if (userHasAccessToken)
             {
                 //MainPage = new NavigationPage(new DashboardPage());
-                MainPage = new NavigationPage(new MainPage());
+                MainPage = new MainPage();
             }
             else
             {
