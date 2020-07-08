@@ -1,4 +1,5 @@
-﻿using Bawbee.Domain.Core.Notifications;
+﻿using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -27,22 +28,24 @@ namespace Bawbee.API.Controllers
 
         protected bool IsValidOperation => !GetNotifications.Any();
 
-        protected new IActionResult Response(object data = null)
+        protected new IActionResult Response(CommandResult commandResult = null)
         {
-            if (IsValidOperation)
-                return OkResponse(data);
+            if (IsValidOperation && commandResult.IsSuccess)
+                return OkResponse(commandResult);
 
             return BadRequestResponse();
         }
 
-        private IActionResult OkResponse(object data)
+        private IActionResult OkResponse(CommandResult commandResult)
         {
-            return Ok(new { success = true, data });
+            return Ok(commandResult);
         }
 
         private IActionResult BadRequestResponse()
         {
-            return BadRequest(new { success = false, errors = GetNotifications.Select(n => n.Value) });
+            var result = CommandResult.Error(data: GetNotifications.Select(n => n.Value));
+
+            return BadRequest(result);
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

@@ -1,4 +1,7 @@
-﻿using Bawbee.Mobile.ViewModels.Auth;
+﻿using Bawbee.Mobile.Helpers;
+using Bawbee.Mobile.Models;
+using Bawbee.Mobile.Models.DTOs;
+using Bawbee.Mobile.ViewModels.Auth;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,20 +16,23 @@ namespace Bawbee.Mobile.Services.Auth
 {
     public class AuthService
     {
-        private static string BASE_URL = Device.RuntimePlatform == Device.Android ? "http://10.0.2.2:5000/api/v1/" : "http://localhost:5000/api/v1/";
+        private static string BASE_URL = Device.RuntimePlatform == Device.Android ? "http://10.0.2.2:5000/api/v1/auth" : "http://localhost:5000/api/v1/auth";
+        //private static string UserAcessToken = Settings.UserAcessToken;
 
         private HttpClient _httpClient;
 
         public AuthService()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri($"{BASE_URL}/auth/");
+
+            //if (!string.IsNullOrWhiteSpace(UserAcessToken))
+            //{
+            //    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserAcessToken);
+            //}
         }
 
         public async Task<bool> Register(string email, string name, string lastName, string password, string confirmPassword)
         {
-            const string endpoint = "register";
-
             var model = new RegisterNewUserViewModel
             {
                 Email = email,
@@ -37,12 +43,10 @@ namespace Bawbee.Mobile.Services.Auth
             };
 
             var json = JsonConvert.SerializeObject(model);
-            var content = new StringContent(json, Encoding.UTF8);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             try
             {
-                var response = await _httpClient.PostAsync(endpoint, content);
+                var response = await _httpClient.PostAsync($"{BASE_URL}/register", new StringContent(json, Encoding.UTF8, "application/json"));
 
                 return response.IsSuccessStatusCode;
             }
@@ -52,25 +56,25 @@ namespace Bawbee.Mobile.Services.Auth
             }
         }
 
-        public async Task Login(string email, string password)
+        public async Task<ResponseAPI<UserAcessTokenDTO>> Login(string email, string password)
         {
-            const string endpoint = "login";
-
             var model = new LoginViewModel
             {
                 Email = email,
                 Password = password
             };
 
-            var json = JsonConvert.SerializeObject(model);
-            var content = new StringContent(json, Encoding.UTF8);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var jsonObject = JsonConvert.SerializeObject(model);
 
             try
             {
-                var response = await _httpClient.PostAsync(endpoint, content);
+                var httpReponse = await _httpClient.PostAsync($"{BASE_URL}/login", new StringContent(jsonObject, Encoding.UTF8, "application/json"));
 
-                
+                var jsonResponse = await httpReponse.Content.ReadAsStringAsync();
+
+                var responseAPI = JsonConvert.DeserializeObject<ResponseAPI<UserAcessTokenDTO>>(jsonResponse);
+
+                return responseAPI;
             }
             catch (Exception ex)
             {
@@ -79,3 +83,4 @@ namespace Bawbee.Mobile.Services.Auth
         }
     }
 }
+

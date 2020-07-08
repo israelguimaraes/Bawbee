@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Mobile.Android", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Mobile.iOS", "..\mobile\Bawbee.Mobile\Bawbee.Mobile.iOS\Bawbee.Mobile.iOS.csproj", "{54A66165-A6AD-47D9-9ACA-64E8874B4E36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Mobile", "..\mobile\Bawbee.Mobile\Bawbee.Mobile\Bawbee.Mobile.csproj", "{29775022-7BF0-462D-88BF-C2EDDD5FDC84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Mobile", "..\mobile\Bawbee.Mobile\Bawbee.Mobile\Bawbee.Mobile.csproj", "{29775022-7BF0-462D-88BF-C2EDDD5FDC84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

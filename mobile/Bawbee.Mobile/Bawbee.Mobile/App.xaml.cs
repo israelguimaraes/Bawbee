@@ -1,9 +1,7 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using Bawbee.Mobile.Services;
+﻿using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Views;
 using Bawbee.Mobile.Views.Auth;
+using Xamarin.Forms;
 
 namespace Bawbee.Mobile
 {
@@ -16,7 +14,23 @@ namespace Bawbee.Mobile
 
             //DependencyService.Register<MockDataStore>();
 
-            MainPage = new NavigationPage(new LoginPage());
+            SetMainPage();
+        }
+
+        private void SetMainPage()
+        {
+            var userHasAccessToken = !string.IsNullOrWhiteSpace(Settings.UserAcessToken);
+
+            if (userHasAccessToken)
+            {
+                //MainPage = new NavigationPage(new DashboardPage());
+                MainPage = new NavigationPage(new MainPage());
+            }
+            else
+            {
+                //MainPage = new NavigationPage(new RegisterPage());
+                MainPage = new NavigationPage(new LoginPage());
+            }
         }
 
         protected override void OnStart()

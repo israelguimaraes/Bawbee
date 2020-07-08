@@ -7,19 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Bawbee.Mobile.Views.Auth
+namespace Bawbee.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LoginPage : ContentPage
+    public partial class DashboardPage : ContentPage
     {
-        public LoginPage()
+        public DashboardPage()
         {
             InitializeComponent();
-        }
-
-        private async void Register_ToolbarItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new RegisterPage());
         }
     }
 }
