@@ -18,9 +18,9 @@ namespace Bawbee.Mobile
         {
             InitializeComponent();
 
-            //this.Master = new LeftMenuPage();
-            //this.Detail = new NavigationPage(new DashboardPage());
-            this.Detail = new DashboardPage();
+            this.Master = new LeftMenuPage();
+            this.Detail = new NavigationPage(new DashboardPage());
+            //this.Detail = new DashboardPage();
         }
     }
 }
