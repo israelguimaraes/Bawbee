@@ -18,9 +18,14 @@ namespace Bawbee.Mobile.ViewModels.Auth
             {
                 return new Command(async () =>
                 {
-                    var accessToken = await _authService.Login(Email, Password);
+                    var responseAPI = await _authService.Login(Email, Password);
 
-                    Settings.UserAcessToken = accessToken;
+                    if (responseAPI.IsSuccess)
+                    {
+                        Settings.UserAcessToken = responseAPI.Data.AccessToken;
+
+                        // TODO: Navigation to DashboardPage
+                    }
                 });
             }
         }

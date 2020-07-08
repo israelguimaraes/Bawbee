@@ -1,5 +1,6 @@
 ﻿using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Models;
+using Bawbee.Mobile.Models.DTOs;
 using Bawbee.Mobile.ViewModels.Auth;
 using Newtonsoft.Json;
 using System;
@@ -55,7 +56,7 @@ namespace Bawbee.Mobile.Services.Auth
             }
         }
 
-        public async Task<string> Login(string email, string password)
+        public async Task<ResponseAPI<UserAcessTokenDTO>> Login(string email, string password)
         {
             var model = new LoginViewModel
             {
@@ -73,12 +74,7 @@ namespace Bawbee.Mobile.Services.Auth
 
                 var responseAPI = JsonConvert.DeserializeObject<ResponseAPI<UserAcessTokenDTO>>(jsonResponse);
 
-                if (responseAPI.IsSuccess)
-                {
-
-                }
-
-                return "";
+                return responseAPI;
             }
             catch (Exception ex)
             {
@@ -88,9 +84,3 @@ namespace Bawbee.Mobile.Services.Auth
     }
 }
 
-
-public class UserAcessTokenDTO
-{
-    public string AccessToken { get; set; }
-    public DateTime ExpiresIn { get; set; }
-}
