@@ -1,5 +1,6 @@
 ﻿using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Services.Auth;
+using Bawbee.Mobile.Views;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -24,7 +25,7 @@ namespace Bawbee.Mobile.ViewModels.Auth
                     {
                         Settings.UserAcessToken = responseAPI.Data.AccessToken;
 
-                        // TODO: Navigation to DashboardPage
+                        await NavigationHelper.PushAsync(new DashboardPage());
                     }
                 });
             }
