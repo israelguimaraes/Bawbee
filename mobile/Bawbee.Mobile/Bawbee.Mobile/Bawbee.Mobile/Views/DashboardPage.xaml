@@ -4,12 +4,19 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Bawbee.Mobile.Views.DashboardPage">
+             x:Class="Bawbee.Mobile.Views.DashboardPage"
+             Title="Dashboard">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Dashboard page!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+
+        <StackLayout Margin="20,35,20,25">
+            <Frame>
+                <Label Text="Example" />
+            </Frame>
+            <Label Text="Example" />
         </StackLayout>
+
+
+
     </ContentPage.Content>
 </ContentPage>

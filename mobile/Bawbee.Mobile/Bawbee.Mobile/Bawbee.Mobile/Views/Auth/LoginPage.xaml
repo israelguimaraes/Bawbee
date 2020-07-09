@@ -21,7 +21,8 @@
             <Image Source="wallet.png" Margin="10"/>
 
             <Label Text="E-mail" FontSize="Medium"/>
-            <Entry Text="{Binding Email}" 
+            <Entry Text="{Binding Email}"
+                   Keyboard="Email"
                    Placeholder="E-mail" />
 
             <Label Text="Password" FontSize="Medium"/>
