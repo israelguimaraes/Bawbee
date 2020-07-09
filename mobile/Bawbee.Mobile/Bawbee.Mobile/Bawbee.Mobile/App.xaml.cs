@@ -19,14 +19,13 @@ namespace Bawbee.Mobile
         {
             var userHasAccessToken = !string.IsNullOrWhiteSpace(Settings.UserAcessToken);
 
-            if (userHasAccessToken)
+            // TODO: implement token
+            if (false)
             {
-                //MainPage = new NavigationPage(new DashboardPage());
                 MainPage = new MainPage();
             }
             else
             {
-                //MainPage = new NavigationPage(new RegisterPage());
                 MainPage = new NavigationPage(new LoginPage());
             }
         }
