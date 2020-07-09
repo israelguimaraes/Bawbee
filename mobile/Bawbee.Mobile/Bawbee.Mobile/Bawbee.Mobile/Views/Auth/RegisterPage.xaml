@@ -12,29 +12,30 @@
         <viewModels:RegisterNewUserViewModel/>
     </ContentPage.BindingContext>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cancel" Clicked="GoToLoginPage_OnCliked" />
-    </ContentPage.ToolbarItems>
-
     <ContentPage.Content>
-        <StackLayout Spacing="0" Padding="15">
+        <StackLayout Padding="20">
+
             <Label Text="Name" FontSize="Medium"/>
             <Entry Text="{Binding Name}"
-               Placeholder="Your name" />
+                   Placeholder="Your name" />
 
+            <Label Text="Last Name" FontSize="Medium"/>
             <Entry Text="{Binding LastName}"
-               Placeholder="Your last name" />
+                   Placeholder="Your last name" />
 
+            <Label Text="E-mail" FontSize="Medium"/>
             <Entry Text="{Binding Email}"
-               Placeholder="Your e-mail" />
+                   Placeholder="Your e-mail" />
 
+            <Label Text="Password" FontSize="Medium"/>
             <Entry Text="{Binding Password}"
-               Placeholder="Your password" 
-               IsPassword="True"/>
+                   Placeholder="Your password" 
+                   IsPassword="True"/>
 
+            <Label Text="Confirm Password" FontSize="Medium"/>
             <Entry Text="{Binding ConfirmPassword}"
-               Placeholder="Confirm your password" 
-               IsPassword="True" />
+                   Placeholder="Confirm your password" 
+                   IsPassword="True" />
 
             <Button Command="{Binding RegisterCommand}"
                 Text="Register" />
