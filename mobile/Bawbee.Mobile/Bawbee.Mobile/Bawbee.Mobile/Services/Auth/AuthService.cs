@@ -16,7 +16,7 @@ namespace Bawbee.Mobile.Services.Auth
 {
     public class AuthService
     {
-        private static string BASE_URL = Device.RuntimePlatform == Device.Android ? "http://10.0.2.2:5000/api/v1/auth" : "http://localhost:5000/api/v1/auth";
+        private static string BASE_URL = App.IsAndroid ? "http://10.0.2.2:5000/api/v1/auth" : "http://localhost:5000/api/v1/auth";
         //private static string UserAcessToken = Settings.UserAcessToken;
 
         private HttpClient _httpClient;

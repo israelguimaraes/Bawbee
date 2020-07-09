@@ -1,6 +1,6 @@
 ﻿using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Services.Auth;
-using Bawbee.Mobile.Views;
+using Bawbee.Mobile.Views.Auth;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -12,6 +12,12 @@ namespace Bawbee.Mobile.ViewModels.Auth
 
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public LoginViewModel()
+        {
+            Email = Settings.UserEmail;
+            Password = Settings.UserPassword;
+        }
 
         public ICommand LoginCommand
         {
@@ -31,10 +37,15 @@ namespace Bawbee.Mobile.ViewModels.Auth
             }
         }
 
-        public LoginViewModel()
+        public ICommand RegisterCommand
         {
-            Email = Settings.UserEmail;
-            Password = Settings.UserPassword;
+            get
+            {
+                return new Command(async () =>
+                {
+                    await NavigationHelper.PushAsync(new RegisterPage());
+                });
+            }
         }
     }
 }

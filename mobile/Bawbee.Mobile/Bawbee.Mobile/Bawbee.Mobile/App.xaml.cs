@@ -7,6 +7,7 @@ namespace Bawbee.Mobile
 {
     public partial class App : Application
     {
+        public static bool IsAndroid = Device.RuntimePlatform == Device.Android;
 
         public App()
         {
@@ -19,14 +20,13 @@ namespace Bawbee.Mobile
         {
             var userHasAccessToken = !string.IsNullOrWhiteSpace(Settings.UserAcessToken);
 
-            if (userHasAccessToken)
+            // TODO: implement token
+            if (true)
             {
-                //MainPage = new NavigationPage(new DashboardPage());
                 MainPage = new MainPage();
             }
             else
             {
-                //MainPage = new NavigationPage(new RegisterPage());
                 MainPage = new NavigationPage(new LoginPage());
             }
         }

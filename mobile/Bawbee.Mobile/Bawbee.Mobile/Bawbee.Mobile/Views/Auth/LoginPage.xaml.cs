@@ -12,10 +12,5 @@ namespace Bawbee.Mobile.Views.Auth
         {
             InitializeComponent();
         }
-
-        private async void Register_ToolbarItem_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new RegisterPage());
-        }
     }
 }
