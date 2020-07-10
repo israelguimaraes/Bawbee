@@ -5,18 +5,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.DashboardPage"
-             Title="Dashboard">
-    <ContentPage.Content>
+             Title="Dashboard"
+             Padding="20">
 
+    <StackLayout>
+        
+        <StackLayout>
+            <Label Text="Welcome, Israel!" 
+                   HorizontalOptions="Center"
+                   FontSize="30"
+                   Margin="15 0"/>
 
-        <StackLayout Margin="20,35,20,25">
-            <Frame>
-                <Label Text="Example" />
-            </Frame>
-            <Label Text="Example" />
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label Text="Your balance:" 
+                   VerticalOptions="End"
+                   FontSize="20" />
+
+                <Label Text="$ 12.345,67" 
+                   FontAttributes="Bold"
+                   VerticalOptions="End"
+                   FontSize="30" />
+            </StackLayout>
         </StackLayout>
 
+        <Frame Margin="10 0">
+            <StackLayout>
+                <Label Text="Accounts" />
 
-
-    </ContentPage.Content>
+                <Label Text="ActivoBank"
+                       FontAttributes="Bold"
+                       FontSize="16"/>
+                <Label Text="Saldo: R$ 9.872,32" />
+            </StackLayout>
+        </Frame>
+        
+    </StackLayout>
 </ContentPage>
