@@ -5,11 +5,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
              mc:Ignorable="d"
-             x:Class="Bawbee.Mobile.Views.Entries.ListEntryPage">
+             x:Class="Bawbee.Mobile.Views.Entries.ListEntryPage"
+             Padding="10">
 
     <!--<ContentPage.BindingContext>
-        <viewModels:ListEntryViewModel />
-    </ContentPage.BindingContext>-->
+         <viewModels:ListEntryViewModel />
+         </ContentPage.BindingContext>-->
     
     <ContentPage.Content>
         <StackLayout>
@@ -84,6 +85,56 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout>
+                        <Grid Padding="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Column="0">
+                                <StackLayout VerticalOptions="Center" 
+                                             HorizontalOptions="Center">
+                                    <Label Text="Incomes"
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           FontAttributes="Bold"
+                                           FontSize="20"/>
+
+                                    <Label Text="$ 2.126,22"
+                                           Grid.Column="0"
+                                           Grid.Row="1"
+                                           TextColor="Green"
+                                           FontSize="18"/>
+                                </StackLayout>
+                            </Frame>
+
+                            <Frame Grid.Column="1">
+                                <StackLayout VerticalOptions="Center"
+                                             HorizontalOptions="Center">
+                                    <Label Text="Expenses"
+                                           Grid.Column="1"
+                                           Grid.Row="0"
+                                           FontAttributes="Bold"
+                                           FontSize="20"/>
+
+                                    <Label Text="$ 1.420,98"
+                                           Grid.Column="1"
+                                           Grid.Row="1"
+                                           TextColor="OrangeRed"
+                                           FontSize="18" />
+                                </StackLayout>
+                            </Frame>
+
+                            
+                        </Grid>
+                    </StackLayout>
+                </ListView.Footer>
             </ListView>
         </StackLayout>
     </ContentPage.Content>
