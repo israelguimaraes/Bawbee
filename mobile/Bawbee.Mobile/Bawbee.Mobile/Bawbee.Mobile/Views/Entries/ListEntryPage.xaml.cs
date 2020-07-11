@@ -25,7 +25,7 @@ namespace Bawbee.Mobile.Views.Entries
 
         private void GenerateFakeData()
         {
-            for (int i = 1; i <= 30; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 var entry = new EntryReadModel
                 {

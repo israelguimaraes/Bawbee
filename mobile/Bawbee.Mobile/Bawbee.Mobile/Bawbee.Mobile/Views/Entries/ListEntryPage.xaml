@@ -35,6 +35,12 @@
                             <x:String>CTT</x:String>
                         </Picker.Items>
                     </Picker>
+                    <Button Text="+" 
+                            BackgroundColor="Accent"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            HeightRequest="10"
+                            WidthRequest="60"/>
                 </StackLayout>
             </Frame>
             
