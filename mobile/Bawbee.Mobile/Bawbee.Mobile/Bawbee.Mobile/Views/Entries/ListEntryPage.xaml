@@ -13,27 +13,25 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <ListView ItemsSource="{Binding Entries}">
+            <ListView ItemsSource="{Binding Entries}"
+                      HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid>
+                            <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
-                                    <!--<RowDefinition Height="*" />-->
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
-                                    <!--<ColumnDefinition Width="*" />-->
                                 </Grid.ColumnDefinitions>
                                 
                                 <Label Text="{Binding CreatedAtFormatted}"
                                        Grid.RowSpan="2"
                                        BackgroundColor="Green"
-                                       WidthRequest="100"
-                                       HeightRequest="100"/>
+                                       HeightRequest="50"/>
                                 
                                 <Label Text="{Binding Description}"
                                        Grid.Row="0"
