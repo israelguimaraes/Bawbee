@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bawbee.Mobile.Models.DTOs
+namespace Bawbee.Mobile.Models.DTOs.Users
 {
     public class UserAcessTokenDTO
     {

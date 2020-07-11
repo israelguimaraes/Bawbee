@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="InputModels\Entries\" />
     <Folder Include="InputModels\Users\" />
     <Folder Include="ViewModels\Users\" />
   </ItemGroup>
