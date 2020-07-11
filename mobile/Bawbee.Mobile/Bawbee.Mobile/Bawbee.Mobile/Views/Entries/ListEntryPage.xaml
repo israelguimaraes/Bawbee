@@ -13,6 +13,31 @@
     
     <ContentPage.Content>
         <StackLayout>
+            <Frame Padding="10">
+                <StackLayout Orientation="Horizontal">
+                    <Picker x:Name="MonthFilter" 
+                            FontSize="14"
+                            Title="Month"
+                            HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String></x:String>
+                            <x:String>Jan</x:String>
+                            <x:String>Feb</x:String>
+                            <x:String>Mar</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Picker x:Name="AccountFilter"
+                            FontSize="14"
+                            Title="Account"
+                            HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String>ActivoBank</x:String>
+                            <x:String>CTT</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+            </Frame>
+            
             <ListView ItemsSource="{Binding Entries}"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -21,19 +46,18 @@
                             <Grid Padding="10">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1.2*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="5.*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 
                                 <Label Text="{Binding CreatedAtFormatted}"
                                        Grid.RowSpan="2"
-                                       BackgroundColor="IndianRed"
-                                       HeightRequest="50"/>
+                                       BackgroundColor="IndianRed"/>
                                 
                                 <Label Text="{Binding Description}"
                                        Grid.Row="0"
@@ -43,8 +67,7 @@
                                 <Label Text="{Binding CategoryName}"
                                        Grid.Row="1"
                                        Grid.Column="1"
-                                       BackgroundColor="NavajoWhite" 
-                                       VerticalOptions="End"/>
+                                       BackgroundColor="NavajoWhite" />
 
                                 <Label Text="{Binding Value}"
                                        Grid.Row="0"
