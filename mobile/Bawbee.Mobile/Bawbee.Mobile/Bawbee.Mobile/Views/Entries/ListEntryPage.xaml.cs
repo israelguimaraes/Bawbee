@@ -12,6 +12,8 @@ namespace Bawbee.Mobile.Views.Entries
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListEntryPage : ContentPage
     {
+        //private ICollection<>
+
         public ListEntryPage()
         {
             InitializeComponent();

@@ -14,7 +14,7 @@
             <Label Text="Welcome, Israel!" 
                    HorizontalOptions="Center"
                    FontSize="30"
-                   Margin="15 0"/>
+                   Margin="15, 0"/>
 
             <StackLayout HorizontalOptions="Center">
                 
@@ -29,7 +29,7 @@
             </StackLayout>
         </StackLayout>
 
-        <Frame Margin="10 0">
+        <Frame Margin="10, 0">
             <StackLayout>
                 <Label Text="Main Account:" />
                 
