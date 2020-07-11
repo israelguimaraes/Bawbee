@@ -1,4 +1,5 @@
 ﻿using Bawbee.Mobile.Helpers;
+using Bawbee.Mobile.ViewModels.Auth;
 using Bawbee.Mobile.Views;
 using Bawbee.Mobile.Views.Auth;
 using Xamarin.Forms;
@@ -21,18 +22,22 @@ namespace Bawbee.Mobile
             var userHasAccessToken = !string.IsNullOrWhiteSpace(Settings.UserAcessToken);
 
             // TODO: implement token
-            if (true)
+            if (false)
             {
                 MainPage = new MainPage();
             }
             else
             {
-                MainPage = new NavigationPage(new LoginPage());
+                MainPage = new LoginPage();
             }
         }
 
         protected override void OnStart()
         {
+            MessagingCenter.Subscribe<LoginViewModel>(this, nameof(LoginViewModel.LoginCommand), async (msg) =>
+            {
+                MainPage = new MainPage();
+            });
         }
 
         protected override void OnSleep()

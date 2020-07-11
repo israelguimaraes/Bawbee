@@ -31,7 +31,7 @@ namespace Bawbee.Mobile.ViewModels.Auth
                     {
                         Settings.UserAcessToken = responseAPI.Data.AccessToken;
 
-                        await NavigationHelper.PushAsync(new MainPage());
+                        MessagingCenter.Send(this, nameof(LoginCommand));
                     }
                 });
             }
