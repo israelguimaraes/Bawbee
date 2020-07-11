@@ -9,9 +9,9 @@
              Padding="10"
              Title="Entries">
 
-    <!--<ContentPage.BindingContext>
-         <viewModels:ListEntryViewModel />
-         </ContentPage.BindingContext>-->
+    <ContentPage.BindingContext>
+        <viewModels:ListEntryViewModel />
+    </ContentPage.BindingContext>
     
     <ContentPage.Content>
         <StackLayout>
@@ -37,6 +37,8 @@
                         </Picker.Items>
                     </Picker>
                     <Button Text="+" 
+                            Command="{Binding OpenModalNewEntryCommand}"
+                            TextColor="White"
                             BackgroundColor="Accent"
                             FontSize="15"
                             FontAttributes="Bold"
@@ -137,8 +139,6 @@
                                            FontSize="18" />
                                 </StackLayout>
                             </Frame>
-
-                            
                         </Grid>
                     </StackLayout>
                 </ListView.Footer>
