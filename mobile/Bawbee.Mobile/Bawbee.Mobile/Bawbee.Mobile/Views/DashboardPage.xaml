@@ -60,15 +60,11 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <!--<Image Grid.RowSpan="2"
+                            <Image Grid.RowSpan="2"
                                    Source="{Binding ImageUrl}"
                                    Aspect="AspectFill"
                                    HeightRequest="60"
-                                   WidthRequest="60" />-->
-                            <Label Text="Test"
-                                   Grid.RowSpan="2"
-                                   HeightRequest="90"
-                                   FontAttributes="Bold" />
+                                   WidthRequest="60" />
                             <Label Grid.Column="1"
                                    Text="{Binding Name}"
                                    FontAttributes="Bold" />

@@ -22,15 +22,17 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.2*" />
+                                    <ColumnDefinition Width="5.*" />
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 
                                 <Label Text="{Binding CreatedAtFormatted}"
                                        Grid.RowSpan="2"
-                                       BackgroundColor="Green"
+                                       BackgroundColor="IndianRed"
                                        HeightRequest="50"/>
                                 
                                 <Label Text="{Binding Description}"
@@ -43,7 +45,19 @@
                                        Grid.Column="1"
                                        BackgroundColor="NavajoWhite" 
                                        VerticalOptions="End"/>
-                                
+
+                                <Label Text="{Binding Value}"
+                                       Grid.Row="0"
+                                       Grid.Column="2"
+                                       BackgroundColor="Aqua"
+                                       HorizontalOptions="EndAndExpand"/>
+
+                                <Label Text="{Binding IsPaidFormatted}" 
+                                       Grid.Row="1"
+                                       Grid.Column="2"
+                                       BackgroundColor="GreenYellow"
+                                       HorizontalOptions="EndAndExpand"/>
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

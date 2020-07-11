@@ -31,12 +31,18 @@ namespace Bawbee.Mobile.Views.Entries
                 {
                     Id = i,
                     Description = $"lorem ipsum {i}",
-                    Value = (i + 2) * 1.33m,
+                    Value = (i + 2) * 8.33m,
+                    //Value = 123456789.98m,
                     CategoryName = $"category {i}",
                     BankAccountName = "ActivoBank",
                     IsPaid = i % 2 == 0,
                     CreatedAt = DateTime.Now.AddDays(i - 1)
                 };
+
+                if (i == 30)
+                {
+                    entry.Value = 1_000_000.89m;
+                }
                 
                 Entries.Add(entry);
             }
