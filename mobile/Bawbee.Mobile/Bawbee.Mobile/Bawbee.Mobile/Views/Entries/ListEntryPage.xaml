@@ -6,7 +6,8 @@
              xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Entries.ListEntryPage"
-             Padding="10">
+             Padding="10"
+             Title="Entries">
 
     <!--<ContentPage.BindingContext>
          <viewModels:ListEntryViewModel />
