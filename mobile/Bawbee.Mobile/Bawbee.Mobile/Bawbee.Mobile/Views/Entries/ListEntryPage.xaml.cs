@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Bawbee.Mobile.ReadModels.Entries;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -12,11 +10,36 @@ namespace Bawbee.Mobile.Views.Entries
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ListEntryPage : ContentPage
     {
-        //private ICollection<>
+        public ICollection<EntryReadModel> Entries { get; set; }
 
         public ListEntryPage()
         {
             InitializeComponent();
+
+            Entries = new List<EntryReadModel>();
+
+            GenerateFakeData();
+
+            BindingContext = this;
+        }
+
+        private void GenerateFakeData()
+        {
+            for (int i = 1; i <= 30; i++)
+            {
+                var entry = new EntryReadModel
+                {
+                    Id = i,
+                    Description = $"lorem ipsum {i}",
+                    Value = (i + 2) * 1.33m,
+                    CategoryName = $"category {i}",
+                    BankAccountName = "ActivoBank",
+                    IsPaid = i % 2 == 0,
+                    CreatedAt = DateTime.Now.AddDays(i - 1)
+                };
+                
+                Entries.Add(entry);
+            }
         }
     }
 }

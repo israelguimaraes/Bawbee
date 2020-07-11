@@ -3,13 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Entries.ListEntryPage">
+
+    <!--<ContentPage.BindingContext>
+        <viewModels:ListEntryViewModel />
+    </ContentPage.BindingContext>-->
+    
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="List Entries!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ListView ItemsSource="{Binding Entries}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <!--<RowDefinition Height="*" />-->
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <!--<ColumnDefinition Width="*" />-->
+                                </Grid.ColumnDefinitions>
+                                
+                                <Label Text="{Binding CreatedAtFormatted}"
+                                       Grid.RowSpan="2"
+                                       BackgroundColor="Green"
+                                       WidthRequest="100"
+                                       HeightRequest="100"/>
+                                
+                                <Label Text="{Binding Description}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       BackgroundColor="Gray" />
+                                
+                                <Label Text="{Binding CategoryName}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       BackgroundColor="NavajoWhite" 
+                                       VerticalOptions="End"/>
+                                
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
