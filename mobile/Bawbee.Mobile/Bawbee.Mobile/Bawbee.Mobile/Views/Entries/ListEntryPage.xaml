@@ -20,7 +20,6 @@
                             Title="Month"
                             HorizontalOptions="FillAndExpand">
                         <Picker.Items>
-                            <x:String></x:String>
                             <x:String>Jan</x:String>
                             <x:String>Feb</x:String>
                             <x:String>Mar</x:String>
@@ -54,8 +53,8 @@
                                     <ColumnDefinition Width="5.*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                
-                                <Label Text="{Binding CreatedAtFormatted}"
+
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:MMMM dd}'}"
                                        Grid.RowSpan="2"
                                        BackgroundColor="IndianRed"/>
                                 
