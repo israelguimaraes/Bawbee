@@ -16,26 +16,28 @@
                    FontSize="30"
                    Margin="15 0"/>
 
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
-                <Label Text="Your balance:" 
-                   VerticalOptions="End"
-                   FontSize="20" />
-
+            <StackLayout HorizontalOptions="Center">
+                
                 <Label Text="$ 12.345,67" 
-                   FontAttributes="Bold"
-                   VerticalOptions="End"
-                   FontSize="30" />
+                       FontAttributes="Bold"
+                       TextColor="Accent"
+                       VerticalOptions="End"
+                       FontSize="30" />
+
+                <Label Text="Balance"
+                       HorizontalOptions="Center" />
             </StackLayout>
         </StackLayout>
 
         <Frame Margin="10 0">
             <StackLayout>
-                <Label Text="Accounts" />
-
+                <Label Text="Main Account:" />
+                
                 <Label Text="ActivoBank"
                        FontAttributes="Bold"
                        FontSize="16"/>
-                <Label Text="Saldo: R$ 9.872,32" />
+                
+                <Label Text="R$ 9.872,32" />
             </StackLayout>
         </Frame>
         
