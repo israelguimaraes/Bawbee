@@ -37,18 +37,6 @@ namespace Bawbee.Mobile.Helpers
             }
         }
 
-        public static string UserPassword
-        {
-            get
-            {
-                return AppSettings.GetValueOrDefault(nameof(UserPassword), SettingsDefault);
-            }
-            set
-            {
-                AppSettings.AddOrUpdateValue(nameof(UserPassword), value);
-            }
-        }
-
         public static string UserAcessToken
         {
             get

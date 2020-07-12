@@ -1,6 +1,6 @@
 ﻿using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Models;
-using Bawbee.Mobile.Models.DTOs;
+using Bawbee.Mobile.Models.DTOs.Users;
 using Bawbee.Mobile.ViewModels.Auth;
 using Newtonsoft.Json;
 using System;
