@@ -18,11 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="InputModels\Entries\" />
-    <Folder Include="InputModels\Users\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="Views\Entries\ListEntryPage.xaml.cs">
       <DependentUpon>ListEntryPage.xaml</DependentUpon>
     </Compile>

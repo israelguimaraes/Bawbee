@@ -56,7 +56,7 @@ namespace Bawbee.Mobile.Services.Auth
             }
         }
 
-        public async Task<ResponseAPI<UserAcessTokenDTO>> Login(string email, string password)
+        public async Task<ApiResponse<UserAcessTokenDTO>> Login(string email, string password)
         {
             var model = new LoginViewModel
             {
@@ -72,7 +72,7 @@ namespace Bawbee.Mobile.Services.Auth
 
                 var jsonResponse = await httpReponse.Content.ReadAsStringAsync();
 
-                var responseAPI = JsonConvert.DeserializeObject<ResponseAPI<UserAcessTokenDTO>>(jsonResponse);
+                var responseAPI = JsonConvert.DeserializeObject<ApiResponse<UserAcessTokenDTO>>(jsonResponse);
 
                 return responseAPI;
             }
