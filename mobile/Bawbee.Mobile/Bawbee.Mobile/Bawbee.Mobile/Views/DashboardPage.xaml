@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bawbee.Mobile.Views.DashboardPage"
+             Title="Dashboard"
+             Padding="20">
+
+    <!--<StackLayout>
+        
+        <StackLayout>
+            <Label Text="Welcome, Israel!" 
+                   HorizontalOptions="Center"
+                   FontSize="30"
+                   Margin="15, 0"/>
+
+            <StackLayout HorizontalOptions="Center">
+                
+                <Label Text="$ 12.345,67" 
+                       FontAttributes="Bold"
+                       TextColor="Accent"
+                       VerticalOptions="End"
+                       FontSize="30" />
+
+                <Label Text="Balance"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </StackLayout>
+
+        <Frame Margin="10, 0">
+            <StackLayout>
+                <Label Text="Main Account:" />
+                
+                <Label Text="ActivoBank"
+                       FontAttributes="Bold"
+                       FontSize="16"/>
+                
+                <Label Text="R$ 9.872,32" />
+            </StackLayout>
+        </Frame>
+        
+    </StackLayout>-->
+
+    <StackLayout>
+        <ListView ItemsSource="{Binding Monkeys}"
+                  HasUnevenRows="true"
+                  ItemSelected="OnListViewItemSelected"
+                  ItemTapped="OnListViewItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2"
+                                   Source="{Binding ImageUrl}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="60"
+                                   WidthRequest="60" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   FontAttributes="Bold" />
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding Location}"
+                                   VerticalOptions="End" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

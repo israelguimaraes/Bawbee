@@ -32,8 +32,8 @@ namespace Bawbee.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginInputModel model)
         {
-            var userToken = await _userApplication.Login(model);
-            return Response(userToken);
+            var commandResult = await _userApplication.Login(model);
+            return Response(commandResult);
         }
     }
 }

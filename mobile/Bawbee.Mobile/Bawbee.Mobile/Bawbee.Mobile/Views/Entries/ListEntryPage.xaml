@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
+             mc:Ignorable="d"
+             x:Class="Bawbee.Mobile.Views.Entries.ListEntryPage"
+             Padding="10"
+             Title="Entries">
+
+    <ContentPage.BindingContext>
+        <viewModels:ListEntryViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame Padding="10">
+                <StackLayout Orientation="Horizontal">
+                    <Picker x:Name="MonthFilter" 
+                            FontSize="14"
+                            Title="Month"
+                            HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String>Jan</x:String>
+                            <x:String>Feb</x:String>
+                            <x:String>Mar</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Picker x:Name="AccountFilter"
+                            FontSize="14"
+                            Title="Account"
+                            HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String>ActivoBank</x:String>
+                            <x:String>CTT</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Button Text="+" 
+                            Command="{Binding OpenModalNewEntryCommand}"
+                            TextColor="White"
+                            BackgroundColor="Accent"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            HeightRequest="10"
+                            WidthRequest="60"/>
+                </StackLayout>
+            </Frame>
+            
+            <ListView ItemsSource="{Binding Entries}"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="5.*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding CreatedAt, StringFormat='{0:MMMM dd}'}"
+                                       Grid.RowSpan="2"
+                                       BackgroundColor="IndianRed"/>
+                                
+                                <Label Text="{Binding Description}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"
+                                       BackgroundColor="Gray" />
+                                
+                                <Label Text="{Binding CategoryName}"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       BackgroundColor="NavajoWhite" />
+
+                                <Label Text="{Binding Value}"
+                                       Grid.Row="0"
+                                       Grid.Column="2"
+                                       BackgroundColor="Aqua"
+                                       HorizontalOptions="EndAndExpand"/>
+
+                                <Label Text="{Binding IsPaidFormatted}" 
+                                       Grid.Row="1"
+                                       Grid.Column="2"
+                                       BackgroundColor="GreenYellow"
+                                       HorizontalOptions="EndAndExpand"/>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout>
+                        <Grid Padding="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Frame Grid.Column="0">
+                                <StackLayout VerticalOptions="Center" 
+                                             HorizontalOptions="Center">
+                                    <Label Text="Incomes"
+                                           Grid.Column="0"
+                                           Grid.Row="0"
+                                           FontAttributes="Bold"
+                                           FontSize="20"/>
+
+                                    <Label Text="$ 2.126,22"
+                                           Grid.Column="0"
+                                           Grid.Row="1"
+                                           TextColor="Green"
+                                           FontSize="18"/>
+                                </StackLayout>
+                            </Frame>
+
+                            <Frame Grid.Column="1">
+                                <StackLayout VerticalOptions="Center"
+                                             HorizontalOptions="Center">
+                                    <Label Text="Expenses"
+                                           Grid.Column="1"
+                                           Grid.Row="0"
+                                           FontAttributes="Bold"
+                                           FontSize="20"/>
+
+                                    <Label Text="$ 1.420,98"
+                                           Grid.Column="1"
+                                           Grid.Row="1"
+                                           TextColor="OrangeRed"
+                                           FontSize="18" />
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </StackLayout>
+                </ListView.Footer>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
