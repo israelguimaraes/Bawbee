@@ -1,4 +1,5 @@
 ﻿using Bawbee.Mobile.Models;
+using Bawbee.Mobile.Models.Dashboard;
 using System;
 using System.Collections.Generic;
 
@@ -43,9 +44,3 @@ namespace Bawbee.Mobile.ViewModels
     }
 }
 
-public class MonthExpense
-{
-    public string Category { get; set; }
-    public decimal TotalValue { get; set; }
-    public double Percent { get; set; }
-}
