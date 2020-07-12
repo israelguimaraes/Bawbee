@@ -6,16 +6,18 @@
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Auth.LoginPage"
              xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Auth"
-             Title="Bawbee">
+             Title="Login">
 
     <ContentPage.BindingContext>
         <viewModels:LoginViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout Padding="20, 50" Spacing="10">
-            <Label Text="Login" 
-                   FontSize="Title" 
+        <StackLayout Padding="20, 40" Spacing="10">
+            <Label Text="Bawbee" 
+                   TextColor="Accent"
+                   FontSize="30" 
+                   FontAttributes="Bold"
                    HorizontalOptions="Center"/>
 
             <Image Source="wallet.png" Margin="10"/>
@@ -31,7 +33,9 @@
                    IsPassword="True"/>
 
             <Button Command="{Binding LoginCommand}" 
-                    Text="Login" />
+                    Text="Login"
+                    TextColor="White"
+                    BackgroundColor="Accent"/>
 
             <Label HorizontalOptions="Center" Margin="20">
                 <Label.FormattedText>
@@ -48,9 +52,9 @@
             </Label>
 
             <Button Text="New account? Register"
-                Margin="30"
-                BackgroundColor="White"
-                Command="{Binding RegisterCommand}"/>
+                    BackgroundColor="White"
+                    Command="{Binding RegisterCommand}"
+                    VerticalOptions="EndAndExpand"/>
 
         </StackLayout>
     </ContentPage.Content>

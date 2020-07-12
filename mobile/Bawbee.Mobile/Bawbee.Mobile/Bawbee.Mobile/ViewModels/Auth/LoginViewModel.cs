@@ -16,7 +16,6 @@ namespace Bawbee.Mobile.ViewModels.Auth
         public LoginViewModel()
         {
             Email = Settings.UserEmail;
-            Password = Settings.UserPassword;
         }
 
         public ICommand LoginCommand
@@ -30,6 +29,7 @@ namespace Bawbee.Mobile.ViewModels.Auth
                     if (responseAPI.IsSuccess)
                     {
                         Settings.UserAcessToken = responseAPI.Data.AccessToken;
+                        Settings.UserEmail = Email;
 
                         MessagingCenter.Send(this, nameof(LoginCommand));
                     }
@@ -41,9 +41,9 @@ namespace Bawbee.Mobile.ViewModels.Auth
         {
             get
             {
-                return new Command(async () =>
+                return new Command(() =>
                 {
-                    await NavigationHelper.PushAsync(new RegisterPage());
+                    MessagingCenter.Send(this, nameof(RegisterCommand));
                 });
             }
         }
