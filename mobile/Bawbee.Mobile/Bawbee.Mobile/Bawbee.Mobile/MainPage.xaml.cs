@@ -39,6 +39,9 @@ namespace Bawbee.Mobile
                     case (int)MenuItemType.Entries:
                         _menuPages.Add(id, new NavigationPage(new ListEntryPage()));
                         break;
+                    case (int)MenuItemType.Logout:
+                        MessagingCenter.Send(this, nameof(MenuItemType.Logout));
+                        return;
                 }
             }
 

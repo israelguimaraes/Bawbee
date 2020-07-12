@@ -38,7 +38,10 @@
                    IsPassword="True" />
 
             <Button Command="{Binding RegisterCommand}"
-                Text="Register" />
+                    Text="Register"
+                    TextColor="White"
+                    BackgroundColor="Accent"
+                    VerticalOptions="EndAndExpand"/>
 
             <Label Text="{Binding Message}" />
         </StackLayout>
