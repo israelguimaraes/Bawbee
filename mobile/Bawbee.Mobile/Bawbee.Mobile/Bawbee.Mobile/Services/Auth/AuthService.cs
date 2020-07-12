@@ -1,16 +1,11 @@
-﻿using Bawbee.Mobile.Helpers;
-using Bawbee.Mobile.Models;
-using Bawbee.Mobile.Models.DTOs.Users;
+﻿using Bawbee.Mobile.Models;
+using Bawbee.Mobile.Models.Users;
 using Bawbee.Mobile.ViewModels.Auth;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace Bawbee.Mobile.Services.Auth
 {
@@ -56,29 +51,28 @@ namespace Bawbee.Mobile.Services.Auth
             }
         }
 
-        public async Task<ApiResponse<UserAcessTokenDTO>> Login(string email, string password)
+        public async Task<ApiResponse<UserAccessToken>> Login(string email, string password)
         {
-            var model = new LoginViewModel
-            {
-                Email = email,
-                Password = password
-            };
-
-            var jsonObject = JsonConvert.SerializeObject(model);
-
             try
             {
+                var jsonObject = JsonConvert.SerializeObject(new LoginViewModel
+                {
+                    Email = email,
+                    Password = password
+                });
+
                 var httpReponse = await _httpClient.PostAsync($"{BASE_URL}/login", new StringContent(jsonObject, Encoding.UTF8, "application/json"));
 
                 var jsonResponse = await httpReponse.Content.ReadAsStringAsync();
 
-                var responseAPI = JsonConvert.DeserializeObject<ApiResponse<UserAcessTokenDTO>>(jsonResponse);
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<UserAccessToken>>(jsonResponse);
 
-                return responseAPI;
+                return apiResponse;
             }
             catch (Exception ex)
             {
-                throw;
+                // TODO: ...
+                return new ApiResponse<UserAccessToken> { IsSuccess = false };
             }
         }
     }
