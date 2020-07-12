@@ -22,7 +22,7 @@ namespace Bawbee.Mobile
             var userHasAccessToken = !string.IsNullOrWhiteSpace(Settings.UserAcessToken);
 
             // TODO: implement token
-            if (false)
+            if (true)
             {
                 GoToMainPage();
             }
