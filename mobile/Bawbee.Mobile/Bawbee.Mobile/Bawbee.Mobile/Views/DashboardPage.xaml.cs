@@ -16,5 +16,7 @@ namespace Bawbee.Mobile.Views
 
             Dashboard = new DashboardViewModel();
         }
+
+       
     }
 }

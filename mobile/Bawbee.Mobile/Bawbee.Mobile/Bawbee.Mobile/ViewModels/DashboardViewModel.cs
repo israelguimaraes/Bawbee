@@ -12,9 +12,11 @@ namespace Bawbee.Mobile.ViewModels
             BankAccounts = new List<BankAccount>();
             BankAccounts.Add(new BankAccount { Id = 1, Name = "ActivoBank", CurrentBalance = 291.17m });
             BankAccounts.Add(new BankAccount { Id = 2, Name = "CTT", CurrentBalance = 754.82m });
-            //BankAccounts.Add(new BankAccount { Id = 3, Name = "Banco do Brasil", CurrentBalance = 55534.82m });
-            //BankAccounts.Add(new BankAccount { Id = 4, Name = "Santander", CurrentBalance = 34.84m });
-            //BankAccounts.Add(new BankAccount { Id = 5, Name = "BCP", CurrentBalance = 224.22m });
+            BankAccounts.Add(new BankAccount { Id = 3, Name = "Banco do Brasil", CurrentBalance = 55534.82m });
+            BankAccounts.Add(new BankAccount { Id = 4, Name = "Santander", CurrentBalance = 34.84m });
+            BankAccounts.Add(new BankAccount { Id = 5, Name = "BCP", CurrentBalance = 224.22m });
         }
+
+        public int SizeBankAccountsFrame => BankAccounts.Count >= 3 ? 150 : BankAccounts.Count * 60;
     }
 }
