@@ -3,18 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:Bawbee.Mobile.ViewModels"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.DashboardPage"
              Title="Dashboard"
              Padding="20">
 
-    <!--<StackLayout>
+    <ContentPage.BindingContext>
+        <vm:DashboardViewModel />
+    </ContentPage.BindingContext>
+    
+    <StackLayout>
         
+        <!--welcome and balance-->
         <StackLayout>
             <Label Text="Welcome, Israel!" 
                    HorizontalOptions="Center"
-                   FontSize="30"
-                   Margin="15, 0"/>
+                   FontSize="20"/>
 
             <StackLayout HorizontalOptions="Center">
                 
@@ -29,54 +35,92 @@
             </StackLayout>
         </StackLayout>
 
-        <Frame Margin="10, 0">
+        <!--bank accounts-->
+        <Frame Margin="0,15" 
+               HeightRequest="{Binding SizeBankAccountsFrame}">
             <StackLayout>
-                <Label Text="Main Account:" />
-                
-                <Label Text="ActivoBank"
-                       FontAttributes="Bold"
-                       FontSize="16"/>
-                
-                <Label Text="R$ 9.872,32" />
+                <ListView ItemsSource="{Binding BankAccounts}"
+                          HasUnevenRows="True">
+                    <ListView.Header>
+                        <Label Text="Accounts"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"/>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Name}"
+                                           Grid.Row="0"
+                                           Grid.Column="0" />
+
+                                    <Label Text="{Binding CurrentBalance, StringFormat='$ {0}'}"
+                                           Grid.Row="0"
+                                           Grid.Column="1" 
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="End"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </Frame>
         
-    </StackLayout>-->
+        <!--current month expenses-->
+        <Frame Margin="0,15">
+            <StackLayout>
+                <ListView ItemsSource="{Binding CurrentMonthExpenses}"
+                          HasUnevenRows="True">
+                    <ListView.Header>
+                        <Label Text="{Binding CurrentMonthExpensesTitle}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center" />
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-    <StackLayout>
-        <ListView ItemsSource="{Binding Monkeys}"
-                  HasUnevenRows="true"
-                  ItemSelected="OnListViewItemSelected"
-                  ItemTapped="OnListViewItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.RowSpan="2"
-                                   Source="{Binding ImageUrl}"
-                                   Aspect="AspectFill"
-                                   HeightRequest="60"
-                                   WidthRequest="60" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding Name}"
-                                   FontAttributes="Bold" />
-                            <Label Grid.Row="1"
-                                   Grid.Column="1"
-                                   Text="{Binding Location}"
-                                   VerticalOptions="End" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                                    <Label Text="{Binding Category}"
+                                           Grid.Row="0"
+                                           Grid.Column="0" />
+
+                                    <Label Text="{Binding TotalValue, StringFormat='$ {0}'}"
+                                           Grid.Row="0"
+                                           Grid.Column="1"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="End"/>
+
+                                    <Label Text="{Binding Percent, StringFormat='{0}%'}"
+                                           Grid.Row="0"
+                                           Grid.Column="2"
+                                           FontAttributes="Bold"
+                                           HorizontalOptions="EndAndExpand"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
+            </StackLayout>
+        </Frame>
+        
     </StackLayout>
 
 </ContentPage>
