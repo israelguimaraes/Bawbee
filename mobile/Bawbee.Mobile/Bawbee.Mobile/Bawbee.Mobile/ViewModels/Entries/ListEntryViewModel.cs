@@ -49,9 +49,14 @@ namespace Bawbee.Mobile.ViewModels.Entries
             {
                 return new Command(() =>
                 {
-                    MessagingCenter.Send(this, nameof(OpenModalNewEntryCommand));
+                    MessagingCenter.Send(this, MessageKey.OpenModalNewEntry);
                 });
             }
+        }
+
+        public class MessageKey
+        {
+            public const string OpenModalNewEntry = nameof(OpenModalNewEntry);
         }
     }
 }
