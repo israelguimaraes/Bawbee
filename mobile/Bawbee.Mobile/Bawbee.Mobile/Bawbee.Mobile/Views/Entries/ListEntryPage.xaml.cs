@@ -21,12 +21,7 @@ namespace Bawbee.Mobile.Views.Entries
 
             MessagingCenter.Subscribe<ListEntryViewModel>(this, MessageKey.OpenModalNewEntry, async (msg) =>
             {
-                //var action = await DisplayActionSheet(null, "cancel", null, "Add Expense", "Add Income");
-
-                //if (action == "Add Expense")
-                //    await Navigation.PushAsync(new AddEntryPage());
-
-                await Navigation.PushAsync(new EntryTabbedPage());
+                await Navigation.PushModalAsync(new EntryTabbedPage());
             });
         }
 

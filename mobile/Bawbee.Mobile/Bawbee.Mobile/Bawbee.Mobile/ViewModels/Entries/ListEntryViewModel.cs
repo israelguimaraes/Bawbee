@@ -56,7 +56,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
 
         public class MessageKey
         {
-            public const string OpenModalNewEntry = nameof(OpenModalNewEntry);
+            public const string OpenModalNewEntry = nameof(OpenModalNewEntryCommand);
         }
     }
 }
