@@ -21,7 +21,7 @@ namespace Bawbee.Mobile.Views.Entries
 
             MessagingCenter.Subscribe<ListEntryViewModel>(this, MessageKey.OpenModalNewEntry, async (msg) =>
             {
-                await Navigation.PushModalAsync(new EntryTabbedPage());
+                await Navigation.PushAsync(new EntryTabbedPage());
             });
         }
 

@@ -3,14 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Entries.AddExpensePage"
+             Padding="20"
              Title="Expense">
+    
+    <ContentPage.BindingContext>
+        <viewModels:AddEntryViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Add Expense!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+
+            <Label Text="Value $"
+                   FontSize="Medium" />
+            <Entry Text="{Binding Expense.Value}"
+                   Keyboard="Numeric"/>
+
+            <Label Text="Category"
+                   FontSize="Medium" />
+            <Entry Text="{Binding Expense.CategoryId}" />
+
+            <Label Text="Account"
+                   FontSize="Medium" />
+            <Entry Text="{Binding Expense.BankAccountId}" />
+
+            <Label Text="Description"
+                   FontSize="Medium" />
+            <Entry Text="{Binding Expense.Description}" />
+
+            <Label Text="Observations"
+                   FontSize="Medium" />
+            <Entry Text="{Binding Expense.Observations}" />
+
+            <Button Command="{Binding AddEntryCommand}"
+                    Text="Add Entry"
+                    TextColor="White"
+                    BackgroundColor="Accent"
+                    VerticalOptions="EndAndExpand" />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
