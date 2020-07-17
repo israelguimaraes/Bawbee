@@ -34,7 +34,7 @@
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedBankAccount}" />
 
-                <Grid RowSpacing="0">
+                <Grid RowSpacing="-15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
