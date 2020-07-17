@@ -22,7 +22,7 @@ namespace Bawbee.Domain.Entities
         {
             var list = new List<EntryCategory>
             {
-                new EntryCategory("House", userId),
+                new EntryCategory("Home", userId),
                 new EntryCategory("Food", userId),
                 new EntryCategory("Grocery", userId),
                 new EntryCategory("Leisure and Fun", userId),
