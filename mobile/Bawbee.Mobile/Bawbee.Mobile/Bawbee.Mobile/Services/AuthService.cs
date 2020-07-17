@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bawbee.Mobile.Services.Auth
+namespace Bawbee.Mobile.Services
 {
     public class AuthService
     {
