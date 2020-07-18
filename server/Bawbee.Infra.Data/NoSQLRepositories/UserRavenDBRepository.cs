@@ -40,5 +40,13 @@ namespace Bawbee.Infra.Data.NoSQLRepositories
                 .Select(u => u.EntryCategories)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<IEnumerable<BankAccountDocument>> GetBankAccountsByUser(int userId)
+        {
+            return await _session.Query<UserDocument>()
+                .Where(u => u.UserId == userId)
+                .Select(u => u.BankAccounts)
+                .FirstOrDefaultAsync();
+        }
     }
 }

@@ -26,12 +26,12 @@ namespace Bawbee.API.Controllers
             return Response(categories);
         }
 
-        //[HttpGet("bank-accounts")]
-        //public async Task<IActionResult> GetBankAccountsByUser()
-        //{
-        //    var bankAccounts = await _userApplication.GetBankAccounts(CurrentUserId);
+        [HttpGet("bank-accounts")]
+        public async Task<IActionResult> GetBankAccountsByUser()
+        {
+            var bankAccounts = await _userApplication.GetBankAccounts(CurrentUserId);
 
-        //    return Response(bankAccounts);
-        //}
+            return Response(bankAccounts);
+        }
     }
 }
