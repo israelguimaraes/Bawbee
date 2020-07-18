@@ -11,5 +11,6 @@ namespace Bawbee.Application.Query.Users.Interfaces
         Task<IEnumerable<User>> GetAll();
         Task<User> GetByEmailAndPassword(string email, string password);
         Task<IEnumerable<EntryCategoryDocument>> GetCategoriesByUser(int userId);
+        Task<IEnumerable<BankAccountDocument>> GetBankAccountsByUser(int userId);
     }
 }

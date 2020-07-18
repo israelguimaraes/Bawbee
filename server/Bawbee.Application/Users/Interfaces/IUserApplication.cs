@@ -13,5 +13,6 @@ namespace Bawbee.Application.Users.Interfaces
         Task<IEnumerable<UserReadModel>> GetAll();
         Task<CommandResult> Login(LoginInputModel model);
         Task<IEnumerable<EntryCategoryReadModel>> GetCategories(int userId);
+        Task<IEnumerable<BankAccountReadModel>> GetBankAccounts(int userId);
     }
 }

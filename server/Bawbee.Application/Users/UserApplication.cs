@@ -46,6 +46,12 @@ namespace Bawbee.Application.Services
             return _mediator.SendCommand(query);
         }
 
+        public Task<IEnumerable<BankAccountReadModel>> GetBankAccounts(int userId)
+        {
+            var query = new GetAllBankAccountsByUserQuery(userId);
+            return _mediator.SendCommand(query);
+        }
+
         public async Task<CommandResult> Login(LoginInputModel model)
         {
             var command = new LoginCommand(model.Email, model.Password);
