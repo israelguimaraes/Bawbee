@@ -12,5 +12,6 @@ namespace Bawbee.Application.Users.Interfaces
         Task<CommandResult> Register(RegisterNewUserInputModel model);
         Task<IEnumerable<UserReadModel>> GetAll();
         Task<CommandResult> Login(LoginInputModel model);
+        Task<IEnumerable<EntryCategoryReadModel>> GetCategories(int userId);
     }
 }

@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.Query.Users.Handlers
 {
-    public class UserQueryHandler
-        : ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>
+    public class UserQueryHandler : 
+        ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>,
+        ICommandQueryHandler<GetAllCategoriesByUserQuery, IEnumerable<EntryCategoryReadModel>>
     {
         private readonly IUserReadRepository _userReadRepository;
 
@@ -32,6 +33,17 @@ namespace Bawbee.Application.Query.Users.Handlers
             });
 
             return result;
+        }
+
+        public async Task<IEnumerable<EntryCategoryReadModel>> Handle(GetAllCategoriesByUserQuery query, CancellationToken cancellationToken)
+        {
+            var categoriesDocument = await _userReadRepository.GetCategoriesByUser(query.UserId);
+
+            return categoriesDocument.Select(c => new EntryCategoryReadModel
+            {
+                Id = c.EntryCategoryId,
+                Name = c.Name
+            });
         }
     }
 }
