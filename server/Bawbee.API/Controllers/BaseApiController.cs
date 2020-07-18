@@ -43,7 +43,7 @@ namespace Bawbee.API.Controllers
 
         private IActionResult BadRequestResponse()
         {
-            var result = CommandResult.Error(data: GetNotifications.Select(n => n.Value));
+            var result = CommandResult.Error(GetNotifications.Select(n => n.Value));
 
             return BadRequest(result);
         }

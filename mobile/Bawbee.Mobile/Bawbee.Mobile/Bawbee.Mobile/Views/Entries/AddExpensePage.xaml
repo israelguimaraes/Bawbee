@@ -22,6 +22,10 @@
                 <Entry Text="{Binding Expense.Value}"
                        Keyboard="Numeric" />
 
+                <Label Text="Description"
+                       FontSize="Medium" />
+                <Entry Text="{Binding Expense.Description}" />
+
                 <Label Text="Category"
                        FontSize="Medium" />
                 <Picker ItemsSource="{Binding Categories}"

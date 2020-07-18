@@ -1,5 +1,6 @@
 ﻿using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Entries;
+using Bawbee.Mobile.Services;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -11,6 +12,8 @@ namespace Bawbee.Mobile.ViewModels.Entries
         public Expense Expense { get; set; }
         public List<EntryCategory> Categories { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
+
+        private readonly EntryService _entryService;
 
         public AddEntryViewModel()
         {
@@ -28,6 +31,8 @@ namespace Bawbee.Mobile.ViewModels.Entries
                 new BankAccount { Id = 1, Name = "ActivoBank" },
                 new BankAccount { Id = 2, Name = "CTT" },
             };
+
+            _entryService = new EntryService();
         }
 
         public EntryCategory SelectedCategory { get; set; }
@@ -37,12 +42,26 @@ namespace Bawbee.Mobile.ViewModels.Entries
         {
             get
             {
-                return new Command(() =>
+                return new Command(async () =>
                 {
-                    Expense.EntryCategoryId = SelectedCategory.Id;
-                    Expense.BankAccountId = SelectedCategory.Id;
+                    // TODO: is valid
+                    if (true)
+                    {
+                        Expense.EntryCategoryId = SelectedCategory.Id;
+                        Expense.BankAccountId = SelectedBankAccount.Id;
+
+                        if (await _entryService.Add(Expense))
+                        {
+                            MessagingCenter.Send(this, MessageKey.AddEntry);
+                        };
+                    }
                 });
             }
+        }
+
+        public class MessageKey
+        {
+            public const string AddEntry = nameof(AddEntryCommand);
         }
     }
 }
