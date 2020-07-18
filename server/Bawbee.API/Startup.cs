@@ -2,6 +2,7 @@ using Bawbee.API.Setups;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Events.Entries;
+using Bawbee.Domain.Events.EntryCategories;
 using Bawbee.Infra.CrossCutting.Common.Exceptions;
 using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.EF;
@@ -67,6 +68,7 @@ namespace Bawbee.API
             eventBus.Subscribe<EntryAddedEvent>();
             eventBus.Subscribe<EntryUpdatedEvent>();
             eventBus.Subscribe<EntryDeletedEvent>();
+            eventBus.Subscribe<EntryCategoryAddedEvent>();
         }
     }
 }

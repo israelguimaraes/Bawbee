@@ -18,6 +18,11 @@ namespace Bawbee.Infra.Data.NoSQLRepositories
             _session = session;
         }
 
+        public async Task<UserDocument> GetById(int userId)
+        {
+            return await _session.Query<UserDocument>().FirstOrDefaultAsync(u => u.UserId == userId);
+        }
+
         public async Task<User> GetByEmail(string email)
         {
             return await _session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower());
