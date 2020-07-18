@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bawbee.Domain.Core.Commands
 {
@@ -29,13 +30,12 @@ namespace Bawbee.Domain.Core.Commands
             };
         }
 
-        public static CommandResult Error(string message = null, object data = null)
+        public static CommandResult Error(IEnumerable<string> errors = null)
         {
             return new CommandResult
             {
                 IsSuccess = false,
-                Errors = new List<string> { message },
-                Data = data
+                Errors = errors?.ToList(),
             };
         }
     }

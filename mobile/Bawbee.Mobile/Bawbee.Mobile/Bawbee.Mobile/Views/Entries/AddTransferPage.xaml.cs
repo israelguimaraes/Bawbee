@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Bawbee.Mobile.Views.Entries
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddEntryPage : ContentPage
+    public partial class AddTransferPage : ContentPage
     {
-        public AddEntryPage()
+        public AddTransferPage()
         {
             InitializeComponent();
         }
