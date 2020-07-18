@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
+             mc:Ignorable="d"
+             x:Class="Bawbee.Mobile.Views.Entries.AddExpensePage"
+             Padding="20"
+             Title="Expense">
+    
+    <ContentPage.BindingContext>
+        <viewModels:AddEntryViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <Label Text="Value $"
+                       FontSize="Medium" />
+                <Entry Text="{Binding Expense.Value}"
+                       Keyboard="Numeric" />
+
+                <Label Text="Description"
+                       FontSize="Medium" />
+                <Entry Text="{Binding Expense.Description}" />
+
+                <Label Text="Category"
+                       FontSize="Medium" />
+                <Picker ItemsSource="{Binding Categories}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedCategory}" />
+
+                <Label Text="Account"
+                       FontSize="Medium" />
+                <Picker ItemsSource="{Binding BankAccounts}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedBankAccount}" />
+
+                <Grid RowSpacing="-15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <Label Text="Date"
+                           Grid.Column="0"
+                           FontSize="Medium" />
+                    <DatePicker Date="{Binding Expense.DateToPay}"
+                                Grid.Column="0"
+                                Grid.Row="1"/>
+                    
+                    <Label Text="Is Paid?"
+                           Grid.Column="1"
+                           FontSize="Medium"
+                           HorizontalOptions="Center"/>
+                    <CheckBox IsChecked="{Binding Expense.IsPaid}"
+                              Grid.Column="1"
+                              Grid.Row="1"
+                              HorizontalOptions="Center"
+                              Scale="2"/>
+                </Grid>
+
+                <Label Text="Observations"
+                       FontSize="Medium" />
+                <Entry Text="{Binding Expense.Observations}" />
+
+                <Button Command="{Binding AddEntryCommand}"
+                        Text="Add Expense"
+                        TextColor="White"
+                        BackgroundColor="Accent"
+                        VerticalOptions="EndAndExpand" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
