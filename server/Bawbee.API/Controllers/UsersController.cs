@@ -18,11 +18,20 @@ namespace Bawbee.API.Controllers
             _userApplication = userApplication;
         }
 
-        //[HttpGet("")]
-        //public async Task<IActionResult> GetAllUsersTest()
-        //{
-        //    var users = await _userApplication.GetAll();
-        //    return Response(users);
-        //}
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetCategoriesByUser()
+        {
+            var categories = await _userApplication.GetCategories(CurrentUserId);
+
+            return Response(categories);
+        }
+
+        [HttpGet("bank-accounts")]
+        public async Task<IActionResult> GetBankAccountsByUser()
+        {
+            var bankAccounts = await _userApplication.GetBankAccounts(CurrentUserId);
+
+            return Response(bankAccounts);
+        }
     }
 }
