@@ -1,7 +1,9 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Command.Users.Categories;
 using Bawbee.Application.Query.Users.Queries;
 using Bawbee.Application.Query.Users.ReadModels;
 using Bawbee.Application.Users.InputModels;
+using Bawbee.Application.Users.InputModels.Categories;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
@@ -50,6 +52,19 @@ namespace Bawbee.Application.Services
         {
             var query = new GetAllBankAccountsByUserQuery(userId);
             return _mediator.SendCommand(query);
+        }
+
+        public async Task<CommandResult> AddCategory(AddEntryCategoryInputModel model, int userId)
+        {
+            var command = new AddEntryCategoryCommand(model.Name, userId);
+            
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
         }
 
         public async Task<CommandResult> Login(LoginInputModel model)
