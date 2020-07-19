@@ -14,69 +14,74 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <ScrollView>
+        <StackLayout>
             <StackLayout>
-
-                <Label Text="Value $"
+                <ActivityIndicator IsRunning="{Binding IsBusy}"
+                                   IsVisible="{Binding IsBusy}"/>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <Label Text="Value $"
                        FontSize="Medium" />
-                <Entry Text="{Binding Expense.Value}"
+                    <Entry Text="{Binding Expense.Value}"
                        Keyboard="Numeric" />
 
-                <Label Text="Description"
+                    <Label Text="Description"
                        FontSize="Medium" />
-                <Entry Text="{Binding Expense.Description}" />
+                    <Entry Text="{Binding Expense.Description}" />
 
-                <Label Text="Category"
+                    <Label Text="Category"
                        FontSize="Medium" />
-                <Picker ItemsSource="{Binding Categories}"
+                    <Picker ItemsSource="{Binding Categories}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedCategory}" />
 
-                <Label Text="Account"
+                    <Label Text="Account"
                        FontSize="Medium" />
-                <Picker ItemsSource="{Binding BankAccounts}"
+                    <Picker ItemsSource="{Binding BankAccounts}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedBankAccount}" />
 
-                <Grid RowSpacing="-15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    
-                    <Label Text="Date"
+                    <Grid RowSpacing="-15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Label Text="Date"
                            Grid.Column="0"
                            FontSize="Medium" />
-                    <DatePicker Date="{Binding Expense.DateToPay}"
+                        <DatePicker Date="{Binding Expense.DateToPay}"
                                 Grid.Column="0"
                                 Grid.Row="1"/>
-                    
-                    <Label Text="Is Paid?"
+
+                        <Label Text="Is Paid?"
                            Grid.Column="1"
                            FontSize="Medium"
                            HorizontalOptions="Center"/>
-                    <CheckBox IsChecked="{Binding Expense.IsPaid}"
+                        <CheckBox IsChecked="{Binding Expense.IsPaid}"
                               Grid.Column="1"
                               Grid.Row="1"
                               HorizontalOptions="Center"
                               Scale="2"/>
-                </Grid>
+                    </Grid>
 
-                <Label Text="Observations"
+                    <Label Text="Observations"
                        FontSize="Medium" />
-                <Entry Text="{Binding Expense.Observations}" />
+                    <Entry Text="{Binding Expense.Observations}" />
 
-                <Button Command="{Binding AddEntryCommand}"
+                    <Button Command="{Binding AddEntryCommand}"
                         Text="Add Expense"
                         TextColor="White"
                         BackgroundColor="Accent"
                         VerticalOptions="EndAndExpand" />
 
-            </StackLayout>
-        </ScrollView>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

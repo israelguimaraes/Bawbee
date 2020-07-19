@@ -49,12 +49,12 @@ namespace Bawbee.Application.Entries
             return await _mediator.SendCommand(command);
         }
 
-        public Task<CommandResult> GetAllByUser(int userId)
+        public async Task<CommandResult> GetAllByUser(int userId)
         {
             var query = new GetAllEntriesByUser(userId);
-            var entries = _mediator.SendCommand(query);
+            var entries = await _mediator.SendCommand(query);
 
-            return Task.FromResult(CommandResult.Ok(entries));
+            return CommandResult.Ok(entries);
         }
 
         // TODO: create in BaseApplication
