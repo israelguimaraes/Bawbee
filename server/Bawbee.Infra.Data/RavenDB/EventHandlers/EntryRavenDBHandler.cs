@@ -37,6 +37,8 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.Observations = @event.Observations;
             entryDocument.DateToPay = @event.DateToPay;
 
+            entryDocument.UserId = @event.UserId;
+
             entryDocument.BankAccountId = @event.BankAccountId;
             entryDocument.BankAccountName = user.BankAccounts.FirstOrDefault(b => b.BankAccountId == @event.BankAccountId).Name;
 

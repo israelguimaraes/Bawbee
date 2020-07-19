@@ -19,10 +19,10 @@ namespace Bawbee.Application.Entries
             _mediator = mediator;
         }
 
-        public async Task<CommandResult> AddNewEntry(NewEntryInputModel model)
+        public async Task<CommandResult> AddEntry(NewEntryInputModel model, int userId)
         {
             var command = new NewEntryCommand(
-                model.UserId, model.Description, model.Value, model.IsPaid,
+                userId, model.Description, model.Value, model.IsPaid,
                 model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
 
             if (!command.IsValid())
@@ -34,10 +34,10 @@ namespace Bawbee.Application.Entries
             return await _mediator.SendCommand(command);
         }
 
-        public async Task<CommandResult> Update(UpdateEntryInputModel model)
+        public async Task<CommandResult> Update(UpdateEntryInputModel model, int userId)
         {
             var command = new UpdateEntryCommand(
-                model.EntryId, model.UserId, model.Description, model.Value, model.IsPaid,
+                model.EntryId, userId, model.Description, model.Value, model.IsPaid,
                 model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
 
             if (!command.IsValid())
@@ -57,18 +57,6 @@ namespace Bawbee.Application.Entries
             return CommandResult.Ok(entries);
         }
 
-        // TODO: create in BaseApplication
-        private void SendNotificationsErrors(BaseCommand message)
-        {
-            foreach (var error in message.ValidationResult.Errors)
-                _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));
-        }
-
-        public void Dispose()
-        {
-            GC.SuppressFinalize(this);
-        }
-
         public async Task<CommandResult> Delete(int entryId, int userId)
         {
             var command = new DeleteEntryCommand(entryId, userId);
@@ -80,6 +68,18 @@ namespace Bawbee.Application.Entries
             }
 
             return await _mediator.SendCommand(command);
+        }
+
+        // TODO: create in BaseApplication
+        private void SendNotificationsErrors(BaseCommand message)
+        {
+            foreach (var error in message.ValidationResult.Errors)
+                _mediator.PublishEvent(new DomainNotification(error.ErrorMessage));
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

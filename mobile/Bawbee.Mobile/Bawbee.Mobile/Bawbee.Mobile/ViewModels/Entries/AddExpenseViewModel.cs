@@ -1,6 +1,6 @@
 ﻿using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Entries;
-using Bawbee.Mobile.Services;
+using Bawbee.Mobile.Services.Entries;
 using Bawbee.Mobile.ViewModels.Base;
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -8,15 +8,15 @@ using Xamarin.Forms;
 
 namespace Bawbee.Mobile.ViewModels.Entries
 {
-    public class AddEntryViewModel : BaseViewModel
+    public class AddExpenseViewModel : BaseViewModel
     {
         public Expense Expense { get; set; }
         public List<EntryCategory> Categories { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
 
-        private readonly EntryService _entryService;
+        private readonly ExpenseService _entryService;
 
-        public AddEntryViewModel()
+        public AddExpenseViewModel()
         {
             Expense = new Expense();
 
@@ -33,7 +33,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
                 new BankAccount { Id = 2, Name = "CTT" },
             };
 
-            _entryService = new EntryService();
+            _entryService = new ExpenseService();
         }
 
         public EntryCategory SelectedCategory { get; set; }
@@ -54,10 +54,9 @@ namespace Bawbee.Mobile.ViewModels.Entries
                         Expense.BankAccountId = SelectedBankAccount.Id;
 
                         if (await _entryService.Add(Expense))
-                        {
                             MessagingCenter.Send(this, MessageKey.EntryAdded);
-                            IsBusy = false;
-                        };
+
+                        IsBusy = false;
                     }
                 });
             }

@@ -8,20 +8,16 @@ namespace Bawbee.Mobile.Views.Entries
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddExpensePage : ContentPage
     {
-        public AddEntryViewModel AddEntryViewModel { get; set; }
-
         public AddExpensePage()
         {
             InitializeComponent();
-
-            AddEntryViewModel = new AddEntryViewModel();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            MessagingCenter.Subscribe<AddEntryViewModel>(this, AddEntryViewModel.MessageKey.EntryAdded, async (msg) => 
+            MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) => 
             {
                 await Navigation.PopAsync();
             });
@@ -31,7 +27,7 @@ namespace Bawbee.Mobile.Views.Entries
         {
             base.OnDisappearing();
 
-            MessagingCenter.Unsubscribe<AddEntryViewModel>(this, AddEntryViewModel.MessageKey.EntryAdded);
+            MessagingCenter.Unsubscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded);
         }
     }
 }

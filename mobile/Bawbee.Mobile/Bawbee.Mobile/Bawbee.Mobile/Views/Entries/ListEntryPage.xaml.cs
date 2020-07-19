@@ -11,17 +11,13 @@ namespace Bawbee.Mobile.Views.Entries
         public ListEntryPage()
         {
             InitializeComponent();
-
-            //BindingContext = new ListEntryViewModel();
         }
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            var viewModel = BindingContext as ListEntryViewModel;
-
-            await viewModel.LoadEntries();
+            await (BindingContext as ListEntryViewModel).LoadEntries();
 
             MessagingCenter.Subscribe<ListEntryViewModel>(this, MessageKey.OpenModalNewEntry, async (msg) =>
             {
