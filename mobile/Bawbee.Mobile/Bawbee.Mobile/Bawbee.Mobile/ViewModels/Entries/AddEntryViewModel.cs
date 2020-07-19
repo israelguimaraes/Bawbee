@@ -48,12 +48,15 @@ namespace Bawbee.Mobile.ViewModels.Entries
                     // TODO: is valid
                     if (true)
                     {
+                        IsBusy = true;
+
                         Expense.EntryCategoryId = SelectedCategory.Id;
                         Expense.BankAccountId = SelectedBankAccount.Id;
 
                         if (await _entryService.Add(Expense))
                         {
                             MessagingCenter.Send(this, MessageKey.EntryAdded);
+                            IsBusy = false;
                         };
                     }
                 });
