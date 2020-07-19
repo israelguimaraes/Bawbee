@@ -2,6 +2,7 @@
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
+using Bawbee.Infra.CrossCutting.Common.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -30,6 +31,8 @@ namespace Bawbee.API.Controllers
         [HttpPost("")]
         public async Task<IActionResult> AddExpense(NewEntryInputModel model)
         {
+            model.Value = model.Value.ToNegative();
+
             var result = await _entryApplication.AddEntry(model, CurrentUserId);
             return Response(result);
         }
@@ -37,6 +40,8 @@ namespace Bawbee.API.Controllers
         [HttpPut("")]
         public async Task<IActionResult> UpdateExpense(UpdateEntryInputModel model)
         {
+            model.Value = model.Value.ToNegative();
+
             var result = await _entryApplication.Update(model, CurrentUserId);
             return Response(result);
         }

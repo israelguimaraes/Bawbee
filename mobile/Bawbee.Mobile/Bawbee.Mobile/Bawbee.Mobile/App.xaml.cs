@@ -1,4 +1,5 @@
 ﻿using Bawbee.Mobile.Helpers;
+using Bawbee.Mobile.Models.Exceptions;
 using Bawbee.Mobile.Models.Menu;
 using Bawbee.Mobile.ViewModels.Auth;
 using Bawbee.Mobile.Views.Auth;
@@ -50,6 +51,12 @@ namespace Bawbee.Mobile
             });
 
             MessagingCenter.Subscribe<MainPage>(this, nameof(MenuItemType.Logout), (msg) =>
+            {
+                Settings.UserAcessToken = null;
+                GoToLoginPage();
+            });
+
+            MessagingCenter.Subscribe<ServiceAuthenticationException>(this, nameof(ServiceAuthenticationException), (msg) =>
             {
                 Settings.UserAcessToken = null;
                 GoToLoginPage();

@@ -19,7 +19,7 @@ namespace Bawbee.Mobile.Views.Entries
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) => 
             {
-                await Navigation.PopAsync();
+                await Navigation.PushAsync(new ListEntryPage());
             });
         }
 

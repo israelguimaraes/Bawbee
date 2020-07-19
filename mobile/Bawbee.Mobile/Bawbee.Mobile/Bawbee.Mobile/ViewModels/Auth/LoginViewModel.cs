@@ -1,12 +1,12 @@
 ﻿using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Services;
-using Bawbee.Mobile.Views.Auth;
+using Bawbee.Mobile.ViewModels.Base;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Bawbee.Mobile.ViewModels.Auth
 {
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
         private readonly AuthService _authService = new AuthService();
 
@@ -24,6 +24,8 @@ namespace Bawbee.Mobile.ViewModels.Auth
             {
                 return new Command(async () =>
                 {
+                    IsBusy = true;
+
                     var responseAPI = await _authService.Login(Email, Password);
 
                     if (responseAPI.IsSuccess)
@@ -33,6 +35,8 @@ namespace Bawbee.Mobile.ViewModels.Auth
 
                         MessagingCenter.Send(this, nameof(LoginCommand));
                     }
+
+                    IsBusy = false;
                 });
             }
         }

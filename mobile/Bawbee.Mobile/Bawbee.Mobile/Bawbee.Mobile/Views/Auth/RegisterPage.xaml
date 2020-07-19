@@ -14,6 +14,7 @@
 
     <ContentPage.Content>
         <StackLayout Padding="20">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
 
             <Label Text="Name" FontSize="Medium"/>
             <Entry Text="{Binding Name}"

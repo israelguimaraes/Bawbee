@@ -2,21 +2,24 @@
 using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Entries;
+using Bawbee.Mobile.Models.Exceptions;
 using Bawbee.Mobile.ReadModels.Entries;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Bawbee.Mobile.Services.Entries
 {
     public class ExpenseService
     {
-        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/entries/expenses";
+        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/expenses";
 
         private readonly HttpClient _httpClient;
 
@@ -41,7 +44,7 @@ namespace Bawbee.Mobile.Services.Entries
             }
             catch (Exception ex)
             {
-                return new ObservableCollection<EntryReadModel>();
+                throw;
             }
         }
 
@@ -67,15 +70,17 @@ namespace Bawbee.Mobile.Services.Entries
         {
             if (!response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<object>>(json);
+                var content = await response.Content.ReadAsStringAsync();
 
-                if (!apiResponse.IsSuccess)
+                if (response.StatusCode == HttpStatusCode.Forbidden ||
+                    response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    //apiResponse.Errors
+                    var exception = new ServiceAuthenticationException(content);
+
+                    MessagingCenter.Send(exception, nameof(ServiceAuthenticationException));
                 }
 
-                throw new InvalidOperationException(json);
+                throw new InvalidOperationException();
             }
         }
     }
