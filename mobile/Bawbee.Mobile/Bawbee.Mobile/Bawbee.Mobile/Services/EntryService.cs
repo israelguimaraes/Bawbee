@@ -2,9 +2,11 @@
 using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Entries;
+using Bawbee.Mobile.ReadModels.Entries;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -22,6 +24,20 @@ namespace Bawbee.Mobile.Services
         {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.UserAcessToken);
+        }
+
+        public async Task<ObservableCollection<EntryReadModel>> GetEntries()
+        {
+            try
+            {
+                var json = await _httpClient.GetStringAsync(Endpoint);
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public async Task<bool> Add(Expense expense)

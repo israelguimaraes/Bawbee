@@ -11,7 +11,5 @@ namespace Bawbee.Mobile.ReadModels.Entries
         public string BankAccountName { get; set; }
         public bool IsPaid { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        public string IsPaidFormatted { get => IsPaid ? "Paid" : "Unpaid"; }
     }
 }
