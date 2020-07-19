@@ -12,6 +12,8 @@ namespace Bawbee.Domain.Entities
         public int UserId { get; private set; }
         public User User { get; private set; }
 
+        protected BankAccount() { }
+
         [JsonConstructor]
         public BankAccount(string name, decimal initialBalance, int userId, int id = default)
         {

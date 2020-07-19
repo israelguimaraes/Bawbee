@@ -1,4 +1,5 @@
-﻿using Bawbee.Mobile.Models;
+﻿using Bawbee.Mobile.Configs;
+using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Users;
 using Bawbee.Mobile.ViewModels.Auth;
 using Newtonsoft.Json;
@@ -7,23 +8,17 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bawbee.Mobile.Services.Auth
+namespace Bawbee.Mobile.Services
 {
     public class AuthService
     {
-        private static string BASE_URL = App.IsAndroid ? "http://10.0.2.2:5000/api/v1/auth" : "http://localhost:5000/api/v1/auth";
-        //private static string UserAcessToken = Settings.UserAcessToken;
+        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/auth";
 
         private HttpClient _httpClient;
 
         public AuthService()
         {
             _httpClient = new HttpClient();
-
-            //if (!string.IsNullOrWhiteSpace(UserAcessToken))
-            //{
-            //    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", UserAcessToken);
-            //}
         }
 
         public async Task<bool> Register(string email, string name, string lastName, string password, string confirmPassword)
@@ -41,7 +36,7 @@ namespace Bawbee.Mobile.Services.Auth
 
             try
             {
-                var response = await _httpClient.PostAsync($"{BASE_URL}/register", new StringContent(json, Encoding.UTF8, "application/json"));
+                var response = await _httpClient.PostAsync($"{Endpoint}/register", new StringContent(json, Encoding.UTF8, "application/json"));
 
                 return response.IsSuccessStatusCode;
             }
@@ -61,7 +56,7 @@ namespace Bawbee.Mobile.Services.Auth
                     Password = password
                 });
 
-                var httpReponse = await _httpClient.PostAsync($"{BASE_URL}/login", new StringContent(jsonObject, Encoding.UTF8, "application/json"));
+                var httpReponse = await _httpClient.PostAsync($"{Endpoint}/login", new StringContent(jsonObject, Encoding.UTF8, "application/json"));
 
                 var jsonResponse = await httpReponse.Content.ReadAsStringAsync();
 

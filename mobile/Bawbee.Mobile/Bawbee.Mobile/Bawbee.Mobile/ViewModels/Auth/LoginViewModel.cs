@@ -1,5 +1,5 @@
 ﻿using Bawbee.Mobile.Helpers;
-using Bawbee.Mobile.Services.Auth;
+using Bawbee.Mobile.Services;
 using Bawbee.Mobile.Views.Auth;
 using System.Windows.Input;
 using Xamarin.Forms;
