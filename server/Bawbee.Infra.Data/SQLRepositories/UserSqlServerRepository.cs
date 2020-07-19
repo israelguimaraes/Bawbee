@@ -25,7 +25,8 @@ namespace Bawbee.Infra.Data.SQLRepositories
 
         public async Task<User> GetByEmail(string email)
         {
-            return await _dapper.Connection.QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE Email = @Email", new { Email = email });
+            return await _dapper.Connection
+                .QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE Email = @Email", new { Email = email });
         }
 
         public async Task<User> GetByEmailAndPassword(string email, string password)
@@ -33,6 +34,17 @@ namespace Bawbee.Infra.Data.SQLRepositories
             const string query = "SELECT * FROM Users WHERE Email = @Email and Password = @Password";
 
             return await _dapper.Connection.QueryFirstOrDefaultAsync<User>(query, new { Email = email, Password = password });
+        }
+
+        public async Task<EntryCategory> GetCategoryByName(string name)
+        {
+            return await _dapper.Connection
+                .QueryFirstOrDefaultAsync<EntryCategory>("SELECT * FROM EntryCategories WHERE Name = @Name", new { Name = name });
+        }
+
+        public void AddEntryCategory(EntryCategory category)
+        {
+            _dbContext.EntryCategories.Add(category);
         }
     }
 }
