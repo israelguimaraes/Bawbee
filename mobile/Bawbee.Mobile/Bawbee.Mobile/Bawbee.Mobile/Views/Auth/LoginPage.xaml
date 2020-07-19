@@ -26,12 +26,10 @@
 
             <Label Text="E-mail" FontSize="Medium"/>
             <Entry Text="{Binding Email}"
-                   Keyboard="Email"
-                   Placeholder="E-mail" />
+                   Keyboard="Email" />
 
             <Label Text="Password" FontSize="Medium"/>
             <Entry Text="{Binding Password}" 
-                   Placeholder="Password" 
                    IsPassword="True"/>
 
             <Button Command="{Binding LoginCommand}" 

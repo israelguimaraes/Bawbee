@@ -17,25 +17,20 @@
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
 
             <Label Text="Name" FontSize="Medium"/>
-            <Entry Text="{Binding Name}"
-                   Placeholder="Your name" />
+            <Entry Text="{Binding Name}" />
 
             <Label Text="Last Name" FontSize="Medium"/>
-            <Entry Text="{Binding LastName}"
-                   Placeholder="Your last name" />
+            <Entry Text="{Binding LastName}" />
 
             <Label Text="E-mail" FontSize="Medium"/>
-            <Entry Text="{Binding Email}"
-                   Placeholder="Your e-mail" />
+            <Entry Text="{Binding Email}" />
 
             <Label Text="Password" FontSize="Medium"/>
             <Entry Text="{Binding Password}"
-                   Placeholder="Your password" 
                    IsPassword="True"/>
 
             <Label Text="Confirm Password" FontSize="Medium"/>
             <Entry Text="{Binding ConfirmPassword}"
-                   Placeholder="Confirm your password" 
                    IsPassword="True" />
 
             <Button Command="{Binding RegisterCommand}"
