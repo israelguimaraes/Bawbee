@@ -1,6 +1,7 @@
 using Bawbee.API.Setups;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.BankAccounts;
 using Bawbee.Domain.Events.Entries;
 using Bawbee.Domain.Events.EntryCategories;
 using Bawbee.Infra.CrossCutting.Common.Exceptions;
@@ -69,6 +70,7 @@ namespace Bawbee.API
             eventBus.Subscribe<EntryUpdatedEvent>();
             eventBus.Subscribe<EntryDeletedEvent>();
             eventBus.Subscribe<EntryCategoryAddedEvent>();
+            eventBus.Subscribe<BankAccountAddedEvent>();
         }
     }
 }

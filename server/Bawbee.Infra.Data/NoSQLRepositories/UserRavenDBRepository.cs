@@ -18,7 +18,7 @@ namespace Bawbee.Infra.Data.NoSQLRepositories
             _session = session;
         }
 
-        public async Task<UserDocument> GetById(int userId)
+        public async Task<UserDocument> GetByUserId(int userId)
         {
             return await _session.Query<UserDocument>().FirstOrDefaultAsync(u => u.UserId == userId);
         }
