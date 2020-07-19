@@ -30,13 +30,18 @@ namespace Bawbee.Mobile.Services
         {
             try
             {
-                var json = await _httpClient.GetStringAsync(Endpoint);
+                var response = await _httpClient.GetAsync(Endpoint);
+                
+                await HandleResponse(response);
 
-                return null;
+                var json = await response.Content.ReadAsStringAsync();
+                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<EntryReadModel>>>(json);
+
+                return new ObservableCollection<EntryReadModel>(apiResponse.Data);
             }
             catch (Exception ex)
             {
-                return null;
+                return new ObservableCollection<EntryReadModel>();
             }
         }
 
@@ -54,7 +59,7 @@ namespace Bawbee.Mobile.Services
             }
             catch (Exception ex)
             {
-                return false;
+                throw;
             }
         }
 

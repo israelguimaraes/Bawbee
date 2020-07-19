@@ -54,10 +54,9 @@ namespace Bawbee.Mobile.ViewModels.Entries
                         Expense.BankAccountId = SelectedBankAccount.Id;
 
                         if (await _entryService.Add(Expense))
-                        {
                             MessagingCenter.Send(this, MessageKey.EntryAdded);
-                            IsBusy = false;
-                        };
+
+                        IsBusy = false;
                     }
                 });
             }

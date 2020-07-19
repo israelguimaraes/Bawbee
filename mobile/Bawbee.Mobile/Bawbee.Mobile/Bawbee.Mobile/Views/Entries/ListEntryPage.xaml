@@ -6,7 +6,7 @@
              xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Entries"
              mc:Ignorable="d"
              x:Class="Bawbee.Mobile.Views.Entries.ListEntryPage"
-             Padding="10"
+             Padding="20"
              Title="Entries">
 
     <ContentPage.BindingContext>
@@ -17,6 +17,7 @@
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
 
+            <!--filter-->
             <Frame Padding="10">
                 <StackLayout Orientation="Horizontal">
                     <Picker x:Name="MonthFilter" 
@@ -49,12 +50,13 @@
                 </StackLayout>
             </Frame>
             
+            <!--records-->
             <ListView ItemsSource="{Binding Entries}"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="10">
+                            <Grid Padding="10" ColumnSpacing="20">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -62,35 +64,39 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="5.*" />
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="{Binding CreatedAt, StringFormat='{0:MMMM dd}'}"
-                                       Grid.RowSpan="2"
-                                       BackgroundColor="IndianRed"/>
+                                       Grid.RowSpan="2"/>
                                 
                                 <Label Text="{Binding Description}"
                                        Grid.Row="0"
                                        Grid.Column="1"
-                                       BackgroundColor="Gray" />
+                                       FontAttributes="Bold"/>
                                 
                                 <Label Text="{Binding CategoryName}"
                                        Grid.Row="1"
                                        Grid.Column="1"
-                                       BackgroundColor="NavajoWhite" />
+                                       VerticalOptions="Center"/>
 
-                                <Label Text="{Binding Value}"
+                                <Label Text="{Binding Value, StringFormat='{0:N}'}"
                                        Grid.Row="0"
                                        Grid.Column="2"
-                                       BackgroundColor="Aqua"
+                                       FontAttributes="Bold"
                                        HorizontalOptions="EndAndExpand"/>
 
-                                <Label Text="{Binding IsPaidFormatted}" 
-                                       Grid.Row="1"
-                                       Grid.Column="2"
-                                       BackgroundColor="GreenYellow"
-                                       HorizontalOptions="EndAndExpand"/>
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Row="1"
+                                             Grid.Column="2">
+                                    <Label Text="Paid"
+                                           VerticalOptions="Center"/>
+                                    <CheckBox IsChecked="{Binding IsPaid}"
+                                              IsEnabled="False"
+                                              VerticalOptions="Center"
+                                              Color="LawnGreen"/>
+                                </StackLayout>
 
                             </Grid>
                         </ViewCell>
@@ -117,7 +123,7 @@
                                            FontAttributes="Bold"
                                            FontSize="20"/>
 
-                                    <Label Text="$ 2.126,22"
+                                    <Label Text="{Binding TotalIncomes, StringFormat='{0:N}'}"
                                            Grid.Column="0"
                                            Grid.Row="1"
                                            TextColor="Green"
@@ -134,7 +140,7 @@
                                            FontAttributes="Bold"
                                            FontSize="20"/>
 
-                                    <Label Text="$ 1.420,98"
+                                    <Label Text="{Binding TotalExpenses, StringFormat='{0:N}'}"
                                            Grid.Column="1"
                                            Grid.Row="1"
                                            TextColor="OrangeRed"
