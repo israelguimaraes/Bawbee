@@ -15,6 +15,8 @@
     
     <ContentPage.Content>
         <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+
             <Frame Padding="10">
                 <StackLayout Orientation="Horizontal">
                     <Picker x:Name="MonthFilter" 
