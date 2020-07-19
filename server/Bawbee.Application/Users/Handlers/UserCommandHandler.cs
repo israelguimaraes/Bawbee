@@ -1,10 +1,14 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Command.Users.BankAccounts;
+using Bawbee.Application.Command.Users.Categories;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Domain.Core.UnitOfWork;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.BankAccounts;
+using Bawbee.Domain.Events.EntryCategories;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Common.Security;
 using MediatR;
@@ -15,7 +19,9 @@ namespace Bawbee.Application.Users.Handlers
 {
     public class UserCommandHandler : BaseCommandHandler,
         ICommandHandler<RegisterNewUserCommand>,
-        ICommandHandler<LoginCommand>
+        ICommandHandler<LoginCommand>,
+        ICommandHandler<AddEntryCategoryCommand>,
+        ICommandHandler<AddBankAccountCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IJwtService _jwtService;
@@ -39,7 +45,7 @@ namespace Bawbee.Application.Users.Handlers
 
             if (userDatabase != null)
             {
-                await _mediator.PublishEvent(new DomainNotification("E-mail already used."));
+                await _mediator.PublishEvent(new DomainNotification("E-mail already used"));
                 return CommandResult.Error();
             }
 
@@ -50,7 +56,6 @@ namespace Bawbee.Application.Users.Handlers
             if (await CommitTransaction())
             {
                 var userRegisteredEvent = new UserRegisteredEvent(user);
-
                 await _mediator.PublishEvent(userRegisteredEvent);
             }
 
@@ -72,6 +77,55 @@ namespace Bawbee.Application.Users.Handlers
             await _mediator.PublishEvent(new UserLoggedEvent(user.Id, user.Name, user.Email));
 
             return CommandResult.Ok(userAccessToken);
+        }
+
+        public async Task<CommandResult> Handle(AddEntryCategoryCommand command, CancellationToken cancellationToken)
+        {
+            var category = await _userRepository.GetCategoryByName(command.Name, command.UserId);
+
+            if (category != null)
+            {
+                await _mediator.PublishEvent(new DomainNotification("Category already exists"));
+                return CommandResult.Error();
+            }
+
+            category = new EntryCategory(command.Name, command.UserId);
+            
+            await _userRepository.AddEntryCategory(category);
+
+            if (await CommitTransaction())
+            {
+                var @event = new EntryCategoryAddedEvent(category.Id, category.Name, category.UserId);
+                await _mediator.PublishEvent(@event);
+            }
+
+            return CommandResult.Ok();
+        }
+
+        public async Task<CommandResult> Handle(AddBankAccountCommand command, CancellationToken cancellationToken)
+        {
+            var bankAccount = await _userRepository.GetBankAccountByName(command.Name, command.UserId);
+
+            if (bankAccount != null)
+            {
+                await AddDomainNotification("Bank Account already exists");
+                return CommandResult.Error();
+            }
+
+            bankAccount = new BankAccount(command.Name, command.InitialBalance, command.UserId);
+
+            await _userRepository.AddBankAccount(bankAccount);
+
+            if (await CommitTransaction())
+            {
+                var @event = new BankAccountAddedEvent(
+                    bankAccount.Id, bankAccount.Name, 
+                    bankAccount.InitialBalance, bankAccount.UserId);
+
+                await _mediator.PublishEvent(@event);
+            }
+
+            return CommandResult.Ok();
         }
     }
 }
