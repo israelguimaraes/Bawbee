@@ -5,7 +5,6 @@ namespace Bawbee.Application.Users.InputModels.Entries
     public class UpdateEntryInputModel
     {
         public int EntryId { get; set; }
-        public int UserId { get; set; }
         public string Description { get; set; }
         public decimal Value { get; set; }
         public bool IsPaid { get; set; }

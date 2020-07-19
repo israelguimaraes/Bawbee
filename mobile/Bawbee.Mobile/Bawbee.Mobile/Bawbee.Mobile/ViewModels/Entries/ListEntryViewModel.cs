@@ -1,5 +1,5 @@
 ﻿using Bawbee.Mobile.ReadModels.Entries;
-using Bawbee.Mobile.Services;
+using Bawbee.Mobile.Services.Entries;
 using Bawbee.Mobile.ViewModels.Base;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,11 +11,11 @@ namespace Bawbee.Mobile.ViewModels.Entries
 {
     public class ListEntryViewModel : BaseViewModel
     {
-        private readonly EntryService _entryService;
+        private readonly ExpenseService _entryService;
 
         public ListEntryViewModel()
         {
-            _entryService = new EntryService();
+            _entryService = new ExpenseService();
             _entries = new ObservableCollection<EntryReadModel>();
         }
 

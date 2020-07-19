@@ -12,15 +12,15 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bawbee.Mobile.Services
+namespace Bawbee.Mobile.Services.Entries
 {
-    public class EntryService
+    public class ExpenseService
     {
-        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/entries";
+        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/entries/expenses";
 
         private readonly HttpClient _httpClient;
 
-        public EntryService()
+        public ExpenseService()
         {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.UserAcessToken);
@@ -31,7 +31,7 @@ namespace Bawbee.Mobile.Services
             try
             {
                 var response = await _httpClient.GetAsync(Endpoint);
-                
+
                 await HandleResponse(response);
 
                 var json = await response.Content.ReadAsStringAsync();
