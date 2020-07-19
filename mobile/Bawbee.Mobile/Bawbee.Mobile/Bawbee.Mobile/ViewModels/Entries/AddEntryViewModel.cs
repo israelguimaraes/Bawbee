@@ -1,13 +1,14 @@
 ﻿using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Entries;
 using Bawbee.Mobile.Services;
+using Bawbee.Mobile.ViewModels.Base;
 using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Bawbee.Mobile.ViewModels.Entries
 {
-    public class AddEntryViewModel
+    public class AddEntryViewModel : BaseViewModel
     {
         public Expense Expense { get; set; }
         public List<EntryCategory> Categories { get; set; }
@@ -52,7 +53,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
 
                         if (await _entryService.Add(Expense))
                         {
-                            MessagingCenter.Send(this, MessageKey.AddEntry);
+                            MessagingCenter.Send(this, MessageKey.EntryAdded);
                         };
                     }
                 });
@@ -61,7 +62,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
 
         public class MessageKey
         {
-            public const string AddEntry = nameof(AddEntryCommand);
+            public const string EntryAdded = nameof(AddEntryCommand);
         }
     }
 }
