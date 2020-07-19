@@ -36,15 +36,28 @@ namespace Bawbee.Infra.Data.SQLRepositories
             return await _dapper.Connection.QueryFirstOrDefaultAsync<User>(query, new { Email = email, Password = password });
         }
 
-        public async Task<EntryCategory> GetCategoryByName(string name)
+        public async Task<EntryCategory> GetCategoryByName(string name, int userId)
         {
-            return await _dapper.Connection
-                .QueryFirstOrDefaultAsync<EntryCategory>("SELECT * FROM EntryCategories WHERE Name = @Name", new { Name = name });
+            var query = "SELECT * FROM EntryCategories WHERE Name = @Name AND UserId = @UserId";
+
+            return await _dapper.Connection.QueryFirstOrDefaultAsync<EntryCategory>(query, new { Name = name, UserId = userId });
         }
 
-        public void AddEntryCategory(EntryCategory category)
+        public async Task AddEntryCategory(EntryCategory category)
         {
-            _dbContext.EntryCategories.Add(category);
+            await _dbContext.EntryCategories.AddAsync(category);
+        }
+
+        public async Task<BankAccount> GetBankAccountByName(string name, int userId)
+        {
+            var query = "SELECT * FROM BankAccounts WHERE Name = @Name AND UserId = @UserId";
+
+            return await _dapper.Connection.QueryFirstOrDefaultAsync<BankAccount>(query, new { Name = name, UserId = userId });
+        }
+
+        public async Task AddBankAccount(BankAccount bankAccount)
+        {
+            await _dbContext.BankAccounts.AddAsync(bankAccount);
         }
     }
 }

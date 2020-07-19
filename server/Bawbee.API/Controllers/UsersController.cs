@@ -1,4 +1,5 @@
-﻿using Bawbee.Application.Users.InputModels.Categories;
+﻿using Bawbee.Application.Users.InputModels.BankAccounts;
+using Bawbee.Application.Users.InputModels.Categories;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using MediatR;
@@ -41,6 +42,14 @@ namespace Bawbee.API.Controllers
             var bankAccounts = await _userApplication.GetBankAccounts(CurrentUserId);
 
             return Response(bankAccounts);
+        }
+
+        [HttpPost("bank-accounts")]
+        public async Task<IActionResult> AddBankAccount(AddBankAccountInputModel model)
+        {
+            var result = await _userApplication.AddBankAccount(model, CurrentUserId);
+
+            return Response(result);
         }
     }
 }
