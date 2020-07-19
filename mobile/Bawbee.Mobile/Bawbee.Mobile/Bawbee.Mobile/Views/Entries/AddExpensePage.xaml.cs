@@ -16,5 +16,22 @@ namespace Bawbee.Mobile.Views.Entries
 
             AddEntryViewModel = new AddEntryViewModel();
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MessagingCenter.Subscribe<AddEntryViewModel>(this, AddEntryViewModel.MessageKey.EntryAdded, async (msg) => 
+            {
+                await Navigation.PopAsync();
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            MessagingCenter.Unsubscribe<AddEntryViewModel>(this, AddEntryViewModel.MessageKey.EntryAdded);
+        }
     }
 }

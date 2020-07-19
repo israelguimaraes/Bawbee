@@ -52,7 +52,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
 
                         if (await _entryService.Add(Expense))
                         {
-                            MessagingCenter.Send(this, MessageKey.AddEntry);
+                            MessagingCenter.Send(this, MessageKey.EntryAdded);
                         };
                     }
                 });
@@ -61,7 +61,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
 
         public class MessageKey
         {
-            public const string AddEntry = nameof(AddEntryCommand);
+            public const string EntryAdded = nameof(AddEntryCommand);
         }
     }
 }
