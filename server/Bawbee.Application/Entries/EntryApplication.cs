@@ -34,12 +34,27 @@ namespace Bawbee.Application.Entries
             return await _mediator.SendCommand(command);
         }
 
-        public Task<CommandResult> GetAllByUser(int userId)
+        public async Task<CommandResult> Update(UpdateEntryInputModel model)
+        {
+            var command = new UpdateEntryCommand(
+                model.EntryId, model.UserId, model.Description, model.Value, model.IsPaid,
+                model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
+
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
+        }
+
+        public async Task<CommandResult> GetAllByUser(int userId)
         {
             var query = new GetAllEntriesByUser(userId);
-            var entries = _mediator.SendCommand(query);
+            var entries = await _mediator.SendCommand(query);
 
-            return Task.FromResult(CommandResult.Ok(entries));
+            return CommandResult.Ok(entries);
         }
 
         // TODO: create in BaseApplication
@@ -52,6 +67,19 @@ namespace Bawbee.Application.Entries
         public void Dispose()
         {
             GC.SuppressFinalize(this);
+        }
+
+        public async Task<CommandResult> Delete(int entryId, int userId)
+        {
+            var command = new DeleteEntryCommand(entryId, userId);
+
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
         }
     }
 }

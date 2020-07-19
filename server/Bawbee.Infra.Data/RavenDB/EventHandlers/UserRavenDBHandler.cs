@@ -1,47 +1,91 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Application.Query.Users.Documents;
+using Bawbee.Application.Query.Users.Interfaces;
 using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.BankAccounts;
+using Bawbee.Domain.Events.EntryCategories;
 using MediatR;
+using Raven.Client.Documents.Linq;
 using Raven.Client.Documents.Session;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 {
-    public class UserRavenDBHandler
-        : INotificationHandler<UserRegisteredEvent>
+    public class UserRavenDBHandler :
+        INotificationHandler<UserRegisteredEvent>,
+        INotificationHandler<EntryCategoryAddedEvent>,
+        INotificationHandler<BankAccountAddedEvent>
     {
         private readonly IAsyncDocumentSession _session;
+        private readonly IUserReadRepository _userReadRepository;
 
-        public UserRavenDBHandler(IAsyncDocumentSession session)
+        public UserRavenDBHandler(IAsyncDocumentSession session, IUserReadRepository userReadRepository)
         {
             _session = session;
+            _userReadRepository = userReadRepository;
         }
 
         public async Task Handle(UserRegisteredEvent @event, CancellationToken cancellationToken)
         {
-            // TODO: https://stackoverflow.com/questions/13510204/json-net-self-referencing-loop-detected
-            //var user = new User(
-            //        userRegistered.Name, userRegistered.LastName,
-            //        userRegistered.Email, userRegistered.Password, 
-            //        userRegistered.BankAccounts, userRegistered.EntryCategories,
-            //        userRegistered.UserId);
+            // TODO: automapper?
 
-            var user = new User(@event.Name, @event.LastName, @event.Email, @event.Password, @event.UserId);
+            var userDocument = new UserDocument();
 
-            foreach (var ba in @event.BankAccounts)
+            userDocument.UserId = @event.User.Id;
+            userDocument.Name = @event.User.Name;
+            userDocument.LastName = @event.User.LastName;
+            userDocument.Email = @event.User.Email;
+            userDocument.Password = @event.User.Password;
+
+            foreach (var b in @event.User.BankAccounts)
             {
-                var bankAccount = new BankAccount(ba.Name, ba.InitialBalance, ba.UserId);
-                user.AddNewBankAccount(bankAccount);
+                userDocument.BankAccounts.Add(new BankAccountDocument
+                {
+                    BankAccountId = b.Id,
+                    InitialBalance = b.InitialBalance,
+                    Name = b.Name
+                });
             }
 
-            foreach (var ec in @event.EntryCategories)
+            foreach (var ec in @event.User.EntryCategories)
             {
-                var entryCategory = new EntryCategory(ec.Name, ec.UserId);
-                user.AddNewEntryCategory(entryCategory);
+                userDocument.EntryCategories.Add(new EntryCategoryDocument
+                {
+                    EntryCategoryId = ec.Id,
+                    Name = ec.Name
+                });
             }
 
-            await _session.StoreAsync(user);
+            await _session.StoreAsync(userDocument);
+            await _session.SaveChangesAsync();
+        }
+
+        public async Task Handle(EntryCategoryAddedEvent @event, CancellationToken cancellationToken)
+        {
+            var userDocument = await _userReadRepository.GetByUserId(@event.UserId);
+
+            userDocument.EntryCategories.Add(new EntryCategoryDocument
+            {
+                EntryCategoryId = @event.EntryCategoryId,
+                Name = @event.Name
+            });
+
+            await _session.StoreAsync(userDocument);
+            await _session.SaveChangesAsync();
+        }
+
+        public async Task Handle(BankAccountAddedEvent @event, CancellationToken cancellationToken)
+        {
+            var userDocument = await _userReadRepository.GetByUserId(@event.UserId);
+
+            userDocument.BankAccounts.Add(new BankAccountDocument
+            {
+                BankAccountId = @event.BankAccountId,
+                Name = @event.Name,
+                InitialBalance = @event.InitialBalance
+            });
+
+            await _session.StoreAsync(userDocument);
             await _session.SaveChangesAsync();
         }
     }

@@ -39,7 +39,7 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                     autoDelete: false,
                     arguments: null);
 
-                var message = JsonConvert.SerializeObject(@event);
+                var message = JsonConvert.SerializeObject(@event, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(

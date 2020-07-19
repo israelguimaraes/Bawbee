@@ -19,9 +19,9 @@ namespace Bawbee.Domain.Core.Commands
             _notificationHandler = (DomainNotificationHandler)notificationHandler;
         }
 
-        protected void AddError(DomainNotification message)
+        protected async Task AddDomainNotification(string message)
         {
-            _mediator.PublishEvent(new DomainNotification(message.Value));
+            await _mediator.PublishEvent(new DomainNotification(message));
         }
 
         protected async Task<bool> CommitTransaction()

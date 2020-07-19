@@ -1,5 +1,5 @@
 ﻿using Bawbee.Domain.Core.Models;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,6 @@ namespace Bawbee.Domain.Entities
 {
     public class User : BaseEntity
     {
-        public int UserId { get; private set; }
         public string Name { get; private set; }
         public string LastName { get; private set; }
         public string Email { get; private set; }
@@ -23,30 +22,31 @@ namespace Bawbee.Domain.Entities
             EntryCategories = new List<EntryCategory>();
         }
 
-        protected User(int userId) : this()
+        protected User(int id) : this()
         {
-            UserId = userId;
+            Id = id;
         }
 
-        public User(string name, string lastName, string email, string password, int userId = default)
-            : this(userId)
+        public User(string name, string lastName, string email, string password, int id = default)
+            : this(id)
         {
             Name = name;
             LastName = lastName;
             Email = email.ToLower();
             Password = password;
         }
-
-        public User(string name, string lastName, string email, string password, IEnumerable<BankAccount> bankAccounts, IEnumerable<EntryCategory> entryCategories, int userId = default)
-            : this(name, lastName, email, password, userId)
+        
+        [JsonConstructor]
+        public User(string name, string lastName, string email, string password, IEnumerable<BankAccount> bankAccounts, IEnumerable<EntryCategory> entryCategories, int id = default)
+            : this(name, lastName, email, password, id)
         {
-            BankAccounts = bankAccounts?.ToList();
+            BankAccounts = bankAccounts?.ToList();          // TODO: extensions IsEmpty()
             EntryCategories = entryCategories?.ToList();
         }
 
         public void AddNewBankAccount(BankAccount bankAccount)
         {
-            if (BankAccounts.Any(b => b.BankAccountId == bankAccount.BankAccountId))
+            if (BankAccounts.Any(b => b.Id == bankAccount.Id))
                 return;
 
             BankAccounts.Add(bankAccount);
@@ -54,7 +54,7 @@ namespace Bawbee.Domain.Entities
 
         public void AddNewEntryCategory(EntryCategory entryCategory)
         {
-            if (EntryCategories.Any(e => e.EntryCategoryId == entryCategory.EntryCategoryId))
+            if (EntryCategories.Any(e => e.Id == entryCategory.Id))
                 return;
 
             EntryCategories.Add(entryCategory);
@@ -62,12 +62,12 @@ namespace Bawbee.Domain.Entities
 
         public EntryCategory GetEntryCategoryById(int entryCategoryId)
         {
-            return EntryCategories.FirstOrDefault(e => e.EntryCategoryId == entryCategoryId);
+            return EntryCategories.FirstOrDefault(e => e.Id == entryCategoryId);
         }
 
         public BankAccount GetBankAccountById(int bankAccountId)
         {
-            return BankAccounts.FirstOrDefault(b => b.BankAccountId == bankAccountId);
+            return BankAccounts.FirstOrDefault(b => b.Id == bankAccountId);
         }
 
         public abstract class UserFactory
@@ -80,10 +80,10 @@ namespace Bawbee.Domain.Entities
                 user.Email = email;
                 user.Password = password;
 
-                var defaultBankAccount = BankAccount.CreateDefaultBankAccount(user.UserId);
+                var defaultBankAccount = BankAccount.CreateDefaultBankAccount(user.Id);
                 user.BankAccounts.Add(defaultBankAccount);
 
-                var defaultCategories = EntryCategory.GetDefaultCategoriesForNewUsers(user.UserId);
+                var defaultCategories = EntryCategory.GetDefaultCategoriesForNewUsers(user.Id);
                 user.EntryCategories.AddRange(defaultCategories);
 
                 return user;
