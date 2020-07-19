@@ -1,5 +1,4 @@
 ﻿using Bawbee.Application.Query.Base;
-using System;
 using System.Collections.Generic;
 
 namespace Bawbee.Application.Query.Users.Documents
@@ -17,7 +16,6 @@ namespace Bawbee.Application.Query.Users.Documents
 
         public UserDocument()
         {
-            CreatedAt = DateTime.Now;
             BankAccounts = new List<BankAccountDocument>();
             EntryCategories = new List<EntryCategoryDocument>();
         }

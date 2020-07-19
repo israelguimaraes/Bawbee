@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.Query.Users.Handlers
 {
-    public class UserQueryHandler
-        : ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>
+    public class UserQueryHandler : 
+        ICommandQueryHandler<GetAllUsersQuery, IEnumerable<UserReadModel>>,
+        ICommandQueryHandler<GetAllCategoriesByUserQuery, IEnumerable<EntryCategoryReadModel>>,
+        ICommandQueryHandler<GetAllBankAccountsByUserQuery, IEnumerable<BankAccountReadModel>>
     {
         private readonly IUserReadRepository _userReadRepository;
 
@@ -32,6 +34,29 @@ namespace Bawbee.Application.Query.Users.Handlers
             });
 
             return result;
+        }
+
+        public async Task<IEnumerable<EntryCategoryReadModel>> Handle(GetAllCategoriesByUserQuery query, CancellationToken cancellationToken)
+        {
+            var categoriesDocument = await _userReadRepository.GetCategoriesByUser(query.UserId);
+
+            return categoriesDocument.Select(c => new EntryCategoryReadModel
+            {
+                Id = c.EntryCategoryId,
+                Name = c.Name
+            });
+        }
+
+        public async Task<IEnumerable<BankAccountReadModel>> Handle(GetAllBankAccountsByUserQuery query, CancellationToken cancellationToken)
+        {
+            var bankaccountsDocument = await _userReadRepository.GetBankAccountsByUser(query.UserId);
+
+            return bankaccountsDocument.Select(b => new BankAccountReadModel
+            {
+                Id = b.BankAccountId,
+                Name = b.Name,
+                InitialBalance = b.InitialBalance
+            });
         }
     }
 }
