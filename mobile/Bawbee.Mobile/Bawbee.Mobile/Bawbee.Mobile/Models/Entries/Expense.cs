@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bawbee.Mobile.Helpers.Extensions;
+using System;
 
 namespace Bawbee.Mobile.Models.Entries
 {
@@ -12,5 +13,19 @@ namespace Bawbee.Mobile.Models.Entries
         public DateTime? DateToPay { get; set; }
         public int? BankAccountId { get; set; }
         public int? EntryCategoryId { get; set; }
+
+        public Expense()
+        {
+            DateToPay = DateTime.Now.Date;
+        }
+
+        public bool IsValid()
+        {
+            return Description.IsNotEmpty() && 
+                Value.HasValue && 
+                DateToPay.HasValue &&
+                BankAccountId.HasValue && 
+                EntryCategoryId.HasValue;
+        }
     }
 }

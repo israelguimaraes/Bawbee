@@ -1,9 +1,7 @@
 ﻿using Bawbee.Mobile.Configs;
 using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Models;
-using Bawbee.Mobile.Models.Entries;
 using Bawbee.Mobile.Models.Exceptions;
-using Bawbee.Mobile.ReadModels.Entries;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,32 +13,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Bawbee.Mobile.Services.Entries
+namespace Bawbee.Mobile.Services
 {
-    public class ExpenseService
+    public class UserService
     {
-        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/expenses";
+        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/users";
+        private static readonly string CategoriesEndpoint = $"{Endpoint}/categories";
+        private static readonly string BankAccountsEndpoint = $"{Endpoint}/bank-accounts";
 
         private readonly HttpClient _httpClient;
 
-        public ExpenseService()
+        public UserService()
         {
             _httpClient = new HttpClient();
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.UserAcessToken);
         }
 
-        public async Task<ObservableCollection<EntryReadModel>> GetEntries()
+        public async Task<ObservableCollection<BankAccount>> GetBankAccounts()
         {
             try
             {
-                var response = await _httpClient.GetAsync(Endpoint);
+                var response = await _httpClient.GetAsync(BankAccountsEndpoint);
 
                 await HandleResponse(response);
 
                 var json = await response.Content.ReadAsStringAsync();
-                var apiResponse = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<EntryReadModel>>>(json);
+                var bankAccounts = JsonConvert.DeserializeObject<IEnumerable<BankAccount>>(json);
 
-                return new ObservableCollection<EntryReadModel>(apiResponse.Data);
+                return new ObservableCollection<BankAccount>(bankAccounts);
             }
             catch (Exception ex)
             {
@@ -48,17 +48,18 @@ namespace Bawbee.Mobile.Services.Entries
             }
         }
 
-        public async Task<bool> Add(Expense expense)
+        public async Task<ObservableCollection<EntryCategory>> GetCategories()
         {
             try
             {
-                var json = JsonConvert.SerializeObject(expense);
-
-                var response = await _httpClient.PostAsync(Endpoint, new StringContent(json, Encoding.UTF8, "application/json"));
+                var response = await _httpClient.GetAsync(CategoriesEndpoint);
 
                 await HandleResponse(response);
 
-                return response.IsSuccessStatusCode;
+                var json = await response.Content.ReadAsStringAsync();
+                var categories = JsonConvert.DeserializeObject<IEnumerable<EntryCategory>>(json);
+
+                return new ObservableCollection<EntryCategory>(categories);
             }
             catch (Exception ex)
             {
@@ -80,7 +81,7 @@ namespace Bawbee.Mobile.Services.Entries
                     MessagingCenter.Send(exception, nameof(ServiceAuthenticationException));
                 }
 
-                MessagingCenter.Send(nameof(HttpRequestException), nameof(HttpRequestException));
+                throw new InvalidOperationException();
             }
         }
     }

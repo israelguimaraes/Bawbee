@@ -3,6 +3,7 @@ using Bawbee.Mobile.Models.Exceptions;
 using Bawbee.Mobile.Models.Menu;
 using Bawbee.Mobile.ViewModels.Auth;
 using Bawbee.Mobile.Views.Auth;
+using System.Net.Http;
 using Xamarin.Forms;
 
 namespace Bawbee.Mobile
@@ -60,6 +61,11 @@ namespace Bawbee.Mobile
             {
                 Settings.UserAcessToken = null;
                 GoToLoginPage();
+            });
+
+            MessagingCenter.Subscribe<string>(this, nameof(HttpRequestException), async (msg) =>
+            {
+                await MainPage.DisplayAlert("Ops!", "Something was wrong! Please, try again", "OK");
             });
         }
 
