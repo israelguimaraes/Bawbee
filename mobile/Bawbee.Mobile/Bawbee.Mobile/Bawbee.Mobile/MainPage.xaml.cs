@@ -40,7 +40,7 @@ namespace Bawbee.Mobile
                         _menuPages.Add(id, new NavigationPage(new ListEntryPage()));
                         break;
                     case (int)MenuItemType.Logout:
-                        MessagingCenter.Send(this, nameof(MenuItemType.Logout));
+                        MessagingCenter.Send(this, MessageKey.Logout);
                         return;
                 }
             }
@@ -56,6 +56,11 @@ namespace Bawbee.Mobile
 
                 IsPresented = false;
             }
+        }
+
+        public class MessageKey
+        {
+            public const string Logout = nameof(Logout);
         }
     }
 }

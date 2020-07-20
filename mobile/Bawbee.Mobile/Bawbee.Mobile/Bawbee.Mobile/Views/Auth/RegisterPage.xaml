@@ -9,7 +9,7 @@
              Title="Register">
 
     <ContentPage.BindingContext>
-        <viewModels:RegisterNewUserViewModel/>
+        <viewModels:RegisterViewModel/>
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
