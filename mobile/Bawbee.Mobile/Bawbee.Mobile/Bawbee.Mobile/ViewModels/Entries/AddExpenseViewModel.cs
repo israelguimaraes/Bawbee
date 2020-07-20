@@ -1,8 +1,10 @@
 ﻿using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Entries;
+using Bawbee.Mobile.Services;
 using Bawbee.Mobile.Services.Entries;
 using Bawbee.Mobile.ViewModels.Base;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -11,33 +13,69 @@ namespace Bawbee.Mobile.ViewModels.Entries
     public class AddExpenseViewModel : BaseViewModel
     {
         public Expense Expense { get; set; }
-        public List<EntryCategory> Categories { get; set; }
-        public List<BankAccount> BankAccounts { get; set; }
 
-        private readonly ExpenseService _entryService;
+        private readonly ExpenseService _expenseService;
+        private readonly UserService _userService;
 
         public AddExpenseViewModel()
         {
             Expense = new Expense();
 
-            Categories = new List<EntryCategory>
-            {
-                new EntryCategory { Id = 1, Name = "Home" },
-                new EntryCategory { Id = 2, Name = "Food" },
-                new EntryCategory { Id = 3, Name = "Grocery" },
-            };
-
-            BankAccounts = new List<BankAccount>
-            {
-                new BankAccount { Id = 1, Name = "ActivoBank" },
-                new BankAccount { Id = 2, Name = "CTT" },
-            };
-
-            _entryService = new ExpenseService();
+            _expenseService = new ExpenseService();
+            _userService = new UserService();
         }
 
-        public EntryCategory SelectedCategory { get; set; }
-        public BankAccount SelectedBankAccount { get; set; }
+        public async Task Init()
+        {
+            BankAccounts = await _userService.GetBankAccounts();
+            Categories = await _userService.GetCategories();
+        }
+
+        private EntryCategory _selectedCategory;
+        public EntryCategory SelectedCategory 
+        {
+            get => _selectedCategory;
+            set
+            {
+                _selectedCategory = value;
+                Expense.EntryCategoryId = _selectedCategory.Id;
+                OnPropertyChanged();
+            }
+        }
+
+        private BankAccount _selectedBankAccount;
+        public BankAccount SelectedBankAccount 
+        {
+            get => _selectedBankAccount;
+            set
+            {
+                _selectedBankAccount = value;
+                Expense.BankAccountId = _selectedBankAccount.Id;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<EntryCategory> _categories;
+        public ObservableCollection<EntryCategory> Categories
+        {
+            get => _categories;
+            set
+            {
+                _categories = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<BankAccount> _bankAccounts;
+        public ObservableCollection<BankAccount> BankAccounts
+        {
+            get => _bankAccounts;
+            set
+            {
+                _bankAccounts = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand AddEntryCommand
         {
@@ -45,19 +83,21 @@ namespace Bawbee.Mobile.ViewModels.Entries
             {
                 return new Command(async () =>
                 {
-                    // TODO: is valid
-                    if (true)
+                    // TODO: FluentValidation?
+                    if (Expense.IsValid())
                     {
                         IsBusy = true;
 
-                        Expense.EntryCategoryId = SelectedCategory.Id;
-                        Expense.BankAccountId = SelectedBankAccount.Id;
-
-                        if (await _entryService.Add(Expense))
+                        if (await _expenseService.Add(Expense))
                             MessagingCenter.Send(this, MessageKey.EntryAdded);
-
-                        IsBusy = false;
                     }
+                    else
+                    {
+                        // TODO: send validations
+                        MessagingCenter.Send(this, MessageKey.EntryFormInvalid);
+                    }
+
+                    IsBusy = false;
                 });
             }
         }
@@ -65,6 +105,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
         public class MessageKey
         {
             public const string EntryAdded = nameof(AddEntryCommand);
+            public const string EntryFormInvalid = nameof(EntryFormInvalid);
         }
     }
 }

@@ -57,8 +57,7 @@
                            FontSize="Medium" />
                         <DatePicker Date="{Binding Expense.DateToPay}"
                                 Grid.Column="0"
-                                Grid.Row="1"
-                                Format="dd/MM/yyyy"/>
+                                Grid.Row="1"/>
 
                         <Label Text="Is Paid?"
                            Grid.Column="1"

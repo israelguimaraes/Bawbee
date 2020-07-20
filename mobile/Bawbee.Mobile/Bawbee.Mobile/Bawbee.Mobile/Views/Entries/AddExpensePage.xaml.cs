@@ -13,13 +13,20 @@ namespace Bawbee.Mobile.Views.Entries
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            await (BindingContext as AddExpenseViewModel).Init();
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) => 
             {
                 await Navigation.PushAsync(new ListEntryPage());
+            });
+
+            MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryFormInvalid, async (msg) =>
+            {
+                await DisplayAlert("Alert", "Check the required fields", "OK");
             });
         }
 
@@ -28,6 +35,7 @@ namespace Bawbee.Mobile.Views.Entries
             base.OnDisappearing();
 
             MessagingCenter.Unsubscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded);
+            MessagingCenter.Unsubscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryFormInvalid);
         }
     }
 }

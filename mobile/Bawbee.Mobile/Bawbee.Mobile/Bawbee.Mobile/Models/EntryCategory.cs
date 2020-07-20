@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Mobile.Models.Entries
+﻿namespace Bawbee.Mobile.Models
 {
     public class EntryCategory
     {
