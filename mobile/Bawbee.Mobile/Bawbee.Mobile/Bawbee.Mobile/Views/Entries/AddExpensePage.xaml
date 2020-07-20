@@ -74,7 +74,7 @@
                        FontSize="Medium" />
                     <Entry Text="{Binding Expense.Observations}" />
 
-                    <Button Command="{Binding AddEntryCommand}"
+                    <Button Command="{Binding AddExpenseCommand}"
                         Text="Add Expense"
                         TextColor="White"
                         BackgroundColor="Accent"

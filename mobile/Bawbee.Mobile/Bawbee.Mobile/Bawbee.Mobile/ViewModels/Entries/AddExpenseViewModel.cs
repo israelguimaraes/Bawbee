@@ -77,7 +77,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
             }
         }
 
-        public ICommand AddEntryCommand
+        public ICommand AddExpenseCommand
         {
             get
             {
@@ -104,7 +104,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
 
         public class MessageKey
         {
-            public const string EntryAdded = nameof(AddEntryCommand);
+            public const string EntryAdded = nameof(AddExpenseCommand);
             public const string EntryFormInvalid = nameof(EntryFormInvalid);
         }
     }
