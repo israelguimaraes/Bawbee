@@ -1,19 +1,23 @@
-﻿using Bawbee.Domain.Core.Notifications;
+﻿using Bawbee.Domain.Core.Commands;
+using Bawbee.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Bawbee.API.Controllers
 {
     [Authorize(JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/v1/[controller]")]
-    public abstract class BaseApiController : ControllerBase
+    public abstract class BaseApiController : Controller
     {
         private readonly DomainNotificationHandler _notificationHandler;
+        private ClaimsPrincipal _userPrincipal;
 
         protected BaseApiController(INotificationHandler<DomainNotification> notificationHandler)
         {
@@ -24,7 +28,7 @@ namespace Bawbee.API.Controllers
 
         protected bool IsValidOperation => !GetNotifications.Any();
 
-        protected new IActionResult Response(object data = null)
+        protected new IActionResult Response(object data)
         {
             if (IsValidOperation)
                 return OkResponse(data);
@@ -32,14 +36,39 @@ namespace Bawbee.API.Controllers
             return BadRequestResponse();
         }
 
+        protected new IActionResult Response(CommandResult commandResult = null)
+        {
+            if (IsValidOperation && commandResult.IsSuccess)
+                return OkResponse(commandResult);
+
+            return BadRequestResponse();
+        }
+
         private IActionResult OkResponse(object data)
         {
-            return Ok(new { success = true, data });
+            return Ok(data);
         }
 
         private IActionResult BadRequestResponse()
         {
-            return BadRequest(new { success = false, errors = GetNotifications.Select(n => n.Value) });
+            var result = CommandResult.Error(GetNotifications.Select(n => n.Value));
+
+            return BadRequest(result);
+        }
+
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            _userPrincipal = User;
+            base.OnActionExecuting(context);
+        }
+
+        protected int CurrentUserId
+        {
+            get
+            {
+                var userId = _userPrincipal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                return int.Parse(userId);
+            }
         }
     }
 }

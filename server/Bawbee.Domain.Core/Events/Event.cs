@@ -5,7 +5,7 @@ using System;
 
 namespace Bawbee.Domain.Core.Events
 {
-    public abstract class Event : Message, INotification
+    public abstract class Event : Message, IEvent, INotification
     {
         public DateTime Timestamp { get; private set; }
 
@@ -16,7 +16,17 @@ namespace Bawbee.Domain.Core.Events
 
         public bool MustBeStored()
         {
-            return MessageType != nameof(DomainNotification);
+            return !IsDomainNotification();
+        }
+
+        public bool MustBeSentToQueue()
+        {
+            return !IsDomainNotification();
+        }
+
+        public bool IsDomainNotification()
+        {
+            return MessageType == nameof(DomainNotification);
         }
     }
 }

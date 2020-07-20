@@ -2,7 +2,7 @@
 {
     public class RavenDBConfig
     {
-        public string Url { get; set; }
+        public string ServerUrl { get; set; }
         public string Database { get; set; }
     }
 }

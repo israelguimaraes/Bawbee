@@ -1,11 +1,17 @@
 ﻿using Bawbee.Application.Command.Users;
+using Bawbee.Application.Command.Users.BankAccounts;
+using Bawbee.Application.Command.Users.Categories;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;
+using Bawbee.Domain.Core.UnitOfWork;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.BankAccounts;
+using Bawbee.Domain.Events.EntryCategories;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Common.Security;
+using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,57 +19,52 @@ namespace Bawbee.Application.Users.Handlers
 {
     public class UserCommandHandler : BaseCommandHandler,
         ICommandHandler<RegisterNewUserCommand>,
-        ICommandHandler<LoginCommand>
+        ICommandHandler<LoginCommand>,
+        ICommandHandler<AddEntryCategoryCommand>,
+        ICommandHandler<AddBankAccountCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IJwtService _jwtService;
-        private readonly IUserWriteRepository _userWriteRepository;
-        private readonly IUserReadRepository _userReadRepository;
+        private readonly IUserRepository _userRepository;
 
         public UserCommandHandler(
+            IUnitOfWork unitOfWork,
             IMediatorHandler mediator,
+            INotificationHandler<DomainNotification> notificationHandler,
             IJwtService jwtService,
-            IUserWriteRepository userWriteRepository,
-            IUserReadRepository userReadRepository) : base(mediator)
+            IUserRepository userReadRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;
             _jwtService = jwtService;
-            _userWriteRepository = userWriteRepository;
-            _userReadRepository = userReadRepository;
+            _userRepository = userReadRepository;
         }
 
         public async Task<CommandResult> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
         {
-            if (!command.IsValid())
-            {
-                SendNotificationsErrors(command);
-                return CommandResult.Error();
-            }
-
-            var userDatabase = await _userReadRepository.GetByEmail(command.Email);
+            var userDatabase = await _userRepository.GetByEmail(command.Email);
 
             if (userDatabase != null)
             {
-                await _mediator.PublishEvent(new DomainNotification("E-mail already used."));
+                await _mediator.PublishEvent(new DomainNotification("E-mail already used"));
                 return CommandResult.Error();
             }
 
-            var user = new User(command.Name, command.LastName, command.Email, command.Password);
-            await _userWriteRepository.Add(user);
+            var user = User.UserFactory.CreateNewPlataformUser(command.Name, command.LastName, command.Email, command.Password);
 
-            await _mediator.PublishEvent(new UserRegisteredEvent(user.UserId, user.Name, user.LastName, user.Email, user.Password));
+            await _userRepository.Add(user);
+
+            if (await CommitTransaction())
+            {
+                var userRegisteredEvent = new UserRegisteredEvent(user);
+                await _mediator.PublishEvent(userRegisteredEvent);
+            }
+
             return CommandResult.Ok();
         }
 
         public async Task<CommandResult> Handle(LoginCommand command, CancellationToken cancellationToken)
         {
-            if (!command.IsValid())
-            {
-                SendNotificationsErrors(command);
-                return CommandResult.Error();
-            }
-
-            var user = await _userReadRepository.GetByEmailAndPassword(command.Email, command.Password);
+            var user = await _userRepository.GetByEmailAndPassword(command.Email, command.Password);
 
             if (user == null)
             {
@@ -71,11 +72,60 @@ namespace Bawbee.Application.Users.Handlers
                 return CommandResult.Error();
             }
 
-            var userAccessToken = _jwtService.GenerateSecurityToken(user.UserId, user.Name, user.Email);
+            var userAccessToken = _jwtService.GenerateSecurityToken(user.Id, user.Name, user.Email);
 
-            await _mediator.PublishEvent(new UserLoggedEvent(user.UserId, user.Name, user.Email));
-            
+            await _mediator.PublishEvent(new UserLoggedEvent(user.Id, user.Name, user.Email));
+
             return CommandResult.Ok(userAccessToken);
+        }
+
+        public async Task<CommandResult> Handle(AddEntryCategoryCommand command, CancellationToken cancellationToken)
+        {
+            var category = await _userRepository.GetCategoryByName(command.Name, command.UserId);
+
+            if (category != null)
+            {
+                await _mediator.PublishEvent(new DomainNotification("Category already exists"));
+                return CommandResult.Error();
+            }
+
+            category = new EntryCategory(command.Name, command.UserId);
+            
+            await _userRepository.AddEntryCategory(category);
+
+            if (await CommitTransaction())
+            {
+                var @event = new EntryCategoryAddedEvent(category.Id, category.Name, category.UserId);
+                await _mediator.PublishEvent(@event);
+            }
+
+            return CommandResult.Ok();
+        }
+
+        public async Task<CommandResult> Handle(AddBankAccountCommand command, CancellationToken cancellationToken)
+        {
+            var bankAccount = await _userRepository.GetBankAccountByName(command.Name, command.UserId);
+
+            if (bankAccount != null)
+            {
+                await AddDomainNotification("Bank Account already exists");
+                return CommandResult.Error();
+            }
+
+            bankAccount = new BankAccount(command.Name, command.InitialBalance, command.UserId);
+
+            await _userRepository.AddBankAccount(bankAccount);
+
+            if (await CommitTransaction())
+            {
+                var @event = new BankAccountAddedEvent(
+                    bankAccount.Id, bankAccount.Name, 
+                    bankAccount.InitialBalance, bankAccount.UserId);
+
+                await _mediator.PublishEvent(@event);
+            }
+
+            return CommandResult.Ok();
         }
     }
 }

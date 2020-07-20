@@ -1,8 +1,16 @@
 using Bawbee.API.Setups;
+using Bawbee.Domain.Core.Bus;
+using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.BankAccounts;
+using Bawbee.Domain.Events.Entries;
+using Bawbee.Domain.Events.EntryCategories;
+using Bawbee.Infra.CrossCutting.Common.Exceptions;
 using Bawbee.Infra.CrossCutting.IoC;
+using Bawbee.Infra.Data.EF;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +29,10 @@ namespace Bawbee.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: change...
+            services.AddDbContext<BawbeeDbContext>
+                (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
+
             services.AddControllers();
             services.AddOptions();
             services.AddMediatR(typeof(Startup));
@@ -35,6 +47,8 @@ namespace Bawbee.API
                 app.UseDeveloperExceptionPage();
             }
 
+            //app.UseApiExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -48,6 +62,15 @@ namespace Bawbee.API
             });
 
             app.ConfigureSwagger();
+
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+
+            eventBus.Subscribe<UserRegisteredEvent>();
+            eventBus.Subscribe<EntryAddedEvent>();
+            eventBus.Subscribe<EntryUpdatedEvent>();
+            eventBus.Subscribe<EntryDeletedEvent>();
+            eventBus.Subscribe<EntryCategoryAddedEvent>();
+            eventBus.Subscribe<BankAccountAddedEvent>();
         }
     }
 }
