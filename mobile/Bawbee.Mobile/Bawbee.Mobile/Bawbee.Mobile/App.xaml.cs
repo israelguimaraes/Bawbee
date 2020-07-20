@@ -57,7 +57,7 @@ namespace Bawbee.Mobile
                 GoToLoginPage();
             });
 
-            MessagingCenter.Subscribe<ServiceAuthenticationException>(this, nameof(ServiceAuthenticationException), (msg) =>
+            MessagingCenter.Subscribe<string>(this, nameof(ServiceAuthenticationException), (msg) =>
             {
                 Settings.UserAcessToken = null;
                 GoToLoginPage();
