@@ -12,11 +12,11 @@ namespace Bawbee.Mobile.Views.Auth
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            MessagingCenter.Subscribe<LoginViewModel>(this, nameof(LoginViewModel.RegisterCommand), async (msg) =>
+            MessagingCenter.Subscribe<LoginViewModel>(this, LoginViewModel.MessageKey.OpenRegisterPage, async (msg) =>
             {
                 await Navigation.PushAsync(new RegisterPage());
             });
@@ -26,8 +26,8 @@ namespace Bawbee.Mobile.Views.Auth
         {
             base.OnDisappearing();
 
-            MessagingCenter.Unsubscribe<LoginViewModel>(this, nameof(LoginViewModel.LoginCommand));
-            MessagingCenter.Unsubscribe<LoginViewModel>(this, nameof(LoginViewModel.RegisterCommand));
+            MessagingCenter.Unsubscribe<LoginViewModel>(this, LoginViewModel.MessageKey.OpenLoginPage);
+            MessagingCenter.Unsubscribe<LoginViewModel>(this, LoginViewModel.MessageKey.OpenRegisterPage);
         }
     }
 }

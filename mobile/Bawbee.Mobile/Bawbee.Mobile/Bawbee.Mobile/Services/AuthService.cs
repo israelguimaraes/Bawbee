@@ -23,7 +23,7 @@ namespace Bawbee.Mobile.Services
 
         public async Task<bool> Register(string email, string name, string lastName, string password, string confirmPassword)
         {
-            var model = new RegisterNewUserViewModel
+            var model = new RegisterViewModel
             {
                 Email = email,
                 Name = name,
