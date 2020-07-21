@@ -1,6 +1,6 @@
 ﻿using Bawbee.Domain.Core.Models;
 using System;
-using Bawbee.Infra.CrossCutting.Common.Extensions;
+using Bawbee.Infra.CrossCutting.Extensions;
 
 namespace Bawbee.Domain.Entities
 {
