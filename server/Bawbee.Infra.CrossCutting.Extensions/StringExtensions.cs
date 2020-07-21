@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Infra.CrossCutting.Common.Extensions
+﻿namespace Bawbee.Infra.CrossCutting.Extensions
 {
     public static class StringExtensions
     {
@@ -9,7 +9,7 @@
 
         public static bool IsNotEmpty(this string value)
         {
-            return !IsEmpty(value);
+            return !value.IsEmpty();
         }
     }
 }

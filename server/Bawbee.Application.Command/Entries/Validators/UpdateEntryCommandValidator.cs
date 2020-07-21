@@ -1,4 +1,4 @@
-﻿using Bawbee.Infra.CrossCutting.Common.Extensions;
+﻿using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;
 using System;
 

@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Infra.CrossCutting.Common.Extensions
+﻿namespace Bawbee.Infra.CrossCutting.Extensions
 {
     public static class NumberExtensions
     {
