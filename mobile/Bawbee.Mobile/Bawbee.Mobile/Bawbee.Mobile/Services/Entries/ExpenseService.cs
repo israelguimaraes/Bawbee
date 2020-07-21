@@ -1,5 +1,6 @@
 ﻿using Bawbee.Mobile.Configs;
 using Bawbee.Mobile.Models;
+using Bawbee.Mobile.Models.Dashboards;
 using Bawbee.Mobile.Models.Entries;
 using Bawbee.Mobile.ReadModels.Entries;
 using Bawbee.Mobile.Services.HttpRequestProvider;
@@ -50,6 +51,13 @@ namespace Bawbee.Mobile.Services.Entries
             {
                 throw;
             }
+        }
+
+        public async Task<ObservableCollection<MonthExpense>> GetCurrentMonthExpenses()
+        {
+            var response = await _httpClient.GetAsync<ApiResponse<IEnumerable<MonthExpense>>>($"{Endpoint}/month/{DateTime.Now.Month}");
+
+            return new ObservableCollection<MonthExpense>(response.Data);
         }
     }
 }

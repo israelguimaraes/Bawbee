@@ -10,5 +10,6 @@ namespace Bawbee.Application.Users.Interfaces
         Task<CommandResult> Update(UpdateEntryInputModel model, int userId);
         Task<CommandResult> GetAllByUser(int userId);
         Task<CommandResult> Delete(int entryId, int userId);
+        Task<CommandResult> GetTotalExpensesGroupedByMonth(int month, int userId);
     }
 }

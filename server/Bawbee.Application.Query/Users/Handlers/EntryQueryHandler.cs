@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.Query.Users.Handlers
 {
-    public class EntryQueryHandler
-        : ICommandQueryHandler<GetAllEntriesByUser, IEnumerable<EntryReadModel>>
+    public class EntryQueryHandler :
+        ICommandQueryHandler<GetAllEntriesByUser, IEnumerable<EntryReadModel>>,
+        ICommandQueryHandler<GetTotalExpensesGroupedByMonthQuery, IEnumerable<MonthExpenseReadModel>>
     {
         private readonly IEntryReadRepository _entryReadRepository;
 
@@ -35,6 +36,31 @@ namespace Bawbee.Application.Query.Users.Handlers
                 IsPaid = e.IsPaid,
                 CreatedAt = e.CreatedAt
             });
+        }
+
+        public async Task<IEnumerable<MonthExpenseReadModel>> Handle(GetTotalExpensesGroupedByMonthQuery query, CancellationToken cancellationToken)
+        {
+            var expenses = await _entryReadRepository.GetAllExpensesByMonth(query.UserId, query.Month);
+
+            var groupedByCategory = expenses.GroupBy(e => e.EntryCategoryId).ToList();
+
+            var result = new List<MonthExpenseReadModel>();
+            var totalExpenses = expenses.Sum(e => e.Value) * -1;  // TODO: * -1 => add extension
+
+            foreach (var expensesByCategory in groupedByCategory)
+            {
+                var readModel = new MonthExpenseReadModel();
+                readModel.Category = expenses.FirstOrDefault(e => e.EntryCategoryId == expensesByCategory.Key).EntryCategoryName;
+                
+                // TODO: * -1 => add extension
+                readModel.TotalValue = expensesByCategory.Sum(e => e.Value) * -1;
+                
+                readModel.Percent = readModel.TotalValue / totalExpenses * 100;
+
+                result.Add(readModel);
+            }
+
+            return result;
         }
     }
 }
