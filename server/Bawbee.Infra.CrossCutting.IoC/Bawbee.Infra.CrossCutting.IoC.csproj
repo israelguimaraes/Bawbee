@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.6.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
+    <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
+    <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Bus\Bawbee.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\Bawbee.Infra.Data\Bawbee.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

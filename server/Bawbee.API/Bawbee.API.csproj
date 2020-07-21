@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>bda12cb9-29f6-4f4a-bc5e-2dd58601ac52</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
+    <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Common\Bawbee.Infra.CrossCutting.Common.csproj" />
+    <ProjectReference Include="..\Bawbee.Infra.CrossCutting.IoC\Bawbee.Infra.CrossCutting.IoC.csproj" />
+  </ItemGroup>
+
+
+</Project>
