@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Mobile.Models.Dashboard
+﻿namespace Bawbee.Mobile.Models.Dashboards
 {
     public class MonthExpense
     {

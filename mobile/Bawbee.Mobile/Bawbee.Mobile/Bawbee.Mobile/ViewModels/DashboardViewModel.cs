@@ -1,20 +1,38 @@
 ﻿using Bawbee.Mobile.Models;
-using Bawbee.Mobile.Models.Dashboard;
+using Bawbee.Mobile.Models.Dashboards;
+using Bawbee.Mobile.Services;
+using Bawbee.Mobile.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Bawbee.Mobile.ViewModels
 {
-    public class DashboardViewModel
+    public class DashboardViewModel : BaseViewModel
     {
-        public List<BankAccount> BankAccounts { get; set; }
-        public List<MonthExpense> CurrentMonthExpenses { get; set; }
+        private readonly DashboardService _dashboardService;
 
         public DashboardViewModel()
         {
+            _dashboardService = new DashboardService();
+
             GetBankAccountsFake();
             GetCurrentMonthExpensesFake();
         }
+
+        public async Task Init()
+        {
+            IsBusy = true;
+
+            BankAccounts = await _dashboardService.GetBankAccounts();
+            CurrentMonthExpenses = await _dashboardService.GetCurrentMonthExpenses();
+
+            IsBusy = false;
+        }
+
+        public ObservableCollection<BankAccount> BankAccounts { get; set; }
+        public ObservableCollection<MonthExpense> CurrentMonthExpenses { get; set; }
 
         private void GetBankAccountsFake()
         {
