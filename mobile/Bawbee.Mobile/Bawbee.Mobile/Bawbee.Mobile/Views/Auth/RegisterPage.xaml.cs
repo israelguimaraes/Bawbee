@@ -17,7 +17,7 @@ namespace Bawbee.Mobile.Views.Auth
         {
             base.OnAppearing();
 
-            MessagingCenter.Subscribe<RegisterNewUserViewModel>(this, RegisterNewUserViewModel.MessageKey.UserRegistered, async (msg) =>
+            MessagingCenter.Subscribe<RegisterViewModel>(this, RegisterViewModel.MessageKey.UserRegistered, async (msg) =>
             {
                 await Navigation.PushAsync(new LoginPage());
             });
@@ -27,7 +27,7 @@ namespace Bawbee.Mobile.Views.Auth
         {
             base.OnDisappearing();
 
-            MessagingCenter.Unsubscribe<RegisterNewUserViewModel>(this, RegisterNewUserViewModel.MessageKey.UserRegistered);
+            MessagingCenter.Unsubscribe<RegisterViewModel>(this, RegisterViewModel.MessageKey.UserRegistered);
         }
     }
 }

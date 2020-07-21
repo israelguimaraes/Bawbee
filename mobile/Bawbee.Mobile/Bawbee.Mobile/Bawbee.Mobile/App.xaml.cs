@@ -46,12 +46,12 @@ namespace Bawbee.Mobile
 
         protected override void OnStart()
         {
-            MessagingCenter.Subscribe<LoginViewModel>(this, nameof(LoginViewModel.LoginCommand), (msg) =>
+            MessagingCenter.Subscribe<LoginViewModel>(this, LoginViewModel.MessageKey.OpenMainPage, (msg) =>
             {
                 MainPage = new MainPage();
             });
 
-            MessagingCenter.Subscribe<MainPage>(this, nameof(MenuItemType.Logout), (msg) =>
+            MessagingCenter.Subscribe<MainPage>(this, Mobile.MainPage.MessageKey.Logout, (msg) =>
             {
                 Settings.UserAcessToken = null;
                 GoToLoginPage();
