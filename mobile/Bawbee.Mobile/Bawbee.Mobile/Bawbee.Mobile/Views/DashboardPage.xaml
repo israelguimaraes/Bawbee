@@ -13,114 +13,117 @@
     <ContentPage.BindingContext>
         <vm:DashboardViewModel />
     </ContentPage.BindingContext>
-    
-    <StackLayout>
-        
-        <!--welcome and balance-->
+
+    <ScrollView>
         <StackLayout>
-            <Label Text="Welcome, Israel!" 
+
+            <!--welcome and balance-->
+            <StackLayout>
+                <Label Text="Welcome, Israel!" 
                    HorizontalOptions="Center"
                    FontSize="20"/>
 
-            <StackLayout HorizontalOptions="Center">
-                
-                <Label Text="$ 12.345,67" 
+                <StackLayout HorizontalOptions="Center">
+
+                    <Label Text="$ 12.345,67" 
                        FontAttributes="Bold"
                        TextColor="Accent"
                        VerticalOptions="End"
                        FontSize="30" />
 
-                <Label Text="Balance"
+                    <Label Text="Balance"
                        HorizontalOptions="Center" />
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
 
-        <!--bank accounts-->
-        <Frame Margin="0,15" 
+            <!--bank accounts-->
+            <Frame Margin="0,15" 
                HeightRequest="{Binding SizeBankAccountsFrame}">
-            <StackLayout>
-                <ListView ItemsSource="{Binding BankAccounts}"
+                <StackLayout>
+                    <ListView ItemsSource="{Binding BankAccounts}"
                           HasUnevenRows="True">
-                    <ListView.Header>
-                        <Label Text="Accounts"
+                        <ListView.Header>
+                            <Label Text="Accounts"
                                FontAttributes="Bold"
                                HorizontalOptions="Center"/>
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid Padding="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding Name}"
+                                        <Label Text="{Binding Name}"
                                            Grid.Row="0"
                                            Grid.Column="0" />
 
-                                    <Label Text="{Binding CurrentBalance, StringFormat='$ {0}'}"
+                                        <Label Text="{Binding CurrentBalance, StringFormat='$ {0}'}"
                                            Grid.Row="0"
                                            Grid.Column="1" 
                                            FontAttributes="Bold"
                                            HorizontalOptions="End"/>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </StackLayout>
-        </Frame>
-        
-        <!--current month expenses-->
-        <Frame Margin="0,15">
-            <StackLayout>
-                <ListView ItemsSource="{Binding CurrentMonthExpenses}"
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Frame>
+
+            <!--current month expenses-->
+            <Frame Margin="0,15"
+                   HeightRequest="200">
+                <StackLayout>
+                    <ListView ItemsSource="{Binding CurrentMonthExpenses}"
                           HasUnevenRows="True">
-                    <ListView.Header>
-                        <Label Text="{Binding CurrentMonthExpensesTitle}"
+                        <ListView.Header>
+                            <Label Text="{Binding CurrentMonthExpensesTitle}"
                                FontAttributes="Bold"
                                HorizontalOptions="Center" />
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid Padding="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <Label Text="{Binding Category}"
+                                        <Label Text="{Binding Category}"
                                            Grid.Row="0"
                                            Grid.Column="0" />
 
-                                    <Label Text="{Binding TotalValue, StringFormat='$ {0}'}"
+                                        <Label Text="{Binding TotalValue, StringFormat='$ {0}'}"
                                            Grid.Row="0"
                                            Grid.Column="1"
                                            FontAttributes="Bold"
                                            HorizontalOptions="End"/>
 
-                                    <Label Text="{Binding Percent, StringFormat='{0}%'}"
+                                        <Label Text="{Binding Percent, StringFormat='{0}%'}"
                                            Grid.Row="0"
                                            Grid.Column="2"
                                            FontAttributes="Bold"
                                            HorizontalOptions="EndAndExpand"/>
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                
-            </StackLayout>
-        </Frame>
-        
-    </StackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackLayout>
+            </Frame>
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>
