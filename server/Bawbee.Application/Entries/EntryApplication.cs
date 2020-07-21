@@ -57,6 +57,14 @@ namespace Bawbee.Application.Entries
             return CommandResult.Ok(entries);
         }
 
+        public async Task<CommandResult> GetTotalExpensesGroupedByMonth(int month, int userId)
+        {
+            var query = new GetTotalExpensesGroupedByMonthQuery(month, userId);
+            var expenses = await _mediator.SendCommand(query);
+
+            return CommandResult.Ok(expenses);
+        }
+
         public async Task<CommandResult> Delete(int entryId, int userId)
         {
             var command = new DeleteEntryCommand(entryId, userId);

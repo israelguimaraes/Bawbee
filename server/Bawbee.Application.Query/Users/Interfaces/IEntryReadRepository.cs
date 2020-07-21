@@ -7,5 +7,6 @@ namespace Bawbee.Application.Query.Users.Interfaces
     public interface IEntryReadRepository
     {
         Task<IEnumerable<EntryDocument>> GetAllByUser(int userId);
+        Task<IEnumerable<EntryDocument>> GetAllExpensesByMonth(int userId, int month);
     }
 }

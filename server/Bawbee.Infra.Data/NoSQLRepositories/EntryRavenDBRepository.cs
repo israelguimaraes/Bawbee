@@ -23,5 +23,14 @@ namespace Bawbee.Infra.Data.NoSQLRepositories
                 .Where(e => e.UserId == userId)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<EntryDocument>> GetAllExpensesByMonth(int userId, int month)
+        {
+            return await _session.Query<EntryDocument>()
+                .Where(e => e.UserId == userId &&
+                       e.DateToPay.Month == month &&
+                       e.Value < 0)
+                .ToListAsync();
+        }
     }
 }

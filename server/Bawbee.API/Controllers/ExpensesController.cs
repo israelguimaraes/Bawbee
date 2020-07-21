@@ -28,6 +28,13 @@ namespace Bawbee.API.Controllers
             return Response(result);
         }
 
+        [HttpGet("month/{month:int}")]
+        public async Task<IActionResult> GetTotalExpensesGroupedByMonth(int month)
+        {
+            var result = await _entryApplication.GetTotalExpensesGroupedByMonth(month, CurrentUserId);
+            return Response(result);
+        }
+
         [HttpPost("")]
         public async Task<IActionResult> AddExpense(NewEntryInputModel model)
         {
