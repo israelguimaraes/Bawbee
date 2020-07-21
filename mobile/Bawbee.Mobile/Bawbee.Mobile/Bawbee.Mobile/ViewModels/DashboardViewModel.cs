@@ -57,7 +57,7 @@ namespace Bawbee.Mobile.ViewModels
         }
 
         public int SizeBankAccountsFrame => BankAccounts.Count >= 3 ? 150 : BankAccounts.Count * 60;
-        public string CurrentMonthExpensesTitle => $"Current expenses ({DateTime.Now:MMMM})";
+        public string CurrentMonthExpensesTitle => $"Expenses ({DateTime.Now:MMMM})";
     }
 }
 
