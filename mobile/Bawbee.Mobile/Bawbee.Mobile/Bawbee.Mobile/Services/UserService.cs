@@ -1,15 +1,12 @@
 ﻿using Bawbee.Mobile.Configs;
-using Bawbee.Mobile.Helpers;
 using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Exceptions;
-using Newtonsoft.Json;
+using Bawbee.Mobile.Services.HttpRequestProvider;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -21,24 +18,18 @@ namespace Bawbee.Mobile.Services
         private static readonly string CategoriesEndpoint = $"{Endpoint}/categories";
         private static readonly string BankAccountsEndpoint = $"{Endpoint}/bank-accounts";
 
-        private readonly HttpClient _httpClient;
+        private readonly RequestProvider _httpClient;
 
         public UserService()
         {
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Settings.UserAcessToken);
+            _httpClient = new RequestProvider();
         }
 
         public async Task<ObservableCollection<BankAccount>> GetBankAccounts()
         {
             try
             {
-                var response = await _httpClient.GetAsync(BankAccountsEndpoint);
-
-                await HandleResponse(response);
-
-                var json = await response.Content.ReadAsStringAsync();
-                var bankAccounts = JsonConvert.DeserializeObject<IEnumerable<BankAccount>>(json);
+                var bankAccounts = await _httpClient.GetAsync<IEnumerable<BankAccount>>(BankAccountsEndpoint);
 
                 return new ObservableCollection<BankAccount>(bankAccounts);
             }
@@ -52,12 +43,7 @@ namespace Bawbee.Mobile.Services
         {
             try
             {
-                var response = await _httpClient.GetAsync(CategoriesEndpoint);
-
-                await HandleResponse(response);
-
-                var json = await response.Content.ReadAsStringAsync();
-                var categories = JsonConvert.DeserializeObject<IEnumerable<EntryCategory>>(json);
+                var categories = await _httpClient.GetAsync<IEnumerable<EntryCategory>>(CategoriesEndpoint);
 
                 return new ObservableCollection<EntryCategory>(categories);
             }
