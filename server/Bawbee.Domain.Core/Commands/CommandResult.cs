@@ -1,9 +1,12 @@
-﻿namespace Bawbee.Domain.Core.Commands
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Bawbee.Domain.Core.Commands
 {
     public class CommandResult
     {
         public bool IsSuccess { get; private set; }
-        public string Message { get; private set; }
+        public ICollection<string> Errors { get; private set; }
         public object Data { get; private set; }
 
         private CommandResult() { }
@@ -22,18 +25,17 @@
             return new CommandResult
             {
                 IsSuccess = true,
-                Message = message,
+                Errors = new List<string> { message },
                 Data = data
             };
         }
 
-        public static CommandResult Error(string message = null, object data = null)
+        public static CommandResult Error(IEnumerable<string> errors = null)
         {
             return new CommandResult
             {
                 IsSuccess = false,
-                Message = message,
-                Data = data
+                Errors = errors?.ToList(),
             };
         }
     }

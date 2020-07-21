@@ -1,29 +1,66 @@
-﻿//using Bawbee.Application.Query.Users.Interfaces;
-//using Bawbee.Application.Query.Users.Queries;
-//using Bawbee.Application.Query.Users.Queries.Entries;
-//using Bawbee.Application.Query.Users.ReadModels;
-//using Bawbee.Application.Query.Users.ReadModels.Entries;
-//using Bawbee.Domain.Core.Commands;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading;
-//using System.Threading.Tasks;
+﻿using Bawbee.Application.Query.Users.Interfaces;
+using Bawbee.Application.Query.Users.Queries;
+using Bawbee.Application.Query.Users.Queries.Entries;
+using Bawbee.Application.Query.Users.ReadModels;
+using Bawbee.Application.Query.Users.ReadModels.Entries;
+using Bawbee.Domain.Core.Commands;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-//namespace Bawbee.Application.Query.Users.Handlers
-//{
-//    public class EntryQueryHandler
-//        : ICommandQueryHandler<GetAllEntriesByUser, IEnumerable<EntryReadModel>>
-//    {
-//        private readonly IUserReadRepository _userReadRepository;
+namespace Bawbee.Application.Query.Users.Handlers
+{
+    public class EntryQueryHandler :
+        ICommandQueryHandler<GetAllEntriesByUser, IEnumerable<EntryReadModel>>,
+        ICommandQueryHandler<GetTotalExpensesGroupedByMonthQuery, IEnumerable<MonthExpenseReadModel>>
+    {
+        private readonly IEntryReadRepository _entryReadRepository;
 
-//        public EntryQueryHandler(IUserReadRepository userReadRepository)
-//        {
-//            _userReadRepository = userReadRepository;
-//        }
+        public EntryQueryHandler(IEntryReadRepository entryReadRepository)
+        {
+            _entryReadRepository = entryReadRepository;
+        }
 
-//        public Task<IEnumerable<EntryReadModel>> Handle(GetAllEntriesByUser query, CancellationToken cancellationToken)
-//        {
-//            throw new System.NotImplementedException();
-//        }
-//    }
-//}
+        public async Task<IEnumerable<EntryReadModel>> Handle(GetAllEntriesByUser query, CancellationToken cancellationToken)
+        {
+            var entries = await _entryReadRepository.GetAllByUser(query.UserId);
+
+            return entries.Select(e => new EntryReadModel
+            {
+                Id = e.EntryId,
+                Description = e.Description,
+                Value = e.Value,
+                CategoryName = e.EntryCategoryName,
+                BankAccountName = e.BankAccountName,
+                IsPaid = e.IsPaid,
+                CreatedAt = e.CreatedAt
+            });
+        }
+
+        public async Task<IEnumerable<MonthExpenseReadModel>> Handle(GetTotalExpensesGroupedByMonthQuery query, CancellationToken cancellationToken)
+        {
+            var expenses = await _entryReadRepository.GetAllExpensesByMonth(query.UserId, query.Month);
+
+            var groupedByCategory = expenses.GroupBy(e => e.EntryCategoryId).ToList();
+
+            var result = new List<MonthExpenseReadModel>();
+            var totalExpenses = expenses.Sum(e => e.Value) * -1;  // TODO: * -1 => add extension
+
+            foreach (var expensesByCategory in groupedByCategory)
+            {
+                var readModel = new MonthExpenseReadModel();
+                readModel.Category = expenses.FirstOrDefault(e => e.EntryCategoryId == expensesByCategory.Key).EntryCategoryName;
+                
+                // TODO: * -1 => add extension
+                readModel.TotalValue = expensesByCategory.Sum(e => e.Value) * -1;
+                
+                readModel.Percent = readModel.TotalValue / totalExpenses * 100;
+
+                result.Add(readModel);
+            }
+
+            return result;
+        }
+    }
+}

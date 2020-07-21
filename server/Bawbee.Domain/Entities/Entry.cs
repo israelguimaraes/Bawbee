@@ -1,11 +1,11 @@
 ﻿using Bawbee.Domain.Core.Models;
 using System;
+using Bawbee.Infra.CrossCutting.Common.Extensions;
 
 namespace Bawbee.Domain.Entities
 {
     public class Entry : BaseEntity
     {
-        public int EntryId { get; private set; }
         public string Description { get; private set; }
         public decimal Value { get; private set; }
         public bool IsPaid { get; private set; }
@@ -21,24 +21,58 @@ namespace Bawbee.Domain.Entities
         public int EntryCategoryId { get; private set; }
         public EntryCategory EntryCategory { get; private set; }
 
-        protected Entry(int entryId)
+        protected Entry() { }
+
+        protected Entry(int id)
         {
-            EntryId = entryId;
+            Id = id;
         }
 
         public Entry(
             string description, decimal value, bool isPaid,
             string observations, DateTime dateToPay, int userId,
-            int bankAccountId, int entryCategoryId, int entryId = default) : this(entryId)
+            int bankAccountId, int entryCategoryId, int id = default) : this(id)
         {
             Description = description.Trim();
             Value = value;
             IsPaid = isPaid;
-            Observations = observations?.Trim();
+            Observations = observations.IsNotEmpty() ? observations.Trim() : null;
             DateToPay = dateToPay;
             UserId = userId;
             BankAccountId = bankAccountId;
             EntryCategoryId = entryCategoryId;
+        }
+
+        public bool IsBelongToTheUser(int userId)
+        {
+            return UserId == userId;
+        }
+
+        public void Update(
+            string description = null, decimal? value = null, bool? isPaid = null,
+            string observations = null, DateTime? dateToPay = null,
+            int? bankAccountId = null, int? entryCategoryId = null)
+        {
+            if (description.IsNotEmpty())
+                Description = description;
+
+            if (value.HasValue)
+                Value = value.Value;
+
+            if (isPaid.HasValue)
+                IsPaid = isPaid.Value;
+
+            if (observations.IsNotEmpty())
+                Observations = observations;
+            
+            if (dateToPay.HasValue)
+                DateToPay = dateToPay.Value;
+
+            if (bankAccountId.HasValue)
+                BankAccountId = bankAccountId.Value;
+
+            if (entryCategoryId.HasValue)
+                EntryCategoryId = entryCategoryId.Value;
         }
     }
 }

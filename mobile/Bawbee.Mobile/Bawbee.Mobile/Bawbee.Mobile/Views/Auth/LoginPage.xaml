@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Bawbee.Mobile.Views.Auth.LoginPage"
+             xmlns:viewModels="clr-namespace:Bawbee.Mobile.ViewModels.Auth"
+             Title="Login">
+
+    <ContentPage.BindingContext>
+        <viewModels:LoginViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20, 40" Spacing="10">
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+
+            <Label Text="Bawbee" 
+                   TextColor="Accent"
+                   FontSize="30" 
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Image Source="wallet.png" Margin="10"/>
+
+            <Label Text="E-mail" FontSize="Medium"/>
+            <Entry Text="{Binding Email}"
+                   Keyboard="Email" />
+
+            <Label Text="Password" FontSize="Medium"/>
+            <Entry Text="{Binding Password}" 
+                   IsPassword="True"/>
+
+            <Button Command="{Binding LoginCommand}" 
+                    Text="Login"
+                    TextColor="White"
+                    BackgroundColor="Accent"/>
+
+            <Label HorizontalOptions="Center" Margin="20">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Recover password"
+                              TextColor="Blue"
+                              TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding TapCommand}" CommandParameter="https://docs.microsoft.com/xamarin/" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <Button Text="New account? Register"
+                    BackgroundColor="White"
+                    Command="{Binding RegisterCommand}"
+                    VerticalOptions="EndAndExpand"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

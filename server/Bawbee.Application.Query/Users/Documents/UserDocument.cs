@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Bawbee.Application.Query.Base;
+using System.Collections.Generic;
 
 namespace Bawbee.Application.Query.Users.Documents
 {
-    public class UserDocument
+    public class UserDocument : Document
     {
         public int UserId { get; set; }
         public string Name { get; set; }
@@ -12,5 +13,11 @@ namespace Bawbee.Application.Query.Users.Documents
 
         public List<BankAccountDocument> BankAccounts { get; set; }
         public List<EntryCategoryDocument> EntryCategories { get; set; }
+
+        public UserDocument()
+        {
+            BankAccounts = new List<BankAccountDocument>();
+            EntryCategories = new List<EntryCategoryDocument>();
+        }
     }
 }

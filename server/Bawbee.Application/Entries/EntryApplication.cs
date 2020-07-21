@@ -19,10 +19,10 @@ namespace Bawbee.Application.Entries
             _mediator = mediator;
         }
 
-        public async Task<CommandResult> AddNewEntry(NewEntryInputModel model)
+        public async Task<CommandResult> AddEntry(NewEntryInputModel model, int userId)
         {
             var command = new NewEntryCommand(
-                model.UserId, model.Description, model.Value, model.IsPaid,
+                userId, model.Description, model.Value, model.IsPaid,
                 model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
 
             if (!command.IsValid())
@@ -34,12 +34,48 @@ namespace Bawbee.Application.Entries
             return await _mediator.SendCommand(command);
         }
 
-        public Task<CommandResult> GetAllByUser(int userId)
+        public async Task<CommandResult> Update(UpdateEntryInputModel model, int userId)
+        {
+            var command = new UpdateEntryCommand(
+                model.EntryId, userId, model.Description, model.Value, model.IsPaid,
+                model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
+
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
+        }
+
+        public async Task<CommandResult> GetAllByUser(int userId)
         {
             var query = new GetAllEntriesByUser(userId);
-            var entries = _mediator.SendCommand(query);
+            var entries = await _mediator.SendCommand(query);
 
-            return Task.FromResult(CommandResult.Ok(entries));
+            return CommandResult.Ok(entries);
+        }
+
+        public async Task<CommandResult> GetTotalExpensesGroupedByMonth(int month, int userId)
+        {
+            var query = new GetTotalExpensesGroupedByMonthQuery(month, userId);
+            var expenses = await _mediator.SendCommand(query);
+
+            return CommandResult.Ok(expenses);
+        }
+
+        public async Task<CommandResult> Delete(int entryId, int userId)
+        {
+            var command = new DeleteEntryCommand(entryId, userId);
+
+            if (!command.IsValid())
+            {
+                SendNotificationsErrors(command);
+                return CommandResult.Error();
+            }
+
+            return await _mediator.SendCommand(command);
         }
 
         // TODO: create in BaseApplication
