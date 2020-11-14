@@ -4,7 +4,7 @@ using Bawbee.Infra.CrossCutting.Extensions;
 
 namespace Bawbee.Domain.Entities
 {
-    public class Entry : BaseEntity
+    public class Entry : Entity
     {
         public string Description { get; private set; }
         public decimal Value { get; private set; }

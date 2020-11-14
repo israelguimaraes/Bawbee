@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Bawbee.Domain.Entities
 {
-    public class EntryCategory : BaseEntity
+    public class EntryCategory : Entity
     {
         public string Name { get; private set; }
         public int UserId { get; private set; }

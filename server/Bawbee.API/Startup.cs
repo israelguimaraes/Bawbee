@@ -63,14 +63,14 @@ namespace Bawbee.API
 
             app.ConfigureSwagger();
 
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            //var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
-            eventBus.Subscribe<UserRegisteredEvent>();
-            eventBus.Subscribe<EntryAddedEvent>();
-            eventBus.Subscribe<EntryUpdatedEvent>();
-            eventBus.Subscribe<EntryDeletedEvent>();
-            eventBus.Subscribe<EntryCategoryAddedEvent>();
-            eventBus.Subscribe<BankAccountAddedEvent>();
+            //eventBus.Subscribe<UserRegisteredEvent>();
+            //eventBus.Subscribe<EntryAddedEvent>();
+            //eventBus.Subscribe<EntryUpdatedEvent>();
+            //eventBus.Subscribe<EntryDeletedEvent>();
+            //eventBus.Subscribe<EntryCategoryAddedEvent>();
+            //eventBus.Subscribe<BankAccountAddedEvent>();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Bawbee.Domain.Entities
 {
-    public class User : BaseEntity
+    public class User : Entity
     {
         public string Name { get; private set; }
         public string LastName { get; private set; }

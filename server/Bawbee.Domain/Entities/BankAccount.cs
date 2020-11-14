@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Bawbee.Domain.Entities
 {
-    public class BankAccount : BaseEntity
+    public class BankAccount : Entity
     {
         private const decimal DEFAULT_ACCOUNT_INITIAL_VALUE = 3000;
 

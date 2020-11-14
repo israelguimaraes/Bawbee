@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace Bawbee.Application.Query.Base
+namespace Bawbee.Domain.Core.Models
 {
-    public abstract class Document
+    public abstract class Entity
     {
-        public string Id { get; protected set; }
+        public int Id { get; protected set; }
         public DateTime CreatedAt { get; protected set; }
 
-        public Document()
+        protected Entity()
         {
             CreatedAt = DateTime.Now;
         }
