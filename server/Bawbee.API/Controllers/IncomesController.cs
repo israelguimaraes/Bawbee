@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Users.InputModels.Entries;
+﻿using Bawbee.Application.CommandStack.Users.InputModels.Entries;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Notifications;

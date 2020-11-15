@@ -1,7 +1,8 @@
-﻿using FluentValidation.Results;
+﻿using Bawbee.Domain.Core.Commands;
+using FluentValidation.Results;
 using System;
 
-namespace Bawbee.Domain.Core.Commands
+namespace Bawbee.Core.Commands
 {
     public abstract class BaseCommand : Message
     {

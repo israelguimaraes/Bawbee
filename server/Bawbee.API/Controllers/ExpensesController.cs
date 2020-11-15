@@ -1,5 +1,6 @@
-﻿using Bawbee.Application.Users.InputModels.Entries;
+﻿using Bawbee.Application.CommandStack.Users.InputModels.Entries;
 using Bawbee.Application.Users.Interfaces;
+using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Notifications;
 using Bawbee.Infra.CrossCutting.Extensions;
 using MediatR;
@@ -10,14 +11,14 @@ namespace Bawbee.API.Controllers
 {
     public class ExpensesController : BaseApiController
     {
-        private readonly IEntryApplication _entryApplication;
+        private readonly IMediatorHandler _mediator;
 
         public ExpensesController(
-            IEntryApplication entryApplication,
+            IMediatorHandler mediator,
             INotificationHandler<DomainNotification> notificationHandler)
             : base(notificationHandler)
         {
-            _entryApplication = entryApplication;
+            _mediator = mediator;
         }
 
         [HttpGet("")]

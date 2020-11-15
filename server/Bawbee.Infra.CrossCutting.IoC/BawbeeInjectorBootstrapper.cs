@@ -1,9 +1,10 @@
-﻿using Bawbee.Application.Command.Users;
+﻿using Bawbee.Application.CommandStack.Users.Commands;
 using Bawbee.Application.Entries;
-using Bawbee.Application.Query.Users.Interfaces;
-using Bawbee.Application.Query.Users.Queries;
+using Bawbee.Application.QueryStack.Users.Interfaces;
+using Bawbee.Application.QueryStack.Users.Queries;
 using Bawbee.Application.Services;
 using Bawbee.Application.Users.Interfaces;
+using Bawbee.Core.Commands;
 using Bawbee.Domain.Core.Bus;
 using Bawbee.Domain.Core.Commands;
 using Bawbee.Domain.Core.Events;

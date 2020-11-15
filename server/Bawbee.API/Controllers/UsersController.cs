@@ -1,5 +1,5 @@
-﻿using Bawbee.Application.Users.InputModels.BankAccounts;
-using Bawbee.Application.Users.InputModels.Categories;
+﻿using Bawbee.Application.CommandStack.Users.InputModels.BankAccounts;
+using Bawbee.Application.CommandStack.Users.InputModels.Categories;
 using Bawbee.Application.Users.Interfaces;
 using Bawbee.Domain.Core.Notifications;
 using MediatR;
