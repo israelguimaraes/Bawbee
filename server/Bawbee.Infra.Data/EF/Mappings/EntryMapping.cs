@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Entries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -36,7 +36,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
 
             builder.HasOne(t => t.EntryCategory)
                 .WithMany()
-                .HasForeignKey(t => t.EntryCategoryId);
+                .HasForeignKey(t => t.CategoryId);
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Bawbee.Core.Events;
-using Bawbee.Domain.Entities;
+using Bawbee.Domain.AggregatesModel.Users;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;

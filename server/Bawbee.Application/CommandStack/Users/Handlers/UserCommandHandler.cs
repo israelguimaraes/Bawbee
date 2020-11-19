@@ -3,7 +3,7 @@ using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
-using Bawbee.Domain.Entities;
+using Bawbee.Domain.AggregatesModel.Users;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Events.BankAccounts;
 using Bawbee.Domain.Events.EntryCategories;
@@ -87,7 +87,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
                 return CommandResult.Error();
             }
 
-            category = new EntryCategory(command.Name, command.UserId);
+            category = new Category(command.Name, command.UserId);
 
             await _userRepository.AddEntryCategory(category);
 

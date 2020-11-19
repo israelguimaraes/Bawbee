@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

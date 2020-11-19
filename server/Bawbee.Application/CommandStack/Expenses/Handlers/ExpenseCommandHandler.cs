@@ -3,7 +3,7 @@ using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
-using Bawbee.Domain.Entities;
+using Bawbee.Domain.AggregatesModel.Entries;
 using Bawbee.Domain.Events.Entries;
 using Bawbee.Domain.Interfaces;
 using MediatR;
@@ -78,7 +78,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
                 var @event = new EntryUpdatedEvent(
                     entry.Id, entry.Description, entry.Value,
                     entry.IsPaid, entry.Observations, entry.DateToPay,
-                    entry.UserId, entry.BankAccountId, entry.EntryCategoryId);
+                    entry.UserId, entry.BankAccountId, entry.CategoryId);
 
                 await _mediator.PublishEvent(@event);
             }
@@ -103,7 +103,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
                 var @event = new EntryDeletedEvent(
                     entry.Id, entry.Description, entry.Value,
                     entry.IsPaid, entry.Observations, entry.DateToPay,
-                    entry.UserId, entry.BankAccountId, entry.EntryCategoryId);
+                    entry.UserId, entry.BankAccountId, entry.CategoryId);
 
                 await _mediator.PublishEvent(@event);
             }

@@ -1,5 +1,5 @@
 ﻿using Bawbee.Core.Commands;
-using Bawbee.Domain.Entities;
+using Bawbee.Domain.AggregatesModel.Users;
 using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands

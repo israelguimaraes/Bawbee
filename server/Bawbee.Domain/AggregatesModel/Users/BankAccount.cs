@@ -1,7 +1,7 @@
 ﻿using Bawbee.Core.Models;
 using Newtonsoft.Json;
 
-namespace Bawbee.Domain.Entities
+namespace Bawbee.Domain.AggregatesModel.Users
 {
     public class BankAccount : Entity
     {

@@ -1,5 +1,5 @@
 ﻿using Bawbee.Application.QueryStack.Users.Documents;
-using Bawbee.Domain.Entities;
+using Bawbee.Domain.AggregatesModel.Users;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

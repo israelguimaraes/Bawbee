@@ -1,4 +1,5 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Entries;
+using Bawbee.Domain.AggregatesModel.Users;
 using Bawbee.Infra.Data.EF.Mappings;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ namespace Bawbee.Infra.Data.EF
 
         public DbSet<User> Users { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
-        public DbSet<EntryCategory> EntryCategories { get; set; }
+        public DbSet<Category> EntryCategories { get; set; }
         public DbSet<Entry> Entries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

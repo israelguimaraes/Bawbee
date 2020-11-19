@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bawbee.Domain.Entities
+namespace Bawbee.Domain.AggregatesModel.Users
 {
     public class User : Entity
     {
@@ -17,12 +17,12 @@ namespace Bawbee.Domain.Entities
 
         // TODO: protect lists
         public List<BankAccount> BankAccounts { get; private set; }
-        public List<EntryCategory> EntryCategories { get; private set; }
+        public List<Category> EntryCategories { get; private set; }
 
         protected User()
         {
             BankAccounts = new List<BankAccount>();
-            EntryCategories = new List<EntryCategory>();
+            EntryCategories = new List<Category>();
         }
 
         protected User(int id) : this()
@@ -38,10 +38,16 @@ namespace Bawbee.Domain.Entities
             Email = email.ToLower();
             Password = password;
         }
-        
+
         [JsonConstructor]
-        public User(string name, string lastName, string email, string password, IEnumerable<BankAccount> bankAccounts, IEnumerable<EntryCategory> entryCategories, int id = default)
-            : this(name, lastName, email, password, id)
+        public User(
+            string name,
+            string lastName,
+            string email,
+            string password,
+            IEnumerable<BankAccount> bankAccounts,
+            IEnumerable<Category> entryCategories,
+            int id = default) : this(name, lastName, email, password, id)
         {
             BankAccounts = bankAccounts?.ToList();          // TODO: extensions IsEmpty()
             EntryCategories = entryCategories?.ToList();
@@ -55,7 +61,7 @@ namespace Bawbee.Domain.Entities
             BankAccounts.Add(bankAccount);
         }
 
-        public void AddNewEntryCategory(EntryCategory entryCategory)
+        public void AddNewEntryCategory(Category entryCategory)
         {
             if (EntryCategories.Any(e => e.Id == entryCategory.Id))
                 return;
@@ -63,7 +69,7 @@ namespace Bawbee.Domain.Entities
             EntryCategories.Add(entryCategory);
         }
 
-        public EntryCategory GetEntryCategoryById(int entryCategoryId)
+        public Category GetEntryCategoryById(int entryCategoryId)
         {
             return EntryCategories.FirstOrDefault(e => e.Id == entryCategoryId);
         }
@@ -86,7 +92,7 @@ namespace Bawbee.Domain.Entities
                 var defaultBankAccount = BankAccount.CreateDefaultBankAccount(user.Id);
                 user.BankAccounts.Add(defaultBankAccount);
 
-                var defaultCategories = EntryCategory.GetDefaultCategoriesForNewUsers(user.Id);
+                var defaultCategories = Category.GetDefaultCategoriesForNewUsers(user.Id);
                 user.EntryCategories.AddRange(defaultCategories);
 
                 return user;

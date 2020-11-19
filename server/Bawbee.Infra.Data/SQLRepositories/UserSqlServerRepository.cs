@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Users;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.Data.EF;
 using Bawbee.Infra.Data.SQLRepositories.Dapper;
@@ -36,14 +36,14 @@ namespace Bawbee.Infra.Data.SQLRepositories
             return await _dapper.Connection.QueryFirstOrDefaultAsync<User>(query, new { Email = email, Password = password });
         }
 
-        public async Task<EntryCategory> GetCategoryByName(string name, int userId)
+        public async Task<Category> GetCategoryByName(string name, int userId)
         {
             var query = "SELECT * FROM EntryCategories WHERE Name = @Name AND UserId = @UserId";
 
-            return await _dapper.Connection.QueryFirstOrDefaultAsync<EntryCategory>(query, new { Name = name, UserId = userId });
+            return await _dapper.Connection.QueryFirstOrDefaultAsync<Category>(query, new { Name = name, UserId = userId });
         }
 
-        public async Task AddEntryCategory(EntryCategory category)
+        public async Task AddEntryCategory(Category category)
         {
             await _dbContext.EntryCategories.AddAsync(category);
         }

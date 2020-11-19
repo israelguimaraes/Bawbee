@@ -1,12 +1,12 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bawbee.Infra.Data.EF.Mappings
 {
-    public class EntryCategoryMapping : IEntityTypeConfiguration<EntryCategory>
+    public class EntryCategoryMapping : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<EntryCategory> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(t => t.Id);
 

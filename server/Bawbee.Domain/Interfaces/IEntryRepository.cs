@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Entries;
 using System.Threading.Tasks;
 
 namespace Bawbee.Domain.Interfaces

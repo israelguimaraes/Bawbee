@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Entities;
+﻿using Bawbee.Domain.AggregatesModel.Entries;
 using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.Data.EF;
 using Bawbee.Infra.Data.SQLRepositories.Dapper;
