@@ -4,14 +4,14 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class RegisterNewUserCommand : BaseCommand
+    public class CreateUserCommand : BaseCommand
     {
         public string Name { get; }
         public string LastName { get; }
         public string Email { get; }
         public string Password { get; }
 
-        public RegisterNewUserCommand(string name, string lastName, string email, string password)
+        public CreateUserCommand(string name, string lastName, string email, string password)
         {
             Name = name;
             LastName = lastName;
@@ -21,14 +21,14 @@ namespace Bawbee.Application.CommandStack.Users.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new RegisterNewUserCommandValidator().Validate(this);
+            ValidationResult = new CreateUserCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }
 
-    public class RegisterNewUserCommandValidator : AbstractValidator<RegisterNewUserCommand>
+    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
-        public RegisterNewUserCommandValidator()
+        public CreateUserCommandValidator()
         {
             RuleFor(c => c.Name)
                 .NotEmpty()

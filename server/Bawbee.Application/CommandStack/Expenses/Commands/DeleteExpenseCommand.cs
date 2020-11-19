@@ -28,11 +28,11 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
         {
             RuleFor(c => c.EntryId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(AddExpenseCommand.EntryId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.EntryId)} is invalid");
 
             RuleFor(c => c.UserId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(AddExpenseCommand.UserId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.UserId)} is invalid");
         }
     }
 }

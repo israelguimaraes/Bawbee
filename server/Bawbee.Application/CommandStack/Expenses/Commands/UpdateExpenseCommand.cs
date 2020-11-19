@@ -46,35 +46,35 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
         {
             RuleFor(c => c.EntryId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(AddExpenseCommand.EntryId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.EntryId)} is invalid");
 
             RuleFor(c => c.UserId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(AddExpenseCommand.UserId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.UserId)} is invalid");
 
             RuleFor(c => c.Description)
                 .NotEmpty()
-                .WithMessage($"{nameof(AddExpenseCommand.Description)} is required");
+                .WithMessage($"{nameof(CreateExpenseCommand.Description)} is required");
 
             RuleFor(c => c.Value)
                 .NotEmpty()
-                .WithMessage($"{nameof(AddExpenseCommand.Value)} is required");
+                .WithMessage($"{nameof(CreateExpenseCommand.Value)} is required");
 
             RuleFor(c => c.IsPaid)
                .NotEmpty()
-               .WithMessage($"{nameof(AddExpenseCommand.IsPaid)} is required");
+               .WithMessage($"{nameof(CreateExpenseCommand.IsPaid)} is required");
 
             RuleFor(c => c.DateToPay)
                .Must(c => c != DateTime.MinValue)
-               .WithMessage($"{nameof(AddExpenseCommand.DateToPay)} is required");
+               .WithMessage($"{nameof(CreateExpenseCommand.DateToPay)} is required");
 
             RuleFor(c => c.BankAccountId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(AddExpenseCommand.BankAccountId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.BankAccountId)} is invalid");
 
             RuleFor(c => c.EntryCategoryId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(AddExpenseCommand.EntryCategoryId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.EntryCategoryId)} is invalid");
         }
     }
 }

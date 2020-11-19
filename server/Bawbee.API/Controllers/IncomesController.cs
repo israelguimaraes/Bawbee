@@ -27,13 +27,13 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> AddIncome(NewEntryInputModel model)
+        public async Task<IActionResult> AddIncome(CreateExpenseInputModel model)
         {
             return Ok();
         }
 
         [HttpPut("")]
-        public async Task<IActionResult> UpdateIncome(UpdateEntryInputModel model)
+        public async Task<IActionResult> UpdateIncome(UpdateExpenseInputModel model)
         {
             return Ok();
         }

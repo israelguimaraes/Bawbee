@@ -3,12 +3,12 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class AddEntryCategoryCommand : BaseCommand
+    public class CreateCategoryCommand : BaseCommand
     {
         public string Name { get; }
         public int UserId { get; }
 
-        public AddEntryCategoryCommand(string name, int userId)
+        public CreateCategoryCommand(string name, int userId)
         {
             Name = name;
             UserId = userId;
@@ -16,14 +16,14 @@ namespace Bawbee.Application.CommandStack.Users.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new AddEntryCategoryCommandValidator().Validate(this);
+            ValidationResult = new CreateCategoryCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }
 
-    public class AddEntryCategoryCommandValidator : AbstractValidator<AddEntryCategoryCommand>
+    public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
     {
-        public AddEntryCategoryCommandValidator()
+        public CreateCategoryCommandValidator()
         {
             RuleFor(c => c.Name)
                 .NotEmpty()

@@ -2,7 +2,7 @@
 
 namespace Bawbee.Application.CommandStack.Users.InputModels.Entries
 {
-    public class NewEntryInputModel
+    public class CreateExpenseInputModel
     {
         public string Description { get; set; }
         public decimal Value { get; set; }

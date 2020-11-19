@@ -26,9 +26,9 @@ namespace Bawbee.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterNewUser(RegisterNewUserInputModel model)
+        public async Task<IActionResult> Create(CreateUserInputModel model)
         {
-            var command = new RegisterNewUserCommand(model.Name, model.LastName, model.Email, model.Password);
+            var command = new CreateUserCommand(model.Name, model.LastName, model.Email, model.Password);
 
             if (!command.IsValid())
                 return CustomResponse(command);
@@ -61,9 +61,9 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpPost("categories")]
-        public async Task<IActionResult> AddCategory(AddEntryCategoryInputModel model)
+        public async Task<IActionResult> AddCategory(CreateCategoryInputModel model)
         {
-            var command = new AddEntryCategoryCommand(model.Name, CurrentUserId);
+            var command = new CreateCategoryCommand(model.Name, CurrentUserId);
 
             if (!command.IsValid())
                 return CustomResponse(command);
@@ -87,9 +87,9 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpPost("bank-accounts")]
-        public async Task<IActionResult> AddBankAccount(AddBankAccountInputModel model)
+        public async Task<IActionResult> AddBankAccount(CreateBankAccountInputModel model)
         {
-            var command = new AddBankAccountCommand(model.Name, model.InitialBalance, CurrentUserId);
+            var command = new CreateBankAccountCommand(model.Name, model.InitialBalance, CurrentUserId);
 
             if (!command.IsValid())
                 return CustomResponse(command);

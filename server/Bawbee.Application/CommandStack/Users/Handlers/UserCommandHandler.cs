@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 namespace Bawbee.Application.CommandStack.Users.Handlers
 {
     public class UserCommandHandler : BaseCommandHandler,
-        ICommandHandler<RegisterNewUserCommand>,
+        ICommandHandler<CreateUserCommand>,
         ICommandHandler<LoginCommand>,
-        ICommandHandler<AddEntryCategoryCommand>,
-        ICommandHandler<AddBankAccountCommand>
+        ICommandHandler<CreateCategoryCommand>,
+        ICommandHandler<CreateBankAccountCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IJwtService _jwtService;
@@ -37,7 +37,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
             _userRepository = userReadRepository;
         }
 
-        public async Task<CommandResult> Handle(RegisterNewUserCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
             var userDatabase = await _userRepository.GetByEmail(command.Email);
 
@@ -77,7 +77,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
             return CommandResult.Ok(userAccessToken);
         }
 
-        public async Task<CommandResult> Handle(AddEntryCategoryCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(CreateCategoryCommand command, CancellationToken cancellationToken)
         {
             var category = await _userRepository.GetCategoryByName(command.Name, command.UserId);
 
@@ -100,7 +100,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
             return CommandResult.Ok();
         }
 
-        public async Task<CommandResult> Handle(AddBankAccountCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(CreateBankAccountCommand command, CancellationToken cancellationToken)
         {
             var bankAccount = await _userRepository.GetBankAccountByName(command.Name, command.UserId);
 

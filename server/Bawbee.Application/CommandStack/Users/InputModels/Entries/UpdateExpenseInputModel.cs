@@ -2,7 +2,7 @@
 
 namespace Bawbee.Application.CommandStack.Users.InputModels.Entries
 {
-    public class UpdateEntryInputModel
+    public class UpdateExpenseInputModel
     {
         public int EntryId { get; set; }
         public string Description { get; set; }

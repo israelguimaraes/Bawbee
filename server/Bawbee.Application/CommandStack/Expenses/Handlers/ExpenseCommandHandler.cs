@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.CommandStack.Entries.Handlers
 {
-    public class EntryCommandHandler : BaseCommandHandler,
-        ICommandHandler<AddExpenseCommand>,
+    public class ExpenseCommandHandler : BaseCommandHandler,
+        ICommandHandler<CreateExpenseCommand>,
         ICommandHandler<UpdateExpenseCommand>,
         ICommandHandler<DeleteExpenseCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IEntryRepository _entryRepository;
 
-        public EntryCommandHandler(
+        public ExpenseCommandHandler(
             IMediatorHandler mediator,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler,
@@ -30,7 +30,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             _entryRepository = entryRepository;
         }
 
-        public async Task<CommandResult> Handle(AddExpenseCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(CreateExpenseCommand command, CancellationToken cancellationToken)
         {
             var entry = new Entry(
                 command.Description, command.Value, command.IsPaid.Value, command.Observations,

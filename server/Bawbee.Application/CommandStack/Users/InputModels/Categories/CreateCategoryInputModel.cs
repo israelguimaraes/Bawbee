@@ -1,6 +1,6 @@
 ﻿namespace Bawbee.Application.CommandStack.Users.InputModels.Categories
 {
-    public class AddEntryCategoryInputModel
+    public class CreateCategoryInputModel
     {
         public string Name { get; set; }
     }

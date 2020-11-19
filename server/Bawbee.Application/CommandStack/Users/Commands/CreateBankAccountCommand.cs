@@ -3,13 +3,13 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class AddBankAccountCommand : BaseCommand
+    public class CreateBankAccountCommand : BaseCommand
     {
         public string Name { get; }
         public decimal InitialBalance { get; }
         public int UserId { get; }
 
-        public AddBankAccountCommand(string name, decimal initialBalance, int userId)
+        public CreateBankAccountCommand(string name, decimal initialBalance, int userId)
         {
             Name = name;
             InitialBalance = initialBalance;
@@ -23,7 +23,7 @@ namespace Bawbee.Application.CommandStack.Users.Commands
         }
     }
 
-    public class AddBankAccountCommandValidator : AbstractValidator<AddBankAccountCommand>
+    public class AddBankAccountCommandValidator : AbstractValidator<CreateBankAccountCommand>
     {
         public AddBankAccountCommandValidator()
         {

@@ -1,6 +1,6 @@
 ﻿namespace Bawbee.Application.CommandStack.Users.InputModels
 {
-    public class RegisterNewUserInputModel
+    public class CreateUserInputModel
     {
         public string Name { get; set; }
         public string LastName { get; set; }

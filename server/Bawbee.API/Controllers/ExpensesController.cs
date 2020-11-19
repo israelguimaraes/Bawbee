@@ -48,9 +48,9 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> AddExpense(NewEntryInputModel model)
+        public async Task<IActionResult> AddExpense(CreateExpenseInputModel model)
         {
-            var command = new AddExpenseCommand(
+            var command = new CreateExpenseCommand(
                 CurrentUserId, model.Description, model.Value, model.IsPaid, 
                 model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
 
@@ -62,7 +62,7 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpPut("")]
-        public async Task<IActionResult> UpdateExpense(UpdateEntryInputModel model)
+        public async Task<IActionResult> UpdateExpense(UpdateExpenseInputModel model)
         {
             var command = new UpdateExpenseCommand(
                 model.EntryId, CurrentUserId, model.Description, model.Value, model.IsPaid, 
