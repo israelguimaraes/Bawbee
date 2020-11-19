@@ -1,7 +1,6 @@
-﻿using Bawbee.Domain.AggregatesModel.Entries;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Interfaces
+namespace Bawbee.Domain.AggregatesModel.Entries
 {
     public interface IEntryRepository
     {

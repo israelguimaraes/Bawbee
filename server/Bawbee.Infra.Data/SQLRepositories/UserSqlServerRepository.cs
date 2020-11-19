@@ -1,5 +1,4 @@
 ﻿using Bawbee.Domain.AggregatesModel.Users;
-using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.Data.EF;
 using Bawbee.Infra.Data.SQLRepositories.Dapper;
 using Dapper;
@@ -43,7 +42,7 @@ namespace Bawbee.Infra.Data.SQLRepositories
             return await _dapper.Connection.QueryFirstOrDefaultAsync<Category>(query, new { Name = name, UserId = userId });
         }
 
-        public async Task AddEntryCategory(Category category)
+        public async Task CreateCategory(Category category)
         {
             await _dbContext.EntryCategories.AddAsync(category);
         }
@@ -55,7 +54,7 @@ namespace Bawbee.Infra.Data.SQLRepositories
             return await _dapper.Connection.QueryFirstOrDefaultAsync<BankAccount>(query, new { Name = name, UserId = userId });
         }
 
-        public async Task AddBankAccount(BankAccount bankAccount)
+        public async Task CreateBankAccount(BankAccount bankAccount)
         {
             await _dbContext.BankAccounts.AddAsync(bankAccount);
         }

@@ -5,7 +5,7 @@ using System;
 
 namespace Bawbee.Domain.AggregatesModel.Entries
 {
-    public abstract class Entry : Entity
+    public abstract class Entry : Entity, IAggregateRoot
     {
         public string Description { get; protected set; }
         public decimal Value { get; protected set; }

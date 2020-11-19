@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Extensions\Bawbee.Infra.CrossCutting.Extensions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
+
 </Project>

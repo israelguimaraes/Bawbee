@@ -5,7 +5,6 @@ using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
 using Bawbee.Domain.AggregatesModel.Entries;
 using Bawbee.Domain.Events.Entries;
-using Bawbee.Domain.Interfaces;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,16 +1,16 @@
-﻿using Bawbee.Domain.AggregatesModel.Users;
+﻿using Bawbee.Core.Models;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Interfaces
+namespace Bawbee.Domain.AggregatesModel.Users
 {
-    public interface IUserRepository
+    public interface IUserRepository : IAggregateRepository<User>
     {
         Task Add(User user);
         Task<User> GetByEmail(string email);
         Task<User> GetByEmailAndPassword(string email, string password);
         Task<Category> GetCategoryByName(string name, int userId);
-        Task AddEntryCategory(Category category);
+        Task CreateCategory(Category category);
         Task<BankAccount> GetBankAccountByName(string name, int userId);
-        Task AddBankAccount(BankAccount bankAccount);
+        Task CreateBankAccount(BankAccount bankAccount);
     }
 }

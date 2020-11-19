@@ -7,7 +7,6 @@ using Bawbee.Domain.AggregatesModel.Users;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Events.BankAccounts;
 using Bawbee.Domain.Events.EntryCategories;
-using Bawbee.Domain.Interfaces;
 using Bawbee.Infra.CrossCutting.Common.Security;
 using MediatR;
 using System.Threading;
@@ -89,7 +88,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             category = new Category(command.Name, command.UserId);
 
-            await _userRepository.AddEntryCategory(category);
+            await _userRepository.CreateCategory(category);
 
             if (await CommitTransaction())
             {
@@ -112,7 +111,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             bankAccount = new BankAccount(command.Name, command.InitialBalance, command.UserId);
 
-            await _userRepository.AddBankAccount(bankAccount);
+            await _userRepository.CreateBankAccount(bankAccount);
 
             if (await CommitTransaction())
             {

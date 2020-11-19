@@ -47,7 +47,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
                 });
             }
 
-            foreach (var ec in @event.User.EntryCategories)
+            foreach (var ec in @event.User.Categories)
             {
                 userDocument.EntryCategories.Add(new EntryCategoryDocument
                 {

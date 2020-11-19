@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Bawbee.Domain.AggregatesModel.Users
 {
-    public class User : Entity
+    public class User : Entity, IAggregateRoot
     {
         public const int PASSWORD_MIN_LENGTH = 6;
         public const int PASSWORD_MAX_LENGTH = 10;
@@ -17,12 +17,12 @@ namespace Bawbee.Domain.AggregatesModel.Users
 
         // TODO: protect lists
         public List<BankAccount> BankAccounts { get; private set; }
-        public List<Category> EntryCategories { get; private set; }
+        public List<Category> Categories { get; private set; }
 
         protected User()
         {
             BankAccounts = new List<BankAccount>();
-            EntryCategories = new List<Category>();
+            Categories = new List<Category>();
         }
 
         protected User(int id) : this()
@@ -46,11 +46,11 @@ namespace Bawbee.Domain.AggregatesModel.Users
             string email,
             string password,
             IEnumerable<BankAccount> bankAccounts,
-            IEnumerable<Category> entryCategories,
+            IEnumerable<Category> categories,
             int id = default) : this(name, lastName, email, password, id)
         {
             BankAccounts = bankAccounts?.ToList();          // TODO: extensions IsEmpty()
-            EntryCategories = entryCategories?.ToList();
+            Categories = categories?.ToList();
         }
 
         public void AddNewBankAccount(BankAccount bankAccount)
@@ -61,17 +61,17 @@ namespace Bawbee.Domain.AggregatesModel.Users
             BankAccounts.Add(bankAccount);
         }
 
-        public void AddNewEntryCategory(Category entryCategory)
+        public void AddNewCategory(Category category)
         {
-            if (EntryCategories.Any(e => e.Id == entryCategory.Id))
+            if (Categories.Any(e => e.Id == category.Id))
                 return;
 
-            EntryCategories.Add(entryCategory);
+            Categories.Add(category);
         }
 
-        public Category GetEntryCategoryById(int entryCategoryId)
+        public Category GetCategoryById(int categoryId)
         {
-            return EntryCategories.FirstOrDefault(e => e.Id == entryCategoryId);
+            return Categories.FirstOrDefault(e => e.Id == categoryId);
         }
 
         public BankAccount GetBankAccountById(int bankAccountId)
@@ -93,7 +93,7 @@ namespace Bawbee.Domain.AggregatesModel.Users
                 user.BankAccounts.Add(defaultBankAccount);
 
                 var defaultCategories = Category.GetDefaultCategoriesForNewUsers(user.Id);
-                user.EntryCategories.AddRange(defaultCategories);
+                user.Categories.AddRange(defaultCategories);
 
                 return user;
             }

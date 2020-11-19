@@ -15,7 +15,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
                 .IsRequired();
 
             builder.HasOne(t => t.User)
-                .WithMany(t => t.EntryCategories)
+                .WithMany(t => t.Categories)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
