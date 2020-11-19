@@ -1,8 +1,8 @@
-﻿using Bawbee.Application.CommandStack.Users.InputModels.Entries;
-using Bawbee.Application.Users.Interfaces;
+﻿using Bawbee.Application.CommandStack.Expenses.Commands;
+using Bawbee.Application.CommandStack.Users.InputModels.Entries;
+using Bawbee.Application.QueryStack.Users.Queries.Entries;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Notifications;
-using Bawbee.Infra.CrossCutting.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -24,40 +24,67 @@ namespace Bawbee.API.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetExpensesByUser()
         {
-            var result = await _entryApplication.GetAllByUser(CurrentUserId);
-            return Response(result);
+            var query = new GetAllExpensesByUserQuery(CurrentUserId);
+
+            if (!query.IsValid())
+                return CustomResponse(query);
+
+            var expenses = await _mediator.SendCommand(query);
+
+            return CustomResponse(expenses);
         }
 
         [HttpGet("month/{month:int}")]
         public async Task<IActionResult> GetTotalExpensesGroupedByMonth(int month)
         {
-            var result = await _entryApplication.GetTotalExpensesGroupedByMonth(month, CurrentUserId);
-            return Response(result);
+            var query = new GetTotalExpensesGroupedByMonthQuery(month, CurrentUserId);
+
+            if (!query.IsValid())
+                return CustomResponse(query);
+
+            var expenses = await _mediator.SendCommand(query);
+
+            return CustomResponse(expenses);
         }
 
         [HttpPost("")]
         public async Task<IActionResult> AddExpense(NewEntryInputModel model)
         {
-            model.Value = model.Value.ToNegative();
+            var command = new AddExpenseCommand(
+                CurrentUserId, model.Description, model.Value, model.IsPaid, 
+                model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
 
-            var result = await _entryApplication.AddEntry(model, CurrentUserId);
-            return Response(result);
+            if (!command.IsValid())
+                return CustomResponse(command);
+
+            var result = await _mediator.SendCommand(command);
+            return CustomResponse(result);
         }
 
         [HttpPut("")]
         public async Task<IActionResult> UpdateExpense(UpdateEntryInputModel model)
         {
-            model.Value = model.Value.ToNegative();
+            var command = new UpdateExpenseCommand(
+                model.EntryId, CurrentUserId, model.Description, model.Value, model.IsPaid, 
+                model.Observations, model.DateToPay, model.BankAccountId, model.EntryId);
 
-            var result = await _entryApplication.Update(model, CurrentUserId);
-            return Response(result);
+            if (!command.IsValid())
+                return CustomResponse(command);
+
+            var result = await _mediator.SendCommand(command);
+            return CustomResponse(result);
         }
 
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteExpense(int id)
         {
-            var result = await _entryApplication.Delete(id, CurrentUserId);
-            return Response(result);
+            var command = new DeleteExpenseCommand(id, CurrentUserId);
+
+            if (!command.IsValid())
+                return CustomResponse(command);
+
+            var result = await _mediator.SendCommand(command);
+            return CustomResponse(result);
         }
     }
 }

@@ -7,6 +7,9 @@ namespace Bawbee.Domain.Entities
 {
     public class User : Entity
     {
+        public const int PASSWORD_MIN_LENGTH = 6;
+        public const int PASSWORD_MAX_LENGTH = 10;
+
         public string Name { get; private set; }
         public string LastName { get; private set; }
         public string Email { get; private set; }

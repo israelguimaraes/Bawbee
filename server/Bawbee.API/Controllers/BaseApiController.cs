@@ -28,7 +28,7 @@ namespace Bawbee.API.Controllers
 
         protected bool IsValidOperation => !GetNotifications.Any();
 
-        protected new IActionResult Response(object data)
+        protected new IActionResult CustomResponse(object data)
         {
             if (IsValidOperation)
                 return OkResponse(data);
@@ -36,7 +36,7 @@ namespace Bawbee.API.Controllers
             return BadRequestResponse();
         }
 
-        protected new IActionResult Response(CommandResult commandResult = null)
+        protected new IActionResult CustomResponse(CommandResult commandResult = null)
         {
             if (IsValidOperation && commandResult.IsSuccess)
                 return OkResponse(commandResult);

@@ -1,16 +1,33 @@
 ﻿using Bawbee.Application.QueryStack.Users.ReadModels;
-using MediatR;
+using Bawbee.Core.Commands;
+using FluentValidation;
 using System.Collections.Generic;
 
 namespace Bawbee.Application.QueryStack.Users.Queries
 {
-    public class GetAllBankAccountsByUserQuery : IRequest<IEnumerable<BankAccountReadModel>>
+    public class GetAllBankAccountsByUserQuery : CommandQuery<IEnumerable<BankAccountReadModel>>
     {
         public int UserId { get; }
 
         public GetAllBankAccountsByUserQuery(int userId)
         {
             UserId = userId;
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new GetAllBankAccountsByUserValidation().Validate(this);
+           return ValidationResult.IsValid;
+        }
+    }
+
+    public class GetAllBankAccountsByUserValidation : AbstractValidator<GetAllBankAccountsByUserQuery>
+    {
+        public GetAllBankAccountsByUserValidation()
+        {
+            RuleFor(q => q)
+                .Must(q => q.UserId <= 0)
+                .WithMessage("Invalid User");
         }
     }
 }

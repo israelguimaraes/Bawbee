@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.CommandStack.Entries.Commands;
+﻿using Bawbee.Application.CommandStack.Expenses.Commands;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 namespace Bawbee.Application.CommandStack.Entries.Handlers
 {
     public class EntryCommandHandler : BaseCommandHandler,
-        ICommandHandler<NewEntryCommand>,
-        ICommandHandler<UpdateEntryCommand>,
-        ICommandHandler<DeleteEntryCommand>
+        ICommandHandler<AddExpenseCommand>,
+        ICommandHandler<UpdateExpenseCommand>,
+        ICommandHandler<DeleteExpenseCommand>
     {
         private readonly IMediatorHandler _mediator;
         private readonly IEntryRepository _entryRepository;
@@ -30,7 +30,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             _entryRepository = entryRepository;
         }
 
-        public async Task<CommandResult> Handle(NewEntryCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(AddExpenseCommand command, CancellationToken cancellationToken)
         {
             var entry = new Entry(
                 command.Description, command.Value, command.IsPaid.Value, command.Observations,
@@ -51,7 +51,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             return CommandResult.Ok(entry);
         }
 
-        public async Task<CommandResult> Handle(UpdateEntryCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(UpdateExpenseCommand command, CancellationToken cancellationToken)
         {
             var entry = await _entryRepository.GetById(command.EntryId);
 
@@ -86,7 +86,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             return CommandResult.Ok();
         }
 
-        public async Task<CommandResult> Handle(DeleteEntryCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(DeleteExpenseCommand command, CancellationToken cancellationToken)
         {
             var entry = await _entryRepository.GetById(command.EntryId);
 

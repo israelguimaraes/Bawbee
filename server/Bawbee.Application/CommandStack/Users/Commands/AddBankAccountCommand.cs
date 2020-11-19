@@ -1,8 +1,9 @@
-﻿using Bawbee.Application.Command.Users.Validators;
+﻿using Bawbee.Core.Commands;
+using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class AddBankAccountCommand : Core.Commands.BaseCommand
+    public class AddBankAccountCommand : BaseCommand
     {
         public string Name { get; }
         public decimal InitialBalance { get; }
@@ -19,6 +20,16 @@ namespace Bawbee.Application.CommandStack.Users.Commands
         {
             ValidationResult = new AddBankAccountCommandValidator().Validate(this);
             return ValidationResult.IsValid;
+        }
+    }
+
+    public class AddBankAccountCommandValidator : AbstractValidator<AddBankAccountCommand>
+    {
+        public AddBankAccountCommandValidator()
+        {
+            RuleFor(c => c.Name)
+               .NotEmpty()
+               .WithMessage("Name is required");
         }
     }
 }

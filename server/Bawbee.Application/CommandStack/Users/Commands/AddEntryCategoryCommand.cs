@@ -1,8 +1,9 @@
-﻿using Bawbee.Application.Command.Users.Validators;
+﻿using Bawbee.Core.Commands;
+using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class AddEntryCategoryCommand : Core.Commands.BaseCommand
+    public class AddEntryCategoryCommand : BaseCommand
     {
         public string Name { get; }
         public int UserId { get; }
@@ -17,6 +18,16 @@ namespace Bawbee.Application.CommandStack.Users.Commands
         {
             ValidationResult = new AddEntryCategoryCommandValidator().Validate(this);
             return ValidationResult.IsValid;
+        }
+    }
+
+    public class AddEntryCategoryCommandValidator : AbstractValidator<AddEntryCategoryCommand>
+    {
+        public AddEntryCategoryCommandValidator()
+        {
+            RuleFor(c => c.Name)
+                .NotEmpty()
+                .WithMessage("Name is required");
         }
     }
 }
