@@ -1,5 +1,4 @@
-﻿using Bawbee.Domain.Core.Commands;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using System;
 
 namespace Bawbee.Core.Commands

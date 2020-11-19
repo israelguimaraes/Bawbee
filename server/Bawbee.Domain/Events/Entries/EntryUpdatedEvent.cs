@@ -1,4 +1,5 @@
-﻿using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Events;
+using Bawbee.Domain.Core.Events;
 using System;
 
 namespace Bawbee.Domain.Events.Entries

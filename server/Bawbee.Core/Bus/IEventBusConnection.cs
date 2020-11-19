@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Domain.Core.Bus
+﻿namespace Bawbee.Core.Bus
 {
     public interface IEventBusConnection<T>
     {

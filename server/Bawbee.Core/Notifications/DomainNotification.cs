@@ -1,6 +1,6 @@
-﻿using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Events;
 
-namespace Bawbee.Domain.Core.Notifications
+namespace Bawbee.Core.Notifications
 {
     public class DomainNotification : Event
     {

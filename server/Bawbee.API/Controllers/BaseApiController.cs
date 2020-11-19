@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
+﻿using Bawbee.Core.Commands;
+using Bawbee.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Events;
 using Bawbee.Domain.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Domain.Core.Events
+﻿namespace Bawbee.Core.Events
 {
     public class StoredEvent
     {

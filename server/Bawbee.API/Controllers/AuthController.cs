@@ -1,7 +1,7 @@
 ﻿using Bawbee.Application.CommandStack.Users.Commands;
 using Bawbee.Application.CommandStack.Users.InputModels;
-using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Notifications;
+using Bawbee.Core.Bus;
+using Bawbee.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

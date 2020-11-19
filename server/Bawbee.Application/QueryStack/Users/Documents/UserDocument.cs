@@ -1,4 +1,4 @@
-﻿using Bawbee.Core.Domain;
+﻿using Bawbee.Core.Models;
 using System.Collections.Generic;
 
 namespace Bawbee.Application.QueryStack.Users.Documents

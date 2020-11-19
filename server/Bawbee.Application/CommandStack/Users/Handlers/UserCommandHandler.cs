@@ -1,8 +1,8 @@
 ﻿using Bawbee.Application.CommandStack.Users.Commands;
-using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
-using Bawbee.Domain.Core.UnitOfWork;
+using Bawbee.Core.Bus;
+using Bawbee.Core.Commands;
+using Bawbee.Core.Notifications;
+using Bawbee.Core.UnitOfWork;
 using Bawbee.Domain.Entities;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Events.BankAccounts;

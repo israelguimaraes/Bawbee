@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Core.UnitOfWork
+namespace Bawbee.Core.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {

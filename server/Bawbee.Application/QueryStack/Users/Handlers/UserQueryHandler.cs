@@ -1,7 +1,7 @@
 ﻿using Bawbee.Application.QueryStack.Users.Interfaces;
 using Bawbee.Application.QueryStack.Users.Queries;
 using Bawbee.Application.QueryStack.Users.ReadModels;
-using Bawbee.Domain.Core.Commands;
+using Bawbee.Core.Commands;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

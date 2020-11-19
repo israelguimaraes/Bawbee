@@ -1,9 +1,9 @@
-﻿using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Core.Bus
+namespace Bawbee.Core.Bus
 {
     public interface IMediatorHandler
     {

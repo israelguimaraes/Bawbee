@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Events;
 
 namespace Bawbee.Domain.Events.BankAccounts
 {

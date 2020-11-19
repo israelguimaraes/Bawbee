@@ -1,10 +1,10 @@
-﻿using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Notifications;
-using Bawbee.Domain.Core.UnitOfWork;
+﻿using Bawbee.Core.Bus;
+using Bawbee.Core.Notifications;
+using Bawbee.Core.UnitOfWork;
 using MediatR;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Core.Commands
+namespace Bawbee.Core.Commands
 {
     public abstract class BaseCommandHandler
     {

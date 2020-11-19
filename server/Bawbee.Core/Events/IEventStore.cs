@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Core.Events
+namespace Bawbee.Core.Events
 {
     public interface IEventStore
     {

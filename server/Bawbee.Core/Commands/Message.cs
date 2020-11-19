@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Bawbee.Domain.Core.Commands
+namespace Bawbee.Core.Commands
 {
     public abstract class Message : IRequest<CommandResult>
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bawbee.Domain.Core.Commands
+namespace Bawbee.Core.Commands
 {
     public class CommandResult
     {

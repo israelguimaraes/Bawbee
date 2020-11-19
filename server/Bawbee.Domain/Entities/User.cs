@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Core.Models;
+﻿using Bawbee.Core.Models;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;

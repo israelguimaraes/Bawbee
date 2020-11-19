@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bawbee.Domain.Core.Models
+namespace Bawbee.Core.Models
 {
     public abstract class Entity
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Domain.Core.Notifications
+namespace Bawbee.Core.Notifications
 {
     public class DomainNotificationHandler : INotificationHandler<DomainNotification>
     {

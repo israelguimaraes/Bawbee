@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bawbee.Core.Domain
+namespace Bawbee.Core.Models
 {
     public abstract class Document
     {

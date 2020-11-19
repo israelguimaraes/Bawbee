@@ -3,7 +3,7 @@ using Bawbee.Application.Query.Users.ReadModels;
 using Bawbee.Application.QueryStack.Users.Interfaces;
 using Bawbee.Application.QueryStack.Users.Queries.Entries;
 using Bawbee.Application.QueryStack.Users.ReadModels.Entries;
-using Bawbee.Domain.Core.Commands;
+using Bawbee.Core.Commands;
 using Bawbee.Infra.CrossCutting.Extensions;
 using System.Collections.Generic;
 using System.Linq;

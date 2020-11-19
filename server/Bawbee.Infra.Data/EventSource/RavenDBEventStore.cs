@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Events;
 using Raven.Client.Documents.Session;
 using System.Threading.Tasks;
 

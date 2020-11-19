@@ -1,9 +1,9 @@
-﻿using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
+﻿using Bawbee.Core.Commands;
+using Bawbee.Core.Notifications;
 using MediatR;
 using System;
 
-namespace Bawbee.Domain.Core.Events
+namespace Bawbee.Core.Events
 {
     public abstract class Event : Message, IEvent, INotification
     {

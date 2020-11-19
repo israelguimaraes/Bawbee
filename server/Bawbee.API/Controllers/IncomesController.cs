@@ -1,7 +1,7 @@
 ﻿using Bawbee.Application.CommandStack.Users.InputModels.Entries;
 using Bawbee.Application.Users.Interfaces;
+using Bawbee.Core.Notifications;
 using Bawbee.Domain.Core.Commands;
-using Bawbee.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
