@@ -13,12 +13,12 @@ namespace Bawbee.Domain.Events.Entries
         public DateTime DateToPay { get; }
         public int UserId { get; }
         public int BankAccountId { get; }
-        public int EntryCategoryId { get; }
+        public int CategoryId { get; }
 
         public EntryDeletedEvent(
              int entryId, string description, decimal value,
              bool isPaid, string observations, DateTime dateToPay,
-             int userId, int bankAccountId, int entryCategoryId)
+             int userId, int bankAccountId, int categoryId)
         {
             EntryId = entryId;
             Description = description;
@@ -28,7 +28,7 @@ namespace Bawbee.Domain.Events.Entries
             DateToPay = dateToPay;
             UserId = userId;
             BankAccountId = bankAccountId;
-            EntryCategoryId = entryCategoryId;
+            CategoryId = categoryId;
         }
     }
 }

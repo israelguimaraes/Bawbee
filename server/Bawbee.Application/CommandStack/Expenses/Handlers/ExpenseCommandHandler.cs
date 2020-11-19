@@ -39,7 +39,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
 
             if (await CommitTransaction())
             {
-                var @event = new EntryAddedEvent(
+                var @event = new EntryCreatedEvent(
                     entry.Id, entry.Description, entry.Value,
                     entry.IsPaid, entry.Observations, entry.DateToPay,
                     entry.UserId, entry.BankAccountId, entry.EntryCategoryId);

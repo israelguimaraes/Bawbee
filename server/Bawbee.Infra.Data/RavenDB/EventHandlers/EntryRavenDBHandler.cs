@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 {
     public class EntryRavenDBHandler : 
-        INotificationHandler<EntryAddedEvent>, 
+        INotificationHandler<EntryCreatedEvent>, 
         INotificationHandler<EntryUpdatedEvent>,
         INotificationHandler<EntryDeletedEvent>
     {
@@ -22,7 +22,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             _session = session;
         }
 
-        public async Task Handle(EntryAddedEvent @event, CancellationToken cancellationToken)
+        public async Task Handle(EntryCreatedEvent @event, CancellationToken cancellationToken)
         {
             var user = await _session.Query<UserDocument>()
                 .Where(u => u.UserId == @event.UserId)
@@ -42,8 +42,8 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.BankAccountId = @event.BankAccountId;
             entryDocument.BankAccountName = user.BankAccounts.FirstOrDefault(b => b.BankAccountId == @event.BankAccountId).Name;
 
-            entryDocument.EntryCategoryId = @event.EntryCategoryId;
-            entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.EntryCategoryId).Name;
+            entryDocument.EntryCategoryId = @event.CategoryId;
+            entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.CategoryId).Name;
 
             await _session.StoreAsync(entryDocument);
             await _session.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.DateToPay = @event.DateToPay;
 
             var isBankAccountChanged = entryDocument.BankAccountId != @event.BankAccountId;
-            var isCategoryChanged = entryDocument.EntryCategoryId != @event.EntryCategoryId;
+            var isCategoryChanged = entryDocument.EntryCategoryId != @event.CategoryId;
 
             if (isBankAccountChanged || isCategoryChanged)
             {
@@ -73,8 +73,8 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
                 if (isCategoryChanged)
                 {
-                    entryDocument.EntryCategoryId = @event.EntryCategoryId;
-                    entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.EntryCategoryId).Name;
+                    entryDocument.EntryCategoryId = @event.CategoryId;
+                    entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.CategoryId).Name;
                 }
             }
 

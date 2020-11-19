@@ -1,5 +1,4 @@
 ﻿using Bawbee.Core.Events;
-using Bawbee.Domain.Core.Events;
 
 namespace Bawbee.Domain.Events
 {

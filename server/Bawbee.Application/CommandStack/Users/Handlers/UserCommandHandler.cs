@@ -6,7 +6,7 @@ using Bawbee.Core.UnitOfWork;
 using Bawbee.Domain.AggregatesModel.Users;
 using Bawbee.Domain.Events;
 using Bawbee.Domain.Events.BankAccounts;
-using Bawbee.Domain.Events.EntryCategories;
+using Bawbee.Domain.Events.Categories;
 using Bawbee.Infra.CrossCutting.Common.Security;
 using MediatR;
 using System.Threading;
@@ -92,7 +92,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             if (await CommitTransaction())
             {
-                var @event = new EntryCategoryAddedEvent(category.Id, category.Name, category.UserId);
+                var @event = new CategoryCreatedEvent(category.Id, category.Name, category.UserId);
                 await _mediator.PublishEvent(@event);
             }
 
@@ -115,7 +115,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             if (await CommitTransaction())
             {
-                var @event = new BankAccountAddedEvent(
+                var @event = new BankAccountCreatedEvent(
                     bankAccount.Id, bankAccount.Name,
                     bankAccount.InitialBalance, bankAccount.UserId);
 

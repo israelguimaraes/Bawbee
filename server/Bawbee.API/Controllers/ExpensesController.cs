@@ -1,5 +1,5 @@
 ﻿using Bawbee.Application.CommandStack.Expenses.Commands;
-using Bawbee.Application.CommandStack.Users.InputModels.Entries;
+using Bawbee.Application.CommandStack.Expenses.InputModels;
 using Bawbee.Application.QueryStack.Users.Queries.Entries;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Notifications;

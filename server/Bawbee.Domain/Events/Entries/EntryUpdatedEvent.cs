@@ -1,5 +1,4 @@
 ﻿using Bawbee.Core.Events;
-using Bawbee.Domain.Core.Events;
 using System;
 
 namespace Bawbee.Domain.Events.Entries
@@ -14,12 +13,12 @@ namespace Bawbee.Domain.Events.Entries
         public DateTime DateToPay { get; }
         public int UserId { get; }
         public int BankAccountId { get; }
-        public int EntryCategoryId { get; }
+        public int CategoryId { get; }
 
         public EntryUpdatedEvent(
             int entryId, string description, decimal value,
             bool isPaid, string observations, DateTime dateToPay,
-            int userId, int bankAccountId, int entryCategoryId)
+            int userId, int bankAccountId, int categoryId)
         {
             EntryId = entryId;
             Description = description;
@@ -29,7 +28,7 @@ namespace Bawbee.Domain.Events.Entries
             DateToPay = dateToPay;
             UserId = userId;
             BankAccountId = bankAccountId;
-            EntryCategoryId = entryCategoryId;
+            CategoryId = categoryId;
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using Bawbee.Core.Models;
+using System.Threading.Tasks;
 
 namespace Bawbee.Domain.AggregatesModel.Entries
 {
-    public interface IEntryRepository
+    public interface IEntryRepository : IAggregateRepository<Entry>
     {
         Task<Entry> GetById(int id);
         Task Add(Entry entry);
