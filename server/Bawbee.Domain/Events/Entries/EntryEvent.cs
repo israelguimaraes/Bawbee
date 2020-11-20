@@ -3,7 +3,7 @@ using System;
 
 namespace Bawbee.Domain.Events.Entries
 {
-    public class EntryCreatedEvent : Event
+    public abstract class EntryEvent : Event
     {
         public int EntryId { get; }
         public string Description { get; }
@@ -15,7 +15,7 @@ namespace Bawbee.Domain.Events.Entries
         public int BankAccountId { get; }
         public int CategoryId { get; }
 
-        public EntryCreatedEvent(
+        public EntryEvent(
             int entryId, string description, decimal value,
             bool isPaid, string observations, DateTime dateToPay,
             int userId, int bankAccountId, int categoryId)

@@ -74,7 +74,7 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
 
             RuleFor(c => c.EntryCategoryId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(CreateExpenseCommand.EntryCategoryId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.CategoryId)} is invalid");
         }
     }
 }

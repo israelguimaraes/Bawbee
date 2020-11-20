@@ -15,12 +15,12 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
         public string Observations { get; }
         public DateTime DateToPay { get; }
         public int BankAccountId { get; }
-        public int EntryCategoryId { get; }
+        public int CategoryId { get; }
 
         public CreateExpenseCommand(
             int userId, string description, decimal value,
             bool isPaid, string observations, DateTime dateToPay,
-            int bankAccountId, int entryCategoryId)
+            int bankAccountId, int categoryId)
         {
             UserId = userId;
             Description = description;
@@ -29,7 +29,7 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
             Observations = observations;
             DateToPay = dateToPay;
             BankAccountId = bankAccountId;
-            EntryCategoryId = entryCategoryId;
+            CategoryId = categoryId;
         }
 
         public override bool IsValid()
@@ -67,9 +67,9 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
                 .Must(c => c.IsGreaterThanZero())
                 .WithMessage($"{nameof(CreateExpenseCommand.BankAccountId)} is invalid");
 
-            RuleFor(c => c.EntryCategoryId)
+            RuleFor(c => c.CategoryId)
                 .Must(c => c.IsGreaterThanZero())
-                .WithMessage($"{nameof(CreateExpenseCommand.EntryCategoryId)} is invalid");
+                .WithMessage($"{nameof(CreateExpenseCommand.CategoryId)} is invalid");
         }
     }
 }

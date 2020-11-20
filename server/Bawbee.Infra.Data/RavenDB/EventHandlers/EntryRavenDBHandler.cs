@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 {
     public class EntryRavenDBHandler : 
-        INotificationHandler<EntryCreatedEvent>, 
-        INotificationHandler<EntryUpdatedEvent>,
-        INotificationHandler<EntryDeletedEvent>
+        INotificationHandler<ExpenseCreatedEvent>, 
+        INotificationHandler<ExpenseUpdatedEvent>,
+        INotificationHandler<ExpenseDeletedEvent>
     {
         private readonly IAsyncDocumentSession _session;
 
@@ -22,7 +22,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             _session = session;
         }
 
-        public async Task Handle(EntryCreatedEvent @event, CancellationToken cancellationToken)
+        public async Task Handle(ExpenseCreatedEvent @event, CancellationToken cancellationToken)
         {
             var user = await _session.Query<UserDocument>()
                 .Where(u => u.UserId == @event.UserId)
@@ -49,7 +49,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             await _session.SaveChangesAsync();
         }
 
-        public async Task Handle(EntryUpdatedEvent @event, CancellationToken cancellationToken)
+        public async Task Handle(ExpenseUpdatedEvent @event, CancellationToken cancellationToken)
         {
             var entryDocument = await _session.Query<EntryDocument>().FirstOrDefaultAsync(e => e.EntryId == @event.EntryId);
 
@@ -81,7 +81,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             await _session.SaveChangesAsync();
         }
 
-        public async Task Handle(EntryDeletedEvent @event, CancellationToken cancellationToken)
+        public async Task Handle(ExpenseDeletedEvent @event, CancellationToken cancellationToken)
         {
             var entryDocument = await _session.Query<EntryDocument>().FirstOrDefaultAsync(e => e.EntryId == @event.EntryId);
 
