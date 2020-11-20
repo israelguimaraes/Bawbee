@@ -1,6 +1,6 @@
-﻿using Bawbee.Application.Query.Users.Documents;
-using Bawbee.Application.Query.Users.Interfaces;
-using Bawbee.Domain.AggregatesModel.Users;
+﻿using Bawbee.Domain.AggregatesModel.Users;
+using Bawbee.Infra.Data.Documents;
+using Bawbee.Infra.Data.ReadInterfaces;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Linq;
 using Raven.Client.Documents.Session;

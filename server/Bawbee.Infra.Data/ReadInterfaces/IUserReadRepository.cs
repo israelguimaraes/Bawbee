@@ -1,9 +1,9 @@
-﻿using Bawbee.Application.QueryStack.Users.Documents;
-using Bawbee.Domain.AggregatesModel.Users;
+﻿using Bawbee.Domain.AggregatesModel.Users;
+using Bawbee.Infra.Data.Documents;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bawbee.Application.QueryStack.Users.Interfaces
+namespace Bawbee.Infra.Data.ReadInterfaces
 {
     public interface IUserReadRepository
     {

@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bawbee.Core\Bawbee.Core.csproj" />
-    <ProjectReference Include="..\Bawbee.Domain.Core\Bawbee.Core.csproj" />
   </ItemGroup>
 
 </Project>

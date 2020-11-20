@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bawbee.Application.QueryStack.Users.Documents
+namespace Bawbee.Infra.Data.Documents
 {
     public class BankAccountDocument
     {

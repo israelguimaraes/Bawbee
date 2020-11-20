@@ -1,10 +1,9 @@
-﻿using Bawbee.Application.Query.Users.Documents;
-using Bawbee.Application.Query.Users.Interfaces;
-using Bawbee.Domain.Events;
+﻿using Bawbee.Domain.Events;
 using Bawbee.Domain.Events.BankAccounts;
 using Bawbee.Domain.Events.Categories;
+using Bawbee.Infra.Data.Documents;
+using Bawbee.Infra.Data.ReadInterfaces;
 using MediatR;
-using Raven.Client.Documents.Linq;
 using Raven.Client.Documents.Session;
 using System.Threading;
 using System.Threading.Tasks;
@@ -51,13 +50,15 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             {
                 userDocument.EntryCategories.Add(new EntryCategoryDocument
                 {
-                    EntryCategoryId = ec.Id,
+                    CategoryId = ec.Id,
                     Name = ec.Name
                 });
             }
 
             await _session.StoreAsync(userDocument);
-            await _session.SaveChangesAsync();
+
+            // TODO: check
+            //await _session.SaveChangesAsync();
         }
 
         public async Task Handle(CategoryCreatedEvent @event, CancellationToken cancellationToken)
@@ -66,12 +67,14 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
             userDocument.EntryCategories.Add(new EntryCategoryDocument
             {
-                EntryCategoryId = @event.CategoryId,
+                CategoryId = @event.CategoryId,
                 Name = @event.Name
             });
 
             await _session.StoreAsync(userDocument);
-            await _session.SaveChangesAsync();
+
+            // TODO: check
+            //await _session.SaveChangesAsync();
         }
 
         public async Task Handle(BankAccountCreatedEvent @event, CancellationToken cancellationToken)
@@ -86,7 +89,9 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             });
 
             await _session.StoreAsync(userDocument);
-            await _session.SaveChangesAsync();
+            
+            // TODO: check
+            //await _session.SaveChangesAsync();
         }
     }
 }

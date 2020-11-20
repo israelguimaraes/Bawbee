@@ -1,7 +1,7 @@
 ﻿using Bawbee.Core.Models;
 using System.Collections.Generic;
 
-namespace Bawbee.Application.QueryStack.Users.Documents
+namespace Bawbee.Infra.Data.Documents
 {
     public class UserDocument : Document
     {

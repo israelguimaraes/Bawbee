@@ -1,7 +1,7 @@
 ﻿using Bawbee.Core.Models;
 using System;
 
-namespace Bawbee.Application.QueryStack.Users.Documents
+namespace Bawbee.Infra.Data.Documents
 {
     public class EntryDocument : Document
     {
@@ -17,7 +17,7 @@ namespace Bawbee.Application.QueryStack.Users.Documents
         public int BankAccountId { get; set; }
         public string BankAccountName { get; set; }
 
-        public int EntryCategoryId { get; set; }
-        public string EntryCategoryName { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
     }
 }

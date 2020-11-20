@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
     <ProjectReference Include="..\Bawbee.Core\Bawbee.Core.csproj" />
     <ProjectReference Include="..\Bawbee.Domain\Bawbee.Domain.csproj" />
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Bus\Bawbee.Infra.CrossCutting.Bus.csproj" />

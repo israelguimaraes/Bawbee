@@ -1,7 +1,7 @@
-﻿using Bawbee.Application.QueryStack.Users.Interfaces;
-using Bawbee.Application.QueryStack.Users.Queries;
+﻿using Bawbee.Application.QueryStack.Users.Queries;
 using Bawbee.Application.QueryStack.Users.ReadModels;
 using Bawbee.Core.Commands;
+using Bawbee.Infra.Data.ReadInterfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -42,7 +42,7 @@ namespace Bawbee.Application.QueryStack.Users.Handlers
 
             return categoriesDocument.Select(c => new EntryCategoryReadModel
             {
-                Id = c.EntryCategoryId,
+                Id = c.CategoryId,
                 Name = c.Name
             });
         }

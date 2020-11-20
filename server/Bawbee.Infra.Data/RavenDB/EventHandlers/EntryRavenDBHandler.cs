@@ -1,5 +1,5 @@
-﻿using Bawbee.Application.Query.Users.Documents;
-using Bawbee.Domain.Events.Entries;
+﻿using Bawbee.Domain.Events.Entries;
+using Bawbee.Infra.Data.Documents;
 using MediatR;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Linq;
@@ -42,11 +42,13 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.BankAccountId = @event.BankAccountId;
             entryDocument.BankAccountName = user.BankAccounts.FirstOrDefault(b => b.BankAccountId == @event.BankAccountId).Name;
 
-            entryDocument.EntryCategoryId = @event.CategoryId;
-            entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.CategoryId).Name;
+            entryDocument.CategoryId = @event.CategoryId;
+            entryDocument.CategoryName = user.EntryCategories.FirstOrDefault(e => e.CategoryId == @event.CategoryId).Name;
 
             await _session.StoreAsync(entryDocument);
-            await _session.SaveChangesAsync();
+
+            // TODO: check
+            //await _session.SaveChangesAsync();
         }
 
         public async Task Handle(ExpenseUpdatedEvent @event, CancellationToken cancellationToken)
@@ -59,7 +61,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.DateToPay = @event.DateToPay;
 
             var isBankAccountChanged = entryDocument.BankAccountId != @event.BankAccountId;
-            var isCategoryChanged = entryDocument.EntryCategoryId != @event.CategoryId;
+            var isCategoryChanged = entryDocument.CategoryId != @event.CategoryId;
 
             if (isBankAccountChanged || isCategoryChanged)
             {
@@ -73,12 +75,13 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
                 if (isCategoryChanged)
                 {
-                    entryDocument.EntryCategoryId = @event.CategoryId;
-                    entryDocument.EntryCategoryName = user.EntryCategories.FirstOrDefault(e => e.EntryCategoryId == @event.CategoryId).Name;
+                    entryDocument.CategoryId = @event.CategoryId;
+                    entryDocument.CategoryName = user.EntryCategories.FirstOrDefault(e => e.CategoryId == @event.CategoryId).Name;
                 }
             }
 
-            await _session.SaveChangesAsync();
+            // TODO: check
+            //await _session.SaveChangesAsync();
         }
 
         public async Task Handle(ExpenseDeletedEvent @event, CancellationToken cancellationToken)
@@ -86,7 +89,9 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             var entryDocument = await _session.Query<EntryDocument>().FirstOrDefaultAsync(e => e.EntryId == @event.EntryId);
 
             _session.Delete(entryDocument);
-            await _session.SaveChangesAsync();
+
+            // TODO: check
+            //await _session.SaveChangesAsync();
         }
     }
 }

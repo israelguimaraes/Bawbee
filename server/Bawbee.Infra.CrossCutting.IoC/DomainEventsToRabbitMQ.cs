@@ -1,10 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection.Abstractions;
-using Bawbee.Domain.Events;
-using Bawbee.Domain.Core.Bus;
 
 namespace Bawbee.Infra.CrossCutting.IoC
 {

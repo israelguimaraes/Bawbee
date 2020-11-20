@@ -21,11 +21,11 @@ namespace Bawbee.Infra.Data.SQLServer.Repositories
             await _dbContext.Entries.AddAsync(entry);
         }
 
-        public async Task<Entry> GetById(int id)
+        public async Task<Expense> GetById(int id)
         {
             var query = $"SELECT * FROM Entries WHERE Id = {id}";
 
-            return await _dapper.Connection.QueryFirstOrDefaultAsync<Entry>(query);
+            return await _dapper.Connection.QueryFirstOrDefaultAsync<Expense>(query);
         }
 
         public Task Update(Entry entry)

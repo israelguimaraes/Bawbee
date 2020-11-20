@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Bawbee.Application.QueryStack.Users.Documents
+namespace Bawbee.Infra.Data.Documents
 {
     public class EntryCategoryDocument
     {
-        public int EntryCategoryId { get; set; }
+        public int CategoryId { get; set; }
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; }
 

@@ -1,7 +1,6 @@
 ﻿using Bawbee.Application.CommandStack.Expenses.InputModels;
-using Bawbee.Application.Users.Interfaces;
+using Bawbee.Core.Bus;
 using Bawbee.Core.Notifications;
-using Bawbee.Domain.Core.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -10,14 +9,14 @@ namespace Bawbee.API.Controllers
 {
     public class IncomesController : BaseApiController
     {
-        private readonly IEntryApplication _entryApplication;
+        private readonly IMediatorHandler _mediator;
 
         public IncomesController(
-            IEntryApplication entryApplication,
+            IMediatorHandler mediator,
             INotificationHandler<DomainNotification> notificationHandler)
             : base(notificationHandler)
         {
-            _entryApplication = entryApplication;
+            _mediator = mediator;
         }
 
         [HttpGet("")]
