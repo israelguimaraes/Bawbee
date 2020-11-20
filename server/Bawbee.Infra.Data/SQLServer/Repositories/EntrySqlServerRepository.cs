@@ -1,10 +1,9 @@
 ﻿using Bawbee.Domain.AggregatesModel.Entries;
-using Bawbee.Infra.Data.EF;
-using Bawbee.Infra.Data.SQLRepositories.Dapper;
+using Bawbee.Infra.Data.SQLServer.Dapper;
 using Dapper;
 using System.Threading.Tasks;
 
-namespace Bawbee.Infra.Data.SQLRepositories
+namespace Bawbee.Infra.Data.SQLServer.Repositories
 {
     public class EntrySqlServerRepository : IEntryRepository
     {

@@ -1,46 +1,34 @@
-﻿using Bawbee.Core.Models;
-using Bawbee.Domain.AggregatesModel.Users;
-using Bawbee.Infra.CrossCutting.Extensions;
+﻿using Bawbee.Core.Commands;
 using System;
 
-namespace Bawbee.Domain.AggregatesModel.Entries
+namespace Bawbee.Application.CommandStack.Expenses.Commands
 {
-    public abstract class Entry : Entity, IAggregateRoot
+    public abstract class EntryCommand : BaseCommand
     {
+        public int EntryId { get; protected set; }
         public string Description { get; protected set; }
         public decimal Value { get; protected set; }
         public bool IsPaid { get; protected set; }
         public string Observations { get; protected set; }
         public DateTime DateToPay { get; protected set; }
-
         public int UserId { get; protected set; }
-        public User User { get; protected set; }
-
         public int BankAccountId { get; protected set; }
-        public BankAccount BankAccount { get; protected set; }
-
         public int CategoryId { get; protected set; }
-        public Category Category { get; protected set; }
 
-        public Entry(
+        protected EntryCommand(
             string description, decimal value, bool isPaid,
             string observations, DateTime dateToPay, int userId,
-            int bankAccountId, int categoryId, int id = default)
+            int bankAccountId, int categoryId, int entryId = default)
         {
-            Description = description.Trim();
+            Description = description;
             Value = value;
             IsPaid = isPaid;
-            Observations = observations.IsNotEmpty() ? observations.Trim() : null;
+            Observations = observations;
             DateToPay = dateToPay;
             UserId = userId;
             BankAccountId = bankAccountId;
             CategoryId = categoryId;
-            Id = id;
-        }
-
-        public bool IsBelongToTheUser(int userId)
-        {
-            return UserId == userId;
+            EntryId = entryId;
         }
     }
 }

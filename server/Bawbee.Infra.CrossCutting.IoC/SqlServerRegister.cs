@@ -1,4 +1,5 @@
-﻿using Bawbee.Infra.Data.SQLRepositories.Dapper;
+﻿using Bawbee.Infra.Data.SQLServer;
+using Bawbee.Infra.Data.SQLServer.Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

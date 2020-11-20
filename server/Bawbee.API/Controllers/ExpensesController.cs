@@ -1,4 +1,5 @@
-﻿using Bawbee.Application.CommandStack.Expenses.Commands;
+﻿using Bawbee.Application.Adapters;
+using Bawbee.Application.CommandStack.Expenses.Commands;
 using Bawbee.Application.CommandStack.Expenses.InputModels;
 using Bawbee.Application.QueryStack.Users.Queries.Entries;
 using Bawbee.Core.Bus;
@@ -50,9 +51,7 @@ namespace Bawbee.API.Controllers
         [HttpPost("")]
         public async Task<IActionResult> AddExpense(CreateExpenseInputModel model)
         {
-            var command = new CreateExpenseCommand(
-                CurrentUserId, model.Description, model.Value, model.IsPaid, 
-                model.Observations, model.DateToPay, model.BankAccountId, model.EntryCategoryId);
+            var command = model.MapToCreateExpenseCommand(CurrentUserId);
 
             if (!command.IsValid())
                 return CustomResponse(command);
@@ -64,9 +63,7 @@ namespace Bawbee.API.Controllers
         [HttpPut("")]
         public async Task<IActionResult> UpdateExpense(UpdateExpenseInputModel model)
         {
-            var command = new UpdateExpenseCommand(
-                model.EntryId, CurrentUserId, model.Description, model.Value, model.IsPaid, 
-                model.Observations, model.DateToPay, model.BankAccountId, model.EntryId);
+            var command = model.MapToUpdateExpenseCommand(CurrentUserId);
 
             if (!command.IsValid())
                 return CustomResponse(command);

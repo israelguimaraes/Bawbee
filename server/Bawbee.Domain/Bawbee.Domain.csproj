@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bawbee.Core\Bawbee.Core.csproj" />
-    <ProjectReference Include="..\Bawbee.Domain.Core\Bawbee.Core.csproj" />
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Common\Bawbee.Infra.CrossCutting.Common.csproj" />
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.Extensions\Bawbee.Infra.CrossCutting.Extensions.csproj" />
   </ItemGroup>

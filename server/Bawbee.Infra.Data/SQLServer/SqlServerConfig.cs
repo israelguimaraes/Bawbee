@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Infra.Data.SQLRepositories.Dapper
+﻿namespace Bawbee.Infra.Data.SQLServer
 {
     public class SqlServerConfig
     {

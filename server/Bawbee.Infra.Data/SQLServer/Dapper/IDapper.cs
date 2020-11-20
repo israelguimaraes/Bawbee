@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Bawbee.Infra.Data.SQLRepositories.Dapper
+namespace Bawbee.Infra.Data.SQLServer.Dapper
 {
     public interface IDapperConnection : IDisposable
     {

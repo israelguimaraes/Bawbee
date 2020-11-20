@@ -5,7 +5,7 @@ namespace Bawbee.Domain.AggregatesModel.Entries
 {
     public interface IEntryRepository : IAggregateRepository<Entry>
     {
-        Task<Entry> GetById(int id);
+        Task<Expense> GetById(int id);
         Task Add(Entry entry);
         Task Update(Entry entry);
         Task Delete(int id);

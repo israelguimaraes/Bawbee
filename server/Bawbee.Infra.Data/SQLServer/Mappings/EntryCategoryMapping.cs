@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infra.Data.EF.Mappings
+namespace Bawbee.Infra.Data.SQLServer.Mappings
 {
-    public class BankAccountMapping : IEntityTypeConfiguration<BankAccount>
+    public class EntryCategoryMapping : IEntityTypeConfiguration<Category>
     {
-        public void Configure(EntityTypeBuilder<BankAccount> builder)
+        public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(t => t.Id);
 
@@ -14,11 +14,8 @@ namespace Bawbee.Infra.Data.EF.Mappings
                 .HasMaxLength(255)
                 .IsRequired();
 
-            builder.Property(c => c.InitialBalance)
-                .IsRequired();
-
             builder.HasOne(t => t.User)
-                .WithMany(t => t.BankAccounts)
+                .WithMany(t => t.Categories)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
         }

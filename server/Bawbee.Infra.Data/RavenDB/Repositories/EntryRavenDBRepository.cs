@@ -6,7 +6,7 @@ using Raven.Client.Documents.Session;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Bawbee.Infra.Data.NoSQLRepositories
+namespace Bawbee.Infra.Data.RavenDB.Repositories
 {
     public class EntryRavenDBRepository : IEntryReadRepository
     {

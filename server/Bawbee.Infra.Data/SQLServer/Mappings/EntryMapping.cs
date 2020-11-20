@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infra.Data.EF.Mappings
+namespace Bawbee.Infra.Data.SQLServer.Mappings
 {
     public class EntryMapping : IEntityTypeConfiguration<Entry>
     {
@@ -34,7 +34,7 @@ namespace Bawbee.Infra.Data.EF.Mappings
                 .WithMany()
                 .HasForeignKey(t => t.BankAccountId);
 
-            builder.HasOne(t => t.EntryCategory)
+            builder.HasOne(t => t.Category)
                 .WithMany()
                 .HasForeignKey(t => t.CategoryId);
         }

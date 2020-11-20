@@ -1,31 +1,16 @@
-﻿using Bawbee.Application.CommandStack.Users.Commands;
-using Bawbee.Application.Entries;
-using Bawbee.Application.QueryStack.Users.Interfaces;
-using Bawbee.Application.QueryStack.Users.Queries;
-using Bawbee.Application.Services;
-using Bawbee.Application.Users.Interfaces;
-using Bawbee.Core.Bus;
+﻿using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Events;
 using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
-using Bawbee.Domain.AggregatesModel.Entries;
 using Bawbee.Domain.AggregatesModel.Users;
-using Bawbee.Domain.Events;
 using Bawbee.Infra.CrossCutting.Bus;
-using Bawbee.Infra.CrossCutting.Bus.RabbitMQ;
-using Bawbee.Infra.CrossCutting.Common.Security;
-using Bawbee.Infra.Data.EF;
-using Bawbee.Infra.Data.EventSource;
-using Bawbee.Infra.Data.NoSQLRepositories;
-using Bawbee.Infra.Data.RavenDB.EventHandlers;
-using Bawbee.Infra.Data.SQLRepositories;
-using Bawbee.Infra.Data.Uow;
+using Bawbee.Infra.Data.RavenDB.Repositories;
+using Bawbee.Infra.Data.SQLServer.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RabbitMQ.Client;
 using System.Reflection;
 
 namespace Bawbee.Infra.CrossCutting.IoC
@@ -43,8 +28,6 @@ namespace Bawbee.Infra.CrossCutting.IoC
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             // Application
-            services.AddScoped<IUserApplication, UserApplication>();
-            services.AddScoped<IEntryApplication, EntryApplication>();
 
             // Infra.Data
             services.AddScoped<IUserRepository, UserSqlServerRepository>();

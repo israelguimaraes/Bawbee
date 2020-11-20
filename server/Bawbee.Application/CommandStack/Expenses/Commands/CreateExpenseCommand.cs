@@ -1,35 +1,24 @@
-﻿using Bawbee.Core.Commands;
-using Bawbee.Infra.CrossCutting.Extensions;
+﻿using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;
 using System;
 
 namespace Bawbee.Application.CommandStack.Expenses.Commands
 {
-    public class CreateExpenseCommand : BaseCommand
+    public class CreateExpenseCommand : EntryCommand
     {
-        public int UserId { get; }
-        public int EntryId { get; }
-        public string Description { get; }
-        public decimal Value { get; }
-        public bool? IsPaid { get; }
-        public string Observations { get; }
-        public DateTime DateToPay { get; }
-        public int BankAccountId { get; }
-        public int CategoryId { get; }
-
         public CreateExpenseCommand(
-            int userId, string description, decimal value,
-            bool isPaid, string observations, DateTime dateToPay,
-            int bankAccountId, int categoryId)
+            string description,
+            decimal value,
+            bool isPaid,
+            string observations,
+            DateTime dateToPay,
+            int userId,
+            int bankAccountId,
+            int categoryId,
+            int entryId = 0)
+            : base(description, value, isPaid, observations, dateToPay, userId, bankAccountId, categoryId, entryId)
         {
-            UserId = userId;
-            Description = description;
-            Value = value;
-            IsPaid = isPaid;
-            Observations = observations;
-            DateToPay = dateToPay;
-            BankAccountId = bankAccountId;
-            CategoryId = categoryId;
+
         }
 
         public override bool IsValid()

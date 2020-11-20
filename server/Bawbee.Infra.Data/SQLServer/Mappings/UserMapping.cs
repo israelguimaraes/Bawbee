@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infra.Data.EF.Mappings
+namespace Bawbee.Infra.Data.SQLServer.Mappings
 {
     public class UserMapping : IEntityTypeConfiguration<User>
     {

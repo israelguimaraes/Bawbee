@@ -1,4 +1,4 @@
-﻿using Bawbee.Domain.Core.Bus;
+﻿using Bawbee.Core.Bus;
 using RabbitMQ.Client;
 
 namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ

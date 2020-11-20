@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace Bawbee.Infra.Data.SQLRepositories.Dapper
+namespace Bawbee.Infra.Data.SQLServer.Dapper
 {
     public class DapperConnection : IDapperConnection
     {
@@ -12,13 +12,7 @@ namespace Bawbee.Infra.Data.SQLRepositories.Dapper
             _connectionString = connectionString;
         }
 
-        public IDbConnection Connection
-        {
-            get
-            {
-                return new SqlConnection(_connectionString);
-            }
-        }
+        public IDbConnection Connection => new SqlConnection(_connectionString);
 
         public void Dispose()
         {

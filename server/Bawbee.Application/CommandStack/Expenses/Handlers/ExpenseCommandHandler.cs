@@ -1,10 +1,10 @@
-﻿using Bawbee.Application.CommandStack.Expenses.Commands;
+﻿using Bawbee.Application.Adapters;
+using Bawbee.Application.CommandStack.Expenses.Commands;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
 using Bawbee.Domain.AggregatesModel.Entries;
-using Bawbee.Domain.Events.Entries;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,18 +31,13 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
 
         public async Task<CommandResult> Handle(CreateExpenseCommand command, CancellationToken cancellationToken)
         {
-            var entry = new Expense(
-                command.Description, command.Value, command.IsPaid.Value, command.Observations,
-                command.DateToPay, command.UserId, command.BankAccountId, command.CategoryId);
+            var entry = command.MapToDomain();
 
             await _entryRepository.Add(entry);
 
             if (await CommitTransaction())
             {
-                var @event = new ExpenseCreatedEvent(
-                    entry.Id, entry.Description, entry.Value,
-                    entry.IsPaid, entry.Observations, entry.DateToPay,
-                    entry.UserId, entry.BankAccountId, entry.CategoryId);
+                var @event = entry.MapToExpenseCreatedEvent();
 
                 await _mediator.PublishEvent(@event);
             }
@@ -61,23 +56,13 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
                 return CommandResult.Error();
             }
 
-            expense.Update(
-                description: command.Description,
-                value: command.Value,
-                isPaid: command.IsPaid,
-                observations: command.Observations,
-                dateToPay: command.DateToPay,
-                bankAccountId: command.BankAccountId,
-                entryCategoryId: command.EntryCategoryId);
+            expense = command.MapToDomain();
 
             await _entryRepository.Update(expense);
 
             if (await CommitTransaction())
             {
-                var @event = new ExpenseUpdatedEvent(
-                    expense.Id, expense.Description, expense.Value,
-                    expense.IsPaid, expense.Observations, expense.DateToPay,
-                    expense.UserId, expense.BankAccountId, expense.CategoryId);
+                var @event = expense.MapToExpenseUpdatedEvent();
 
                 await _mediator.PublishEvent(@event);
             }
@@ -87,22 +72,19 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
 
         public async Task<CommandResult> Handle(DeleteExpenseCommand command, CancellationToken cancellationToken)
         {
-            var entry = await _entryRepository.GetById(command.EntryId);
+            var expense = await _entryRepository.GetById(command.EntryId);
 
-            if (!entry.IsBelongToTheUser(command.UserId))
+            if (!expense.IsBelongToTheUser(command.UserId))
             {
                 // TODO log
                 await AddDomainNotification("Invalid operation.");
             }
 
-            await _entryRepository.Delete(entry.Id);
+            await _entryRepository.Delete(expense.Id);
 
             if (await CommitTransaction())
             {
-                var @event = new ExpenseDeletedEvent(
-                    entry.Id, entry.Description, entry.Value,
-                    entry.IsPaid, entry.Observations, entry.DateToPay,
-                    entry.UserId, entry.BankAccountId, entry.CategoryId);
+                var @event = expense.MapToExpenseDeletedEvent();
 
                 await _mediator.PublishEvent(@event);
             }

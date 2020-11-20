@@ -12,8 +12,9 @@ namespace Bawbee.Domain.AggregatesModel.Entries
             DateTime dateToPay, 
             int userId,
             int bankAccountId, 
-            int categoryId)
-            : base(description, value, isPaid, observations, dateToPay, userId, bankAccountId, categoryId)
+            int categoryId,
+            int entryId = default)
+            : base(description, value, isPaid, observations, dateToPay, userId, bankAccountId, categoryId, entryId)
         {
 
         }

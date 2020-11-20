@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Bus;
+using Bawbee.Core.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

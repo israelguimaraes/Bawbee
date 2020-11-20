@@ -6,7 +6,7 @@ using Bawbee.Domain.Events.Entries;
 using Bawbee.Domain.Events.EntryCategories;
 using Bawbee.Infra.CrossCutting.Common.Exceptions;
 using Bawbee.Infra.CrossCutting.IoC;
-using Bawbee.Infra.Data.EF;
+using Bawbee.Infra.Data.SQLServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

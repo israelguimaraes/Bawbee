@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Core.UnitOfWork;
-using Bawbee.Infra.Data.EF;
+﻿using Bawbee.Core.UnitOfWork;
+using Bawbee.Infra.Data.SQLServer;
 using System;
 using System.Threading.Tasks;
 

@@ -1,5 +1,5 @@
-﻿using Bawbee.Domain.Core.Bus;
-using Bawbee.Domain.Core.Events;
+﻿using Bawbee.Core.Bus;
+using Bawbee.Core.Events;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -16,6 +16,11 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
         private readonly SubscriptionsManager _subscriptionsManager;
         private readonly IEventBusConnection<IModel> _busConnection;
         private readonly IServiceProvider _serviceProvider;
+
+        private static readonly JsonSerializerSettings _jsonSettings = new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        };
 
         public RabbitMQEventBus(IEventBusConnection<IModel> busConnection, IServiceProvider serviceProvider)
         {
@@ -39,11 +44,11 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
                     autoDelete: false,
                     arguments: null);
 
-                var message = JsonConvert.SerializeObject(@event, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+                var message = JsonConvert.SerializeObject(@event, _jsonSettings);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(
-                    exchange: "",
+                    exchange: string.Empty,
                     routingKey: eventName,
                     basicProperties: null,
                     body: body);

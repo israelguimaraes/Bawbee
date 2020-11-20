@@ -1,36 +1,24 @@
-﻿using Bawbee.Core.Commands;
-using Bawbee.Infra.CrossCutting.Extensions;
+﻿using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;
 using System;
 
 namespace Bawbee.Application.CommandStack.Expenses.Commands
 {
-    public class UpdateExpenseCommand : BaseCommand
+    public class UpdateExpenseCommand : EntryCommand
     {
-        public int EntryId { get; }
-        public int UserId { get; }
-        public string Description { get; }
-        public decimal Value { get; }
-        public bool IsPaid { get; }
-        public string Observations { get; }
-        public DateTime DateToPay { get; }
-        public int BankAccountId { get; }
-        public int EntryCategoryId { get; }
-
         public UpdateExpenseCommand(
-            int entryId, int userId, string description, decimal value,
-            bool isPaid, string observations, DateTime dateToPay,
-            int bankAccountId, int entryCategoryId)
+            int entryId, 
+            string description,
+            decimal value, 
+            bool isPaid,
+            string observations, 
+            DateTime dateToPay, 
+            int userId,
+            int bankAccountId, 
+            int categoryId)
+            : base(description, value, isPaid, observations, dateToPay, userId, bankAccountId, categoryId, entryId)
         {
-            EntryId = entryId;
-            UserId = userId;
-            Description = description;
-            Value = value;
-            IsPaid = isPaid;
-            Observations = observations;
-            DateToPay = dateToPay;
-            BankAccountId = bankAccountId;
-            EntryCategoryId = entryCategoryId;
+
         }
 
         public override bool IsValid()
@@ -72,7 +60,7 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
                 .Must(c => c.IsGreaterThanZero())
                 .WithMessage($"{nameof(CreateExpenseCommand.BankAccountId)} is invalid");
 
-            RuleFor(c => c.EntryCategoryId)
+            RuleFor(c => c.CategoryId)
                 .Must(c => c.IsGreaterThanZero())
                 .WithMessage($"{nameof(CreateExpenseCommand.CategoryId)} is invalid");
         }

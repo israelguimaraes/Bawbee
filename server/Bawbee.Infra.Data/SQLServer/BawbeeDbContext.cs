@@ -1,9 +1,9 @@
 ﻿using Bawbee.Domain.AggregatesModel.Entries;
 using Bawbee.Domain.AggregatesModel.Users;
-using Bawbee.Infra.Data.EF.Mappings;
+using Bawbee.Infra.Data.SQLServer.Mappings;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bawbee.Infra.Data.EF
+namespace Bawbee.Infra.Data.SQLServer
 {
     public class BawbeeDbContext : DbContext
     {
