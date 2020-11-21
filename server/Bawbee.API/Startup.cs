@@ -33,6 +33,7 @@ namespace Bawbee.API
                 (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
 
             services.AddControllers();
+            services.AddRouting(options => options.LowercaseUrls = true);
             services.AddOptions();
             services.AddMediatR(typeof(Startup));
             services.AddAllBawbeeDependencies(Configuration);
