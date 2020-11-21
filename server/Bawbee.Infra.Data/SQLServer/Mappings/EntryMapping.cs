@@ -17,9 +17,8 @@ namespace Bawbee.Infra.Data.SQLServer.Mappings
                 .HasValue<Expense>(nameof(Expense))
                 .HasValue<Income>(nameof(Income));
 
-            //builder.Property("Type")
-            //    .HasColumnName("Type")
-            //    .HasMaxLength(7);            
+            builder.Property("Type")
+                .HasColumnType("CHAR(7)");
 
             #endregion
 

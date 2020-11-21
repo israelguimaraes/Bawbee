@@ -38,11 +38,11 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             if (await CommitTransaction())
             {
                 var @event = entry.MapToExpenseCreatedEvent();
-
                 await _mediator.PublishEvent(@event);
+                return CommandResult.Ok(entry);
             }
 
-            return CommandResult.Ok(entry);
+            return CommandResult.Error();
         }
 
         public async Task<CommandResult> Handle(UpdateExpenseCommand command, CancellationToken cancellationToken)
@@ -63,11 +63,11 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             if (await CommitTransaction())
             {
                 var @event = expense.MapToExpenseUpdatedEvent();
-
                 await _mediator.PublishEvent(@event);
+                return CommandResult.Ok();
             }
 
-            return CommandResult.Ok();
+            return CommandResult.Error();
         }
 
         public async Task<CommandResult> Handle(DeleteExpenseCommand command, CancellationToken cancellationToken)
@@ -87,9 +87,10 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
                 var @event = expense.MapToExpenseDeletedEvent();
 
                 await _mediator.PublishEvent(@event);
+                return CommandResult.Ok();
             }
 
-            return CommandResult.Ok();
+            return CommandResult.Error();
         }
     }
 }

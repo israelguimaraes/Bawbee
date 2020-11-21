@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bawbee.Infra.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,7 @@ namespace Bawbee.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EntryCategories",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -57,9 +57,9 @@ namespace Bawbee.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EntryCategories", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EntryCategories_Users_UserId",
+                        name: "FK_Categories_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id");
@@ -79,7 +79,8 @@ namespace Bawbee.Infra.Data.Migrations
                     DateToPay = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     BankAccountId = table.Column<int>(nullable: false),
-                    EntryCategoryId = table.Column<int>(nullable: false)
+                    CategoryId = table.Column<int>(nullable: false),
+                    Type = table.Column<string>(type: "CHAR(7)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,9 +92,9 @@ namespace Bawbee.Infra.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Entries_EntryCategories_EntryCategoryId",
-                        column: x => x.EntryCategoryId,
-                        principalTable: "EntryCategories",
+                        name: "FK_Entries_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -110,23 +111,23 @@ namespace Bawbee.Infra.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_UserId",
+                table: "Categories",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Entries_BankAccountId",
                 table: "Entries",
                 column: "BankAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entries_EntryCategoryId",
+                name: "IX_Entries_CategoryId",
                 table: "Entries",
-                column: "EntryCategoryId");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entries_UserId",
                 table: "Entries",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EntryCategories_UserId",
-                table: "EntryCategories",
                 column: "UserId");
         }
 
@@ -139,7 +140,7 @@ namespace Bawbee.Infra.Data.Migrations
                 name: "BankAccounts");
 
             migrationBuilder.DropTable(
-                name: "EntryCategories");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Users");

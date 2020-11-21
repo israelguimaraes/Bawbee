@@ -39,17 +39,20 @@ namespace Bawbee.Infra.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Entry_Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
 
                     b.Property<string>("Observations")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("CHAR(7)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -67,7 +70,7 @@ namespace Bawbee.Infra.Data.Migrations
 
                     b.ToTable("Entries");
 
-                    b.HasDiscriminator<string>("Entry_Type").HasValue("Entry_base");
+                    b.HasDiscriminator<string>("Type").HasValue("Entry");
                 });
 
             modelBuilder.Entity("Bawbee.Domain.AggregatesModel.Users.BankAccount", b =>
@@ -162,7 +165,7 @@ namespace Bawbee.Infra.Data.Migrations
                 {
                     b.HasBaseType("Bawbee.Domain.AggregatesModel.Entries.Entry");
 
-                    b.HasDiscriminator().HasValue("Expense_V");
+                    b.HasDiscriminator().HasValue("Expense");
                 });
 
             modelBuilder.Entity("Bawbee.Domain.AggregatesModel.Entries.Income", b =>
