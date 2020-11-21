@@ -22,8 +22,8 @@ namespace Bawbee.Infra.Data.Uow
             }
             catch (Exception ex)
             {
-                // TODO ...
-                throw;
+                // TODO: log
+                return false;
             }
         }
 

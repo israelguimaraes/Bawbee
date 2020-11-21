@@ -12,12 +12,12 @@ namespace Bawbee.Infra.Data.Documents
         public string Password { get; set; }
 
         public List<BankAccountDocument> BankAccounts { get; set; }
-        public List<EntryCategoryDocument> EntryCategories { get; set; }
+        public List<CategoryDocument> EntryCategories { get; set; }
 
         public UserDocument()
         {
             BankAccounts = new List<BankAccountDocument>();
-            EntryCategories = new List<EntryCategoryDocument>();
+            EntryCategories = new List<CategoryDocument>();
         }
     }
 }

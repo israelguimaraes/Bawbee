@@ -1,5 +1,6 @@
 ﻿using Bawbee.Core.Bus;
 using Bawbee.Core.Events;
+using Bawbee.Core.UnitOfWork;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -106,7 +107,12 @@ namespace Bawbee.Infra.CrossCutting.Bus.RabbitMQ
             using (var scope = _serviceProvider.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetService<IMediator>();
+
                 await mediator.Publish(@event);
+
+                var noSQLSession = scope.ServiceProvider.GetService<INoSQLUnitOfWork>();
+
+                await noSQLSession.CommitTransaction();
             }
         }
     }

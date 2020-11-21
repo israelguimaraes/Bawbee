@@ -10,7 +10,7 @@ namespace Bawbee.Infra.Data.ReadInterfaces
         Task<User> GetByEmail(string email);
         Task<IEnumerable<User>> GetAll();
         Task<User> GetByEmailAndPassword(string email, string password);
-        Task<IEnumerable<EntryCategoryDocument>> GetCategoriesByUser(int userId);
+        Task<IEnumerable<CategoryDocument>> GetCategoriesByUser(int userId);
         Task<IEnumerable<BankAccountDocument>> GetBankAccountsByUser(int userId);
         Task<UserDocument> GetByUserId(int userId);
     }

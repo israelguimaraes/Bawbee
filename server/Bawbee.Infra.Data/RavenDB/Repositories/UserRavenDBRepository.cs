@@ -38,7 +38,7 @@ namespace Bawbee.Infra.Data.RavenDB.Repositories
             return await _session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower() && u.Password == password);
         }
 
-        public async Task<IEnumerable<EntryCategoryDocument>> GetCategoriesByUser(int userId)
+        public async Task<IEnumerable<CategoryDocument>> GetCategoriesByUser(int userId)
         {
             return await _session.Query<UserDocument>()
                 .Where(u => u.UserId == userId)

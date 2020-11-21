@@ -48,7 +48,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
 
             foreach (var ec in @event.User.Categories)
             {
-                userDocument.EntryCategories.Add(new EntryCategoryDocument
+                userDocument.EntryCategories.Add(new CategoryDocument
                 {
                     CategoryId = ec.Id,
                     Name = ec.Name
@@ -65,7 +65,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
         {
             var userDocument = await _userReadRepository.GetByUserId(@event.UserId);
 
-            userDocument.EntryCategories.Add(new EntryCategoryDocument
+            userDocument.EntryCategories.Add(new CategoryDocument
             {
                 CategoryId = @event.CategoryId,
                 Name = @event.Name
