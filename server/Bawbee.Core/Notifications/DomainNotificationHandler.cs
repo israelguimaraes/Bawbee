@@ -15,14 +15,19 @@ namespace Bawbee.Core.Notifications
             _notifications = new List<DomainNotification>();
         }
 
+        public IEnumerable<DomainNotification> GetNotifications => _notifications;
+
+        public bool HasNotifications => GetNotifications.Any();
+
         public Task Handle(DomainNotification notification, CancellationToken cancellationToken)
         {
             _notifications.Add(notification);
             return Task.CompletedTask;
         }
 
-        public IEnumerable<DomainNotification> GetNotifications => _notifications;
-
-        public bool HasNotifications => GetNotifications.Any();
+        public void AddNotification(string notification)
+        {
+            _notifications.Add(new DomainNotification(notification));
+        }
     }
 }

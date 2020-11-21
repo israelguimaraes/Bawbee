@@ -2,6 +2,6 @@
 {
     public class UpdateExpenseInputModel : EntryInputModel
     {
-        public int EntryId { get; set; }
+
     }
 }

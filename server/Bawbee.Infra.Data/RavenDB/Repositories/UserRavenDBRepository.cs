@@ -38,15 +38,15 @@ namespace Bawbee.Infra.Data.RavenDB.Repositories
             return await _session.Query<User>().FirstOrDefaultAsync(u => u.Email == email.ToLower() && u.Password == password);
         }
 
-        public async Task<IEnumerable<CategoryDocument>> GetCategoriesByUser(int userId)
+        public async Task<IEnumerable<Documents.Category>> GetCategoriesByUser(int userId)
         {
             return await _session.Query<UserDocument>()
                 .Where(u => u.UserId == userId)
-                .Select(u => u.EntryCategories)
+                .Select(u => u.Categories)
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<BankAccountDocument>> GetBankAccountsByUser(int userId)
+        public async Task<IEnumerable<Documents.Users.BankAccount>> GetBankAccountsByUser(int userId)
         {
             return await _session.Query<UserDocument>()
                 .Where(u => u.UserId == userId)

@@ -28,7 +28,7 @@ namespace Bawbee.API.Controllers
             var query = new GetAllExpensesByUserQuery(CurrentUserId);
 
             if (!query.IsValid())
-                return CustomResponse(query);
+                return CustomResponse(query.ValidationResult);
 
             var expenses = await _mediator.SendCommand(query);
 
@@ -41,7 +41,7 @@ namespace Bawbee.API.Controllers
             var query = new GetTotalExpensesGroupedByMonthQuery(month, CurrentUserId);
 
             if (!query.IsValid())
-                return CustomResponse(query);
+                return CustomResponse(query.ValidationResult);
 
             var expenses = await _mediator.SendCommand(query);
 
@@ -49,24 +49,24 @@ namespace Bawbee.API.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> AddExpense(CreateExpenseInputModel model)
+        public async Task<IActionResult> CreateExpense(CreateExpenseInputModel model)
         {
             var command = model.MapToCreateExpenseCommand(CurrentUserId);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);
         }
 
-        [HttpPut("")]
-        public async Task<IActionResult> UpdateExpense(UpdateExpenseInputModel model)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateExpense(int id, UpdateExpenseInputModel model)
         {
-            var command = model.MapToUpdateExpenseCommand(CurrentUserId);
+            var command = model.MapToUpdateExpenseCommand(id, CurrentUserId);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);
@@ -78,7 +78,7 @@ namespace Bawbee.API.Controllers
             var command = new DeleteExpenseCommand(id, CurrentUserId);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);

@@ -1,5 +1,6 @@
 ﻿using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
+using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -28,6 +29,11 @@ namespace Bawbee.API.Controllers
 
         protected bool IsValidOperation => !GetNotifications.Any();
 
+        protected IActionResult CustomResponse(ValidationResult validationResult)
+        {
+            return BadRequestResponse(validationResult);
+        }
+
         protected IActionResult CustomResponse(object data)
         {
             if (IsValidOperation)
@@ -38,7 +44,7 @@ namespace Bawbee.API.Controllers
 
         protected IActionResult CustomResponse(CommandResult commandResult = null)
         {
-            if (IsValidOperation && commandResult.IsSuccess)
+            if (IsValidOperation && commandResult.Success)
                 return OkResponse(commandResult);
 
             return BadRequestResponse();
@@ -47,6 +53,16 @@ namespace Bawbee.API.Controllers
         private IActionResult OkResponse(object data)
         {
             return Ok(data);
+        }
+
+        private IActionResult BadRequestResponse(ValidationResult validationResult)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                _notificationHandler.AddNotification(error.ErrorMessage);
+            }
+
+            return BadRequestResponse();
         }
 
         private IActionResult BadRequestResponse()

@@ -43,12 +43,9 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.BankAccountName = user.BankAccounts.FirstOrDefault(b => b.BankAccountId == @event.BankAccountId).Name;
 
             entryDocument.CategoryId = @event.CategoryId;
-            entryDocument.CategoryName = user.EntryCategories.FirstOrDefault(e => e.CategoryId == @event.CategoryId).Name;
+            entryDocument.CategoryName = user.Categories.FirstOrDefault(e => e.CategoryId == @event.CategoryId).Name;
 
             await _session.StoreAsync(entryDocument);
-
-            // TODO: check
-            //await _session.SaveChangesAsync();
         }
 
         public async Task Handle(ExpenseUpdatedEvent @event, CancellationToken cancellationToken)
@@ -76,12 +73,9 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
                 if (isCategoryChanged)
                 {
                     entryDocument.CategoryId = @event.CategoryId;
-                    entryDocument.CategoryName = user.EntryCategories.FirstOrDefault(e => e.CategoryId == @event.CategoryId).Name;
+                    entryDocument.CategoryName = user.Categories.FirstOrDefault(e => e.CategoryId == @event.CategoryId).Name;
                 }
             }
-
-            // TODO: check
-            //await _session.SaveChangesAsync();
         }
 
         public async Task Handle(ExpenseDeletedEvent @event, CancellationToken cancellationToken)
@@ -89,9 +83,6 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             var entryDocument = await _session.Query<EntryDocument>().FirstOrDefaultAsync(e => e.EntryId == @event.EntryId);
 
             _session.Delete(entryDocument);
-
-            // TODO: check
-            //await _session.SaveChangesAsync();
         }
     }
 }

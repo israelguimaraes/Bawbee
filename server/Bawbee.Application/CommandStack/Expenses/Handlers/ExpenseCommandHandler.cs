@@ -39,7 +39,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             {
                 var @event = entry.MapToExpenseCreatedEvent();
                 await _mediator.PublishEvent(@event);
-                return CommandResult.Ok(entry);
+                return CommandResult.Ok();
             }
 
             return CommandResult.Error();
@@ -78,6 +78,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             {
                 // TODO log
                 await AddDomainNotification("Invalid operation.");
+                return CommandResult.Error();
             }
 
             await _entryRepository.Delete(expense.Id);
@@ -85,7 +86,6 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             if (await CommitTransaction())
             {
                 var @event = expense.MapToExpenseDeletedEvent();
-
                 await _mediator.PublishEvent(@event);
                 return CommandResult.Ok();
             }

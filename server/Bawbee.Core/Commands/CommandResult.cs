@@ -5,7 +5,7 @@ namespace Bawbee.Core.Commands
 {
     public class CommandResult
     {
-        public bool IsSuccess { get; private set; }
+        public bool Success { get; private set; }
         public ICollection<string> Errors { get; private set; }
         public object Data { get; private set; }
 
@@ -15,7 +15,7 @@ namespace Bawbee.Core.Commands
         {
             return new CommandResult
             {
-                IsSuccess = true,
+                Success = true,
                 Data = data
             };
         }
@@ -24,7 +24,7 @@ namespace Bawbee.Core.Commands
         {
             return new CommandResult
             {
-                IsSuccess = true,
+                Success = true,
                 Errors = new List<string> { message },
                 Data = data
             };
@@ -34,7 +34,7 @@ namespace Bawbee.Core.Commands
         {
             return new CommandResult
             {
-                IsSuccess = false,
+                Success = false,
                 Errors = errors?.ToList(),
             };
         }

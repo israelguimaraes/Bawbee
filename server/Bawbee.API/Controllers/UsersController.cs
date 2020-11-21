@@ -31,7 +31,7 @@ namespace Bawbee.API.Controllers
             var command = new CreateUserCommand(model.Name, model.LastName, model.Email, model.Password);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);
@@ -44,7 +44,7 @@ namespace Bawbee.API.Controllers
             var command = new LoginCommand(model.Email, model.Password);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);
@@ -66,7 +66,7 @@ namespace Bawbee.API.Controllers
             var command = new CreateCategoryCommand(model.Name, CurrentUserId);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
 
@@ -79,7 +79,7 @@ namespace Bawbee.API.Controllers
             var query = new GetAllBankAccountsByUserQuery(CurrentUserId);
 
             if (!query.IsValid())
-                return CustomResponse(query);
+                return CustomResponse(query.ValidationResult);
 
             var bankAccounts = await _mediator.SendCommand(query);
 
@@ -92,7 +92,7 @@ namespace Bawbee.API.Controllers
             var command = new CreateBankAccountCommand(model.Name, model.InitialBalance, CurrentUserId);
 
             if (!command.IsValid())
-                return CustomResponse(command);
+                return CustomResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
 

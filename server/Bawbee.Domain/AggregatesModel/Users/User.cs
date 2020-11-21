@@ -1,5 +1,4 @@
 ﻿using Bawbee.Core.Models;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,22 +6,24 @@ namespace Bawbee.Domain.AggregatesModel.Users
 {
     public class User : Entity, IAggregateRoot
     {
-        public const int PASSWORD_MIN_LENGTH = 6;
-        public const int PASSWORD_MAX_LENGTH = 10;
+        public static readonly int PASSWORD_MIN_LENGTH = 6;
+        public static readonly int PASSWORD_MAX_LENGTH = 10;
 
         public string Name { get; private set; }
         public string LastName { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
 
-        // TODO: protect lists
-        public List<BankAccount> BankAccounts { get; private set; }
-        public List<Category> Categories { get; private set; }
+        private List<BankAccount> _bankAccounts;
+        public IEnumerable<BankAccount> BankAccounts => _bankAccounts;
+
+        public List<Category> _categories;
+        public IEnumerable<Category> Categories => _categories;
 
         protected User()
         {
-            BankAccounts = new List<BankAccount>();
-            Categories = new List<Category>();
+            _bankAccounts = new List<BankAccount>();
+            _categories = new List<Category>();
         }
 
         protected User(int id) : this()
@@ -39,7 +40,6 @@ namespace Bawbee.Domain.AggregatesModel.Users
             Password = password;
         }
 
-        [JsonConstructor]
         public User(
             string name,
             string lastName,
@@ -49,8 +49,8 @@ namespace Bawbee.Domain.AggregatesModel.Users
             IEnumerable<Category> categories,
             int id = default) : this(name, lastName, email, password, id)
         {
-            BankAccounts = bankAccounts?.ToList();          // TODO: extensions IsEmpty()
-            Categories = categories?.ToList();
+            SetBankAccounts(bankAccounts);
+            SetCategories(categories);
         }
 
         public void AddNewBankAccount(BankAccount bankAccount)
@@ -58,7 +58,7 @@ namespace Bawbee.Domain.AggregatesModel.Users
             if (BankAccounts.Any(b => b.Id == bankAccount.Id))
                 return;
 
-            BankAccounts.Add(bankAccount);
+            _bankAccounts.Add(bankAccount);
         }
 
         public void AddNewCategory(Category category)
@@ -66,7 +66,7 @@ namespace Bawbee.Domain.AggregatesModel.Users
             if (Categories.Any(e => e.Id == category.Id))
                 return;
 
-            Categories.Add(category);
+            _categories.Add(category);
         }
 
         public Category GetCategoryById(int categoryId)
@@ -77,6 +77,18 @@ namespace Bawbee.Domain.AggregatesModel.Users
         public BankAccount GetBankAccountById(int bankAccountId)
         {
             return BankAccounts.FirstOrDefault(b => b.Id == bankAccountId);
+        }
+
+        private void SetCategories(IEnumerable<Category> categories)
+        {
+            if (categories.Any())
+                _categories.AddRange(categories);
+        }
+
+        private void SetBankAccounts(IEnumerable<BankAccount> bankAccounts)
+        {
+            if (_bankAccounts.Any())
+                _bankAccounts.AddRange(bankAccounts);
         }
 
         public abstract class UserFactory
@@ -90,10 +102,10 @@ namespace Bawbee.Domain.AggregatesModel.Users
                 user.Password = password;
 
                 var defaultBankAccount = BankAccount.CreateDefaultBankAccount(user.Id);
-                user.BankAccounts.Add(defaultBankAccount);
+                user.AddNewBankAccount(defaultBankAccount);
 
                 var defaultCategories = Category.GetDefaultCategoriesForNewUsers(user.Id);
-                user.Categories.AddRange(defaultCategories);
+                user.SetCategories(defaultCategories);
 
                 return user;
             }

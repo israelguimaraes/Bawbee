@@ -5,7 +5,7 @@ namespace Bawbee.Core.Models
     public abstract class Document
     {
         public string Id { get; protected set; }
-        public DateTime CreatedAt { get; protected set; }
+        public DateTime CreatedAt { get; set; }
 
         public Document()
         {

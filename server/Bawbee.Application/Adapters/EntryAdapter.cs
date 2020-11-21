@@ -37,10 +37,10 @@ namespace Bawbee.Application.Adapters
                 userId, inputModel.BankAccountId, inputModel.CategoryId);
         }
 
-        public static UpdateExpenseCommand MapToUpdateExpenseCommand(this UpdateExpenseInputModel inputModel, int userId)
+        public static UpdateExpenseCommand MapToUpdateExpenseCommand(this UpdateExpenseInputModel inputModel, int entryId, int userId)
         {
             return new UpdateExpenseCommand(
-                inputModel.EntryId, inputModel.Description, inputModel.Value,
+                entryId, inputModel.Description, inputModel.Value,
                 inputModel.IsPaid, inputModel.Observations, inputModel.DateToPay,
                 userId, inputModel.BankAccountId, inputModel.CategoryId);
         }

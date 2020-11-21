@@ -1,4 +1,5 @@
 ﻿using Bawbee.Core.Models;
+using Bawbee.Infra.Data.Documents.Users;
 using System.Collections.Generic;
 
 namespace Bawbee.Infra.Data.Documents
@@ -11,13 +12,13 @@ namespace Bawbee.Infra.Data.Documents
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public List<BankAccountDocument> BankAccounts { get; set; }
-        public List<CategoryDocument> EntryCategories { get; set; }
+        public List<BankAccount> BankAccounts { get; set; }
+        public List<Category> Categories { get; set; }
 
         public UserDocument()
         {
-            BankAccounts = new List<BankAccountDocument>();
-            EntryCategories = new List<CategoryDocument>();
+            BankAccounts = new List<BankAccount>();
+            Categories = new List<Category>();
         }
     }
 }

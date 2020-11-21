@@ -1,4 +1,5 @@
-﻿using Bawbee.Application.CommandStack.Users.Commands;
+﻿using Bawbee.Application.Adapters;
+using Bawbee.Application.CommandStack.Users.Commands;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
@@ -42,7 +43,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             if (userDatabase != null)
             {
-                await _mediator.PublishEvent(new DomainNotification("E-mail already used"));
+                await AddDomainNotification("E-mail already used");
                 return CommandResult.Error();
             }
 
@@ -52,7 +53,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             if (await CommitTransaction())
             {
-                var userRegisteredEvent = new UserRegisteredEvent(user);
+                var userRegisteredEvent = user.MapToUserRegisteredEvent();
                 await _mediator.PublishEvent(userRegisteredEvent);
             }
 
@@ -65,7 +66,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
 
             if (user == null)
             {
-                await _mediator.PublishEvent(new DomainNotification("E-mail or password is invalid"));
+                await AddDomainNotification("E-mail or password is invalid");
                 return CommandResult.Error();
             }
 
@@ -94,9 +95,10 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
             {
                 var @event = new CategoryCreatedEvent(category.Id, category.Name, category.UserId);
                 await _mediator.PublishEvent(@event);
+                return CommandResult.Ok();
             }
 
-            return CommandResult.Ok();
+            return CommandResult.Error();
         }
 
         public async Task<CommandResult> Handle(CreateBankAccountCommand command, CancellationToken cancellationToken)
@@ -120,9 +122,10 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
                     bankAccount.InitialBalance, bankAccount.UserId);
 
                 await _mediator.PublishEvent(@event);
+                return CommandResult.Ok();
             }
 
-            return CommandResult.Ok();
+            return CommandResult.Error();
         }
     }
 }
