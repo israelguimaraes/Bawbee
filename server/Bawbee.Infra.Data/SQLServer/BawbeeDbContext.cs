@@ -14,15 +14,17 @@ namespace Bawbee.Infra.Data.SQLServer
 
         public DbSet<User> Users { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
-        public DbSet<Category> EntryCategories { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Entry> Entries { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Income> Incomes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new BankAccountMapping());
             modelBuilder.ApplyConfiguration(new EntryMapping());
-            modelBuilder.ApplyConfiguration(new EntryCategoryMapping());
+            modelBuilder.ApplyConfiguration(new CategoryMapping());
 
             base.OnModelCreating(modelBuilder);
         }

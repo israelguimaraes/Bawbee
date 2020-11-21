@@ -1,4 +1,9 @@
 using Bawbee.API.Setups;
+using Bawbee.Core.Bus;
+using Bawbee.Domain.Events;
+using Bawbee.Domain.Events.BankAccounts;
+using Bawbee.Domain.Events.Categories;
+using Bawbee.Domain.Events.Entries;
 using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.SQLServer;
 using MediatR;
@@ -57,14 +62,14 @@ namespace Bawbee.API
 
             app.ConfigureSwagger();
 
-            //var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
-            //eventBus.Subscribe<UserRegisteredEvent>();
-            //eventBus.Subscribe<EntryAddedEvent>();
-            //eventBus.Subscribe<EntryUpdatedEvent>();
-            //eventBus.Subscribe<EntryDeletedEvent>();
-            //eventBus.Subscribe<EntryCategoryAddedEvent>();
-            //eventBus.Subscribe<BankAccountAddedEvent>();
+            eventBus.Subscribe<UserRegisteredEvent>();
+            eventBus.Subscribe<ExpenseCreatedEvent>();
+            eventBus.Subscribe<ExpenseUpdatedEvent>();
+            eventBus.Subscribe<ExpenseDeletedEvent>();
+            eventBus.Subscribe<CategoryCreatedEvent>();
+            eventBus.Subscribe<BankAccountCreatedEvent>();
         }
     }
 }

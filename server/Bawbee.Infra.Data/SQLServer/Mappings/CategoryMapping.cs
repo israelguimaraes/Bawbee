@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Bawbee.Infra.Data.SQLServer.Mappings
 {
-    public class EntryCategoryMapping : IEntityTypeConfiguration<Category>
+    public class CategoryMapping : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {

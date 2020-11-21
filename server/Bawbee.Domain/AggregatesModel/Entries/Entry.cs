@@ -22,6 +22,8 @@ namespace Bawbee.Domain.AggregatesModel.Entries
         public int CategoryId { get; protected set; }
         public Category Category { get; protected set; }
 
+        protected Entry() { }
+
         public Entry(
             string description, decimal value, bool isPaid,
             string observations, DateTime dateToPay, int userId,

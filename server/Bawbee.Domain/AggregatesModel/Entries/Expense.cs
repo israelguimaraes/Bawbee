@@ -4,6 +4,8 @@ namespace Bawbee.Domain.AggregatesModel.Entries
 {
     public class Expense : Entry
     {
+        protected Expense() { }
+
         public Expense(
             string description, 
             decimal value, 

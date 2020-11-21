@@ -10,6 +10,19 @@ namespace Bawbee.Infra.Data.SQLServer.Mappings
         {
             builder.HasKey(t => t.Id);
 
+            #region Discriminator - Expenses and Incomes
+
+            builder
+                .HasDiscriminator<string>("Type")
+                .HasValue<Expense>(nameof(Expense))
+                .HasValue<Income>(nameof(Income));
+
+            //builder.Property("Type")
+            //    .HasColumnName("Type")
+            //    .HasMaxLength(7);            
+
+            #endregion
+
             builder.Property(c => c.Description)
                 .HasMaxLength(255)
                 .IsRequired();

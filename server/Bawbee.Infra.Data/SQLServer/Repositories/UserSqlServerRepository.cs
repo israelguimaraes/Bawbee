@@ -43,7 +43,7 @@ namespace Bawbee.Infra.Data.SQLServer.Repositories
 
         public async Task CreateCategory(Category category)
         {
-            await _dbContext.EntryCategories.AddAsync(category);
+            await _dbContext.Categories.AddAsync(category);
         }
 
         public async Task<BankAccount> GetBankAccountByName(string name, int userId)
