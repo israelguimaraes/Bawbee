@@ -23,5 +23,11 @@
     <ProjectReference Include="..\Bawbee.Infra.CrossCutting.IoC\Bawbee.Infra.CrossCutting.IoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\RavenDB_Dump_InitialData.ravendbdump">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>
