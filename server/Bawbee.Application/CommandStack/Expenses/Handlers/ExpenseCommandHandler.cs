@@ -31,13 +31,13 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
 
         public async Task<CommandResult> Handle(CreateExpenseCommand command, CancellationToken cancellationToken)
         {
-            var entry = command.MapToDomain();
+            var expense = command.MapToDomain();
 
-            await _entryRepository.Add(entry);
+            await _entryRepository.Add(expense);
 
             if (await CommitTransaction())
             {
-                var @event = entry.MapToExpenseCreatedEvent();
+                var @event = expense.MapToExpenseCreatedEvent();
                 await _mediator.PublishEvent(@event);
                 return CommandResult.Ok();
             }
