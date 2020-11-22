@@ -12,7 +12,7 @@ namespace Bawbee.Mobile.Models.Entries
         public string Observations { get; set; }
         public DateTime? DateToPay { get; set; }
         public int? BankAccountId { get; set; }
-        public int? EntryCategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         public Expense()
         {
@@ -25,7 +25,7 @@ namespace Bawbee.Mobile.Models.Entries
                 Value.HasValue && 
                 DateToPay.HasValue &&
                 BankAccountId.HasValue && 
-                EntryCategoryId.HasValue;
+                CategoryId.HasValue;
         }
     }
 }

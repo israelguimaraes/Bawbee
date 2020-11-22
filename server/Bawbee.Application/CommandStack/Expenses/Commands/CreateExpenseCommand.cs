@@ -42,11 +42,8 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
 
             RuleFor(c => c.Value)
                 .NotEmpty()
+                .Must(value => value != default)
                 .WithMessage($"{nameof(CreateExpenseCommand.Value)} is required");
-
-            RuleFor(c => c.IsPaid)
-               .NotEmpty()
-               .WithMessage($"{nameof(CreateExpenseCommand.IsPaid)} is required");
 
             RuleFor(c => c.DateToPay)
                .Must(c => c != DateTime.MinValue)

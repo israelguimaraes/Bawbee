@@ -1,5 +1,4 @@
 ﻿using Bawbee.Mobile.ViewModels.Entries;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,7 +20,7 @@ namespace Bawbee.Mobile.Views.Entries
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) => 
             {
-                await Navigation.PushAsync(new ListEntryPage());
+                await Navigation.PopAsync(true);
             });
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryFormInvalid, async (msg) =>

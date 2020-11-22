@@ -15,13 +15,13 @@ namespace Bawbee.Mobile.Services.HttpRequestProvider
         public async Task<TResult> GetAsync<TResult>(string uri)
         {
             var httpClient = CreateHttpClient();
-            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            var response = await httpClient.GetAsync(uri);
 
             await HandleResponse(response);
             
-            string serialized = await response.Content.ReadAsStringAsync();
+            var json = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
+            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(json));
 
             return result;
         }
@@ -39,9 +39,9 @@ namespace Bawbee.Mobile.Services.HttpRequestProvider
 
             await HandleResponse(response);
 
-            string serialized = await response.Content.ReadAsStringAsync();
+            var json = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
+            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(json));
 
             return result;
         }
@@ -59,9 +59,9 @@ namespace Bawbee.Mobile.Services.HttpRequestProvider
 
             await HandleResponse(response);
 
-            string serialized = await response.Content.ReadAsStringAsync();
+            var jsonResponse = await response.Content.ReadAsStringAsync();
 
-            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
+            TResult result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(jsonResponse));
 
             return result;
         }

@@ -1,10 +1,8 @@
 ﻿using Bawbee.Mobile.Configs;
-using Bawbee.Mobile.Models;
 using Bawbee.Mobile.Models.Dashboards;
 using Bawbee.Mobile.Models.Entries;
 using Bawbee.Mobile.ReadModels.Entries;
 using Bawbee.Mobile.Services.HttpRequestProvider;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,13 +25,13 @@ namespace Bawbee.Mobile.Services.Entries
         {
             try
             {
-                var response = await _request.GetAsync<ApiResponse<IEnumerable<EntryReadModel>>>(Endpoint);
+                var entries = await _request.GetAsync<IEnumerable<EntryReadModel>>(Endpoint);
 
-                return new ObservableCollection<EntryReadModel>(response.Data);
+                return new ObservableCollection<EntryReadModel>(entries);
             }
             catch (Exception ex)
             {
-                throw;
+                return new ObservableCollection<EntryReadModel>();
             }
         }
 
@@ -41,15 +39,13 @@ namespace Bawbee.Mobile.Services.Entries
         {
             try
             {
-                var json = JsonConvert.SerializeObject(expense);
-
                 await _request.PostAsync(Endpoint, expense);
 
                 return true;
             }
             catch (Exception ex)
             {
-                throw;
+                return false;
             }
         }
 

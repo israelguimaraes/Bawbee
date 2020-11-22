@@ -38,7 +38,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
             set
             {
                 _selectedCategory = value;
-                Expense.EntryCategoryId = _selectedCategory.Id;
+                Expense.CategoryId = _selectedCategory.Id;
                 OnPropertyChanged();
             }
         }

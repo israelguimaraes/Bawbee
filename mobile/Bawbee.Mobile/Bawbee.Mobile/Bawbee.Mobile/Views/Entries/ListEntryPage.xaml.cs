@@ -1,7 +1,6 @@
 ﻿using Bawbee.Mobile.ViewModels.Entries;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using static Bawbee.Mobile.ViewModels.Entries.ListEntryViewModel;
 
 namespace Bawbee.Mobile.Views.Entries
 {
@@ -19,7 +18,7 @@ namespace Bawbee.Mobile.Views.Entries
 
             await (BindingContext as ListEntryViewModel).LoadEntries();
 
-            MessagingCenter.Subscribe<ListEntryViewModel>(this, MessageKey.OpenModalNewEntry, async (msg) =>
+            MessagingCenter.Subscribe<ListEntryViewModel>(this, ListEntryViewModel.MessageKey.OpenModalNewEntry, async (msg) =>
             {
                 await Navigation.PushAsync(new EntryTabbedPage());
             });
@@ -29,7 +28,7 @@ namespace Bawbee.Mobile.Views.Entries
         {
             base.OnDisappearing();
 
-            MessagingCenter.Unsubscribe<ListEntryViewModel>(this, MessageKey.OpenModalNewEntry);
+            MessagingCenter.Unsubscribe<ListEntryViewModel>(this, ListEntryViewModel.MessageKey.OpenModalNewEntry);
         }
     }
 }
