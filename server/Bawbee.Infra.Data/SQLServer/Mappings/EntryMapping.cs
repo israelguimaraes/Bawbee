@@ -35,7 +35,7 @@ namespace Bawbee.Infra.Data.SQLServer.Mappings
             builder.Property(c => c.Observations)
                 .HasMaxLength(255);
 
-            builder.Property(c => c.DateToPay)
+            builder.Property(c => c.Date)
                 .IsRequired();
 
             builder.HasOne(t => t.User)

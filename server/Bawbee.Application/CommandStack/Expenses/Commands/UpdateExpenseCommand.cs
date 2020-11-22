@@ -52,9 +52,9 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
                .NotEmpty()
                .WithMessage($"{nameof(CreateExpenseCommand.IsPaid)} is required");
 
-            RuleFor(c => c.DateToPay)
+            RuleFor(c => c.Date)
                .Must(c => c != DateTime.MinValue)
-               .WithMessage($"{nameof(CreateExpenseCommand.DateToPay)} is required");
+               .WithMessage($"{nameof(CreateExpenseCommand.Date)} is required");
 
             RuleFor(c => c.BankAccountId)
                 .Must(c => c.IsGreaterThanZero())

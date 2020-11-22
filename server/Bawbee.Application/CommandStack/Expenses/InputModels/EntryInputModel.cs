@@ -8,7 +8,7 @@ namespace Bawbee.Application.CommandStack.Expenses.InputModels
         public decimal Value { get; set; }
         public bool IsPaid { get; set; }
         public string Observations { get; set; }
-        public DateTime DateToPay { get; set; }
+        public DateTime Date { get; set; }
         public int BankAccountId { get; set; }
         public int CategoryId { get; set; }
     }
