@@ -10,21 +10,21 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
         public decimal Value { get; protected set; }
         public bool IsPaid { get; protected set; }
         public string Observations { get; protected set; }
-        public DateTime DateToPay { get; protected set; }
+        public DateTime Date { get; protected set; }
         public int UserId { get; protected set; }
         public int BankAccountId { get; protected set; }
         public int CategoryId { get; protected set; }
 
         protected EntryCommand(
             string description, decimal value, bool isPaid,
-            string observations, DateTime dateToPay, int userId,
+            string observations, DateTime date, int userId,
             int bankAccountId, int categoryId, int entryId = default)
         {
             Description = description;
             Value = value;
             IsPaid = isPaid;
             Observations = observations;
-            DateToPay = dateToPay;
+            Date = date;
             UserId = userId;
             BankAccountId = bankAccountId;
             CategoryId = categoryId;

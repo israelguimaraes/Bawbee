@@ -11,7 +11,7 @@ namespace Bawbee.Domain.AggregatesModel.Entries
         public decimal Value { get; protected set; }
         public bool IsPaid { get; protected set; }
         public string Observations { get; protected set; }
-        public DateTime DateToPay { get; protected set; }
+        public DateTime Date { get; protected set; }
 
         public int UserId { get; protected set; }
         public User User { get; protected set; }
@@ -26,14 +26,14 @@ namespace Bawbee.Domain.AggregatesModel.Entries
 
         public Entry(
             string description, decimal value, bool isPaid,
-            string observations, DateTime dateToPay, int userId,
+            string observations, DateTime date, int userId,
             int bankAccountId, int categoryId, int id = default)
         {
             Description = description.Trim();
             Value = value;
             IsPaid = isPaid;
             Observations = observations.IsNotEmpty() ? observations.Trim() : null;
-            DateToPay = dateToPay;
+            Date = date;
             UserId = userId;
             BankAccountId = bankAccountId;
             CategoryId = categoryId;

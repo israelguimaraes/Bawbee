@@ -13,7 +13,7 @@ namespace Bawbee.Application.Adapters
         {
             return new Expense(
                 command.Description, command.Value, command.IsPaid,
-                command.Observations, command.DateToPay, command.UserId,
+                command.Observations, command.Date, command.UserId,
                 command.BankAccountId, command.CategoryId, command.EntryId);
         }
 
@@ -21,7 +21,7 @@ namespace Bawbee.Application.Adapters
         {
             return new Expense(
                 command.Description, command.Value, command.IsPaid,
-                command.Observations, command.DateToPay, command.UserId,
+                command.Observations, command.Date, command.UserId,
                 command.BankAccountId, command.CategoryId, command.EntryId);
         }
 
@@ -33,7 +33,7 @@ namespace Bawbee.Application.Adapters
         {
             return new CreateExpenseCommand(
                 inputModel.Description, inputModel.Value,
-                inputModel.IsPaid, inputModel.Observations, inputModel.DateToPay,
+                inputModel.IsPaid, inputModel.Observations, inputModel.Date,
                 userId, inputModel.BankAccountId, inputModel.CategoryId);
         }
 
@@ -41,7 +41,7 @@ namespace Bawbee.Application.Adapters
         {
             return new UpdateExpenseCommand(
                 entryId, inputModel.Description, inputModel.Value,
-                inputModel.IsPaid, inputModel.Observations, inputModel.DateToPay,
+                inputModel.IsPaid, inputModel.Observations, inputModel.Date,
                 userId, inputModel.BankAccountId, inputModel.CategoryId);
         }
 
@@ -53,7 +53,7 @@ namespace Bawbee.Application.Adapters
         {
             return new ExpenseCreatedEvent(
                 entity.Id, entity.Description, entity.Value,
-                entity.IsPaid, entity.Observations, entity.DateToPay,
+                entity.IsPaid, entity.Observations, entity.Date,
                 entity.UserId, entity.BankAccountId, entity.CategoryId);
         }
 
@@ -61,7 +61,7 @@ namespace Bawbee.Application.Adapters
         {
             return new ExpenseUpdatedEvent(
                 entity.Id, entity.Description, entity.Value,
-                entity.IsPaid, entity.Observations, entity.DateToPay,
+                entity.IsPaid, entity.Observations, entity.Date,
                 entity.UserId, entity.BankAccountId, entity.CategoryId);
         }
 
@@ -69,7 +69,7 @@ namespace Bawbee.Application.Adapters
         {
             return new ExpenseDeletedEvent(
                 entity.Id, entity.Description, entity.Value,
-                entity.IsPaid, entity.Observations, entity.DateToPay,
+                entity.IsPaid, entity.Observations, entity.Date,
                 entity.UserId, entity.BankAccountId, entity.CategoryId);
         }
 

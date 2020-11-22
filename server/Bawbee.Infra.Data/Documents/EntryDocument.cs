@@ -12,7 +12,7 @@ namespace Bawbee.Infra.Data.Documents
         public decimal Value { get; set; }
         public bool IsPaid { get; set; }
         public string Observations { get; set; }
-        public DateTime DateToPay { get; set; }
+        public DateTime Date { get; set; }
 
         public int BankAccountId { get; set; }
         public string BankAccountName { get; set; }

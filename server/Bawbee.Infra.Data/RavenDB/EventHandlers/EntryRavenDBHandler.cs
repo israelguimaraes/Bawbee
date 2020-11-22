@@ -35,7 +35,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.Value = @event.Value;
             entryDocument.IsPaid = @event.IsPaid;
             entryDocument.Observations = @event.Observations;
-            entryDocument.DateToPay = @event.DateToPay;
+            entryDocument.Date = @event.Date;
 
             entryDocument.UserId = @event.UserId;
 
@@ -55,7 +55,7 @@ namespace Bawbee.Infra.Data.RavenDB.EventHandlers
             entryDocument.Description = @event.Description;
             entryDocument.Value = @event.Value;
             entryDocument.Observations = @event.Observations;
-            entryDocument.DateToPay = @event.DateToPay;
+            entryDocument.Date = @event.Date;
 
             var isBankAccountChanged = entryDocument.BankAccountId != @event.BankAccountId;
             var isCategoryChanged = entryDocument.CategoryId != @event.CategoryId;

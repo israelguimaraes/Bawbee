@@ -28,7 +28,7 @@ namespace Bawbee.Infra.Data.RavenDB.Repositories
         {
             return await _session.Query<EntryDocument>()
                 .Where(e => e.UserId == userId &&
-                       e.DateToPay.Month == month &&
+                       e.Date.Month == month &&
                        e.Value < 0)
                 .ToListAsync();
         }
