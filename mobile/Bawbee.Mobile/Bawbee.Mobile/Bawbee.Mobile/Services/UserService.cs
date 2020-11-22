@@ -18,38 +18,38 @@ namespace Bawbee.Mobile.Services
         private static readonly string CategoriesEndpoint = $"{Endpoint}/categories";
         private static readonly string BankAccountsEndpoint = $"{Endpoint}/bank-accounts";
 
-        private readonly RequestProvider _httpClient;
+        private readonly RequestProvider _request;
 
         public UserService()
         {
-            _httpClient = new RequestProvider();
+            _request = new RequestProvider();
         }
 
         public async Task<ObservableCollection<BankAccount>> GetBankAccounts()
         {
             try
             {
-                var bankAccounts = await _httpClient.GetAsync<IEnumerable<BankAccount>>(BankAccountsEndpoint);
+                var bankAccounts = await _request.GetAsync<IEnumerable<BankAccount>>(BankAccountsEndpoint);
 
                 return new ObservableCollection<BankAccount>(bankAccounts);
             }
             catch (Exception ex)
             {
-                throw;
+                return new ObservableCollection<BankAccount>();
             }
         }
 
-        public async Task<ObservableCollection<EntryCategory>> GetCategories()
+        public async Task<ObservableCollection<Category>> GetCategories()
         {
             try
             {
-                var categories = await _httpClient.GetAsync<IEnumerable<EntryCategory>>(CategoriesEndpoint);
+                var categories = await _request.GetAsync<IEnumerable<Category>>(CategoriesEndpoint);
 
-                return new ObservableCollection<EntryCategory>(categories);
+                return new ObservableCollection<Category>(categories);
             }
             catch (Exception ex)
             {
-                throw;
+                return new ObservableCollection<Category>();
             }
         }
 

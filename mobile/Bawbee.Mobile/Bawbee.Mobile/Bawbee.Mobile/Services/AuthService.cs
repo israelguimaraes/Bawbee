@@ -12,13 +12,14 @@ namespace Bawbee.Mobile.Services
 {
     public class AuthService
     {
-        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/auth";
+        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/users";
 
         private HttpClient _httpClient;
 
         public AuthService()
         {
             _httpClient = new HttpClient();
+            //_httpClient.Timeout = TimeSpan.FromSeconds(30);
         }
 
         public async Task<bool> Register(string email, string name, string lastName, string password, string confirmPassword)
@@ -67,7 +68,7 @@ namespace Bawbee.Mobile.Services
             catch (Exception ex)
             {
                 // TODO: ...
-                return new ApiResponse<UserAccessToken> { IsSuccess = false };
+                return new ApiResponse<UserAccessToken> { Success = false };
             }
         }
     }

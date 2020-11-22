@@ -31,8 +31,8 @@ namespace Bawbee.Mobile.ViewModels.Entries
             Categories = await _userService.GetCategories();
         }
 
-        private EntryCategory _selectedCategory;
-        public EntryCategory SelectedCategory 
+        private Category _selectedCategory;
+        public Category SelectedCategory 
         {
             get => _selectedCategory;
             set
@@ -55,8 +55,8 @@ namespace Bawbee.Mobile.ViewModels.Entries
             }
         }
 
-        private ObservableCollection<EntryCategory> _categories;
-        public ObservableCollection<EntryCategory> Categories
+        private ObservableCollection<Category> _categories;
+        public ObservableCollection<Category> Categories
         {
             get => _categories;
             set

@@ -46,7 +46,7 @@ namespace Bawbee.Mobile.ViewModels.Auth
 
                 var responseAPI = await _authService.Login(Email, Password);
 
-                if (responseAPI.IsSuccess)
+                if (responseAPI.Success)
                 {
                     Settings.UserAcessToken = responseAPI.Data.AccessToken;
                     Settings.UserEmail = Email;

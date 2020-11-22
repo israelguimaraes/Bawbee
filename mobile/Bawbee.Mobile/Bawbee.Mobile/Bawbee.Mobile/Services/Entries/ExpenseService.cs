@@ -16,18 +16,18 @@ namespace Bawbee.Mobile.Services.Entries
     {
         private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/expenses";
 
-        private readonly RequestProvider _httpClient;
+        private readonly RequestProvider _request;
 
         public ExpenseService()
         {
-            _httpClient = new RequestProvider();
+            _request = new RequestProvider();
         }
 
         public async Task<ObservableCollection<EntryReadModel>> GetEntries()
         {
             try
             {
-                var response = await _httpClient.GetAsync<ApiResponse<IEnumerable<EntryReadModel>>>(Endpoint);
+                var response = await _request.GetAsync<ApiResponse<IEnumerable<EntryReadModel>>>(Endpoint);
 
                 return new ObservableCollection<EntryReadModel>(response.Data);
             }
@@ -43,7 +43,7 @@ namespace Bawbee.Mobile.Services.Entries
             {
                 var json = JsonConvert.SerializeObject(expense);
 
-                await _httpClient.PostAsync(Endpoint, expense);
+                await _request.PostAsync(Endpoint, expense);
 
                 return true;
             }
@@ -55,9 +55,9 @@ namespace Bawbee.Mobile.Services.Entries
 
         public async Task<ObservableCollection<MonthExpense>> GetCurrentMonthExpenses()
         {
-            var response = await _httpClient.GetAsync<ApiResponse<IEnumerable<MonthExpense>>>($"{Endpoint}/month/{DateTime.Now.Month}");
+            var monthExpenses = await _request.GetAsync<IEnumerable<MonthExpense>>($"{Endpoint}/month/{DateTime.Now.Month}");
 
-            return new ObservableCollection<MonthExpense>(response.Data);
+            return new ObservableCollection<MonthExpense>(monthExpenses);
         }
     }
 }

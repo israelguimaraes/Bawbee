@@ -1,5 +1,6 @@
 ﻿using Bawbee.Application.QueryStack.Users.ReadModels.Expenses;
 using Bawbee.Core.Commands;
+using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;
 using System.Collections.Generic;
 
@@ -28,7 +29,7 @@ namespace Bawbee.Application.QueryStack.Users.Queries.Entries
         public GetTotalExpensesGroupedByMonthValidation()
         {
             RuleFor(q => q)
-                .Must(q => q.UserId <= 0)
+                .Must(q => q.UserId.IsGreaterThanZero())
                 .WithMessage("Invalid User");
 
             RuleFor(q => q)

@@ -1,5 +1,6 @@
 ﻿using Bawbee.Application.QueryStack.Users.ReadModels;
 using Bawbee.Core.Commands;
+using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;
 using System.Collections.Generic;
 
@@ -26,7 +27,7 @@ namespace Bawbee.Application.QueryStack.Users.Queries
         public GetAllBankAccountsByUserValidation()
         {
             RuleFor(q => q)
-                .Must(q => q.UserId <= 0)
+                .Must(q => q.UserId.IsGreaterThanZero())
                 .WithMessage("Invalid User");
         }
     }
