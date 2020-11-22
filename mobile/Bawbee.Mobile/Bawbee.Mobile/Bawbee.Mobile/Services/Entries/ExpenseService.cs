@@ -6,6 +6,7 @@ using Bawbee.Mobile.Services.HttpRequestProvider;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bawbee.Mobile.Services.Entries
@@ -27,7 +28,7 @@ namespace Bawbee.Mobile.Services.Entries
             {
                 var entries = await _request.GetAsync<IEnumerable<EntryReadModel>>(Endpoint);
 
-                return new ObservableCollection<EntryReadModel>(entries);
+                return new ObservableCollection<EntryReadModel>(entries.OrderByDescending(e => e.CreatedAt));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bawbee.Infra.CrossCutting.Extensions;
+using System;
 
 namespace Bawbee.Domain.AggregatesModel.Entries
 {
@@ -13,7 +14,7 @@ namespace Bawbee.Domain.AggregatesModel.Entries
             int userId,
             int bankAccountId,
             int categoryId)
-            : base(description, value, isPaid, observations, dateToPay, userId, bankAccountId, categoryId)
+            : base(description, value.ToPositive(), isPaid, observations, dateToPay, userId, bankAccountId, categoryId)
         {
 
         }
