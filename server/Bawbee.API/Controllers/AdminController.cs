@@ -1,12 +1,14 @@
-﻿using Bawbee.Application.QueryStack.Users.Queries.Entries;
+﻿using Bawbee.Application.CommandStack.Admin.Commands;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Notifications;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace Bawbee.API.Controllers
 {
+    [AllowAnonymous]
     public class AdminController : BaseApiController
     {
         private readonly IMediatorHandler _mediator;
@@ -19,17 +21,12 @@ namespace Bawbee.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("recreate-database/insert-initial-data")]
+        [HttpGet("database/recreate/insert-initial-data")]
         public async Task<IActionResult> RecreateDatabaseAndSetInitialData()
         {
-            var query = new GetAllExpensesByUserQuery(CurrentUserId);
+            var result = await _mediator.SendCommand(new RecreateDatabaseAndSetInitialDataCommand());
 
-            if (!query.IsValid())
-                return CustomResponse(query.ValidationResult);
-
-            var expenses = await _mediator.SendCommand(query);
-
-            return Ok();
+            return Ok(result);
         }
     }
 }

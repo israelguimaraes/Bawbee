@@ -9,7 +9,7 @@ namespace Bawbee.Infra.Data.SQLServer
     {
         public BawbeeDbContext(DbContextOptions options) : base(options)
         {
-
+            Database.Migrate();
         }
 
         public DbSet<User> Users { get; set; }
