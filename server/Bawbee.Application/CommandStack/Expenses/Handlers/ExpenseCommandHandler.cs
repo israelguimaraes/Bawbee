@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.CommandStack.Entries.Handlers
 {
-    public class ExpenseCommandHandler : BaseCommandHandler,
+    public class ExpenseCommandHandler : CommandHandler,
         ICommandHandler<CreateExpenseCommand>,
         ICommandHandler<UpdateExpenseCommand>,
         ICommandHandler<DeleteExpenseCommand>

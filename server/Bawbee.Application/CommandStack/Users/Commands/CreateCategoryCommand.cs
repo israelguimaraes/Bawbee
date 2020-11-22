@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class CreateCategoryCommand : BaseCommand
+    public class CreateCategoryCommand : Command
     {
         public string Name { get; }
         public int UserId { get; }

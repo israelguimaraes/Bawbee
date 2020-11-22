@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.CommandStack.Users.Handlers
 {
-    public class UserCommandHandler : BaseCommandHandler,
+    public class UserCommandHandler : CommandHandler,
         ICommandHandler<CreateUserCommand>,
         ICommandHandler<LoginCommand>,
         ICommandHandler<CreateCategoryCommand>,

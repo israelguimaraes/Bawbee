@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Core.Commands
 {
-    public abstract class BaseCommandHandler
+    public abstract class CommandHandler
     {
         private readonly IMediatorHandler _mediator;
         private readonly IUnitOfWork _unitOfWork;
         private readonly DomainNotificationHandler _notificationHandler;
 
-        public BaseCommandHandler(IMediatorHandler mediator, IUnitOfWork unitOfWork, INotificationHandler<DomainNotification> notificationHandler)
+        public CommandHandler(IMediatorHandler mediator, IUnitOfWork unitOfWork, INotificationHandler<DomainNotification> notificationHandler)
         {
             _mediator = mediator;
             _unitOfWork = unitOfWork;

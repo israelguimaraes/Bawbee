@@ -67,10 +67,10 @@ namespace Bawbee.Infra.CrossCutting.IoC
         private static void RegisterAssembliesForMediatr(IServiceCollection services)
         {
             // Bawbee.Domain
-            services.AddMediatR(typeof(BaseCommandHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(CommandHandler).GetTypeInfo().Assembly);
 
             // Bawbee.Domain.Core
-            services.AddMediatR(typeof(BaseCommand).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(Command).GetTypeInfo().Assembly);
 
             // Bawbee.Application
             services.AddMediatR(typeof(UserCommandHandler).GetTypeInfo().Assembly);

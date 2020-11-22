@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Expenses.Commands
 {
-    public class DeleteExpenseCommand : BaseCommand
+    public class DeleteExpenseCommand : Command
     {
         public int EntryId { get; }
         public int UserId { get; }

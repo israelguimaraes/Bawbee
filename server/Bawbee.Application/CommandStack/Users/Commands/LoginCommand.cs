@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class LoginCommand : BaseCommand
+    public class LoginCommand : Command
     {
         public string Email { get; }
         public string Password { get; }

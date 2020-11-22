@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class CreateBankAccountCommand : BaseCommand
+    public class CreateBankAccountCommand : Command
     {
         public string Name { get; }
         public decimal InitialBalance { get; }

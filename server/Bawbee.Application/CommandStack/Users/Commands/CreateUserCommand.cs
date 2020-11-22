@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Bawbee.Application.CommandStack.Users.Commands
 {
-    public class CreateUserCommand : BaseCommand
+    public class CreateUserCommand : Command
     {
         public string Name { get; }
         public string LastName { get; }

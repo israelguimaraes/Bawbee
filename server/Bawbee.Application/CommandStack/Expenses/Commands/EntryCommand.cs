@@ -3,7 +3,7 @@ using System;
 
 namespace Bawbee.Application.CommandStack.Expenses.Commands
 {
-    public abstract class EntryCommand : BaseCommand
+    public abstract class EntryCommand : Command
     {
         public int EntryId { get; protected set; }
         public string Description { get; protected set; }

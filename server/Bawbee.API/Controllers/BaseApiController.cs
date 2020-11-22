@@ -37,7 +37,7 @@ namespace Bawbee.API.Controllers
         protected IActionResult CustomResponse(object data)
         {
             if (IsValidOperation)
-                return OkResponse(data);
+                return Ok(data);
 
             return BadRequestResponse();
         }
@@ -45,14 +45,9 @@ namespace Bawbee.API.Controllers
         protected IActionResult CustomResponse(CommandResult commandResult = null)
         {
             if (IsValidOperation && commandResult.Success)
-                return OkResponse(commandResult);
+                return Ok(commandResult);
 
             return BadRequestResponse();
-        }
-
-        private IActionResult OkResponse(object data)
-        {
-            return Ok(data);
         }
 
         private IActionResult BadRequestResponse(ValidationResult validationResult)
@@ -67,7 +62,8 @@ namespace Bawbee.API.Controllers
 
         private IActionResult BadRequestResponse()
         {
-            var result = CommandResult.Error(GetNotifications.Select(n => n.Value));
+            var notifications = GetNotifications.Select(n => n.Value);
+            var result = CommandResult.Error(notifications);
 
             return BadRequest(result);
         }
