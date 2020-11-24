@@ -10,6 +10,6 @@ namespace Bawbee.Application.QueryStack.Users.ReadModels.Expenses
         public string CategoryName { get; set; }
         public string BankAccountName { get; set; }
         public bool IsPaid { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime Date { get; set; }
     }
 }

@@ -68,7 +68,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding CreatedAt, StringFormat='{0:MMMM dd}'}"
+                                <Label Text="{Binding Date, StringFormat='{0:MMMM dd}'}"
                                        Grid.RowSpan="2"/>
                                 
                                 <Label Text="{Binding Description}"

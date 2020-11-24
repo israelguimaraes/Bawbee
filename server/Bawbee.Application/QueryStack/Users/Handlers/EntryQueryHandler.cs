@@ -33,7 +33,7 @@ namespace Bawbee.Application.QueryStack.Users.Handlers
                 CategoryName = e.CategoryName,
                 BankAccountName = e.BankAccountName,
                 IsPaid = e.IsPaid,
-                CreatedAt = e.CreatedAt
+                Date = e.Date
             });
         }
 

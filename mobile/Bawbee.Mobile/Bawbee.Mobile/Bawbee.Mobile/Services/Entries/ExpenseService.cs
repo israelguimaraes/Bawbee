@@ -28,7 +28,7 @@ namespace Bawbee.Mobile.Services.Entries
             {
                 var entries = await _request.GetAsync<IEnumerable<EntryReadModel>>(Endpoint);
 
-                return new ObservableCollection<EntryReadModel>(entries.OrderByDescending(e => e.CreatedAt));
+                return new ObservableCollection<EntryReadModel>(entries.OrderByDescending(e => e.Date));
             }
             catch (Exception ex)
             {

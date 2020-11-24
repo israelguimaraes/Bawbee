@@ -45,7 +45,7 @@ namespace Bawbee.Application.CommandStack.Admin.Handlers
                     // RavenDB - delete all documents
                     Task.Run(() =>
                     {
-                        var ravenDB = _adminRavenDBRepository.DeleteAllDocuments();
+                        _adminRavenDBRepository.DeleteAllDocuments();
                     }),
                     // SQL - delete database
                     Task.Run(() =>
