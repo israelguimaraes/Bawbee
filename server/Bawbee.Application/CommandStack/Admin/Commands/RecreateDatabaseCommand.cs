@@ -2,7 +2,7 @@
 
 namespace Bawbee.Application.CommandStack.Admin.Commands
 {
-    public class RecreateDatabaseAndSetInitialDataCommand : Command
+    public class RecreateDatabaseCommand : Command
     {
         public override bool IsValid()
         {

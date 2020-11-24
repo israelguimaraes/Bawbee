@@ -43,7 +43,7 @@ namespace Bawbee.API.Controllers
             // recreate database
             using (var scope = _serviceProvider.CreateScope())
             {
-                var result = await _mediator.SendCommand(new RecreateDatabaseAndSetInitialDataCommand());
+                var result = await _mediator.SendCommand(new RecreateDatabaseCommand());
             }
 
             // create user
