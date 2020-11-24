@@ -44,6 +44,7 @@ namespace Bawbee.Infra.CrossCutting.IoC
 
             services.AddScoped<IEntryRepository, EntrySqlServerRepository>();
             services.AddScoped<IEntryReadRepository, EntryRavenDBRepository>();
+            services.AddScoped<IAdminRavenDBRepository, AdminRavenDBRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<INoSQLUnitOfWork, NoSQLUnitOfWork>();

@@ -54,7 +54,7 @@ namespace Bawbee.Mobile.Services.Entries
         {
             var monthExpenses = await _request.GetAsync<IEnumerable<MonthExpense>>($"{Endpoint}/month/{DateTime.Now.Month}");
 
-            return new ObservableCollection<MonthExpense>(monthExpenses);
+            return new ObservableCollection<MonthExpense>(monthExpenses.OrderByDescending(e => e.TotalValue));
         }
     }
 }

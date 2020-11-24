@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bawbee.Infra.Data.Migrations
 {
     [DbContext(typeof(BawbeeDbContext))]
-    [Migration("20201121190506_Initial")]
+    [Migration("20201122194914_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

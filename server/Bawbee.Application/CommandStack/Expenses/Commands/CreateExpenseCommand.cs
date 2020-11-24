@@ -41,8 +41,7 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
                 .WithMessage($"{nameof(CreateExpenseCommand.Description)} is required");
 
             RuleFor(c => c.Value)
-                .NotEmpty()
-                .Must(value => value != default)
+                .Must(c => c.IsNotZero())
                 .WithMessage($"{nameof(CreateExpenseCommand.Value)} is required");
 
             RuleFor(c => c.Date)

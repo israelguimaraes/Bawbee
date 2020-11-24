@@ -4,6 +4,11 @@ namespace Bawbee.Infra.CrossCutting.Extensions
 {
     public static class NumberExtensions
     {
+        public static bool IsNotZero(this decimal value)
+        {
+            return value != 0;
+        }
+
         public static bool IsGreaterThanZero(this int value)
         {
             return value > 0;

@@ -57,7 +57,7 @@ namespace Bawbee.Application.CommandStack.Users.Handlers
                 await _mediator.PublishEvent(userRegisteredEvent);
             }
 
-            return CommandResult.Ok();
+            return CommandResult.Ok(user);
         }
 
         public async Task<CommandResult> Handle(LoginCommand command, CancellationToken cancellationToken)
