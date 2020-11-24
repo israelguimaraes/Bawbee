@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.CommandStack.Expenses.InputModels;
+﻿using Bawbee.Application.CommandStack.Entries.InputModels;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Notifications;
 using MediatR;

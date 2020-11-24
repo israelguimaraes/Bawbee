@@ -1,5 +1,5 @@
 ﻿using Bawbee.Application.Adapters;
-using Bawbee.Application.CommandStack.Expenses.Commands;
+using Bawbee.Application.CommandStack.Entries.Commands;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.CommandStack.Entries.Handlers
 {
-    public class ExpenseCommandHandler : CommandHandler,
+    public class EntryCommandHandler : CommandHandler,
         ICommandHandler<CreateExpenseCommand>,
         ICommandHandler<UpdateExpenseCommand>,
         ICommandHandler<DeleteExpenseCommand>
@@ -19,7 +19,7 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
         private readonly IMediatorHandler _mediator;
         private readonly IEntryRepository _entryRepository;
 
-        public ExpenseCommandHandler(
+        public EntryCommandHandler(
             IMediatorHandler mediator,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler,

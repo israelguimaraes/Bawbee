@@ -1,7 +1,7 @@
-﻿namespace Bawbee.Application.CommandStack.Expenses.InputModels
+﻿namespace Bawbee.Application.CommandStack.Entries.InputModels
 {
     public class CreateExpenseInputModel : EntryInputModel
     {
-        
+
     }
 }

@@ -2,11 +2,12 @@
 using FluentValidation;
 using System;
 
-namespace Bawbee.Application.CommandStack.Expenses.Commands
+namespace Bawbee.Application.CommandStack.Entries.Commands
 {
-    public class CreateExpenseCommand : EntryCommand
+    public class UpdateExpenseCommand : EntryCommand
     {
-        public CreateExpenseCommand(
+        public UpdateExpenseCommand(
+            int entryId,
             string description,
             decimal value,
             bool isPaid,
@@ -14,8 +15,7 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
             DateTime dateToPay,
             int userId,
             int bankAccountId,
-            int categoryId,
-            int entryId = 0)
+            int categoryId)
             : base(description, value, isPaid, observations, dateToPay, userId, bankAccountId, categoryId, entryId)
         {
 
@@ -23,15 +23,19 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new AddExpenseCommandValidator().Validate(this);
+            ValidationResult = new UpdateExpenseCommandValidator().Validate(this);
             return ValidationResult.IsValid;
         }
     }
 
-    public class AddExpenseCommandValidator : AbstractValidator<CreateExpenseCommand>
+    public class UpdateExpenseCommandValidator : AbstractValidator<UpdateExpenseCommand>
     {
-        public AddExpenseCommandValidator()
+        public UpdateExpenseCommandValidator()
         {
+            RuleFor(c => c.EntryId)
+                .Must(c => c.IsGreaterThanZero())
+                .WithMessage($"{nameof(CreateExpenseCommand.EntryId)} is invalid");
+
             RuleFor(c => c.UserId)
                 .Must(c => c.IsGreaterThanZero())
                 .WithMessage($"{nameof(CreateExpenseCommand.UserId)} is invalid");
@@ -41,8 +45,12 @@ namespace Bawbee.Application.CommandStack.Expenses.Commands
                 .WithMessage($"{nameof(CreateExpenseCommand.Description)} is required");
 
             RuleFor(c => c.Value)
-                .Must(c => c.IsNotZero())
+                .NotEmpty()
                 .WithMessage($"{nameof(CreateExpenseCommand.Value)} is required");
+
+            RuleFor(c => c.IsPaid)
+               .NotEmpty()
+               .WithMessage($"{nameof(CreateExpenseCommand.IsPaid)} is required");
 
             RuleFor(c => c.Date)
                .Must(c => c != DateTime.MinValue)

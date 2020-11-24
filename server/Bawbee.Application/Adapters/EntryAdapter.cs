@@ -1,5 +1,5 @@
-﻿using Bawbee.Application.CommandStack.Expenses.Commands;
-using Bawbee.Application.CommandStack.Expenses.InputModels;
+﻿using Bawbee.Application.CommandStack.Entries.Commands;
+using Bawbee.Application.CommandStack.Entries.InputModels;
 using Bawbee.Domain.AggregatesModel.Entries;
 using Bawbee.Domain.Events.Entries;
 

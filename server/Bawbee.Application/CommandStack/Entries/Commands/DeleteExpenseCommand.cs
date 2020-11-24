@@ -2,7 +2,7 @@
 using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;
 
-namespace Bawbee.Application.CommandStack.Expenses.Commands
+namespace Bawbee.Application.CommandStack.Entries.Commands
 {
     public class DeleteExpenseCommand : Command
     {

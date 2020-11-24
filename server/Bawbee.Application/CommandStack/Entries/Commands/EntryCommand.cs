@@ -1,7 +1,7 @@
 ﻿using Bawbee.Core.Commands;
 using System;
 
-namespace Bawbee.Application.CommandStack.Expenses.Commands
+namespace Bawbee.Application.CommandStack.Entries.Commands
 {
     public abstract class EntryCommand : Command
     {

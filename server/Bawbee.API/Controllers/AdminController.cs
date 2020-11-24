@@ -1,5 +1,5 @@
 ﻿using Bawbee.Application.CommandStack.Admin.Commands;
-using Bawbee.Application.CommandStack.Expenses.Commands;
+using Bawbee.Application.CommandStack.Entries.Commands;
 using Bawbee.Application.CommandStack.Users.Commands;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
