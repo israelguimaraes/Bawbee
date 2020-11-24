@@ -76,7 +76,7 @@ namespace Bawbee.Infra.Data.Migrations
                     Value = table.Column<decimal>(nullable: false),
                     IsPaid = table.Column<bool>(nullable: false),
                     Observations = table.Column<string>(maxLength: 255, nullable: true),
-                    DateToPay = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     BankAccountId = table.Column<int>(nullable: false),
                     CategoryId = table.Column<int>(nullable: false),

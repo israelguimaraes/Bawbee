@@ -9,15 +9,13 @@ namespace Bawbee.Infra.Data.SQLServer
     {
         public BawbeeDbContext(DbContextOptions options) : base(options)
         {
-            Database.Migrate();
+
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Entry> Entries { get; set; }
-        public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Income> Incomes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
