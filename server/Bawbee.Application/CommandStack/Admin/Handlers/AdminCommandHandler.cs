@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace Bawbee.Application.CommandStack.Admin.Handlers
 {
     public class AdminCommandHandler : CommandHandler,
-        ICommandHandler<RecreateDatabaseAndSetInitialDataCommand>
+        ICommandHandler<RecreateDatabaseCommand>
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IAdminRavenDBRepository _adminRavenDBRepository;
@@ -34,7 +34,7 @@ namespace Bawbee.Application.CommandStack.Admin.Handlers
             _adminRavenDBRepository = adminRavenDBRepository;
         }
 
-        public async Task<CommandResult> Handle(RecreateDatabaseAndSetInitialDataCommand command, CancellationToken cancellationToken)
+        public async Task<CommandResult> Handle(RecreateDatabaseCommand command, CancellationToken cancellationToken)
         {
             var time = Stopwatch.StartNew();
 
