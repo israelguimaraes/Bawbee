@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,11 +23,11 @@ namespace Bawbee.Application.CommandStack.Admin.Handlers
         private readonly IAdminRavenDBRepository _adminRavenDBRepository;
 
         public AdminCommandHandler(
-            IMediatorHandler mediator, 
+            IMediatorHandler mediator,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler,
             IServiceProvider serviceProvider,
-            IAdminRavenDBRepository adminRavenDBRepository) 
+            IAdminRavenDBRepository adminRavenDBRepository)
             : base(mediator, unitOfWork, notificationHandler)
         {
             _serviceProvider = serviceProvider;
@@ -39,30 +40,27 @@ namespace Bawbee.Application.CommandStack.Admin.Handlers
 
             using (var scope = _serviceProvider.CreateScope())
             {
-                // RavenDB - delete all documents
-                var ravenDB = _adminRavenDBRepository.DeleteAllDocuments();
-
-                // SQL - delete database
-                var sqlServer = Task.Run(() =>
+                var tasks = new List<Task>
                 {
-                    var context = scope.ServiceProvider.GetService<BawbeeDbContext>();
-                    context.Database.EnsureDeleted();
-                    context.Database.Migrate();
-                });
+                    // RavenDB - delete all documents
+                    Task.Run(() =>
+                    {
+                        var ravenDB = _adminRavenDBRepository.DeleteAllDocuments();
+                    }),
+                    // SQL - delete database
+                    Task.Run(() =>
+                    {
+                        var context = scope.ServiceProvider.GetService<BawbeeDbContext>();
+                        context.Database.EnsureDeleted();
+                        context.Database.Migrate();
+                    })
+                };
 
-                Task.WaitAll(ravenDB, sqlServer);
-
-                // insert initial data
-                await _adminRavenDBRepository.CreateInitialData();
-
-                await CommitTransaction();
+                Task.WaitAll(tasks.ToArray());
 
                 time.Stop();
 
-                var result = new
-                {
-                    TimeSpan.FromMilliseconds(time.ElapsedMilliseconds).TotalSeconds
-                };
+                var result = new { TimeSpan.FromMilliseconds(time.ElapsedMilliseconds).TotalSeconds };
 
                 return CommandResult.Ok(result);
             }
