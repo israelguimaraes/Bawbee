@@ -55,7 +55,7 @@
                         <Label Text="Date"
                            Grid.Column="0"
                            FontSize="Medium" />
-                        <DatePicker Date="{Binding Expense.DateToPay}"
+                        <DatePicker Date="{Binding SelectedDate, Mode=TwoWay}"
                                 Grid.Column="0"
                                 Grid.Row="1"/>
 

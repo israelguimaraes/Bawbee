@@ -3,6 +3,7 @@ using Bawbee.Mobile.Models.Entries;
 using Bawbee.Mobile.Services;
 using Bawbee.Mobile.Services.Entries;
 using Bawbee.Mobile.ViewModels.Base;
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -73,6 +74,18 @@ namespace Bawbee.Mobile.ViewModels.Entries
             set
             {
                 _bankAccounts = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private DateTime _selectedDate = DateTime.Now.Date;
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                _selectedDate = value;
+                Expense.Date = _selectedDate;
                 OnPropertyChanged();
             }
         }
