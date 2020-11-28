@@ -23,7 +23,7 @@ namespace Bawbee.Mobile.ViewModels.Auth
             }
         }
 
-        private string _password;
+        private string _password = "123456";
         public string Password
         {
             get => _password;
