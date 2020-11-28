@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.QueryStack.Users.ReadModels.Expenses;
+﻿using Bawbee.Application.QueryStack.Users.ReadModels.Entries;
 using Bawbee.Core.Commands;
 using Bawbee.Infra.CrossCutting.Extensions;
 using FluentValidation;

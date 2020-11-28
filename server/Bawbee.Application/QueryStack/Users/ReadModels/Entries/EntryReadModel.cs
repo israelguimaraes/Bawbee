@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Bawbee.Application.QueryStack.Users.ReadModels.Expenses
+namespace Bawbee.Application.QueryStack.Users.ReadModels.Entries
 {
-    public class ExpenseReadModel
+    public class EntryReadModel
     {
         public int Id { get; set; }
         public string Description { get; set; }

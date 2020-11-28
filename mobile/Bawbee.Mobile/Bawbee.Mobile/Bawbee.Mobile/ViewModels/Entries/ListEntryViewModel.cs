@@ -48,11 +48,11 @@ namespace Bawbee.Mobile.ViewModels.Entries
             }
         }
 
-        public async Task LoadEntries()
+        public async Task LoadCurrenthMonthEntries()
         {
             IsBusy = true;
 
-            Entries = await _entryService.GetEntries();
+            Entries = await _entryService.GetCurrenthMonthEntries();
 
             IsBusy = false;
         }

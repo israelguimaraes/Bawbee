@@ -14,14 +14,14 @@ namespace Bawbee.Mobile.Views.Entries
 
         protected override async void OnAppearing()
         {
-            await (BindingContext as ListEntryViewModel).LoadEntries();
-
-            base.OnAppearing();
+            await (BindingContext as ListEntryViewModel).LoadCurrenthMonthEntries();
 
             MessagingCenter.Subscribe<ListEntryViewModel>(this, ListEntryViewModel.MessageKey.OpenModalNewEntry, async (msg) =>
             {
                 await Navigation.PushAsync(new EntryTabbedPage());
             });
+
+            base.OnAppearing();
         }
 
         protected override void OnDisappearing()

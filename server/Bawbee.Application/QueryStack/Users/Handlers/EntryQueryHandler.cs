@@ -1,5 +1,5 @@
 ﻿using Bawbee.Application.QueryStack.Users.Queries.Entries;
-using Bawbee.Application.QueryStack.Users.ReadModels.Expenses;
+using Bawbee.Application.QueryStack.Users.ReadModels.Entries;
 using Bawbee.Core.Commands;
 using Bawbee.Infra.CrossCutting.Extensions;
 using Bawbee.Infra.Data.ReadInterfaces;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Bawbee.Application.QueryStack.Users.Handlers
 {
     public class EntryQueryHandler :
-        ICommandQueryHandler<GetAllExpensesByUserQuery, IEnumerable<ExpenseReadModel>>,
+        ICommandQueryHandler<GetMonthEntriesQuery, IEnumerable<EntryReadModel>>,
         ICommandQueryHandler<GetTotalExpensesGroupedByMonthQuery, IEnumerable<MonthExpenseReadModel>>
     {
         private readonly IEntryReadRepository _entryReadRepository;
@@ -21,11 +21,11 @@ namespace Bawbee.Application.QueryStack.Users.Handlers
             _entryReadRepository = entryReadRepository;
         }
 
-        public async Task<IEnumerable<ExpenseReadModel>> Handle(GetAllExpensesByUserQuery query, CancellationToken cancellationToken)
+        public async Task<IEnumerable<EntryReadModel>> Handle(GetMonthEntriesQuery query, CancellationToken cancellationToken)
         {
-            var entries = await _entryReadRepository.GetAllByUser(query.UserId);
+            var entries = await _entryReadRepository.GetMonthEntries(query.UserId, query.Month);
 
-            return entries.Select(e => new ExpenseReadModel
+            return entries.Select(e => new EntryReadModel
             {
                 Id = e.EntryId,
                 Description = e.Description,

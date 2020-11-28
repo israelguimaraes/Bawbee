@@ -17,10 +17,10 @@ namespace Bawbee.Infra.Data.RavenDB.Repositories
             _session = session;
         }
 
-        public async Task<IEnumerable<EntryDocument>> GetAllByUser(int userId)
+        public async Task<IEnumerable<EntryDocument>> GetMonthEntries(int userId, int month)
         {
             return await _session.Query<EntryDocument>()
-                .Where(e => e.UserId == userId)
+                .Where(e => e.UserId == userId && e.Date.Month == month)
                 .ToListAsync();
         }
 

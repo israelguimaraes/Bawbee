@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Application.QueryStack.Users.ReadModels.Expenses
+﻿namespace Bawbee.Application.QueryStack.Users.ReadModels.Entries
 {
     public class MonthExpenseReadModel
     {

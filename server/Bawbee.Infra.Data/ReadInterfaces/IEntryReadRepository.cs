@@ -6,7 +6,7 @@ namespace Bawbee.Infra.Data.ReadInterfaces
 {
     public interface IEntryReadRepository
     {
-        Task<IEnumerable<EntryDocument>> GetAllByUser(int userId);
+        Task<IEnumerable<EntryDocument>> GetMonthEntries(int userId, int month);
         Task<IEnumerable<EntryDocument>> GetAllExpensesByMonth(int userId, int month);
     }
 }

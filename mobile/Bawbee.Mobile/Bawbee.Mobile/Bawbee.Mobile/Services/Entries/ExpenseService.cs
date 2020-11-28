@@ -13,7 +13,7 @@ namespace Bawbee.Mobile.Services.Entries
 {
     public class ExpenseService
     {
-        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/expenses";
+        private static readonly string Endpoint = $"{AppConfiguration.BASE_URL}/api/v1/entries/expenses";
 
         private readonly RequestProvider _request;
 
@@ -22,11 +22,11 @@ namespace Bawbee.Mobile.Services.Entries
             _request = new RequestProvider();
         }
 
-        public async Task<ObservableCollection<EntryReadModel>> GetEntries()
+        public async Task<ObservableCollection<EntryReadModel>> GetCurrenthMonthEntries()
         {
             try
             {
-                var entries = await _request.GetAsync<IEnumerable<EntryReadModel>>(Endpoint);
+                var entries = await _request.GetAsync<IEnumerable<EntryReadModel>>($"{Endpoint}/month/{DateTime.Now.Month}");
 
                 return new ObservableCollection<EntryReadModel>(entries.OrderByDescending(e => e.Date));
             }
@@ -52,9 +52,16 @@ namespace Bawbee.Mobile.Services.Entries
 
         public async Task<ObservableCollection<MonthExpense>> GetCurrentMonthExpenses()
         {
-            var monthExpenses = await _request.GetAsync<IEnumerable<MonthExpense>>($"{Endpoint}/month/{DateTime.Now.Month}");
+            try
+            {
+                var monthExpenses = await _request.GetAsync<IEnumerable<MonthExpense>>($"{Endpoint}/reports/month/{DateTime.Now.Month}");
 
-            return new ObservableCollection<MonthExpense>(monthExpenses.OrderByDescending(e => e.TotalValue));
+                return new ObservableCollection<MonthExpense>(monthExpenses.OrderByDescending(e => e.TotalValue));
+            }
+            catch (Exception ex)
+            {
+                return new ObservableCollection<MonthExpense>();
+            }
         }
     }
 }
