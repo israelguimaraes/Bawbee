@@ -39,7 +39,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
             set
             {
                 _selectedCategory = value;
-                Expense.CategoryId = _selectedCategory.Id;
+                Expense.CategoryId = _selectedCategory?.Id;
                 OnPropertyChanged();
             }
         }
@@ -51,7 +51,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
             set
             {
                 _selectedBankAccount = value;
-                Expense.BankAccountId = _selectedBankAccount.Id;
+                Expense.BankAccountId = _selectedBankAccount?.Id;
                 OnPropertyChanged();
             }
         }
@@ -78,7 +78,7 @@ namespace Bawbee.Mobile.ViewModels.Entries
             }
         }
 
-        private DateTime _selectedDate = DateTime.Now.Date;
+        private DateTime _selectedDate = DateTime.Now;
         public DateTime SelectedDate
         {
             get => _selectedDate;
