@@ -59,6 +59,8 @@ namespace Bawbee.API.Controllers
             // create expenses
             var user = resultUser.Data as User;
 
+            var today = DateTime.Now;
+
             for (int i = 1; i < 10; i++)
             {
                 using (var scope = _serviceProvider.CreateScope())
@@ -67,7 +69,7 @@ namespace Bawbee.API.Controllers
                         $"description {i}",
                         (i * 1.45m),
                         true, null,
-                        DateTime.Now.AddDays(-i),
+                        new DateTime(today.Year,today.Month, i, today.Hour, today.Minute, today.Second, today.Millisecond),
                         user.Id,
                         1, 
                         (i+ 1));
