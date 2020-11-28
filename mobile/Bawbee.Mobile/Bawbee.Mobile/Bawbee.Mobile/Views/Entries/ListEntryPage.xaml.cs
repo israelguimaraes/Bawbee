@@ -14,9 +14,9 @@ namespace Bawbee.Mobile.Views.Entries
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
-
             await (BindingContext as ListEntryViewModel).LoadEntries();
+
+            base.OnAppearing();
 
             MessagingCenter.Subscribe<ListEntryViewModel>(this, ListEntryViewModel.MessageKey.OpenModalNewEntry, async (msg) =>
             {
