@@ -5,8 +5,8 @@
         Dashboard,
         Entries,
         Reports,
-        EntriesCategory,
         CreditCards,
+        Category,
         BankAccounts,
         Profile,
         Logout

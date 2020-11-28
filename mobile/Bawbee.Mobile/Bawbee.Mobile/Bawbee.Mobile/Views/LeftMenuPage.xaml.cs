@@ -23,8 +23,8 @@ namespace Bawbee.Mobile.Views
                 new HomeMenuItem { Title = "Dashboard", Type = MenuItemType.Dashboard },
                 new HomeMenuItem { Title = "Entries", Type = MenuItemType.Entries },
                 new HomeMenuItem { Title = "Reports", Type = MenuItemType.Reports },
-                new HomeMenuItem { Title = "Categories", Type = MenuItemType.EntriesCategory },
                 new HomeMenuItem { Title = "Credit Cards", Type = MenuItemType.CreditCards },
+                new HomeMenuItem { Title = "Categories", Type = MenuItemType.Category },
                 new HomeMenuItem { Title = "Bank Accounts", Type = MenuItemType.BankAccounts },
                 new HomeMenuItem { Title = "Profile", Type = MenuItemType.Profile },
                 new HomeMenuItem { Title = "Logout", Type = MenuItemType.Logout }

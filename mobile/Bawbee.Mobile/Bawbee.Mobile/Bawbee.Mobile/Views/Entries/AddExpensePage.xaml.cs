@@ -20,7 +20,10 @@ namespace Bawbee.Mobile.Views.Entries
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) => 
             {
-                await Navigation.PopAsync(true);
+                //await Navigation.PopAsync(true);
+
+                //Navigation.RemovePage(this);
+                await Navigation.PopToRootAsync();
             });
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryFormInvalid, async (msg) =>
