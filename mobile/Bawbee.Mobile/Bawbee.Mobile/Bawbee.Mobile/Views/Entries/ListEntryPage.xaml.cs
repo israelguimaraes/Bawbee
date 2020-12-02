@@ -1,4 +1,5 @@
-﻿using Bawbee.Mobile.ViewModels.Entries;
+﻿using Bawbee.Mobile.Helpers;
+using Bawbee.Mobile.ViewModels.Entries;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -14,14 +15,14 @@ namespace Bawbee.Mobile.Views.Entries
 
         protected override async void OnAppearing()
         {
+            base.OnAppearing();
+
             await (BindingContext as ListEntryViewModel).LoadCurrenthMonthEntries();
 
             MessagingCenter.Subscribe<ListEntryViewModel>(this, ListEntryViewModel.MessageKey.OpenModalNewEntry, async (msg) =>
             {
                 await Navigation.PushAsync(new EntryTabbedPage());
             });
-
-            base.OnAppearing();
         }
 
         protected override void OnDisappearing()
@@ -29,6 +30,12 @@ namespace Bawbee.Mobile.Views.Entries
             base.OnDisappearing();
 
             MessagingCenter.Unsubscribe<ListEntryViewModel>(this, ListEntryViewModel.MessageKey.OpenModalNewEntry);
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            NavigationHelper.ToMenu(Models.Menu.MenuItemType.Dashboard);
+            return true;
         }
     }
 }

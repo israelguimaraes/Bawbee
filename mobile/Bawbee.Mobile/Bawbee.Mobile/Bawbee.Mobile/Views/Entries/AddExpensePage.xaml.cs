@@ -18,12 +18,9 @@ namespace Bawbee.Mobile.Views.Entries
 
             await (BindingContext as AddExpenseViewModel).Init();
 
-            MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) => 
+            MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryAdded, async (msg) =>
             {
-                //await Navigation.PopAsync(true);
-
-                //Navigation.RemovePage(this);
-                await Navigation.PopToRootAsync();
+                await Navigation.PopAsync();
             });
 
             MessagingCenter.Subscribe<AddExpenseViewModel>(this, AddExpenseViewModel.MessageKey.EntryFormInvalid, async (msg) =>
