@@ -1,4 +1,4 @@
-﻿using Bawbee.Mobile.Helpers;
+﻿using Bawbee.Mobile.Models.Menu;
 using Bawbee.Mobile.ViewModels.Entries;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -34,7 +34,11 @@ namespace Bawbee.Mobile.Views.Entries
 
         protected override bool OnBackButtonPressed()
         {
-            NavigationHelper.ToMenu(Models.Menu.MenuItemType.Dashboard);
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await (App.Current.MainPage as MainPage).NavigateFromMenu((int)MenuItemType.Dashboard);
+            });
+
             return true;
         }
     }

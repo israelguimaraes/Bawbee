@@ -52,6 +52,8 @@ namespace Bawbee.Mobile.ViewModels.Entries
         {
             IsBusy = true;
 
+            await Task.Delay(250);
+
             Entries = await _entryService.GetCurrenthMonthEntries();
 
             IsBusy = false;
