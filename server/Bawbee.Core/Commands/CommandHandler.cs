@@ -32,7 +32,7 @@ namespace Bawbee.Core.Commands
             if (await _unitOfWork.CommitTransaction())
                 return true;
 
-            await _mediator.PublishEvent(new DomainNotification("Commit transaction failed."));
+            await AddDomainNotification("Commit transaction failed.");
             return false;
         }
     }
