@@ -35,5 +35,15 @@ namespace Bawbee.Core.Commands
             await AddDomainNotification("Commit transaction failed.");
             return false;
         }
+
+        protected Operation Response(Command command)
+        {
+            command.OperationResult
+        }
+
+        protected Operation Error()
+        {
+            return 
+        }
     }
 }

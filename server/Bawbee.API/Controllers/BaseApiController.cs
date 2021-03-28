@@ -29,44 +29,70 @@ namespace Bawbee.API.Controllers
 
         protected bool IsValidOperation => !GetNotifications.Any();
 
-        protected IActionResult CustomResponse(ValidationResult validationResult)
+        protected IActionResult CustomResponse(Operation command)
         {
-            return BadRequestResponse(validationResult);
-        }
-
-        protected IActionResult CustomResponse(object data)
-        {
-            if (IsValidOperation)
-                return Ok(data);
-
-            return BadRequestResponse();
-        }
-
-        protected IActionResult CustomResponse(CommandResult commandResult = null)
-        {
-            if (IsValidOperation && commandResult.Success)
-                return Ok(commandResult);
-
-            return BadRequestResponse();
-        }
-
-        private IActionResult BadRequestResponse(ValidationResult validationResult)
-        {
-            foreach (var error in validationResult.Errors)
+            switch (command.OperationResult)
             {
-                _notificationHandler.AddNotification(error.ErrorMessage);
+                case OperationEnum.Create:
+                    break;
+                case OperationEnum.Update:
+                    break;
+                case OperationEnum.UpdateReturn:
+                    break;
+                case OperationEnum.Delete:
+                    break;
+                case OperationEnum.Read:
+                    break;
+                case OperationEnum.BadRead:
+                    break;
+                case OperationEnum.BadRequest:
+                    break;
+                case OperationEnum.Error:
+                    break;
+                default:
+                    break;
             }
 
-            return BadRequestResponse();
+            return BadRequest();
         }
 
-        private IActionResult BadRequestResponse()
-        {
-            var notifications = GetNotifications.Select(n => n.Value);
-            var result = CommandResult.Error(notifications);
+        //#region MyRegion
 
-            return BadRequest(result);
-        }
+        //protected IActionResult CustomResponse(object data)
+        //{
+        //    if (IsValidOperation)
+        //        return Ok(data);
+
+        //    return BadRequestResponse();
+        //}
+
+        //protected IActionResult CustomResponse(CommandResult commandResult = null)
+        //{
+        //    if (IsValidOperation && commandResult.Success)
+        //        return Ok(commandResult);
+
+        //    return BadRequestResponse();
+        //}
+
+        //private IActionResult BadRequestResponse(ValidationResult validationResult)
+        //{
+        //    foreach (var error in validationResult.Errors)
+        //    {
+        //        _notificationHandler.AddNotification(error.ErrorMessage);
+        //    }
+
+        //    return BadRequestResponse();
+        //}
+
+        //private IActionResult BadRequestResponse()
+        //{
+        //    var notifications = GetNotifications.Select(n => n.Value);
+        //    var result = CommandResult.Error(notifications);
+
+        //    return BadRequest(result);
+        //}
+
+        //#endregion
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {

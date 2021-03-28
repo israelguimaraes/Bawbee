@@ -6,6 +6,7 @@ using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
 using Bawbee.Domain.AggregatesModel.Entries;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,10 +40,10 @@ namespace Bawbee.Application.CommandStack.Entries.Handlers
             {
                 var @event = expense.MapToExpenseCreatedEvent();
                 await _mediator.PublishEvent(@event);
-                return CommandResult.Ok();
+                return Ok(command);
             }
 
-            return CommandResult.Error();
+            return Error();
         }
 
         public async Task<CommandResult> Handle(UpdateExpenseCommand command, CancellationToken cancellationToken)
