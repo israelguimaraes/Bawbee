@@ -11,5 +11,6 @@ namespace Bawbee.Core.Models
         {
             CreatedAt = DateTime.Now;
         }
+
     }
 }

@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.SharedKernel", "..\b
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Infrastructure", "..\backend\Bawbee.Infrastructure\Bawbee.Infrastructure.csproj", "{3FEFAD99-4E31-4EF1-81A8-AAB159072565}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.API", "..\backend\Bawbee.API\Bawbee.API.csproj", "{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -195,6 +197,18 @@ Global
 		{3FEFAD99-4E31-4EF1-81A8-AAB159072565}.Release|iPhone.Build.0 = Release|Any CPU
 		{3FEFAD99-4E31-4EF1-81A8-AAB159072565}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{3FEFAD99-4E31-4EF1-81A8-AAB159072565}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhone.Build.0 = Release|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
