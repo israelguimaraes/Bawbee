@@ -35,13 +35,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Core", "Bawbee.Core\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "old", "old", "{D4043047-90AF-4209-9568-33A0195C36C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Core", "..\backend\Bawbee.Core\Bawbee.Core.csproj", "{9DEC66FB-0CB2-4DF9-8C2E-DD810AC3597C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Core", "..\backend\Bawbee.Core\Bawbee.Core.csproj", "{9DEC66FB-0CB2-4DF9-8C2E-DD810AC3597C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.SharedKernel", "..\backend\Bawbee.SharedKernel\Bawbee.SharedKernel.csproj", "{5DD0D9A5-CD4B-46DC-9055-ED572E646C39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.SharedKernel", "..\backend\Bawbee.SharedKernel\Bawbee.SharedKernel.csproj", "{5DD0D9A5-CD4B-46DC-9055-ED572E646C39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Infrastructure", "..\backend\Bawbee.Infrastructure\Bawbee.Infrastructure.csproj", "{3FEFAD99-4E31-4EF1-81A8-AAB159072565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.Infrastructure", "..\backend\Bawbee.Infrastructure\Bawbee.Infrastructure.csproj", "{3FEFAD99-4E31-4EF1-81A8-AAB159072565}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bawbee.API", "..\backend\Bawbee.API\Bawbee.API.csproj", "{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bawbee.Application", "..\backend\Bawbee.Application\Bawbee.Application.csproj", "{B96FBC51-C385-40D2-B42F-92D62C735730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -209,6 +211,18 @@ Global
 		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhone.Build.0 = Release|Any CPU
 		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{A5130E6C-E71A-4DAD-A4E6-E9254DF33AB2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Release|iPhone.Build.0 = Release|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{B96FBC51-C385-40D2-B42F-92D62C735730}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
