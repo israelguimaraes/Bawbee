@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Expenses\" />
+    <Folder Include="UseCases\Incomes\" />
+    <Folder Include="UseCases\Users\" />
+  </ItemGroup>
+
 </Project>
