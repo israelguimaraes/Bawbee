@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bawbee.SharedKernel\Bawbee.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>

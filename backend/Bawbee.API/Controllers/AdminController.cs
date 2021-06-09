@@ -1,11 +1,11 @@
 ﻿using Bawbee.Application.CommandStack.Admin.Commands;
 using Bawbee.Application.CommandStack.Entries.Commands;
 using Bawbee.Application.CommandStack.Users.Commands;
+using Bawbee.Core.Aggregates.Users;
 using Bawbee.Core.Bus;
 using Bawbee.Core.Commands;
 using Bawbee.Core.Notifications;
 using Bawbee.Core.UnitOfWork;
-using Bawbee.Domain.AggregatesModel.Users;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

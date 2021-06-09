@@ -1,9 +1,9 @@
 using Bawbee.API.Setups;
+using Bawbee.Core.Aggregates.Entries.Events;
+using Bawbee.Core.Aggregates.Entries.Events.BankAccounts;
+using Bawbee.Core.Aggregates.Entries.Events.Categories;
+using Bawbee.Core.Aggregates.Entries.Events.Entries;
 using Bawbee.Core.Bus;
-using Bawbee.Domain.Events;
-using Bawbee.Domain.Events.BankAccounts;
-using Bawbee.Domain.Events.Categories;
-using Bawbee.Domain.Events.Entries;
 using Bawbee.Infra.CrossCutting.IoC;
 using Bawbee.Infra.Data.SQLServer;
 using MediatR;
