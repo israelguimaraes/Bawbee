@@ -1,8 +1,7 @@
-﻿using Bawbee.Core.Commands;
-using Bawbee.Core.Notifications;
+﻿using Bawbee.Application.Operations;
+using Bawbee.SharedKernel.Notifications;
 using FluentValidation.Results;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -12,7 +11,8 @@ using System.Security.Claims;
 
 namespace Bawbee.API.Controllers
 {
-    [Authorize(JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize("Bearer")]
+    //[Authorize(JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/v1/[controller]")]
     public abstract class BaseApiController : Controller
@@ -25,19 +25,13 @@ namespace Bawbee.API.Controllers
             _notificationHandler = (DomainNotificationHandler)notificationHandler;
         }
 
-        protected IEnumerable<DomainNotification> GetNotifications => _notificationHandler.GetNotifications;
+        protected IEnumerable<DomainNotification> Notifications => _notificationHandler.Notifications;
+        protected bool IsValidOperation => !Notifications.Any();
 
-        protected bool IsValidOperation => !GetNotifications.Any();
-
-        protected IActionResult CustomResponse(ValidationResult validationResult)
+        protected IActionResult CustomResponse(OperationResult operationResult)
         {
-            return BadRequestResponse(validationResult);
-        }
-
-        protected IActionResult CustomResponse(object data)
-        {
-            if (IsValidOperation)
-                return Ok(data);
+            if (operationResult == null)
+                return StatusCode(status;
 
             return BadRequestResponse();
         }
@@ -58,14 +52,6 @@ namespace Bawbee.API.Controllers
             }
 
             return BadRequestResponse();
-        }
-
-        private IActionResult BadRequestResponse()
-        {
-            var notifications = GetNotifications.Select(n => n.Value);
-            var result = CommandResult.Error(notifications);
-
-            return BadRequest(result);
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

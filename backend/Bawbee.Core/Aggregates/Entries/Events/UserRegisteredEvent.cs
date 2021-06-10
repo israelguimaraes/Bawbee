@@ -1,4 +1,5 @@
-﻿using Bawbee.SharedKernel;
+﻿using Bawbee.Core.Aggregates.Users;
+using Bawbee.SharedKernel;
 using System.Collections.Generic;
 
 namespace Bawbee.Core.Aggregates.Entries.Events
@@ -14,13 +15,8 @@ namespace Bawbee.Core.Aggregates.Entries.Events
         public IEnumerable<Category> Categories { get; }
 
         public UserRegisteredEvent(
-            int userId,
-            string name,
-            string lastName,
-            string email,
-            string password,
-            IEnumerable<BankAccount> bankAccounts,
-            IEnumerable<Category> categories)
+            int userId, string name, string lastName, string email, string password, 
+            IEnumerable<BankAccount> bankAccounts, IEnumerable<Category> categories)
         {
             Name = name;
             LastName = lastName;

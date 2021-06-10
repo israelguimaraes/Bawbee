@@ -7,8 +7,8 @@ namespace Bawbee.Core.Aggregates.Users
 {
     public class User : BaseEntity, IAggregateRoot
     {
-        public const int PASSWORD_MIN_LENGTH = 6;
-        public const int PASSWORD_MAX_LENGTH = 10;
+        public const int PasswordMinLength = 6;
+        public const int PasswordMaxLength = 10;
 
         public string Name { get; private set; }
         public string LastName { get; private set; }

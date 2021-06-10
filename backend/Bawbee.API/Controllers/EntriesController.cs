@@ -1,8 +1,8 @@
 ﻿using Bawbee.Application.Adapters;
+using Bawbee.Application.Commands;
 using Bawbee.Application.CommandStack.Entries.Commands;
 using Bawbee.Application.CommandStack.Entries.InputModels;
 using Bawbee.Application.QueryStack.Users.Queries.Entries;
-using Bawbee.Core.Bus;
 using Bawbee.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

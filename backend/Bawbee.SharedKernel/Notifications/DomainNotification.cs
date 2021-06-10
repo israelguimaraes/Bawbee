@@ -1,14 +1,12 @@
-﻿using MediatR;
-
-namespace Bawbee.SharedKernel.Notifications
+﻿namespace Bawbee.SharedKernel.Notifications
 {
-    public class DomainNotification : INotification
+    public class DomainNotification : BaseEvent
     {
         public string Message { get; private set; }
 
-        public DomainNotification(string value)
+        public DomainNotification(string message)
         {
-            Message = value;
+            Message = message;
         }
     }
 }
