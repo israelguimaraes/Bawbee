@@ -5,6 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -30,18 +31,27 @@ namespace Bawbee.API.Controllers
 
         protected IActionResult CustomResponse(OperationResult operationResult)
         {
-            if (operationResult == null)
-                return StatusCode(status;
+            // 500
+            if (operationResult?.Type == StatusResult.ApplicationError)
+                return StatusCode((int)StatusResult.ApplicationError, "Internal server error.");
 
-            return BadRequestResponse();
-        }
+            // 200
+            if (operationResult.Type == StatusResult.Ok)
+                return Ok(operationResult.Data);
 
-        protected IActionResult CustomResponse(CommandResult commandResult = null)
-        {
-            if (IsValidOperation && commandResult.Success)
-                return Ok(commandResult);
+            // 204
+            if (operationResult.Type == StatusResult.OkWithoutReturn)
+                return NoContent();
 
-            return BadRequestResponse();
+            // 400
+            if (operationResult.Type == StatusResult.InvalidOperation)
+                return BadRequest(operationResult.Message);
+
+            // 404
+            if (operationResult.Type == StatusResult.NotFoundData)
+                return NotFound(operationResult.Message);
+
+            throw new InvalidOperationException();
         }
 
         private IActionResult BadRequestResponse(ValidationResult validationResult)

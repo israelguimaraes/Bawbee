@@ -4,9 +4,9 @@ namespace Bawbee.Application.Operations
 {
     public abstract class OperationResult : IRequest<OperationResult>
     {
-        protected TypeResultEnum Type { get; set; }
-        protected object Data { get; set; }
-        protected string Message { get; set; }
+        public StatusResult Type { get; set; }
+        public object Data { get; set; }
+        public string Message { get; set; }
         public abstract bool IsValid { get; }
     }
 
@@ -14,7 +14,7 @@ namespace Bawbee.Application.Operations
     {
         public OkOperation(object data = null)
         {
-            Type = data == null ? TypeResultEnum.OkWithoutDataResponse : TypeResultEnum.Ok;
+            Type = data == null ? StatusResult.OkWithoutReturn : StatusResult.Ok;
         }
 
         public override bool IsValid => true;
@@ -24,7 +24,7 @@ namespace Bawbee.Application.Operations
     {
         public InvalidOperation(string message = "Invalid operation.")
         {
-            Type = TypeResultEnum.InvalidOperation;
+            Type = StatusResult.InvalidOperation;
             Message = message;
         }
 
