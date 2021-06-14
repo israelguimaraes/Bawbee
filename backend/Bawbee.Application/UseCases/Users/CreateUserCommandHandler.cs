@@ -1,6 +1,6 @@
 ﻿using Bawbee.Application.Commands;
 using Bawbee.Application.Operations;
-using Bawbee.Application.UseCases.Adapters;
+using Bawbee.Application.UseCases.Users.Mappers;
 using Bawbee.Core;
 using Bawbee.Core.Aggregates.Users;
 using Bawbee.SharedKernel.Notifications;

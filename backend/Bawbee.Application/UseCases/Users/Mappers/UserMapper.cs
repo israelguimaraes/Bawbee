@@ -2,9 +2,9 @@
 using Bawbee.Core.Aggregates.Users;
 using System.Collections.Generic;
 
-namespace Bawbee.Application.UseCases.Adapters
+namespace Bawbee.Application.UseCases.Users.Mappers
 {
-    public static class UserAdapter
+    public static class UserMapper
     {
         public static UserRegisteredEvent MapToUserRegisteredEvent(this User user)
         {

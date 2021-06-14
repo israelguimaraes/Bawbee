@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,7 +6,23 @@
 
   <ItemGroup>
     <Folder Include="Logging\" />
-    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\NoSql\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.4" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.4" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.4">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	<PackageReference Include="Dapper" Version="2.0.35" />
+	<PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Bawbee.Core\Bawbee.Core.csproj" />
+    <ProjectReference Include="..\Bawbee.SharedKernel\Bawbee.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

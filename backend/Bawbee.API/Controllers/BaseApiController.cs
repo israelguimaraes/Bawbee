@@ -31,10 +31,6 @@ namespace Bawbee.API.Controllers
 
         protected IActionResult CustomResponse(OperationResult operationResult)
         {
-            // 500
-            if (operationResult?.Type == StatusResult.ApplicationError)
-                return StatusCode((int)StatusResult.ApplicationError, "Internal server error.");
-
             // 200
             if (operationResult.Type == StatusResult.Ok)
                 return Ok(operationResult.Data);
@@ -51,17 +47,21 @@ namespace Bawbee.API.Controllers
             if (operationResult.Type == StatusResult.NotFoundData)
                 return NotFound(operationResult.Message);
 
+            // 500
+            if (operationResult?.Type == StatusResult.ApplicationError)
+                return StatusCode((int)StatusResult.ApplicationError, "Internal server error.");
+
             throw new InvalidOperationException();
         }
 
-        private IActionResult BadRequestResponse(ValidationResult validationResult)
+        protected IActionResult BadRequestResponse(ValidationResult validationResult)
         {
             foreach (var error in validationResult.Errors)
             {
                 _notificationHandler.AddNotification(error.ErrorMessage);
             }
 
-            return BadRequestResponse();
+            return BadRequest();
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

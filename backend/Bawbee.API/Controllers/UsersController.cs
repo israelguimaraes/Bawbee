@@ -27,7 +27,7 @@ namespace Bawbee.API.Controllers
             var command = new CreateUserCommand(model.Name, model.LastName, model.Email, model.Password);
 
             if (!command.IsValid())
-                return CustomResponse(command.ValidationResult);
+                return BadRequestResponse(command.ValidationResult);
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);
