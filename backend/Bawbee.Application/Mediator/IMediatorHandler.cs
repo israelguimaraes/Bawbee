@@ -3,7 +3,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Application.Commands
+namespace Bawbee.Application.Mediator
 {
     public interface IMediatorHandler
     {

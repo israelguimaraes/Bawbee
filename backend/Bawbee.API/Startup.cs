@@ -29,8 +29,10 @@ namespace Bawbee.API
         public void ConfigureServices(IServiceCollection services)
         {
             // TODO: change...
-            services.AddDbContext<BawbeeDbContext>
-                (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
+            //services.AddDbContext<BawbeeDbContext>
+            //    (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
+
+            services.AddBawbeeEntityFramework();
 
             services.AddControllers();
             services.AddRouting(options => options.LowercaseUrls = true);

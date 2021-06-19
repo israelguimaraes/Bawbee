@@ -4,7 +4,7 @@ using Bawbee.SharedKernel.Notifications;
 using MediatR;
 using System.Threading.Tasks;
 
-namespace Bawbee.Application.Commands
+namespace Bawbee.Application.Mediator
 {
     public abstract class BaseCommandHandler
     {

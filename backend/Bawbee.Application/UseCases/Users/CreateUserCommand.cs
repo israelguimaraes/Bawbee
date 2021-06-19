@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Commands;
+﻿using Bawbee.Application.Mediator;
 
 namespace Bawbee.Application.UseCases.Users
 {

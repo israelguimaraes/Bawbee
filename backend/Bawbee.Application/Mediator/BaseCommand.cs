@@ -3,7 +3,7 @@ using FluentValidation.Results;
 using MediatR;
 using System;
 
-namespace Bawbee.Application.Commands
+namespace Bawbee.Application.Mediator
 {
     public abstract class BaseCommand : IRequest<OperationResult>
     {
