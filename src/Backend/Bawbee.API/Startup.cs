@@ -1,15 +1,10 @@
-using Bawbee.API.Setups;
 using Bawbee.Core.Aggregates.Entries.Events;
 using Bawbee.Core.Aggregates.Entries.Events.BankAccounts;
 using Bawbee.Core.Aggregates.Entries.Events.Categories;
 using Bawbee.Core.Aggregates.Entries.Events.Entries;
-using Bawbee.Core.Bus;
-using Bawbee.Infra.CrossCutting.IoC;
-using Bawbee.Infra.Data.SQLServer;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,13 +27,13 @@ namespace Bawbee.API
             //services.AddDbContext<BawbeeDbContext>
             //    (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
 
-            services.AddBawbeeEntityFramework();
+            //services.AddBawbeeEntityFramework();
 
             services.AddControllers();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddOptions();
             services.AddMediatR(typeof(Startup));
-            services.AddAllBawbeeDependencies(Configuration);
+            //services.AddAllBawbeeDependencies(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,16 +58,16 @@ namespace Bawbee.API
                 endpoints.MapControllers();
             });
 
-            app.ConfigureSwagger();
+            //app.ConfigureSwagger();
 
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            //var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 
-            eventBus.Subscribe<UserRegisteredEvent>();
-            eventBus.Subscribe<ExpenseCreatedEvent>();
-            eventBus.Subscribe<ExpenseUpdatedEvent>();
-            eventBus.Subscribe<ExpenseDeletedEvent>();
-            eventBus.Subscribe<CategoryCreatedEvent>();
-            eventBus.Subscribe<BankAccountCreatedEvent>();
+            //eventBus.Subscribe<UserRegisteredEvent>();
+            //eventBus.Subscribe<ExpenseCreatedEvent>();
+            //eventBus.Subscribe<ExpenseUpdatedEvent>();
+            //eventBus.Subscribe<ExpenseDeletedEvent>();
+            //eventBus.Subscribe<CategoryCreatedEvent>();
+            //eventBus.Subscribe<BankAccountCreatedEvent>();
         }
     }
 }

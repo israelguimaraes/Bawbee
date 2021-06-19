@@ -41,14 +41,12 @@ namespace Bawbee.Application.Mediator
 
         protected OperationResult Ok(object data = null)
         {
-            OperationResult result = new OkOperation(data);
-            return result;
+            return new OkOperation(data);
         }
 
         protected OperationResult Invalid(string message = null)
         {
-            OperationResult result = new InvalidOperation(message);
-            return result;
+            return new InvalidOperation(message);
         }
     }
 }

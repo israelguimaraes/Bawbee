@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Commands;
+﻿using Bawbee.Application.Mediator;
 using Bawbee.Application.Operations;
 using Bawbee.Application.UseCases.Users.Mappers;
 using Bawbee.Core;
@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.UseCases.Users
 {
-    public class CreateUserCommandHandler : BaseCommandHandler, 
+    public class CreateUserCommandHandler : BaseCommandHandler,
         IRequestHandler<CreateUserCommand, OperationResult>
     {
         private readonly IUserRepository _userRepository;
         private readonly IMediatorHandler _mediator;
 
         public CreateUserCommandHandler(
-            IMediatorHandler mediator, 
-            IUnitOfWork unitOfWork, 
+            IMediatorHandler mediator,
+            IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;

@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Commands;
+﻿using Bawbee.Application.Mediator;
 using Bawbee.Application.UseCases.Users;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
