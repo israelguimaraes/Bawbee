@@ -7,7 +7,6 @@ namespace Bawbee.Application.Operations
         public StatusResult Type { get; set; }
         public object Data { get; set; }
         public string Message { get; set; }
-        public abstract bool IsValid { get; }
     }
 
     public class OkOperation : OperationResult
@@ -16,8 +15,6 @@ namespace Bawbee.Application.Operations
         {
             Type = data == null ? StatusResult.OkWithoutReturn : StatusResult.Ok;
         }
-
-        public override bool IsValid => true;
     }
 
     public class InvalidOperation : OperationResult
@@ -27,7 +24,5 @@ namespace Bawbee.Application.Operations
             Type = StatusResult.InvalidOperation;
             Message = message;
         }
-
-        public override bool IsValid => false;
     }
 }
