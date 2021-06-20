@@ -5,7 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Bus\" />
+    <Folder Include="Events\" />
     <Folder Include="Logging\" />
+    <Folder Include="Cache\" />
+    <Folder Include="Emails\" />
     <Folder Include="Persistence\NoSql\" />
   </ItemGroup>
 
