@@ -1,10 +1,8 @@
 ﻿using Bawbee.Infrastructure.Persistence.Sql.EfContexts;
+using Bawbee.Infrastructure.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Bawbee.Infrastructure
 {
@@ -12,7 +10,11 @@ namespace Bawbee.Infrastructure
     {
         public static void InitializeDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+            // EF
             services.AddDbContext<BawbeeDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("BawbeeDbConnection")));
+
+            // Swagger
+            services.RegisterSwagger();
         }
     }
 }
