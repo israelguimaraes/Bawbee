@@ -1,7 +1,6 @@
-using Bawbee.Core.Aggregates.Entries.Events;
-using Bawbee.Core.Aggregates.Entries.Events.BankAccounts;
-using Bawbee.Core.Aggregates.Entries.Events.Categories;
-using Bawbee.Core.Aggregates.Entries.Events.Entries;
+using Bawbee.Infrastructure;
+using Bawbee.Infrastructure.Middlewares;
+using Bawbee.Infrastructure.Swagger;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,17 +22,11 @@ namespace Bawbee.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // TODO: change...
-            //services.AddDbContext<BawbeeDbContext>
-            //    (options => options.UseSqlServer(Configuration.GetConnectionString("BawbeeDbConnection")));
-
-            //services.AddBawbeeEntityFramework();
-
             services.AddControllers();
             services.AddRouting(options => options.LowercaseUrls = true);
             services.AddOptions();
             services.AddMediatR(typeof(Startup));
-            //services.AddAllBawbeeDependencies(Configuration);
+            services.InitializeDependencies(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,7 +37,7 @@ namespace Bawbee.API
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseApiExceptionHandler();
+            app.UseApiExceptionHandler();
 
             app.UseHttpsRedirection();
 
@@ -58,7 +51,7 @@ namespace Bawbee.API
                 endpoints.MapControllers();
             });
 
-            //app.ConfigureSwagger();
+            app.ConfigureSwagger();
 
             //var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
 

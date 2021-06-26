@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bawbee.Application\Bawbee.Application.csproj" />
+    <ProjectReference Include="..\Bawbee.Infrastructure\Bawbee.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
