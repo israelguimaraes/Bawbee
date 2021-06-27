@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Bawbee.Infrastructure.Configs
+namespace Bawbee.Infrastructure.IoC
 {
     public static class SwaggerRegister
     {

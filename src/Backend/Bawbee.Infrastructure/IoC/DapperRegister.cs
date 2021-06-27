@@ -3,7 +3,7 @@ using Bawbee.Infrastructure.Persistence.Sql.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Bawbee.Infrastructure.Configs
+namespace Bawbee.Infrastructure.IoC
 {
     public static class DapperRegister
     {

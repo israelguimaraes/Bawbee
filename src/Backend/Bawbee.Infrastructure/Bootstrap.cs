@@ -2,10 +2,9 @@
 using Bawbee.Core;
 using Bawbee.Core.Aggregates.Users;
 using Bawbee.Infrastructure.Bus;
-using Bawbee.Infrastructure.Configs;
+using Bawbee.Infrastructure.IoC;
 using Bawbee.Infrastructure.Persistence;
 using Bawbee.Infrastructure.Persistence.Sql.EfContexts;
-using Bawbee.Infrastructure.Persistence.Sql.Interfaces;
 using Bawbee.Infrastructure.Persistence.Sql.Repositories.Users;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;

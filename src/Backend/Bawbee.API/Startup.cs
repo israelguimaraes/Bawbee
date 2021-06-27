@@ -1,5 +1,5 @@
 using Bawbee.Infrastructure;
-using Bawbee.Infrastructure.Configs;
+using Bawbee.Infrastructure.IoC;
 using Bawbee.Infrastructure.Middlewares;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
