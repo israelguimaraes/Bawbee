@@ -1,5 +1,5 @@
 ﻿using Bawbee.Infrastructure.Persistence.Sql;
-using Bawbee.Infrastructure.Persistence.Sql.Interfaces;
+using Bawbee.Infrastructure.Persistence.SqlServer.Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

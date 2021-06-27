@@ -1,6 +1,6 @@
 ﻿using Bawbee.Core.Aggregates.Users;
 using Bawbee.Infrastructure.Persistence.Sql.EfContexts;
-using Bawbee.Infrastructure.Persistence.Sql.Interfaces;
+using Bawbee.Infrastructure.Persistence.SqlServer.Dapper;
 using Dapper;
 using System.Threading.Tasks;
 

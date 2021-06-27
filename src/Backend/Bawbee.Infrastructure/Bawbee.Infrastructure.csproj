@@ -9,7 +9,8 @@
     <Folder Include="Logging\" />
     <Folder Include="Cache\" />
     <Folder Include="Emails\" />
-    <Folder Include="Persistence\NoSql\" />
+    <Folder Include="Persistence\NoSql\Redis\" />
+    <Folder Include="Persistence\NoSql\RavenDb\" />
   </ItemGroup>
 
 	<ItemGroup>
