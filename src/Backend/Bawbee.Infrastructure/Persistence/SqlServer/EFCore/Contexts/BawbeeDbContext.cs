@@ -1,9 +1,9 @@
 ﻿using Bawbee.Core.Aggregates.Entries.Shared;
 using Bawbee.Core.Aggregates.Users;
-using Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurations;
+using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts
+namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts
 {
     public class BawbeeDbContext : DbContext
     {

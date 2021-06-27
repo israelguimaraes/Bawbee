@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurations
+namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts.EntityTypeConfigurations
 {
-    public class CategoryConfiguration : IEntityTypeConfiguration<Category>
+    public class BankConfiguration : IEntityTypeConfiguration<BankAccount>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
             builder.HasKey(t => t.Id);
 
@@ -16,8 +16,11 @@ namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurati
                 .HasMaxLength(255)
                 .IsRequired();
 
+            builder.Property(c => c.InitialBalance)
+                .IsRequired();
+
             builder.HasOne(t => t.User)
-                .WithMany(t => t.Categories)
+                .WithMany(t => t.BankAccounts)
                 .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
         }

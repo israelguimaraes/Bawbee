@@ -1,10 +1,10 @@
 ﻿using Bawbee.Core.Aggregates.Users;
-using Bawbee.Infrastructure.Persistence.Sql.EfContexts;
-using Bawbee.Infrastructure.Persistence.SqlServer.Dapper;
+using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts;
+using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Dapper;
 using Dapper;
 using System.Threading.Tasks;
 
-namespace Bawbee.Infrastructure.Persistence.Sql.Repositories.Users
+namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Repositories.Users
 {
     public class UserSqlRepository : IUserRepository
     {

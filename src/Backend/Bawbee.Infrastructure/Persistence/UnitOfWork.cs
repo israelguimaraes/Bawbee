@@ -1,5 +1,5 @@
 ﻿using Bawbee.Core;
-using Bawbee.Infrastructure.Persistence.Sql.EfContexts;
+using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts;
 using System;
 using System.Threading.Tasks;
 

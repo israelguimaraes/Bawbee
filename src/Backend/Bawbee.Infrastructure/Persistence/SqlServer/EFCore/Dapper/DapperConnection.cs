@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 
-namespace Bawbee.Infrastructure.Persistence.SqlServer.Dapper
+namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Dapper
 {
     public class DapperConnection : IDapperConnection
     {

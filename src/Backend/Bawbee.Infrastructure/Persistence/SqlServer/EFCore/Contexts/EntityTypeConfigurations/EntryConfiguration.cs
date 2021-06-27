@@ -3,7 +3,7 @@ using Bawbee.Core.Aggregates.Entries.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurations
+namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts.EntityTypeConfigurations
 {
     public class EntryConfiguration : IEntityTypeConfiguration<BaseEntry>
     {

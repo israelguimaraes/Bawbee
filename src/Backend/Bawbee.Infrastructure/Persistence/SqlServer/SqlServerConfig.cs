@@ -1,4 +1,4 @@
-﻿namespace Bawbee.Infrastructure.Persistence.Sql
+﻿namespace Bawbee.Infrastructure.Persistence.SqlServer
 {
     public class SqlServerConfig
     {
