@@ -1,6 +1,6 @@
 ﻿using Bawbee.Core.Aggregates.Entries.Shared;
 using Bawbee.Core.Aggregates.Users;
-using Bawbee.Infrastructure.Persistence.Sql.EfContexts.Mappings;
+using Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts
@@ -19,10 +19,10 @@ namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserMapping());
-            modelBuilder.ApplyConfiguration(new BankAccountMapping());
-            modelBuilder.ApplyConfiguration(new EntryMapping());
-            modelBuilder.ApplyConfiguration(new CategoryMapping());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new BankConfiguration());
+            modelBuilder.ApplyConfiguration(new EntryConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

@@ -3,6 +3,7 @@ using Bawbee.Application.Operations;
 using Bawbee.Application.UseCases.Users.Mappers;
 using Bawbee.Core;
 using Bawbee.Core.Aggregates.Users;
+using Bawbee.Core.Aggregates.Users.Events;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
 using System.Threading;
@@ -19,29 +20,31 @@ namespace Bawbee.Application.UseCases.Users
         public CreateUserCommandHandler(
             IMediatorHandler mediator,
             IUnitOfWork unitOfWork,
-            INotificationHandler<DomainNotification> notificationHandler) : base(mediator, unitOfWork, notificationHandler)
+            INotificationHandler<DomainNotification> notificationHandler, 
+            IUserRepository userRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;
+            _userRepository = userRepository;
         }
 
         public async Task<OperationResult> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
-            var userDatabase = await _userRepository.GetByEmail(command.Email);
+            var user = await _userRepository.GetByEmail(command.Email);
 
-            if (userDatabase != null)
+            if (user != null)
             {
                 await AddNotification("E-mail already used");
                 return Invalid();
             }
 
-            var user = User.UserFactory.CreateNewPlataformUser(command.Name, command.LastName, command.Email, command.Password);
+            var newUser = User.UserFactory.CreateNewPlataformUser(command.Name, command.LastName, command.Email, command.Password);
 
-            await _userRepository.Add(user);
+            await _userRepository.Add(newUser);
 
             if (await CommitTransaction())
             {
-                var userRegisteredEvent = user.MapToUserRegisteredEvent();
-                await _mediator.PublishEvent(userRegisteredEvent);
+                UserRegisteredEvent @event = UserMapper.Map(newUser);
+                await _mediator.PublishEvent(@event);
             }
 
             return Ok();

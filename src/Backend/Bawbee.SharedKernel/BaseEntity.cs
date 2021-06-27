@@ -10,7 +10,7 @@ namespace Bawbee.SharedKernel
         public DateTime CreatedAt { get; protected set; }
 
         private readonly List<BaseDomainEvent> _events;
-        public IReadOnlyCollection<BaseDomainEvent> Events => _events;
+        public IReadOnlyCollection<BaseDomainEvent> DomainEvents => _events;
 
         protected BaseEntity()
         {

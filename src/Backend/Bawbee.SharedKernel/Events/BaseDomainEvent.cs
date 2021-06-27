@@ -3,7 +3,7 @@ using System;
 
 namespace Bawbee.SharedKernel.Events
 {
-    public class BaseDomainEvent : INotification
+    public abstract class BaseDomainEvent : INotification
     {
         public DateTime Timestamp { get; } = DateTime.Now;
     }

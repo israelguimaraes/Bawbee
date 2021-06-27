@@ -1,4 +1,4 @@
-﻿using Bawbee.Core.Aggregates.Entries.Events;
+﻿using Bawbee.Core.Aggregates.Users.Events;
 using Bawbee.Core.Aggregates.Users;
 using System.Collections.Generic;
 
@@ -6,7 +6,7 @@ namespace Bawbee.Application.UseCases.Users.Mappers
 {
     public static class UserMapper
     {
-        public static UserRegisteredEvent MapToUserRegisteredEvent(this User user)
+        public static UserRegisteredEvent Map(User user)
         {
             var bankAccounts = new List<BankAccount>();
             foreach (var b in user.BankAccounts)

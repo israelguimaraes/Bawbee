@@ -3,13 +3,15 @@ using Bawbee.Core.Aggregates.Entries.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.Mappings
+namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurations
 {
-    public class EntryMapping : IEntityTypeConfiguration<BaseEntry>
+    public class EntryConfiguration : IEntityTypeConfiguration<BaseEntry>
     {
         public void Configure(EntityTypeBuilder<BaseEntry> builder)
         {
             builder.HasKey(t => t.Id);
+
+            builder.Ignore(t => t.DomainEvents);
 
             #region Discriminator - Expenses and Incomes
 

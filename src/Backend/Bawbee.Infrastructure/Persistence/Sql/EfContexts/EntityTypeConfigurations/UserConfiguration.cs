@@ -2,13 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.Mappings
+namespace Bawbee.Infrastructure.Persistence.Sql.EfContexts.EntityTypeConfigurations
 {
-    public class UserMapping : IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(t => t.Id);
+
+            builder.Ignore(t => t.DomainEvents);
 
             builder.Property(c => c.Name)
                 .HasMaxLength(255)
