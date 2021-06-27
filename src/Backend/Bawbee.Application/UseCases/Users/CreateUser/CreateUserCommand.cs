@@ -1,6 +1,6 @@
 ﻿using Bawbee.Application.Mediator;
 
-namespace Bawbee.Application.UseCases.Users
+namespace Bawbee.Application.UseCases.Users.CreateUser
 {
     public class CreateUserCommand : BaseCommand
     {

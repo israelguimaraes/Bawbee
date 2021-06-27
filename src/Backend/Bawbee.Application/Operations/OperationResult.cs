@@ -25,4 +25,13 @@ namespace Bawbee.Application.Operations
             Message = message;
         }
     }
+
+    public class ResultNotFoundOperation : OperationResult
+    {
+        public ResultNotFoundOperation(string message)
+        {
+            Type = StatusResult.NotFoundData;
+            Message = message;
+        }
+    }
 }

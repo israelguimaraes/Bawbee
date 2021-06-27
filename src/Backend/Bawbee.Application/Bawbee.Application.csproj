@@ -7,6 +7,10 @@
   <ItemGroup>
     <Folder Include="UseCases\Expenses\" />
     <Folder Include="UseCases\Incomes\" />
+    <Folder Include="UseCases\Users\LoginUser\" />
+    <Folder Include="UseCases\Users\DeleteUserAccount\" />
+    <Folder Include="UseCases\Users\ChangeUserPassword\" />
+    <Folder Include="UseCases\Users\UpdateProfile\" />
   </ItemGroup>
 
   <ItemGroup>

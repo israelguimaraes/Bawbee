@@ -1,7 +1,7 @@
 ﻿using Bawbee.Core.Aggregates.Users;
 using FluentValidation;
 
-namespace Bawbee.Application.UseCases.Users
+namespace Bawbee.Application.UseCases.Users.CreateUser
 {
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {

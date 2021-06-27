@@ -9,7 +9,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bawbee.Application.UseCases.Users
+namespace Bawbee.Application.UseCases.Users.CreateUser
 {
     public class CreateUserCommandHandler : BaseCommandHandler,
         IRequestHandler<CreateUserCommand, OperationResult>
@@ -20,7 +20,7 @@ namespace Bawbee.Application.UseCases.Users
         public CreateUserCommandHandler(
             IMediatorHandler mediator,
             IUnitOfWork unitOfWork,
-            INotificationHandler<DomainNotification> notificationHandler, 
+            INotificationHandler<DomainNotification> notificationHandler,
             IUserRepository userRepository) : base(mediator, unitOfWork, notificationHandler)
         {
             _mediator = mediator;

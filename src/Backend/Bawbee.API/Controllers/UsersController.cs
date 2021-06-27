@@ -1,6 +1,8 @@
 ﻿using Bawbee.API.Requests.Users;
 using Bawbee.Application.Mediator;
+using Bawbee.Application.UseCases.Categories.GetAllCategoriesByUser;
 using Bawbee.Application.UseCases.Users;
+using Bawbee.Application.UseCases.Users.CreateUser;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +34,16 @@ namespace Bawbee.API.Controllers
 
             var result = await _mediator.SendCommand(command);
             return CustomResponse(result);
+        }
+
+        [HttpGet("categories")]
+        public async Task<IActionResult> GetCategoriesByUser()
+        {
+            var query = new GetAllCategoriesByUserQuery(CurrentUserId);
+
+            var categories = await _mediator.SendCommand(query);
+
+            return CustomResponse(categories);
         }
     }
 }
