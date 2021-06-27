@@ -1,5 +1,5 @@
 ﻿using Bawbee.Core.Aggregates.Users;
-using Bawbee.SharedKernel;
+using Bawbee.SharedKernel.Events;
 using System.Collections.Generic;
 
 namespace Bawbee.Core.Aggregates.Entries.Events

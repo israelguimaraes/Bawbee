@@ -2,6 +2,7 @@
 using Bawbee.SharedKernel.Notifications;
 using FluentValidation.Results;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -12,8 +13,7 @@ using System.Security.Claims;
 
 namespace Bawbee.API.Controllers
 {
-    [Authorize("Bearer")]
-    //[Authorize(JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("api/v1/[controller]")]
     public abstract class BaseApiController : Controller
@@ -61,7 +61,10 @@ namespace Bawbee.API.Controllers
                 _notificationHandler.AddNotification(error.ErrorMessage);
             }
 
-            return BadRequest();
+            return BadRequest(new 
+            {
+                Errors = _notificationHandler.Notifications.Select(n => n.Message)
+            });
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)

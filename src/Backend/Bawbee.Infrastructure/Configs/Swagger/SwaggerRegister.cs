@@ -1,9 +1,25 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Bawbee.Infrastructure.Swagger
+namespace Bawbee.Infrastructure.Configs.Swagger
 {
+    public class IgnoreReadOnlySchemaFilter : ISchemaFilter
+    {
+        public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+        {
+            schema.ReadOnly = false;
+            if (schema.Properties != null)
+            {
+                foreach (var keyValuePair in schema.Properties)
+                {
+                    keyValuePair.Value.ReadOnly = false;
+                }
+            }
+        }
+    }
+
     public static class SwaggerRegister
     {
         public static void RegisterSwagger(this IServiceCollection services)
@@ -15,6 +31,8 @@ namespace Bawbee.Infrastructure.Swagger
                     Title = "Bawbee API",
                     Version = "v1"
                 });
+
+                //options.SchemaFilter<IgnoreReadOnlySchemaFilter>();
 
                 var securitySchema = new OpenApiSecurityScheme
                 {

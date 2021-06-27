@@ -1,4 +1,5 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.API.Requests.Users;
+using Bawbee.Application.Mediator;
 using Bawbee.Application.UseCases.Users;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
@@ -22,9 +23,9 @@ namespace Bawbee.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Create(dynamic model)
+        public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
         {
-            var command = new CreateUserCommand(model.Name, model.LastName, model.Email, model.Password);
+            var command = new CreateUserCommand(request.Name, request.LastName, request.Email, request.Password, request.ConfirmPassword);
 
             if (!command.IsValid())
                 return BadRequestResponse(command.ValidationResult);

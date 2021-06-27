@@ -1,6 +1,6 @@
 using Bawbee.Infrastructure;
+using Bawbee.Infrastructure.Configs.Swagger;
 using Bawbee.Infrastructure.Middlewares;
-using Bawbee.Infrastructure.Swagger;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -1,4 +1,4 @@
-﻿using Bawbee.SharedKernel;
+﻿using Bawbee.SharedKernel.Events;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

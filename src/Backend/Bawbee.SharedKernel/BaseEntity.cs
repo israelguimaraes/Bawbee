@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bawbee.SharedKernel.Events;
+using System;
 using System.Collections.Generic;
 
 namespace Bawbee.SharedKernel

@@ -1,4 +1,6 @@
-﻿namespace Bawbee.SharedKernel.Notifications
+﻿using Bawbee.SharedKernel.Events;
+
+namespace Bawbee.SharedKernel.Notifications
 {
     public class DomainNotification : BaseEvent
     {

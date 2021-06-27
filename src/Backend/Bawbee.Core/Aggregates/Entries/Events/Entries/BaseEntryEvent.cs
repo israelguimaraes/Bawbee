@@ -1,4 +1,4 @@
-﻿using Bawbee.SharedKernel;
+﻿using Bawbee.SharedKernel.Events;
 using System;
 
 namespace Bawbee.Core.Aggregates.Entries.Events.Entries

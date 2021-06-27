@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using System;
 
-namespace Bawbee.SharedKernel
+namespace Bawbee.SharedKernel.Events
 {
-    public class BaseDomainEvent : INotification
+    public abstract class BaseEvent : INotification
     {
         public DateTime Timestamp { get; } = DateTime.Now;
     }
