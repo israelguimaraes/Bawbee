@@ -1,57 +1,34 @@
 ﻿using Bawbee.Application.Operations;
 using Bawbee.Application.UseCases.Shared;
-using Bawbee.Application.UseCases.Users;
 using Bawbee.Core.Aggregates.Users;
+using Bawbee.SharedKernel.Extensions;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bawbee.Application.UseCases.Categories.GetAllCategoriesByUser
 {
-
-    public class GetAllCategoriesByUserQueryHandler : BaseCommandQuery, 
+    public class GetAllCategoriesByUserQueryHandler : BaseCommandQuery,
         IRequestHandler<GetAllCategoriesByUserQuery, OperationResult>
     {
-        private readonly IUserReadRepository _userReadRepository;
+        private readonly IUserRepository _userRepository;
 
-        public GetAllCategoriesByUserQueryHandler(IUserReadRepository repository)
+        public GetAllCategoriesByUserQueryHandler(IUserRepository repository)
         {
-            _userReadRepository = repository;
+            _userRepository = repository;
         }
 
         public async Task<OperationResult> Handle(GetAllCategoriesByUserQuery query, CancellationToken cancellationToken)
         {
-            IEnumerable<Category> categories = await _userReadRepository.GetCategories(query.UserId);
+            var categories = await _userRepository.GetCategories(query.UserId);
 
-            if (!categories.Any())
+            if (categories.IsEmpty())
             {
-                return NotFound("There no categories for user");
+                return NotFound("You don't have categories yet.");
             }
 
             var result = CategoryMapper.Map(categories);
             return Ok(result);
         }
-
-        //public async Task<IEnumerable<EntryCategoryReadModel>> Handle(GetAllCategoriesByUserQuery query, CancellationToken cancellationToken)
-        //{
-        //    IEnumerable<User> users = await _userReadRepository.GetAllCategories(query.UserId);
-
-
-
-        //    var result = users.Select(u => new UserReadModel
-        //    {
-        //        UserId = u.Id,
-        //        Email = u.Email,
-        //        Name = u.LastName,
-        //        LastName = u.LastName
-        //    });
-
-        //    return result;
-        //}
-
     }
 }

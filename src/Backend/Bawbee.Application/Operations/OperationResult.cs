@@ -14,6 +14,7 @@ namespace Bawbee.Application.Operations
         public OkOperation(object data = null)
         {
             Type = data == null ? StatusResult.OkWithoutReturn : StatusResult.Ok;
+            Data = data;
         }
     }
 

@@ -9,10 +9,16 @@ namespace Bawbee.Core.Aggregates.Users
         public int UserId { get; private set; }
         public User User { get; private set; }
 
-        public Category(string name, int userId, int id = default)
+        protected Category() { }
+
+        public Category(string name, int userId)
         {
             Name = name;
             UserId = userId;
+        }
+
+        public Category(string name, int userId, int id) : this(name, userId)
+        {
             Id = id;
         }
 

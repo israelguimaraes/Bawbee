@@ -6,6 +6,7 @@ using Bawbee.Infrastructure.IoC;
 using Bawbee.Infrastructure.Persistence;
 using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts;
 using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Repositories.Users;
+using Bawbee.Infrastructure.Security.Jwt;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,8 @@ namespace Bawbee.Infrastructure
             services.AddScoped<IMediatorHandler, InMemoryBus>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
             services.AddScoped<IUserRepository, UserSqlRepository>();
+
+            services.AddSingleton<ISecurityTokenService, JwtService>();
         }
     }
 }

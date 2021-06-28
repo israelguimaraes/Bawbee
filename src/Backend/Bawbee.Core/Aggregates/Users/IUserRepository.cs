@@ -1,4 +1,5 @@
 ﻿using Bawbee.SharedKernel.Interfaces;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Bawbee.Core.Aggregates.Users
@@ -12,5 +13,6 @@ namespace Bawbee.Core.Aggregates.Users
         Task CreateCategory(Category category);
         Task<BankAccount> GetBankAccountByName(string name, int userId);
         Task CreateBankAccount(BankAccount bankAccount);
+        Task<IEnumerable<Category>> GetCategories(int userId);
     }
 }

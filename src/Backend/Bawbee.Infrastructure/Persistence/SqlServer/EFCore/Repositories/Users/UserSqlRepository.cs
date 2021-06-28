@@ -2,6 +2,7 @@
 using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Contexts;
 using Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Dapper;
 using Dapper;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Repositories.Users
@@ -37,7 +38,7 @@ namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Repositories.Users
 
         public async Task<Category> GetCategoryByName(string name, int userId)
         {
-            var query = "SELECT * FROM EntryCategories WHERE Name = @Name AND UserId = @UserId";
+            const string query = "SELECT * FROM Categories WHERE Name = @Name AND UserId = @UserId";
 
             return await _dapper.Connection.QueryFirstOrDefaultAsync<Category>(query, new { Name = name, UserId = userId });
         }
@@ -49,7 +50,7 @@ namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Repositories.Users
 
         public async Task<BankAccount> GetBankAccountByName(string name, int userId)
         {
-            var query = "SELECT * FROM BankAccounts WHERE Name = @Name AND UserId = @UserId";
+            const string query = "SELECT * FROM BankAccounts WHERE Name = @Name AND UserId = @UserId";
 
             return await _dapper.Connection.QueryFirstOrDefaultAsync<BankAccount>(query, new { Name = name, UserId = userId });
         }
@@ -57,6 +58,13 @@ namespace Bawbee.Infrastructure.Persistence.SqlServer.EFCore.Repositories.Users
         public async Task CreateBankAccount(BankAccount bankAccount)
         {
             await _dbContext.BankAccounts.AddAsync(bankAccount);
+        }
+
+        public async Task<IEnumerable<Category>> GetCategories(int userId)
+        {
+            const string query = "SELECT * FROM Categories WHERE UserId = @UserId";
+
+            return await _dapper.Connection.QueryAsync<Category>(query, new { UserId = userId });
         }
     }
 }
