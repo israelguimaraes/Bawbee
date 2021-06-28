@@ -4,7 +4,7 @@ namespace Bawbee.Application.Operations
 {
     public abstract class OperationResult : IRequest<OperationResult>
     {
-        public StatusResult Type { get; set; }
+        public Status Status { get; set; }
         public object Data { get; set; }
         public string Message { get; set; }
     }
@@ -13,7 +13,7 @@ namespace Bawbee.Application.Operations
     {
         public OkOperation(object data = null)
         {
-            Type = data == null ? StatusResult.OkWithoutReturn : StatusResult.Ok;
+            Status = data == null ? Status.OkWithoutReturn : Status.Ok;
             Data = data;
         }
     }
@@ -22,7 +22,7 @@ namespace Bawbee.Application.Operations
     {
         public InvalidOperation(string message = "Invalid operation.")
         {
-            Type = StatusResult.InvalidOperation;
+            Status = Status.InvalidOperation;
             Message = message;
         }
     }
@@ -31,7 +31,7 @@ namespace Bawbee.Application.Operations
     {
         public ResultNotFoundOperation(string message)
         {
-            Type = StatusResult.NotFoundData;
+            Status = Status.NotFoundData;
             Message = message;
         }
     }

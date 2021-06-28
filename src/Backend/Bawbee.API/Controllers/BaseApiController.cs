@@ -32,24 +32,24 @@ namespace Bawbee.API.Controllers
         protected IActionResult CustomResponse(OperationResult operationResult)
         {
             // 200
-            if (operationResult.Type == StatusResult.Ok)
+            if (operationResult.Status == Status.Ok)
                 return Ok(operationResult.Data);
 
             // 204
-            if (operationResult.Type == StatusResult.OkWithoutReturn)
+            if (operationResult.Status == Status.OkWithoutReturn)
                 return NoContent();
 
             // 400
-            if (operationResult.Type == StatusResult.InvalidOperation)
+            if (operationResult.Status == Status.InvalidOperation)
                 return BadRequest(operationResult.Message);
 
             // 404
-            if (operationResult.Type == StatusResult.NotFoundData)
+            if (operationResult.Status == Status.NotFoundData)
                 return NotFound(operationResult.Message);
 
             // 500
-            if (operationResult?.Type == StatusResult.ApplicationError)
-                return StatusCode((int)StatusResult.ApplicationError, "Internal server error.");
+            if (operationResult?.Status == Status.ApplicationError)
+                return StatusCode((int)Status.ApplicationError, "Internal server error.");
 
             throw new InvalidOperationException();
         }

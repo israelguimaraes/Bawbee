@@ -1,12 +1,8 @@
-﻿using Bawbee.Application.Operations;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Bawbee.Application.Mediator;
 
 namespace Bawbee.Application.UseCases.Categories.GetAllCategoriesByUser
 {
-    public class GetAllCategoriesByUserQuery : IRequest<OperationResult>
+    public class GetAllCategoriesByUserQuery : BaseQuery
     {
         public int UserId { get; }
 

@@ -1,15 +1,15 @@
-﻿using Bawbee.Application.Operations;
+﻿using Bawbee.Application.Mediator;
+using Bawbee.Application.Operations;
 using Bawbee.Application.UseCases.Shared;
 using Bawbee.Core.Aggregates.Users;
 using Bawbee.SharedKernel.Extensions;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bawbee.Application.UseCases.Categories.GetAllCategoriesByUser
 {
     public class GetAllCategoriesByUserQueryHandler : BaseCommandQuery,
-        IRequestHandler<GetAllCategoriesByUserQuery, OperationResult>
+        ICommandHandler<GetAllCategoriesByUserQuery>
     {
         private readonly IUserRepository _userRepository;
 

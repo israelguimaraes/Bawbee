@@ -1,6 +1,6 @@
 ﻿namespace Bawbee.Application.Operations
 {
-    public enum StatusResult
+    public enum Status
     {
         Ok = 200,
         OkWithoutReturn = 204,
