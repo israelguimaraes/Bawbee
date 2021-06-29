@@ -8,23 +8,23 @@ namespace Bawbee.Application.Bus
 {
     public abstract class BaseCommandHandler
     {
-        private readonly ICommandBus _mediator;
+        private readonly ICommandBus _bus;
         private readonly IUnitOfWork _unitOfWork;
         private readonly DomainNotificationHandler _notificationHandler;
 
         protected BaseCommandHandler(
-            ICommandBus mediator,
+            ICommandBus bus,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler)
         {
-            _mediator = mediator;
+            _bus = bus;
             _unitOfWork = unitOfWork;
             _notificationHandler = (DomainNotificationHandler)notificationHandler;
         }
 
         protected async Task AddNotification(string message)
         {
-            await _mediator.PublishEvent(new DomainNotification(message));
+            await _bus.PublishEvent(new DomainNotification(message));
         }
 
         protected async Task<bool> CommitTransaction()

@@ -8,14 +8,14 @@ namespace Bawbee.API.Controllers
 {
     public class EntriesController : BaseApiController
     {
-        private readonly ICommandBus _mediator;
+        private readonly ICommandBus _bus;
 
         public EntriesController(
             ICommandBus mediator,
             INotificationHandler<DomainNotification> notificationHandler)
             : base(notificationHandler)
         {
-            _mediator = mediator;
+            _bus = mediator;
         }
 
         //#region Expenses
