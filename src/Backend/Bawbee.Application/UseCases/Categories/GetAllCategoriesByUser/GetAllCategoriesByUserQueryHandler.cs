@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.Application.Operations;
 using Bawbee.Application.UseCases.Shared;
 using Bawbee.Core.Aggregates.Users;

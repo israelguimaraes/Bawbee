@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.Application.Operations;
 using Bawbee.Application.UseCases.Users.Mappers;
 using Bawbee.Core;
@@ -15,15 +15,15 @@ namespace Bawbee.Application.UseCases.Users.CreateUser
         IRequestHandler<CreateUserCommand, OperationResult>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMediatorHandler _mediator;
+        private readonly ICommandBus _bus;
 
         public CreateUserCommandHandler(
-            IMediatorHandler mediator,
+            ICommandBus bus,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler,
-            IUserRepository userRepository) : base(mediator, unitOfWork, notificationHandler)
+            IUserRepository userRepository) : base(bus, unitOfWork, notificationHandler)
         {
-            _mediator = mediator;
+            _bus = bus;
             _userRepository = userRepository;
         }
 
@@ -44,7 +44,7 @@ namespace Bawbee.Application.UseCases.Users.CreateUser
             if (await CommitTransaction())
             {
                 UserRegisteredEvent @event = UserMapper.Map(newUser);
-                await _mediator.PublishEvent(@event);
+                await _bus.PublishEvent(@event);
             }
 
             return Ok();

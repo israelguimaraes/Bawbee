@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 
 namespace Bawbee.Application.UseCases.Users.LoginUser
 {

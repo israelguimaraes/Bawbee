@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.Core;
 using Bawbee.Core.Aggregates.Users;
 using Bawbee.SharedKernel.Notifications;
@@ -15,18 +15,18 @@ namespace Bawbee.API.Controllers
     [AllowAnonymous]
     public class AdminController : BaseApiController
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly ICommandBus _bus;
         private readonly IServiceProvider _serviceProvider;
         private readonly IUnitOfWork _uow;
 
         public AdminController(
-            IMediatorHandler mediator,
+            ICommandBus bus,
             INotificationHandler<DomainNotification> notificationHandler,
             IServiceProvider serviceProvider,
             IUnitOfWork uow)
             : base(notificationHandler)
         {
-            _mediator = mediator;
+            _bus = bus;
             _serviceProvider = serviceProvider;
             _uow = uow;
         }

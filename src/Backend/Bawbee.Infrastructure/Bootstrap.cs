@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.Core;
 using Bawbee.Core.Aggregates.Users;
 using Bawbee.Infrastructure.Bus;
@@ -30,7 +30,7 @@ namespace Bawbee.Infrastructure
 
             services.AddScoped<BawbeeDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IMediatorHandler, InMemoryBus>();
+            services.AddScoped<ICommandBus, InMemoryBus>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
             services.AddScoped<IUserRepository, UserSqlRepository>();
 

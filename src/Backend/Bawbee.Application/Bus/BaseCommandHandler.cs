@@ -4,16 +4,16 @@ using Bawbee.SharedKernel.Notifications;
 using MediatR;
 using System.Threading.Tasks;
 
-namespace Bawbee.Application.Mediator
+namespace Bawbee.Application.Bus
 {
     public abstract class BaseCommandHandler
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly ICommandBus _mediator;
         private readonly IUnitOfWork _unitOfWork;
         private readonly DomainNotificationHandler _notificationHandler;
 
         protected BaseCommandHandler(
-            IMediatorHandler mediator, 
+            ICommandBus mediator,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler)
         {

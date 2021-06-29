@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.SharedKernel.Events;
 using MediatR;
 using System.Threading;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Infrastructure.Bus
 {
-    public class InMemoryBus : IMediatorHandler
+    public class InMemoryBus : ICommandBus
     {
         private readonly IMediator _mediator;
 

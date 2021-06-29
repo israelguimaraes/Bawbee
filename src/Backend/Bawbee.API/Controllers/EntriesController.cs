@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -8,10 +8,10 @@ namespace Bawbee.API.Controllers
 {
     public class EntriesController : BaseApiController
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly ICommandBus _mediator;
 
         public EntriesController(
-            IMediatorHandler mediator,
+            ICommandBus mediator,
             INotificationHandler<DomainNotification> notificationHandler)
             : base(notificationHandler)
         {

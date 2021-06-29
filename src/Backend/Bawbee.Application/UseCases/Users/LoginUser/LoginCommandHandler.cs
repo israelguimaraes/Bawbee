@@ -1,4 +1,4 @@
-﻿using Bawbee.Application.Mediator;
+﻿using Bawbee.Application.Bus;
 using Bawbee.Application.Operations;
 using Bawbee.Core;
 using Bawbee.Core.Aggregates.Users;
@@ -15,17 +15,17 @@ namespace Bawbee.Application.UseCases.Users.LoginUser
         IRequestHandler<LoginCommand, OperationResult>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IMediatorHandler _mediator;
+        private readonly ICommandBus _bus;
         private readonly ISecurityTokenService _securityTokenService;
 
         public LoginCommandHandler(
-            IMediatorHandler mediator,
+            ICommandBus bus,
             IUnitOfWork unitOfWork,
             INotificationHandler<DomainNotification> notificationHandler,
             IUserRepository userRepository,
-            ISecurityTokenService securityTokenService) : base(mediator, unitOfWork, notificationHandler)
+            ISecurityTokenService securityTokenService) : base(bus, unitOfWork, notificationHandler)
         {
-            _mediator = mediator;
+            _bus = bus;
             _userRepository = userRepository;
             _securityTokenService = securityTokenService;
         }
@@ -43,7 +43,7 @@ namespace Bawbee.Application.UseCases.Users.LoginUser
             var userAccessToken = _securityTokenService.GenerateToken(user.Id, user.Name, user.Email);
 
             var @event = new UserLoggedEvent(user.Id, user.Name, user.Email);
-            await _mediator.PublishEvent(@event);
+            await _bus.PublishEvent(@event);
 
             return Ok(userAccessToken);
         }

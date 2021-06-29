@@ -1,8 +1,7 @@
 ﻿using Bawbee.API.Requests.Users;
-using Bawbee.Application.Mediator;
+using Bawbee.Application.Bus;
 using Bawbee.Application.UseCases.Categories.GetAllCategoriesByUser;
 using Bawbee.Application.UseCases.Users;
-using Bawbee.Application.UseCases.Users.CreateUser;
 using Bawbee.Application.UseCases.Users.LoginUser;
 using Bawbee.SharedKernel.Notifications;
 using MediatR;
@@ -14,14 +13,14 @@ namespace Bawbee.API.Controllers
 {
     public class UsersController : BaseApiController
     {
-        private readonly IMediatorHandler _mediator;
+        private readonly ICommandBus _bus;
 
         public UsersController(
-            IMediatorHandler mediatorHandler,
+            ICommandBus bus,
             INotificationHandler<DomainNotification> notificationHandler)
             : base(notificationHandler)
         {
-            _mediator = mediatorHandler;
+            _bus = bus;
         }
 
         [AllowAnonymous]
@@ -33,7 +32,7 @@ namespace Bawbee.API.Controllers
             if (!command.IsValid())
                 return BadRequestResponse(command.ValidationResult);
 
-            var result = await _mediator.SendCommand(command);
+            var result = await _bus.SendCommand(command);
             return CustomResponse(result);
         }
 
@@ -46,7 +45,7 @@ namespace Bawbee.API.Controllers
             if (!command.IsValid())
                 return BadRequestResponse(command.ValidationResult);
 
-            var result = await _mediator.SendCommand(command);
+            var result = await _bus.SendCommand(command);
             return CustomResponse(result);
         }
 
@@ -55,7 +54,7 @@ namespace Bawbee.API.Controllers
         {
             var query = new GetAllCategoriesByUserQuery(CurrentUserId);
 
-            var result = await _mediator.SendCommand(query);
+            var result = await _bus.SendCommand(query);
             return CustomResponse(result);
         }
     }
