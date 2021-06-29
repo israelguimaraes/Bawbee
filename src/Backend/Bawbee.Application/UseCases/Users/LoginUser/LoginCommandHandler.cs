@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.UseCases.Users.LoginUser
 {
-    public class LoginCommandHandler : BaseCommandHandler,
-        IRequestHandler<LoginCommand, OperationResult>
+    public class LoginCommandHandler : BaseCommandHandler, ICommandHandler<LoginCommand>
     {
         private readonly IUserRepository _userRepository;
         private readonly ICommandBus _bus;

@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bawbee.Application.UseCases.Users.CreateUser
 {
-    public class CreateUserCommandHandler : BaseCommandHandler,
-        IRequestHandler<CreateUserCommand, OperationResult>
+    public class CreateUserCommandHandler : BaseCommandHandler, ICommandHandler<CreateUserCommand>
     {
         private readonly IUserRepository _userRepository;
         private readonly ICommandBus _bus;
