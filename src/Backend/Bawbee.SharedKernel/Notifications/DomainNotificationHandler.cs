@@ -28,5 +28,10 @@ namespace Bawbee.SharedKernel.Notifications
         {
             _notifications.Add(new DomainNotification(notification));
         }
+
+        public IEnumerable<string> GetMessageErrors()
+        {
+            return _notifications.Select(n => n.Message).ToArray();
+        }
     }
 }

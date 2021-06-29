@@ -1,5 +1,7 @@
-﻿using Bawbee.API.Requests.Users;
+﻿using Bawbee.API.Requests.Categories;
+using Bawbee.API.Requests.Users;
 using Bawbee.Application.Bus;
+using Bawbee.Application.UseCases.Categories.CreateCategory;
 using Bawbee.Application.UseCases.Categories.GetAllCategoriesByUser;
 using Bawbee.Application.UseCases.Users;
 using Bawbee.Application.UseCases.Users.LoginUser;
@@ -25,7 +27,7 @@ namespace Bawbee.API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Create([FromBody] CreateUserRequest request)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request)
         {
             var command = new CreateUserCommand(request.Name, request.LastName, request.Email, request.Password, request.ConfirmPassword);
 
@@ -55,6 +57,19 @@ namespace Bawbee.API.Controllers
             var query = new GetAllCategoriesByUserQuery(CurrentUserId);
 
             var result = await _bus.SendCommand(query);
+            return CustomResponse(result);
+        }
+
+        [HttpPost("categories")]
+        public async Task<IActionResult> CreateCategory(CreateCategoryRequest request)
+        {
+            var command = new CreateCategoryCommand(request.Name, CurrentUserId);
+
+            if (!command.IsValid())
+                return BadRequestResponse(command.ValidationResult);
+
+            var result = await _bus.SendCommand(command);
+
             return CustomResponse(result);
         }
     }

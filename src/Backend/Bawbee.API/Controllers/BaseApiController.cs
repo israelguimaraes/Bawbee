@@ -41,7 +41,10 @@ namespace Bawbee.API.Controllers
 
             // 400
             if (operationResult.Status == Status.InvalidOperation)
-                return BadRequest(operationResult.Message);
+            {
+                object data = _notificationHandler.HasNotifications ? _notificationHandler.GetMessageErrors() : (object)operationResult.Message;
+                return BadRequest(data);
+            }
 
             // 404
             if (operationResult.Status == Status.NotFoundData)
@@ -61,7 +64,7 @@ namespace Bawbee.API.Controllers
                 _notificationHandler.AddNotification(error.ErrorMessage);
             }
 
-            return BadRequest(new 
+            return BadRequest(new
             {
                 Errors = _notificationHandler.Notifications.Select(n => n.Message)
             });
